@@ -1,0 +1,55 @@
+<p>
+	<span style="color:#0000cd;">上海项目： SIMBA6 Cricket</span></p>
+<p>
+	<br />
+	<span style="font-size:12px;">网站：</span><a href="http://10.92.35.20/hzMoin/Project/SIMBA6%20Cricket">http://10.92.35.20/hzMoin/Project/SIMBA6%20Cricket</a></p>
+<h2 id="Interface">
+	Interface</h2>
+<ul>
+	<li>
+		<p class="line862">
+			详细信息可查看SH wiki : <a class="http" href="http://172.24.220.144/wiki/index.php/MTK6757">http://172.24.220.144/wiki/index.php/MTK6757</a></p>
+	</li>
+</ul>
+<h2 id="Download_source_code">
+	Download source code</h2>
+<ul>
+	<li>
+		<p class="line862">
+			name : <strong>mtk6757-n-v1.0-dint</strong> // DEV branch</p>
+	</li>
+</ul>
+<pre>
+ repo init -u git@10.92.32.10:mtk6797/manifest.git -m mtk6757-n-v1.0-dint.xml&amp;&amp; repo sync -j4</pre>
+<h2 id="Submit_source_code_to_SH">
+	ubmit source code to SH</h2>
+<ul>
+	<li>
+		下载SH patch delivery tools from the following link:
+		<ul>
+			<li>
+				<p class="line862">
+					wget <a class="http" href="http://172.24.220.144/ftp/tools/swd3/patch_delivery/patch-delivery-gui.tar.gz">http://172.24.220.144/ftp/tools/swd3/patch_delivery/patch-delivery-gui.tar.gz</a></p>
+			</li>
+			<li>
+				$tar -xzvf patch-delivery-gui.tar.gz -C /local/xxx/ (your local path)</li>
+		</ul>
+	</li>
+	<li class="gap">
+		上传代码:
+		<ul>
+			<li>
+				git add xxx //add your modified files</li>
+			<li>
+				$/local/xxx/patch-delivery-gui/patch-delivery-gui</li>
+			<li>
+				<p class="line891">
+					<tt>$git&nbsp;push&nbsp;ssh://&lt;user&nbsp;name&gt;@172.24.61.94:29418/mtk6797/&lt;git&nbsp;name&gt;&nbsp;HEAD:refs/for/&lt;branch&nbsp;name&gt;</tt></p>
+			</li>
+		</ul>
+	</li>
+	<li class="gap">
+		<p class="line862">
+			SH Code Review: <a class="http" href="http://172.24.61.94:8081">http://172.24.61.94:8081</a></p>
+	</li>
+</ul>

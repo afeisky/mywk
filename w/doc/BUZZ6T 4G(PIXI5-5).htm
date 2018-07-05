@@ -1,0 +1,1614 @@
+
+	软件release的ZZ perso&nbsp;默认为EU双卡，
+	NFC功能默认是off，需要另外单独通过SDMID定制打开。
+	Pixi5-5 4G perso info:
+
+	2017年3月7日 (周二) 09:44
+大小: 
+17 KB
+Dears，
+ 
+因BUZZ6T 4G从GL拉了一个软件分支出来给DT，从AP P58和MD P31开始，所有MTK patch都需要合入到GL（buzz6t-4g-v1.0-dint）和DT（buzz6t-4g-dt-v1.0-dint）两个branch上。
+由SPM申请的Critical/Security Patch，SPM会创建Task给到SWE合入；对于SWE申请的patch，集成组合入Import之后，会通过服务器Release邮件给到SWE，SWE根据patch顺序合入，SPM不再创建task给到SWE。
+ 
+MTK Patch Import 分支提交记录和Patch存放路径如下，请各位收藏，谢谢！
+?  Import分支提交记录和每个Patch是否导入Dint分支状态查询路径：http://10.92.35.20/SmartTask/?m=mtkpatch
+?  MTK Patch包存放路径：\\10.92.32.12\RDhzKM\SWD-Share\INT\MTKPatch　
+ 
+温馨提示：
+MTK Patch需要严格按顺导入到工程代码，所以合入Patch前，请确认上一个Patch的合入状态，否则Patch Delivery也会阻止提交。
+ 
+Best regards,
+Huang Huihua (黄惠花)
+----------------------
+SPM / SMO
+Office: +86-752-8228174 (68174)
+Mobile: +86-150 1807 0451
+ 
+
+<table border="0" cellpadding="0" cellspacing="0" style="font-family: 微软雅黑; letter-spacing: normal; orphans: auto; text-indent: 0px; text-transform: none; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); border-collapse: collapse; width: 575pt;" width="766">
+	<tbody>
+		<tr height="18" style="height: 13.5pt;">
+			<td class="xl63" height="18" style="height: 13.5pt; padding: 0px; color: white; font-size: 11pt; font-weight: 700; font-family: 宋体; vertical-align: middle; border: none; white-space: nowrap; background-color: rgb(79, 129, 189);">
+				UZZ6T 4G</td>
+			<td class="xl63" style="padding: 0px; color: white; font-size: 11pt; font-weight: 700; font-family: 宋体; vertical-align: middle; border: none; white-space: nowrap; background-color: rgb(79, 129, 189);">
+				市场名Pixi5-5</td>
+		</tr>
+		<tr height="18" style="height: 13.5pt;">
+			<td class="xl64" height="18" style="height: 13.5pt; padding: 0px; font-size: 11pt; font-family: 宋体; vertical-align: middle; border: 0.5pt solid windowtext; white-space: nowrap; background-color: rgb(182, 221, 232);">
+				PM</td>
+			<td class="xl64" style="border: 0.5pt solid windowtext; padding: 0px; font-size: 11pt; font-family: 宋体; vertical-align: middle; white-space: nowrap; background-color: rgb(182, 221, 232);">
+				王婷</td>
+		</tr>
+		<tr height="18" style="height: 13.5pt;">
+			<td class="xl64" height="18" style="height: 13.5pt; border: 0.5pt solid windowtext; padding: 0px; font-size: 11pt; font-family: 宋体; vertical-align: middle; white-space: nowrap; background-color: rgb(182, 221, 232);">
+				SPM</td>
+			<td class="xl64" style="border: 0.5pt solid windowtext; padding: 0px; font-size: 11pt; font-family: 宋体; vertical-align: middle; white-space: nowrap; background-color: rgb(182, 221, 232);">
+				惠花</td>
+		</tr>
+		<tr height="18" style="height: 13.5pt;">
+			<td class="xl64" height="18" style="height: 13.5pt; border: 0.5pt solid windowtext; padding: 0px; font-size: 11pt; font-family: 宋体; vertical-align: middle; white-space: nowrap; background-color: rgb(182, 221, 232);">
+				VPM</td>
+			<td class="xl64" style="border: 0.5pt solid windowtext; padding: 0px; font-size: 11pt; font-family: 宋体; vertical-align: middle; white-space: nowrap; background-color: rgb(182, 221, 232);">
+				张弛</td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	&nbsp;</p>
+<table border="0" cellpadding="0" cellspacing="0">
+	<tbody>
+		<tr>
+			<td style="width:94px;">
+				<p align="left">
+					<strong>Variant</strong></p>
+			</td>
+			<td style="width:68px;">
+				<p align="left">
+					<strong>Code</strong></p>
+			</td>
+			<td style="width:98px;">
+				<p align="left">
+					<strong>Region</strong></p>
+			</td>
+			<td style="width:119px;">
+				<p align="left">
+					<strong>Perso Code</strong></p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:94px;">
+				<p align="left">
+					US-1S</p>
+			</td>
+			<td style="width:68px;">
+				<p align="left">
+					5044A</p>
+			</td>
+			<td style="width:98px;">
+				<p align="left">
+					Latam</p>
+			</td>
+			<td style="width:119px;">
+				<p align="left">
+					GD</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:94px;">
+				<p align="left">
+					US1-1S</p>
+			</td>
+			<td style="width:68px;">
+				<p align="left">
+					5044O</p>
+			</td>
+			<td style="width:98px;">
+				<p align="left">
+					Latam</p>
+			</td>
+			<td style="width:119px;">
+				<p align="left">
+					1D</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:94px;">
+				<p align="left">
+					APAC-1S</p>
+			</td>
+			<td style="width:68px;">
+				<p align="left">
+					5044T</p>
+			</td>
+			<td style="width:98px;">
+				<p align="left">
+					APACMEA</p>
+			</td>
+			<td style="width:119px;">
+				<p align="left">
+					IU</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:94px;">
+				<p align="left">
+					APAC-2S</p>
+			</td>
+			<td style="width:68px;">
+				<p align="left">
+					5044I</p>
+			</td>
+			<td style="width:98px;">
+				<p align="left">
+					APACMEA</p>
+			</td>
+			<td style="width:119px;">
+				<p align="left">
+					II</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:94px;">
+				<p align="left">
+					EU-1S NFC</p>
+			</td>
+			<td style="width:68px;">
+				<p align="left">
+					5044Y</p>
+			</td>
+			<td style="width:98px;">
+				<p align="left">
+					EU Orange</p>
+			</td>
+			<td style="width:119px;">
+				<p align="left">
+					3A</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:94px;">
+				<p align="left">
+					EU-2S</p>
+			</td>
+			<td style="width:68px;">
+				<p align="left">
+					5044D</p>
+			</td>
+			<td style="width:98px;">
+				<p align="left">
+					EUMEA</p>
+			</td>
+			<td style="width:119px;">
+				<p align="left">
+					HA</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:94px;">
+				<p align="left">
+					EU-2S NFC</p>
+			</td>
+			<td style="width:68px;">
+				<p align="left">
+					5044K</p>
+			</td>
+			<td style="width:98px;">
+				<p align="left">
+					EU Orange</p>
+			</td>
+			<td style="width:119px;">
+				<p align="left">
+					4A</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:94px;">
+				<p align="left">
+					EU-1S</p>
+			</td>
+			<td style="width:68px;">
+				<p align="left">
+					5044X</p>
+			</td>
+			<td style="width:98px;">
+				<p align="left">
+					EUMEA</p>
+			</td>
+			<td style="width:119px;">
+				<p align="left">
+					AA(Canceled)</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	&gt;</p>
+<div id="ColorBandedheader">
+	<span style="font-family:Segoe UI;font-size:8pt"><span style="word-wrap:break-word;color:#858585">Huihua, HUANG(WMD PIC HZ SWD 3-HZ-TCT)</span> <span style="text-align:right;white-space:nowrap;color:#858585">17:58</span></span></div>
+<div id="ColorBandedcontent">
+	<div id="imcontent">
+		<table cellpadding="3" cellspacing="0" style="border-collapse:collapse">
+			<tbody>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid;border-left:windowtext 1pt solid;background-color:#b6dde8;border-top:windowtext 1pt solid;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:11pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">product</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:#b6dde8;border-top:windowtext 1pt solid;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:11pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">Variant</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:#b6dde8;border-top:windowtext 1pt solid;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:11pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">Mini Version</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:#b6dde8;border-top:windowtext 1pt solid;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:11pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">CU SW Version</span></p>
+					</td>
+				</tr>
+				<tr>
+					<td rowspan="7" style="border-bottom:windowtext 1pt solid;border-left:windowtext 1pt solid;background-color:white;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:11pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">BUZZ6T 4G</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="left" style="font-size:10pt">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">US-1S</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:10pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">4HS6</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:10pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">H4I+GD</span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="left" style="font-size:10pt">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">US-1S-TELCEL</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:10pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">4HS6</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:10pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">H4I+GD</span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="left" style="font-size:10pt">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">US1-1S</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt"><b><span lang="EN-US" style="border-bottom-color:red;border-top-color:red;color:red;border-right-color:red;font-size:10pt;border-left-color:red">4HT6</span></b></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt"><b><span lang="EN-US" style="border-bottom-color:red;border-top-color:red;color:red;border-right-color:red;font-size:10pt;border-left-color:red">H4I+1D</span></b></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="left" style="font-size:10pt">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">EU-2S</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:10pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">4HZ6</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:10pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">H4I+HA</span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:white;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="left" style="font-size:10pt">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">EU-1S-NFC</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="font-size:10pt">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">4HR6</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:10pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">H4I+3A</span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:white;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="left" style="font-size:10pt">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">EU-2S-NFC</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:10pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">4HQ6</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:10pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">H4I+4A</span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="left" style="font-size:10pt">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">APAC-2S</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:10pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">4HX6</span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid;border-left:#f0f0f0;background-color:yellow;border-top:#f0f0f0;border-right:windowtext 1pt solid">
+						<p align="center" style="border-bottom-color:black;border-top-color:black;color:black;border-right-color:black;font-size:10pt;border-left-color:black">
+							<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">H4I+II</span></p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<table border="0" cellpadding="0" cellspacing="0" style="width:617px;" width="617">
+	<tbody>
+		<tr>
+			<td style="width:85px;height:47px;">
+				<p align="center">
+					5044A</p>
+			</td>
+			<td style="width:126px;height:47px;">
+				<p align="center">
+					LATAM</p>
+			</td>
+			<td style="width:65px;height:47px;">
+				<p align="center">
+					Yes</p>
+			</td>
+			<td style="width:105px;height:47px;">
+				<p align="center">
+					8GB+1GB</p>
+			</td>
+			<td rowspan="6" style="width:162px;height:47px;">
+				<p align="center">
+					buzz6t-4g-v1.0-dint</p>
+			</td>
+			<td style="width:74px;height:47px;">
+				<p align="center">
+					4HS*</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:85px;height:47px;">
+				<p align="center">
+					5044O</p>
+			</td>
+			<td style="width:126px;height:47px;">
+				<p align="center">
+					LATAM</p>
+			</td>
+			<td style="width:65px;height:47px;">
+				<p align="center">
+					Yes</p>
+			</td>
+			<td style="width:105px;height:47px;">
+				<p align="center">
+					8GB+1GB</p>
+			</td>
+			<td style="width:74px;height:47px;">
+				<p align="center">
+					4HT*</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:85px;height:47px;">
+				<p align="center">
+					5044T</p>
+			</td>
+			<td style="width:126px;height:47px;">
+				<p align="center">
+					APAC/MEA</p>
+			</td>
+			<td style="width:65px;height:47px;">
+				<p align="center">
+					Yes</p>
+			</td>
+			<td style="width:105px;height:47px;">
+				<p align="center">
+					8GB+1GB</p>
+			</td>
+			<td style="width:74px;height:47px;">
+				<p align="center">
+					4HW*</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:85px;height:47px;">
+				<p align="center">
+					5044I</p>
+			</td>
+			<td style="width:126px;height:47px;">
+				<p align="center">
+					APAC/MEA</p>
+			</td>
+			<td style="width:65px;height:47px;">
+				<p align="center">
+					Yes</p>
+			</td>
+			<td style="width:105px;height:47px;">
+				<p align="center">
+					8GB+1GB</p>
+			</td>
+			<td style="width:74px;height:47px;">
+				<p align="center">
+					4HX*</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:85px;height:47px;">
+				<p align="center">
+					5044X</p>
+			</td>
+			<td style="width:126px;height:47px;">
+				<p align="center">
+					EU/MEA</p>
+			</td>
+			<td style="width:65px;height:47px;">
+				<p align="center">
+					Yes</p>
+			</td>
+			<td style="width:105px;height:47px;">
+				<p align="center">
+					8GB+1GB</p>
+			</td>
+			<td style="width:74px;height:47px;">
+				<p align="center">
+					4HY*</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:85px;height:47px;">
+				<p align="center">
+					5044D</p>
+			</td>
+			<td style="width:126px;height:47px;">
+				<p align="center">
+					EU/MEA</p>
+			</td>
+			<td style="width:65px;height:47px;">
+				<p align="center">
+					Yes</p>
+			</td>
+			<td style="width:105px;height:47px;">
+				<p align="center">
+					8GB+1GB</p>
+			</td>
+			<td style="width:74px;height:47px;">
+				<p align="center">
+					4HZ*</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:85px;height:47px;">
+				<p align="center">
+					5044K</p>
+			</td>
+			<td style="width:126px;height:47px;">
+				<p align="center">
+					EU ORANGE</p>
+			</td>
+			<td style="width:65px;height:47px;">
+				<p align="center">
+					Yes</p>
+			</td>
+			<td style="width:105px;height:47px;">
+				<p align="center">
+					8GB+1GB</p>
+			</td>
+			<td style="width:162px;height:47px;">
+				<p align="center">
+					buzz6t-4g-orange-v1.0-dint</p>
+			</td>
+			<td style="width:74px;height:47px;">
+				<p align="center">
+					4HQ*</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="width:85px;height:47px;">
+				<p align="center">
+					5044Y</p>
+			</td>
+			<td style="width:126px;height:47px;">
+				<p align="center">
+					EU ORANGE</p>
+			</td>
+			<td style="width:65px;height:47px;">
+				<p align="center">
+					Yes</p>
+			</td>
+			<td style="width:105px;height:47px;">
+				<p align="center">
+					8GB+1GB</p>
+			</td>
+			<td style="width:162px;height:47px;">
+				<p align="center">
+					buzz6t-4g-v1.0-dint</p>
+			</td>
+			<td style="width:74px;height:47px;">
+				<p align="center">
+					4HR*</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	&nbsp;</p>
+<table border="1" cellpadding="0" cellspacing="0" width="1516">
+	<colgroup>
+		<col />
+		<col />
+		<col />
+		<col />
+		<col span="2" />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+	</colgroup>
+	<tbody>
+		<tr height="21">
+			<td height="21" style="height:21px;width:101px;">
+				Project name</td>
+			<td style="width:45px;">
+				Variant description</td>
+			<td style="width:100px;">
+				Variant</td>
+			<td style="width:88px;">
+				Code</td>
+			<td style="width:91px;">
+				Region</td>
+			<td style="width:91px;">
+				Actual TTM</td>
+			<td style="width:157px;">
+				2G bands</td>
+			<td style="width:84px;">
+				3G bands</td>
+			<td style="width:176px;">
+				4G Bands</td>
+			<td style="width:41px;">
+				SIM</td>
+			<td style="width:79px;">
+				Memory</td>
+			<td style="width:200px;">
+				Front camera</td>
+			<td style="width:51px;">
+				Front flash</td>
+			<td style="width:213px;">
+				Rear camera</td>
+		</tr>
+		<tr height="21">
+			<td height="21" style="height:21px;">
+				BUZZ6T 4G</td>
+			<td>
+				GL</td>
+			<td>
+				US-1S</td>
+			<td>
+				5044A</td>
+			<td>
+				Latam</td>
+			<td>
+				10-Mar-17</td>
+			<td>
+				850/900/1800/1900</td>
+			<td>
+				B1/2/5/8</td>
+			<td>
+				B2/3/4/5/7/12/13/17/20&nbsp;</td>
+			<td>
+				1</td>
+			<td>
+				8G/1G</td>
+			<td>
+				2MP FF</td>
+			<td>
+				Yes</td>
+			<td>
+				SW 8MP(by 5MP) FF</td>
+		</tr>
+		<tr height="21">
+			<td height="21" style="height:21px;">
+				BUZZ6T 4G</td>
+			<td>
+				GL</td>
+			<td>
+				US1-1S</td>
+			<td>
+				5044O</td>
+			<td>
+				Latam</td>
+			<td>
+				20-Feb-17</td>
+			<td>
+				850/900/1800/1900</td>
+			<td>
+				B1/2/4/5/8</td>
+			<td>
+				B1/2/3/4/7/12/13/17/28</td>
+			<td>
+				1</td>
+			<td>
+				8G/1G</td>
+			<td>
+				2MP FF</td>
+			<td>
+				Yes</td>
+			<td>
+				SW 8MP(by 5MP) FF</td>
+		</tr>
+		<tr height="42">
+			<td height="42" style="height:42px;">
+				BUZZ6T 4G</td>
+			<td>
+				GL</td>
+			<td>
+				APAC-1S</td>
+			<td>
+				5044T</td>
+			<td>
+				APACMEA</td>
+			<td style="width:91px;">
+				2017/4/28<br />
+				2017/4/20</td>
+			<td>
+				850/900/1800/1900</td>
+			<td>
+				B1/2/5/8</td>
+			<td>
+				B1/3/7/8/Full28/40</td>
+			<td>
+				1</td>
+			<td>
+				8G/1G</td>
+			<td style="width:200px;">
+				2MP FF for APAC<br />
+				SW 5MP(by 2MP) FF for MEA</td>
+			<td>
+				Yes</td>
+			<td style="width:213px;">
+				5MP FF for APAC<br />
+				SW 8MP(by 5MP) FF for MEA</td>
+		</tr>
+		<tr height="42">
+			<td height="42" style="height:42px;">
+				BUZZ6T 4G</td>
+			<td>
+				GL</td>
+			<td>
+				APAC-2S</td>
+			<td>
+				5044I</td>
+			<td>
+				APACMEA</td>
+			<td style="width:91px;">
+				2017/4/12<br />
+				2017/3/22</td>
+			<td>
+				850/900/1800/1900</td>
+			<td>
+				B1/2/5/8</td>
+			<td>
+				B1/3/5/7/Full28/40</td>
+			<td>
+				2</td>
+			<td>
+				8G/1G</td>
+			<td style="width:200px;">
+				2MP FF for APAC<br />
+				SW 5MP(by 2MP) FF for MEA</td>
+			<td>
+				Yes</td>
+			<td style="width:213px;">
+				5MP FF for APAC<br />
+				SW 8MP(by 5MP) FF for MEA</td>
+		</tr>
+		<tr height="42">
+			<td height="42" style="height:42px;">
+				BUZZ6T 4G</td>
+			<td>
+				GL</td>
+			<td>
+				EU-1S</td>
+			<td>
+				5044Y</td>
+			<td>
+				EUMEA</td>
+			<td style="width:91px;">
+				2017/4/3<br />
+				2017/4/20</td>
+			<td>
+				850/900/1800/1900</td>
+			<td>
+				B1/2/5/8</td>
+			<td>
+				1/3/7/8/20</td>
+			<td>
+				1</td>
+			<td>
+				8G/1G</td>
+			<td style="width:200px;">
+				2MP FF for EU<br />
+				SW 5MP(by 2MP) FF for MEA</td>
+			<td>
+				Yes</td>
+			<td style="width:213px;">
+				5MP FF for EU<br />
+				SW 8MP(by 5MP) FF for MEA</td>
+		</tr>
+		<tr height="42">
+			<td height="42" style="height:42px;">
+				BUZZ6T 4G</td>
+			<td>
+				GL</td>
+			<td>
+				EU-2S</td>
+			<td>
+				5044D</td>
+			<td>
+				EUMEA</td>
+			<td style="width:91px;">
+				2017/3/1<br />
+				2017/3/22</td>
+			<td>
+				850/900/1800/1900</td>
+			<td>
+				B1/2/5/8</td>
+			<td>
+				1/3/7/8/20</td>
+			<td>
+				2</td>
+			<td>
+				8G/1G</td>
+			<td style="width:200px;">
+				2MP FF for EU<br />
+				SW 5MP(by 2MP) FF for MEA</td>
+			<td>
+				Yes</td>
+			<td style="width:213px;">
+				5MP FF for EU<br />
+				SW 8MP(by 5MP) FF for MEA</td>
+		</tr>
+		<tr height="21">
+			<td height="21" style="height:21px;">
+				BUZZ6T 4G</td>
+			<td>
+				GL</td>
+			<td>
+				EU-2S NFC</td>
+			<td>
+				5044K</td>
+			<td>
+				EU Orange</td>
+			<td>
+				25-Apr-17</td>
+			<td>
+				850/900/1800/1900</td>
+			<td>
+				B1/2/5/8</td>
+			<td>
+				1/3/7/8/20</td>
+			<td>
+				2</td>
+			<td>
+				8G/1G</td>
+			<td>
+				2MP FF</td>
+			<td>
+				Yes</td>
+			<td>
+				5MP FF</td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	&nbsp;</p>
+<table border="1" cellpadding="0" cellspacing="0" width="1296">
+	<colgroup>
+		<col span="18" />
+	</colgroup>
+	<tbody>
+		<tr height="18">
+			<td height="18" style="height:18px;width:72px;">
+				Period</td>
+			<td style="width:72px;">
+				　</td>
+			<td style="width:72px;">
+				Jun-16</td>
+			<td style="width:72px;">
+				Jul-16</td>
+			<td style="width:72px;">
+				Aug-16</td>
+			<td style="width:72px;">
+				Sep-16</td>
+			<td style="width:72px;">
+				Oct-16</td>
+			<td style="width:72px;">
+				Nov-16</td>
+			<td style="width:72px;">
+				Dec-16</td>
+			<td style="width:72px;">
+				Jan-17</td>
+			<td style="width:72px;">
+				Feb-17</td>
+			<td style="width:72px;">
+				Mar-17</td>
+			<td style="width:72px;">
+				Apr-17</td>
+			<td style="width:72px;">
+				May-17</td>
+			<td style="width:72px;">
+				Jun-17</td>
+			<td style="width:72px;">
+				Jul-17</td>
+			<td style="width:72px;">
+				Aug-17</td>
+			<td style="width:72px;">
+				&nbsp;</td>
+		</tr>
+		<tr height="18">
+			<td height="18" style="height:18px;">
+				Project phase</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				Mockup1</td>
+			<td>
+				　</td>
+			<td>
+				Proto1</td>
+			<td>
+				PIO1</td>
+			<td>
+				Lot0</td>
+			<td>
+				　</td>
+			<td>
+				Lot1</td>
+			<td>
+				Lot1</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr height="18">
+			<td height="18" style="height:18px;">
+				SWD3</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+		</tr>
+		<tr height="18">
+			<td height="36" rowspan="2" style="height:36px;">
+				APP Team</td>
+			<td>
+				GL</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.8</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.8</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 35.1</td>
+		</tr>
+		<tr height="18">
+			<td height="18" style="height:18px;">
+				Orange</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 14.5</td>
+		</tr>
+		<tr height="18">
+			<td height="36" rowspan="2" style="height:36px;">
+				BSP</td>
+			<td>
+				GL</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 22.0</td>
+		</tr>
+		<tr height="18">
+			<td height="18" style="height:18px;">
+				Orange</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.5</td>
+		</tr>
+		<tr height="18">
+			<td height="36" rowspan="2" style="height:36px;">
+				INT Team</td>
+			<td>
+				GL</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.6</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.6</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.6</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11.8</td>
+		</tr>
+		<tr height="18">
+			<td height="18" style="height:18px;">
+				Orange</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.0</td>
+		</tr>
+		<tr height="18">
+			<td height="36" rowspan="2" style="height:36px;">
+				Perso</td>
+			<td>
+				GL</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.3</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.2</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16.0</td>
+		</tr>
+		<tr height="18">
+			<td height="18" style="height:18px;">
+				Orange</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.5</td>
+		</tr>
+		<tr height="18">
+			<td height="36" rowspan="2" style="height:36px;">
+				SPM</td>
+			<td>
+				GL</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;</td>
+		</tr>
+		<tr height="18">
+			<td height="18" style="height:18px;">
+				Orange</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;</td>
+		</tr>
+		<tr height="18">
+			<td height="36" rowspan="2" style="height:36px;">
+				SQM</td>
+			<td>
+				GL</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.1</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.3</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.3</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.3</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.2</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.2</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.9</td>
+		</tr>
+		<tr height="18">
+			<td height="18" style="height:18px;">
+				Orange</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.1</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.1</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.2</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.2</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.2</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.1</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.9</td>
+		</tr>
+		<tr bgcolor="#ffcc66" height="18">
+			<td height="36" rowspan="2" style="height:36px;">
+				System</td>
+			<td>
+				GL</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.5</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 29.5</td>
+		</tr>
+		<tr bgcolor="#ffcc66" height="18">
+			<td height="18" style="height:18px;">
+				Orange</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11.0</td>
+		</tr>
+		<tr height="18">
+			<td height="36" rowspan="2" style="height:36px;">
+				Telecom</td>
+			<td>
+				GL</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.8</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.6</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 36.4</td>
+		</tr>
+		<tr height="18">
+			<td height="18" style="height:18px;">
+				Orange</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.0</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.0</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 21.0</td>
+		</tr>
+		<tr height="18">
+			<td height="18" style="height:18px;">
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;</td>
+		</tr>
+		<tr height="18">
+			<td height="18" style="height:18px;">
+				Total SWD3</td>
+			<td>
+				　</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9.1</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12.3</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 15.5</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 22.1</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 28.6</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 28.7</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 27.7</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 26.2</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20.6</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 13.8</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.4</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.2</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.9</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&nbsp;</td>
+			<td>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 219.1</td>
+		</tr>
+	</tbody>
+</table>
+
+
