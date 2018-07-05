@@ -1,0 +1,138 @@
+<p>
+	在测试hiShare--&gt;建热点， 再进行设置菜单中打开wifi.&nbsp;&nbsp; 不断重复上面的步骤。出现SWT重启。</p>
+<p>
+	&nbsp;</p>
+<p>
+	触发SWT Watchdog并超过30秒无反应，导致重启。</p>
+<p>
+	aee_exp\db.fatal.00.SWT&nbsp; log分析：</p>
+<p>
+	$** *** *** *** *** *** *** *** Fatal *** *** *** *** *** *** *** **$</p>
+<p>
+	Build Info: &#39;alps-mp-m0.mp1:alps-mp-m0.mp1-V2.94_jhz6753.65u.3.m0_P50:mt6753:S01,TCL/5085Y/ELSA6:6.0/MRA58K/v1A4Q-0:user/release-keys&#39;</p>
+<p>
+	Flavor Info: &#39;None&#39;</p>
+<p>
+	Exception Log Time:[Fri Dec 30 11:12:54 CST 2016] [5326.718498]</p>
+<p>
+	&nbsp;</p>
+<p>
+	Exception Class: SWT</p>
+<p>
+	Exception Type: system_server_watchdog</p>
+<p>
+	&nbsp;</p>
+<p>
+	Current Executing Process:</p>
+<p>
+	system_server</p>
+<p>
+	&nbsp;</p>
+<p>
+	Backtrace:</p>
+<p>
+	Process: system_server</p>
+<p>
+	Subject: Blocked in handler on foreground thread (android.fg)</p>
+<p>
+	Build: TCL/5085Y/ELSA6:6.0/MRA58K/v1A4Q-0:user/release-keys</p>
+<p>
+	&nbsp;</p>
+<p>
+	$** *** *** *** *** *** *** *** Fatal *** *** *** *** *** *** *** **$</p>
+<p>
+	&nbsp;</p>
+<p>
+	上面是说system_server的一个前台进程 android.fg引起</p>
+<p>
+	&nbsp;</p>
+<p>
+	在 SWT_JBT_TRACES文件中查找&nbsp; &quot;android.fg&quot; prio= 这样的字串.</p>
+<p>
+	--》</p>
+<p>
+	&nbsp;</p>
+<p>
+	&quot;android.fg&quot; prio=5 tid=14 Blocked</p>
+<p>
+	&nbsp; | group=&quot;main&quot; sCount=1 dsCount=0 obj=0x12cbc820 self=0x7fa9860e00</p>
+<p>
+	&nbsp; | sysTid=1619 nice=0 cgrp=default sched=0/0 handle=0x7f9c29c440</p>
+<p>
+	&nbsp; | state=S schedstat=( 2604187349 2699358790 10139 ) utm=156 stm=104 core=2 HZ=100</p>
+<p>
+	&nbsp; | stack=0x7f9c19a000-0x7f9c19c000 stackSize=1037KB</p>
+<p>
+	&nbsp; | held mutexes=</p>
+<p>
+	&nbsp; at com.android.server.am.BatteryStatsService.updateExternalStats(BatteryStatsService.java:1339)</p>
+<p>
+	&nbsp; - waiting to lock &lt;0x088a399f&gt; (a java.lang.Object) held by thread 60</p>
+<p>
+	&nbsp; at com.android.server.am.BatteryStatsService$BatteryStatsHandler.handleMessage(BatteryStatsService.java:108)</p>
+<p>
+	&nbsp; at android.os.Handler.dispatchMessage(Handler.java:111)</p>
+<p>
+	&nbsp; at android.os.Looper.loop(Looper.java:207)</p>
+<p>
+	&nbsp; at android.os.HandlerThread.run(HandlerThread.java:61)</p>
+<p>
+	&nbsp; at com.android.server.ServiceThread.run(ServiceThread.java:46)</p>
+<p>
+	&nbsp;</p>
+<p>
+	上面的 waiting to lock &lt;0x088a399f&gt; (a java.lang.Object) held by thread 60 表示，在tid=60处</p>
+<p>
+	&nbsp;</p>
+<p>
+	&quot;Binder_4&quot; prio=5 tid=60 Waiting</p>
+<p>
+	&nbsp; | group=&quot;main&quot; sCount=1 dsCount=0 obj=0x137400a0 self=0x7f9a873800</p>
+<p>
+	&nbsp; | sysTid=2617 nice=0 cgrp=default sched=0/0 handle=0x7f9365d440</p>
+<p>
+	&nbsp; | state=S schedstat=( 20503563765 7766179119 52909 ) utm=1477 stm=573 core=2 HZ=100</p>
+<p>
+	&nbsp; | stack=0x7f93562000-0x7f93564000 stackSize=1009KB</p>
+<p>
+	&nbsp; | held mutexes=</p>
+<p>
+	&nbsp; at java.lang.Object.wait!(Native method)</p>
+<p>
+	&nbsp; - waiting on &lt;0x0fd55eb5&gt; (a java.lang.Object)</p>
+<p>
+	&nbsp; at com.android.internal.util.AsyncChannel$SyncMessenger.sendMessageSynchronously(AsyncChannel.java:820)&nbsp;&nbsp; #锁在这里了。</p>
+<p>
+	&nbsp; - locked &lt;0x0fd55eb5&gt; (a java.lang.Object)</p>
+<p>
+	&nbsp; at com.android.internal.util.AsyncChannel$SyncMessenger.-wrap0(AsyncChannel.java:-1)</p>
+<p>
+	&nbsp; at com.android.internal.util.AsyncChannel.sendMessageSynchronously(AsyncChannel.java:654)</p>
+<p>
+	&nbsp; at com.android.internal.util.AsyncChannel.sendMessageSynchronously(AsyncChannel.java:667)</p>
+<p>
+	&nbsp; at com.android.server.wifi.WifiStateMachine.syncGetLinkLayerStats(WifiStateMachine.java:2687)</p>
+<p>
+	&nbsp; at com.android.server.wifi.WifiServiceImpl.reportActivityInfo(WifiServiceImpl.java:945)</p>
+<p>
+	&nbsp; at com.android.server.am.BatteryStatsService.pullWifiEnergyInfoLocked(BatteryStatsService.java:1227)</p>
+<p>
+	&nbsp; at com.android.server.am.BatteryStatsService.updateExternalStats(BatteryStatsService.java:1352)</p>
+<p>
+	&nbsp; - locked &lt;0x088a399f&gt; (a java.lang.Object)</p>
+<p>
+	&nbsp; at com.android.server.am.BatteryStatsService.getStatisticsStream(BatteryStatsService.java:311)</p>
+<p>
+	&nbsp; at com.android.internal.app.IBatteryStats$Stub.onTransact(IBatteryStats.java:178)</p>
+<p>
+	&nbsp; at android.os.Binder.execTransact(Binder.java:458)</p>
+<p>
+	&nbsp;</p>
+<p>
+	从上面查， 从&nbsp; locked &lt;0x088a399f&gt; (a java.lang.Object) 往上一行一行回推.</p>
+<p>
+	应该是wifi相关引起。</p>
+<p>
+	&nbsp; at com.android.server.wifi.WifiStateMachine.syncGetLinkLayerStats(WifiStateMachine.java:2687)</p>
+<p>
+	&nbsp; at com.android.server.wifi.WifiServiceImpl.reportActivityInfo(WifiServiceImpl.java:945)</p>

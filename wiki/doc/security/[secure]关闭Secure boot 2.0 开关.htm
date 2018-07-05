@@ -1,0 +1,40 @@
+<p>
+	<span style="font-size:16px;">关闭Secure boot 2.0 开关</span></p>
+<p>
+	&nbsp;</p>
+<div>
+	<div id="Normalheader">
+		<span style="font-family:Segoe UI;font-size:8pt"><span style="word-wrap:break-word;color:#858585">Haihui, JIANG(WMD PIC HZ SYSD-HZ-TCT)</span> <span style="text-align:right;white-space:nowrap;color:#858585">17:32</span></span></div>
+	<div id="Normalcontent">
+		<div id="imcontent">
+			<span dlg="" ms="" shell="" style="font-family:">若需要在no efuse 手机上不处理secure boot 和secure download 相关的可以关闭&nbsp;<span style="text-justify:inter-ideograph;text-align:justify;text-indent:15.8pt;margin:0cm 0cm 0pt;font-family:"><b style="font-family:"><span lang="EN-US" style="font-family:">1.MTK_SECURITY_SW_SUPPORT (yes/no) 这是总开关。</span></b></span></span></div>
+		<div>
+			&nbsp;</div>
+		<div>
+			<div>
+				<div id="Normalheader">
+					<span style="font-family:Segoe UI;font-size:8pt"><span style="word-wrap:break-word;color:#858585">Haihui, JIANG(WMD PIC HZ SYSD-HZ-TCT)</span> <span style="text-align:right;white-space:nowrap;color:#858585">17:38</span></span></div>
+				<div id="Normalcontent">
+					<div id="imcontent">
+						<span dlg="" ms="" shell="" style="font-family:">还有一种修改方法</span></div>
+				</div>
+			</div>
+			<div>
+				<div id="imcontent">
+					<span dlg="" ms="" shell="" style="font-family:">2.MTK_SEC_USBDL<br />
+					3) ATTR_SUBDL_ONLY_ENABLE_ON_SCHIP: whether the image is checked depends on efuse value.<br />
+					<br />
+					3.MTK_SEC_BOOT&nbsp;<br />
+					3) ATTR_SBOOT_ONLY_ENABLE_ON_CHIP secure boot only enable on security chip</span></div>
+			</div>
+			<div>
+				<div id="imcontent">
+					<span dlg="" ms="" shell="" style="font-family:">配置这两个宏的数据</span></div>
+			</div>
+			<div>
+				<div id="imcontent">
+					<span dlg="" ms="" shell="" style="font-family:">总开关保留</span></div>
+			</div>
+		</div>
+	</div>
+</div>

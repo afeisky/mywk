@@ -1,0 +1,153 @@
+<h1 class="csdn_top">
+	android 调试常用命令</h1>
+<div class="article_bar clearfix">
+	<div class="artical_tag">
+		<span class="original">原创 </span> <span class="time">2015年11月01日 18:10:46</span></div>
+	<ul class="article_tags clearfix csdn-tracking-statistics tracking-click" data-mod="popu_377">
+		<li class="tit">
+			标签：</li>
+		<li>
+			<a href="http://so.csdn.net/so/search/s.do?q=android&amp;t=blog" target="_blank">android</a> <span>/</span></li>
+		<li>
+			<a href="http://so.csdn.net/so/search/s.do?q=%E8%B0%83%E8%AF%95&amp;t=blog" target="_blank">调试</a> <span>/</span></li>
+	</ul>
+	<ul class="right_bar">
+		<li>
+			&nbsp;</li>
+	</ul>
+</div>
+<div class="article_bar clearfix">
+	<ul class="right_bar">
+		<li class="edit">
+			<a class="btn-noborder" href="http://mp.blog.csdn.net/postedit/49560249"> <span class="txt">编辑</span> </a></li>
+		<li class="del">
+			<a class="btn-noborder"> <span class="txt">删除</span> </a></li>
+	</ul>
+</div>
+<div class="markdown_views">
+	<p>
+		在Android应用开发过程中，熟悉常用的adb调试命令往往能事半功倍，再此做一个汇总记录。</p>
+	<h2 id="adb-shell-vm-命令">
+		adb shell vm 命令</h2>
+	<p>
+		adb shelll vm 命令在4.3以后的版本才可用，使用它可以方便的查看或者设置屏幕的分辨率、密度。</p>
+	<ul>
+		<li>
+			adb shell vm size<br />
+			查看分辨率，我本机的输出结果如下：<br />
+			<code>Physical size: 720x1280</code><br />
+			如果想要设置成其他分辨率，在size 后面加上想要的参数即可，比如<br />
+			<code>adb shell vm size 720x1080</code></li>
+		<li>
+			<p>
+				adb shell vm density<br />
+				查看屏幕密度，我本机输出结果如下：<br />
+				<code>Physical density: 320</code><br />
+				同样density后面也可已加上想要的密度值，比如<br />
+				<code>adb shell wm density 200</code></p>
+		</li>
+		<li>
+			<p>
+				adb shell wm overscan<br />
+				设置窗口的显示位置，比如想让界面在靠左200, 靠上300，靠右400 , 靠下500的显示区域显示 ,可以这样设置<br />
+				<code>adb shell wm overscan 200,300,400,500</code></p>
+		</li>
+	</ul>
+	<p>
+		通过vm设置的值手机重启后依然生效，如果想回复默认的，可以参考下面的设置方法<br />
+		<code>adb shell wm density reset</code></p>
+	<h2 id="adb-shell-svc命令">
+		adb shell svc命令</h2>
+	<p>
+		svc 命令可以控制电源、数据流量、wifi、usb的开关状态，用法如下</p>
+	<pre class="prettyprint">
+<code class="hljs mathematica">Available commands:
+    help     <span class="hljs-keyword">Show</span> information about the subcommands
+    power    <span class="hljs-keyword">Control</span> the power manager
+    data     <span class="hljs-keyword">Control</span> mobile data connectivity
+    wifi     <span class="hljs-keyword">Control</span> the Wi-Fi manager
+    usb      <span class="hljs-keyword">Control</span> Usb state</code></pre>
+	<p>
+		比如要直接打开wifi可以用如下的命令方式<br />
+		<code>adb shell svc wifi enable</code></p>
+	<h2 id="adb-shell-settings命令">
+		adb shell settings命令</h2>
+	<p>
+		settings命令可以更加方便的查看、更改SettingsProvider数据库的值，有了它不用在通过Sqlite3命令操作Settins数据库了。用法如下:</p>
+	<pre class="prettyprint">
+<code class="hljs livecodeserver">usage:  settings [<span class="hljs-comment">--user NUM] get namespace key</span>
+        settings [<span class="hljs-comment">--user NUM] put namespace key value</span>
+        settings [<span class="hljs-comment">--user NUM] delete namespace key</span>
+
+<span class="hljs-string">&#39;namespace&#39;</span> is <span class="hljs-constant">one</span> <span class="hljs-operator">of</span> {<span class="hljs-keyword">system</span>, secure, <span class="hljs-built_in">global</span>}, <span class="hljs-keyword">case</span>-insensitive
+If <span class="hljs-string">&#39;--user NUM&#39;</span> is <span class="hljs-operator">not</span> given, <span class="hljs-operator">the</span> operations are performed <span class="hljs-command"><span class="hljs-keyword">on</span> <span class="hljs-title">the</span> <span class="hljs-title">owner</span> <span class="hljs-title">user</span>.</span></code></pre>
+	<p>
+		比如存放在Settings数据库global表中的字段airplane_mode_on表明是否开启了飞行模式，可以通过<br />
+		<code>adb shell settings get global airplane_mode_on</code><br />
+		直接看到它的值，方便debug工作。</p>
+	<h2 id="adb-shell-content命令">
+		adb shell content命令</h2>
+	<p>
+		adb shell content 命令可以直接通过命令行对contentprovider数据集进行增删改查操作，非常利于debug功做。<br />
+		比如要查看系统media数据库里存放的图片记录，可以通过命令：<br />
+		<code>adb shell content query --uri content://media/external/images/media</code>直接查看，相对与Sqlite3命令更为快捷。下图是用该命令测试的结果：<br />
+		<img alt="这里写图片描述" src="http://img.blog.csdn.net/20160509113301595" title="" /><br />
+		如果要更改_id=3082这条数据的title字段可以通过命令：<br />
+		<code>adb shell content update --uri content://media/external/images/media/3082 --bind title:s:test.png</code><br />
+		来实现，测试结果如下图：<br />
+		<img alt="这里写图片描述" src="http://img.blog.csdn.net/20160509114209894" title="" /></p>
+	<h2 id="adb-shell-pm命令">
+		adb shell pm命令</h2>
+	<p>
+		pm(package manager)命令方便查看系统当前安装包的一些状态，功能强大，选取几个我经常使用的场景.更多的使用方法直接输入adb shell pm查看输出帮助。</p>
+	<ul>
+		<li>
+			清除应用数据。<br />
+			在Launcher开发的时候，更新完成桌面应用图标的位置后，如果要查看显示效果，就必须先把Launcher的数据清除，否则新的改动不会生效。这个时候可以用clear命令一步完成。<br />
+			<code>adb shell pm clear com.android.launcher</code></li>
+		<li>
+			查看当前安装的所有 apk。<br />
+			整机开发的时候，经常需要查看下当前手机安装了哪些应用，可以通过<br />
+			<code>adb shell pm list packages</code>查看<br />
+			查看包名和文件名对应表<code>adb shell pm list packages -f</code><br />
+			查看安装的第三方应用<code>adb shell pm list packages -3</code></li>
+		<li>
+			禁止或启用一个应用<br />
+			禁止一个应用<code>adb shell pm disable [packagename]</code><br />
+			开启一个应用<code>adb shell pm enable [packagename]</code></li>
+	</ul>
+	<h2 id="adb-shell-am">
+		adb shell am</h2>
+	<p>
+		am(activity manager) 命令方便调试应用的活动行为，它的使用场景比较多。网上的使用说明也比较多，不多加说明了。选常用的两个</p>
+	<ul>
+		<li>
+			启动一个activity<br />
+			<code>adb -d shell am start -n com.google.android.setupwizard/.SetupWizardTestActivity</code></li>
+		<li>
+			模拟发送广播<br />
+			在开发SystemUI时，涉及到SIM卡状态显示的debug工作，模拟发送广播就非常有用了。<br />
+			<code>adb shell am broadcast -a android.intent.action.SIM_STATE_CHANGED --es ss ABSENT --ei slot 1</code></li>
+	</ul>
+	<h2 id="adb-shell-dumpsys">
+		adb shell dumpsys</h2>
+	<p>
+		dumpsys 命令常用来查看activity的堆栈信息，比如<br />
+		<code>adb shell dumpsys activity activities</code><br />
+		也可以查看电池信息<code>adb shell dumpsys battery</code><br />
+		还可以查看某个安装包的详细信息<br />
+		<code>adb shell dumpsys package com.google.android.googlequicksearchbox</code><br />
+		和grep命令结合可以过滤出关心的信息，比如要查看googlequicksearchbox的版本就可以使用下面的命令<br />
+		<code>adb shell dumpsys package com.google.android.googlequicksearchbox|g<br />
+		rep versionName</code></p>
+	<h2 id="adb-shell-screencapscreenrecord">
+		adb shell screencap/screenrecord</h2>
+	<p>
+		截屏<code>adb shell screencap -p /sdcard/test.png</code><br />
+		录屏<code>adb shell screenrecord --time-limit 10 --bit-rate 6000000 /sdcard/demo.mp4</code></p>
+	<h2 id="aapt命令">
+		aapt命令</h2>
+	<p>
+		aapt命令可以用来查看一个apk包含的资源类信息，比如版本号，权限等。它位于SDK下的build-tools目录里。使用说明如下图：<br />
+		<img alt="这里写图片描述" src="http://img.blog.csdn.net/20160817103709358" title="" /></p>
+</div>

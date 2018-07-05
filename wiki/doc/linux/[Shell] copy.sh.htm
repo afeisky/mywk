@@ -1,0 +1,57 @@
+<p>
+	<span style="font-size:16px;"><span style="color: rgb(255, 140, 0);">copy.sh&nbsp;&nbsp;</span></span>&nbsp;<span style="background-color:#ffa07a;"> Õâ¸öÎÄ¼þ·Åµ½ ubuntu /sbin/copy</span></p>
+<p>
+	#!/bin/bash<br />
+	p=( $1 $2)<br />
+	p1=$1 #&quot;alps/frameworks/base/api/system-current.txt&quot;<br />
+	p2=$2&quot;/copy_to&quot; #&quot;copy_to&quot;<br />
+	function readme() {<br />
+	cat &lt;&lt;EOF<br />
+	-readme-----------------------------------chaofei.wu add-------<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; copy.sh &lt;source_file/dir&gt;&nbsp;&nbsp; &lt;target_dir&gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; eg: copy &quot;alps/build/build.sh&quot;&nbsp; &quot;./&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; ¿½±´ÎÄ¼þ,×Ô¶¯´´ÔìÂ·¾¶&nbsp;&nbsp; taget dir is copy_to ,Õâ¸öÎÄ¼þ·Åµ½ ubuntu /sbin/copy<br />
+	&nbsp;------------------------------------------------------------------<br />
+	EOF<br />
+	}<br />
+	function copy_file()<br />
+	{<br />
+	&nbsp;&nbsp;&nbsp; #echo &quot;$p1 $p2&quot;<br />
+	&nbsp;&nbsp;&nbsp; f1=$p1<br />
+	&nbsp;&nbsp;&nbsp; #echo &quot;$f1&quot;<br />
+	&nbsp;&nbsp;&nbsp; d1=&#39;&#39;<br />
+	&nbsp;&nbsp;&nbsp; if [ -f&nbsp; $f1 ]; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #echo &quot;--1&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d1=${f1%/*}<br />
+	&nbsp;&nbsp; &nbsp; if [ ! -d $p2&quot;/&quot;$d1 ]; then<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #echo &quot;--2&quot;<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mkdir -p $p2&quot;/&quot;$d1<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fi &nbsp;<br />
+	&nbsp;&nbsp; &nbsp; cp -f $p1 $p2&quot;/&quot;$p1<br />
+	&nbsp;&nbsp;&nbsp; elif [ -d $f1 ]; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #echo ${f1: -1}<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [ ${f1: -1} == &quot;/&quot; ]; then<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;#echo &quot;/&quot;<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;f1=${f1%/*}<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fi<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d1=${f1%/*}<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [ ! -d $p2&quot;/&quot;$d1 ]; then<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #echo &quot;mkdir -p $p2&quot;/&quot;$d1&quot;<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mkdir -p $p2&quot;/&quot;$d1<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fi<br />
+	&nbsp;&nbsp; &nbsp; #echo &quot;cp -r $p1 $p2&quot;/&quot;$d1&quot;<br />
+	&nbsp;&nbsp; &nbsp; cp -r $p1 $p2&quot;/&quot;$d1<br />
+	&nbsp;&nbsp;&nbsp; else<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo -e &quot;[31m [05m not found!&nbsp; [$f1][0m&quot;<br />
+	&nbsp;&nbsp; &nbsp;&nbsp; return 1<br />
+	&nbsp;&nbsp;&nbsp; fi<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;$p2&quot;/&quot;$p1&quot;<br />
+	}<br />
+	<br />
+	if [ &quot;$1&quot; != &quot;&quot; ] &amp;&amp; [ &quot;$2&quot; != &quot;&quot; ];then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; copy_file $p1 $p2<br />
+	else<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readme<br />
+	fi</p>
+<p>
+	&nbsp;</p>

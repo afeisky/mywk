@@ -1,0 +1,78 @@
+<h1>
+	<span class="link_title"><a href="http://blog.csdn.net/wh_19910525/article/details/7519452"> SHELL 命令：dirname basename的使用 </a></span></h1>
+<p>
+	例子：</p>
+<p>
+	while read i<br />
+	do<br />
+	if [ &quot;$i&quot; = &quot;&quot; ]; then #注意字符串相等，要两连加上双引号<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;[&quot;$i&quot;] is blank line&quot;<br />
+	else<br />
+	&nbsp; echo $i,$(basename $i),$(dirname $i)<br />
+	&nbsp; #path=$(basename $i)<br />
+	&nbsp; #echo $path<br />
+	&nbsp; #cd $path<br />
+	&nbsp; #echo $(pwd)<br />
+	&nbsp; #git checkout -b master #create branchname<br />
+	&nbsp; #git checkout remotes/origin/twingo-v1.0-import<br />
+	&nbsp; #touch readme<br />
+	&nbsp; #git status<br />
+	&nbsp; #git add .<br />
+	&nbsp; #git commit -m &#39;add comments&#39;<br />
+	&nbsp; #git commit --allow-empty -m &quot;the first commit of master&quot;<br />
+	&nbsp; #git push git@10.92.32.10:$i HEAD:master<br />
+	&nbsp; #cd ..<br />
+	&nbsp; #rm -rf $path<br />
+	fi<br />
+	done &lt; init.txt<br />
+	#done &lt; /home/xinlee/script/init-master/list.txt<br />
+	<br />
+	#init.txt:<br />
+	#vendor/google<br />
+	#vendor/mediatek.so<br />
+	#device</p>
+<p>
+	&nbsp;</p>
+<div class="article_manage clearfix">
+	<div class="article_l">
+		<span class="link_categories">标签： <a href="http://www.csdn.net/tag/shell" target="_blank">shell</a><a href="http://www.csdn.net/tag/%e5%ad%98%e5%82%a8" target="_blank">存储</a> </span></div>
+	<div class="article_r">
+		<span class="link_postdate">2012-04-28 11:50</span> <span class="link_view" title="阅读次数">1816人阅读</span> <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/wh_19910525/article/details/7519452#comments">评论</a>(0)</span> <span class="link_collect tracking-ad" data-mod="popu_171"> <a target="_blank" title="收藏">收藏</a></span> <span class="link_report"> <a href="http://blog.csdn.net/wh_19910525/article/details/7519452#report" title="举报">举报</a></span></div>
+</div>
+<div class="category clearfix">
+	<div class="category_l">
+		<img src="http://static.blog.csdn.net/images/category_icon.jpg" /> <span>分类：</span></div>
+	<div class="category_r">
+		<label><span>linux<em>（133）</em></span> <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle%20_down.jpg" style="display:inline;" /> </label></div>
+</div>
+<div class="bog_copyright">
+	<p class="copyright_p">
+		版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+</div>
+<p>
+	<strong>取一个文件存储路径，可以用dirname</strong>。使用起来分两种情况：<br />
+	一、带全路径的，例：aguo@auto-test:~&gt; dirname /home/aguo/insert.sql<br />
+	<strong><span style="color:#ff0000">/home/aguo</span></strong> ＃获得文件所在目录<br />
+	二、仅仅是文件名的，例：aguo@auto-test:~&gt; dirname Environment<br />
+	<strong><span style="color:#ff0000">.<br />
+	</span></strong>表示路径就是当前目录<br />
+	&nbsp;</p>
+<div id="BlogArticleDetail" style="font-size:14px">
+	#&nbsp; <strong>basename</strong> include/stdio.h<br />
+	stdio.h<br />
+	<br />
+	#&nbsp; <strong>dirname</strong> include/stdio.h<br />
+	include<br />
+	&nbsp;</div>
+<p>
+	<strong>取一个文件名（去掉后缀名），可以用basename</strong>。这个命令使用起来貌似有些死板。<strong>你要 完整地写出 后缀名（想要剔除的部分）</strong>。</p>
+<p>
+	例：<br />
+	aguo@auto-test:~&gt; basename insert.test.sql test<br />
+	insert.test.sql<br />
+	aguo@auto-test:~&gt; basename insert.test.sql .test<br />
+	insert.test.sql<br />
+	<strong>aguo@auto-test:~&gt; basename insert.test.sql sql<br />
+	insert.test.<br />
+	aguo@auto-test:~&gt; basename insert.test.sql .sql<br />
+	insert.test</strong></p>

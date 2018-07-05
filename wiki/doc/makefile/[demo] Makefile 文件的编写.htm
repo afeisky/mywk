@@ -1,0 +1,568 @@
+<div class="cnblogs-markdown" id="cnblogs_post_body">
+	<p>
+		<em>March 3, 2015 8:19 PM</em></p>
+	<h1 id="makefile-文件的编写">
+		Makefile 文件的编写</h1>
+	<h2 id="学习前的准备">
+		学习前的准备</h2>
+	<p>
+		需要准备的工程目录结构如下：</p>
+	<pre>
+<code class="hljs css">.
+├── <span class="hljs-selector-tag">add</span>
+│&nbsp;&nbsp; ├── <span class="hljs-selector-tag">add_float</span><span class="hljs-selector-class">.c</span>
+│&nbsp;&nbsp; ├── <span class="hljs-selector-tag">add</span><span class="hljs-selector-class">.h</span>
+│&nbsp;&nbsp; └── <span class="hljs-selector-tag">add_int</span><span class="hljs-selector-class">.c</span>
+├── <span class="hljs-selector-tag">main</span><span class="hljs-selector-class">.c</span>
+└── <span class="hljs-selector-tag">sub</span>
+    ├── <span class="hljs-selector-tag">sub_float</span><span class="hljs-selector-class">.c</span>
+    ├── <span class="hljs-selector-tag">sub</span><span class="hljs-selector-class">.h</span>
+    └── <span class="hljs-selector-tag">sub_int</span><span class="hljs-selector-class">.c</span></code></pre>
+	<p>
+		文件编译为可执行文件cacu<br />
+		<strong>NOTE：</strong>需要的源代码:<a href="http://files.cnblogs.com/files/OpenShiFt/MakefileExample.tar">MakefileExample.tar</a></p>
+	<h2 id="makefile的介绍">
+		Makefile的介绍</h2>
+	<p>
+		使用 GCC 的命令行进行程序编译在单个文件下是比较方便的，当工程中的文件逐渐增多，甚至变得十分庞大的时候，使用 GCC 命令编译就会变得力不从心。Linux 中的 make 工具提供了一种管理工程的功能，可以方便的进行程序的编译，对更新的文件进行重编译。</p>
+	<p>
+		Makefile的基本格式为：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dv">TARGET... :</span><span class="dt"> DEPENDEDS...</span>
+    COMMAND
+    ...
+    ...</code></pre>
+	</div>
+	<ul>
+		<li>
+			TARGET:规则所定义的目标，通常是最后生成的文件，也可以是一个&ldquo;动作&rdquo;，称之为&ldquo;伪目标&rdquo;。</li>
+		<li>
+			DEPENDEDS：执行此规则所必须的依赖条件。</li>
+		<li>
+			COMMAND：规则所执行的命令。命令可以是多个，每个命令占一行，以 Tab 开头。</li>
+	</ul>
+	<h2 id="动手编写多文件工程的makefile">
+		动手编写多文件工程的Makefile</h2>
+	<h3 id="命令行编译程序">
+		1.命令行编译程序</h3>
+	<p>
+		如果在命令行下手动编译该程序比较麻烦，需要先编译每个文件，生成目标文件，最后再将5个目标文件编译成可执行文件。</p>
+	<div class="sourceCode">
+		<pre class="sourceCode bash">
+<code class="sourceCode bash hljs"><span class="co"><span class="hljs-comment">#get add_int.o target</span></span>
+<span class="kw">gcc</span> -c add/add_int.c -o add/add_int.o -ggdb
+
+<span class="co"><span class="hljs-comment">#get add_float.o target</span></span>
+<span class="kw">gcc</span> -c add/add_float.c -o add/add_float.o -ggdb
+
+<span class="co"><span class="hljs-comment">#get sub_float.o target</span></span>
+<span class="kw">gcc</span> -c sub/sub_float.c -o sub/sub_float.o -ggdb
+
+<span class="co"><span class="hljs-comment">#get sub_int.o target</span></span>
+<span class="kw">gcc</span> -c sub/sub_int.c -o sub/sub_int.o -ggdb
+
+<span class="co"><span class="hljs-comment">#get main.o target</span></span>
+<span class="kw">gcc</span> -c main.c -o main.o -Iadd -Isub -ggdb
+
+<span class="co"><span class="hljs-comment">#get cacu bin file</span></span>
+<span class="kw">gcc</span> -o cacu add/add_int.o add/add_float.o sub/sub_int.o sub/sub_float.o main.o -ggdb
+
+<span class="co"><span class="hljs-comment">#get main.S target</span></span>
+<span class="kw">gcc</span> -S add/add_int.o add/add_float.o sub/sub_int.o sub/sub_float.o main.o</code></pre>
+	</div>
+	<h3 id="多文件的makefile">
+		2.多文件的Makefile</h3>
+	<p>
+		使用make进行项目管理，需要编写Makefile。在编译时，make程序按照顺序从Makefile文件中读取指令，依次执行！</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="co"><span class="hljs-comment">#get cacu bin file</span></span>
+<span class="dv">cacu:</span><span class="dt">add_int.o add_float.o sub_int.o sub_float.o main.o</span>
+    gcc -o cacu add/add_int.o add/add_float.o <span class="ch">\</span>
+        sub/sub_int.o sub/sub_float.o main.o -ggdb
+
+<span class="co"><span class="hljs-comment">#get add_int.o target</span></span>
+<span class="dv">add_int.o:</span><span class="dt">add/add_int.c add/add.h</span>
+    gcc -c -o add/add_int.o add/add_int.c -ggdb
+
+<span class="co"><span class="hljs-comment">#get add_float.o target</span></span>
+<span class="dv">add_float.o:</span><span class="dt">add/add_float.c add/add.h</span>
+    gcc -c -o add/add_float.o add/add_float.c -ggdb
+
+<span class="co"><span class="hljs-comment">#get sub_int.o target</span></span>
+<span class="dv">sub_int.o:</span><span class="dt">sub/sub_int.c sub/sub.h</span>
+    gcc -c -o sub/sub_int.o sub/sub_int.c -ggdb
+
+<span class="co"><span class="hljs-comment">#get sub_float.o target</span></span>
+<span class="dv">sub_float.o:</span><span class="dt">sub/sub_float.c sub/sub.h</span>
+    gcc -c -o sub/sub_float.o sub/sub_float.c -ggdb
+
+<span class="co"><span class="hljs-comment">#get main.o target</span></span>
+<span class="dv">main.o:</span><span class="dt">main.c add/add.h sub/sub.h</span>
+    gcc -c -o main.o main.c -Iadd -Isub -ggdb
+
+<span class="co"><span class="hljs-comment">#clean project</span></span>
+<span class="dv"><span class="hljs-section">clean:</span></span>
+    rm -f cacu add/add_int.o add/add_float.o <span class="ch">\</span>
+        sub/sub_int.o sub/sub_float.o main.o</code></pre>
+	</div>
+	<p>
+		当需要编译工程时，直接在工程目录中执行<code>make</code>即可。如果想清除编译过程中生成的目标文件和cacu，执行<code>make clean</code>即可。</p>
+	<h3 id="使用用户自定义变量的makefile">
+		3.使用用户自定义变量的Makefile</h3>
+	<p>
+		在Makefile文件中，用户可以自定义变量，方便用户修改参数。<br />
+		使用变量后，原本冗长的文件可以化简为：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dt">CC </span><span class="ch">=</span><span class="st"> gcc</span>
+<span class="dt">CFLAGS </span><span class="ch">=</span><span class="st"> -Iadd -Isub -O2</span>
+<span class="dt">OBJS </span><span class="ch">=</span><span class="st"> add/add_int.o add/add_float.o sub/sub_float.o sub/sub_int.o main.o</span>
+<span class="dt">TARGET </span><span class="ch">=</span><span class="st"> cacu</span>
+<span class="dt">RM </span><span class="ch">=</span><span class="st"> rm -f</span>
+
+<span class="dv">$(TARGET):</span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -o <span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">CFLAGS</span><span class="ch">)</span>
+
+<span class="dv">$(OBJS):</span><span class="dt">%o:%c</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -c <span class="ch">$(</span><span class="dt">CFLAGS</span><span class="ch">)</span> <span class="ch">$&lt;</span> -o <span class="ch">$@</span>
+
+<span class="dv"><span class="hljs-section">clean:</span></span>
+    <span class="ch">$(</span><span class="dt">RM</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span></code></pre>
+	</div>
+	<p>
+		<strong>NOTE：</strong><code>$(OBJS):%.o:%.c</code>中 %.o:%.c 是将 $(OBJS) 中以 .o 结尾的文件替换成以 .c 结尾的文件。</p>
+	<p>
+		其中 $&lt; 和 $@ 是自动化变量,下一节会介绍。</p>
+	<h3 id="使用预定义变量的makefile">
+		4.使用预定义变量的Makefile</h3>
+	<p>
+		在Makefile中还有一些变量是系统预定义的，用户可以直接使用。</p>
+	<p>
+		<strong>Makefile中经常使用的变量及含义</strong></p>
+	<table>
+		<thead>
+			<tr class="header">
+				<th align="left">
+					变量名</th>
+				<th align="left">
+					含 义</th>
+				<th align="left">
+					默 认 值</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="odd">
+				<td align="left">
+					AR</td>
+				<td align="left">
+					生成静态库库文件的程序名称</td>
+				<td align="left">
+					ar</td>
+			</tr>
+			<tr class="even">
+				<td align="left">
+					AS</td>
+				<td align="left">
+					汇编编译器的名称</td>
+				<td align="left">
+					as</td>
+			</tr>
+			<tr class="odd">
+				<td align="left">
+					CC</td>
+				<td align="left">
+					C语言编译器的名称</td>
+				<td align="left">
+					cc</td>
+			</tr>
+			<tr class="even">
+				<td align="left">
+					CPP</td>
+				<td align="left">
+					C语言预编译器的名称</td>
+				<td align="left">
+					$(CC) -E</td>
+			</tr>
+			<tr class="odd">
+				<td align="left">
+					CXX</td>
+				<td align="left">
+					C++语言编译器的名称</td>
+				<td align="left">
+					g++</td>
+			</tr>
+			<tr class="even">
+				<td align="left">
+					FC</td>
+				<td align="left">
+					FORTRAN语言编译器的名称</td>
+				<td align="left">
+					f77</td>
+			</tr>
+			<tr class="odd">
+				<td align="left">
+					RM</td>
+				<td align="left">
+					删除文件程序的名称</td>
+				<td align="left">
+					rm -f</td>
+			</tr>
+			<tr class="even">
+				<td align="left">
+					ARFLAGS</td>
+				<td align="left">
+					生成静态库库文件程序的选项</td>
+				<td align="left">
+					无默认值</td>
+			</tr>
+			<tr class="odd">
+				<td align="left">
+					ASFLAGS</td>
+				<td align="left">
+					汇编语言编译器的编译选项</td>
+				<td align="left">
+					无默认值</td>
+			</tr>
+			<tr class="even">
+				<td align="left">
+					CFLAGS</td>
+				<td align="left">
+					C语言编译器的编译选项</td>
+				<td align="left">
+					无默认值</td>
+			</tr>
+			<tr class="odd">
+				<td align="left">
+					CPPFLAGS</td>
+				<td align="left">
+					C语言预编译器的编译选项</td>
+				<td align="left">
+					无默认值</td>
+			</tr>
+			<tr class="even">
+				<td align="left">
+					CXXFLAGS</td>
+				<td align="left">
+					C++语言编译器的编译选项</td>
+				<td align="left">
+					无默认值</td>
+			</tr>
+			<tr class="odd">
+				<td align="left">
+					FFLAGS</td>
+				<td align="left">
+					FORTRAN语言编译器的编译选项</td>
+				<td align="left">
+					无默认值</td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		因此，前面的Makefile文件可以改写成：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dt">CFLAGS </span><span class="ch">=</span><span class="st"> -Iadd -Isub -O2</span>
+<span class="dt">OBJS </span><span class="ch">=</span><span class="st"> add/add_int.o add/add_float.o </span><span class="ch">\</span>
+<span class="st">       sub/sub_int.o sub/sub_float.o main.o</span>
+<span class="dt">TARGET </span><span class="ch">=</span><span class="st"> cacu</span>
+
+<span class="dv">$(TARGET):</span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -o <span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">CFLAGS</span><span class="ch">)</span>
+
+<span class="dv"><span class="hljs-section">clean:</span></span>
+    <span class="ch">-$(</span><span class="dt">RM</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span></code></pre>
+	</div>
+	<p>
+		其中变量<code>$(CC) $(RM)</code>可以直接使用，默认值分别是<code>cc</code>和<code>rm -f</code>。另外<code>CFLAGS</code>等变量是调用编译器时的默认选项配置，在生成<code>main.o</code>时没有指定编译选项，make程序自动调用了文件中定义的<code>CFLAGS</code>选项来增加头文件的搜索路径。</p>
+	<h3 id="使用自动变量的makefile">
+		5.使用自动变量的Makefile</h3>
+	<p>
+		还记得上面出现的 $&lt; 和 $@ 吗？它们是Makefile中的自动变量，分别代表依赖项和目标项。下面是一些常见的自动变量及其含义：</p>
+	<p>
+		<strong>Makefile 中常见的自动变量和含义</strong></p>
+	<table>
+		<thead>
+			<tr class="header">
+				<th align="center">
+					变量</th>
+				<th align="left">
+					含义</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="odd">
+				<td align="center">
+					*</td>
+				<td align="left">
+					表示目标文件的名称，不包含目标文件的扩展名</td>
+			</tr>
+			<tr class="even">
+				<td align="center">
+					+</td>
+				<td align="left">
+					表示所有的依赖文件，这些依赖文件之间以空格分开，按照出现的先后为顺序，其中可能包含重复的依赖文件</td>
+			</tr>
+			<tr class="odd">
+				<td align="center">
+					&lt;</td>
+				<td align="left">
+					表示依赖项中第一个依赖文件的名称</td>
+			</tr>
+			<tr class="even">
+				<td align="center">
+					?</td>
+				<td align="left">
+					依赖项中，所有目标文件时间戳晚的依赖文件，依赖文件之间以空格分开</td>
+			</tr>
+			<tr class="odd">
+				<td align="center">
+					@</td>
+				<td align="left">
+					目标项中目标文件的名称</td>
+			</tr>
+			<tr class="even">
+				<td align="center">
+					^</td>
+				<td align="left">
+					依赖项中，所有不重复的依赖文件，这些文件之间以空格分开</td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		由此，对上面的Makefile文件进行重写，代码如下：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dt">CFLAGS </span><span class="ch">=</span><span class="st"> -Iadd -Isub -O2</span>
+<span class="dt">OBJS </span><span class="ch">=</span><span class="st"> add/add_int.o add/add_float.o </span><span class="ch">\</span>
+<span class="st">       sub/sub_int.o sub/sub_float.o main.o</span>
+<span class="dt">TARGET </span><span class="ch">=</span><span class="st"> cacu</span>
+
+<span class="dv">$(TARGET):</span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> <span class="ch">$^</span> -o <span class="ch">$@</span> <span class="ch">$(</span><span class="dt">CFLAGS</span><span class="ch">)</span>
+
+<span class="dv">$(OBJS):</span><span class="dt">%o:%c</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -c <span class="ch">$&lt;</span> -o <span class="ch">$@</span> <span class="ch">$(</span><span class="dt">CFLAGS</span><span class="ch">)</span>
+
+<span class="dv"><span class="hljs-section">clean:</span></span>
+    <span class="ch">-$(</span><span class="dt">RM</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span></code></pre>
+	</div>
+	<h3 id="设置搜索路径">
+		6.设置搜索路径</h3>
+	<p>
+		在大的系统中，通常存在很多目录，手动添加目录的方法不仅十分笨拙而且容易造成错误。Make 的目录搜索功能提供了一个解决此问题的方法，指定需要搜索的目录， make 会自动找到指定文件的目录并添加到文件上， VPATH 变量可以实现此目的。VPATH 变量的使用方法如下：</p>
+	<pre>
+<code class="hljs groovy">VPATH = <span class="hljs-string">path1:</span><span class="hljs-string">path2:</span>...</code></pre>
+	<p>
+		VPATH 右边是冒号（:）分割路径名称，例如下面的指令：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dt">VPATH </span><span class="ch">=</span><span class="st"> add:sub</span>
+<span class="dv">add_int.o:</span><span class="dt">%.o:%.c</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -c -o <span class="ch">$@</span> <span class="ch">$&lt;</span></code></pre>
+	</div>
+	<p>
+		Make 的搜索路径包含 add 和 sub 目录。add_int.o 规则自动扩展成如下代码：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dv">add_int.o:</span><span class="dt">add/add_int.c</span>
+    cc -c -o add_int.o add/add_int.c</code></pre>
+	</div>
+	<p>
+		用添加路径的方法改写上面的 Makefile 文件，代码如下：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dt">CFLAGS </span><span class="ch">=</span><span class="st"> -Iadd -Isub -O2</span>
+<span class="dt">OBJDIR </span><span class="ch">=</span><span class="st"> objs</span>
+<span class="dt">VPATH </span><span class="ch">=</span><span class="st"> add:sub:.</span>
+<span class="dt">OBJS </span><span class="ch">=</span><span class="st"> add_int.o add_float.o sub_int.o sub_float.o main.o</span>
+<span class="dt">TARGET </span><span class="ch">=</span><span class="st"> cacu</span>
+
+<span class="dv">$(TARGET):</span><span class="ch">$(</span><span class="dt">OBJSDIR</span><span class="ch">)</span><span class="dt"> </span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -o <span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">OBJDIR</span><span class="ch">)</span>/*.o <span class="ch">$(</span><span class="dt">CFLAGS</span><span class="ch">)</span>
+
+<span class="dv">$(OBJDIR):</span>
+    mkdir -p ./<span class="ch">$@</span>
+
+<span class="dv">$(OBJS):</span><span class="dt">%.o:%.c </span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -c <span class="ch">$(</span><span class="dt">CFLAGS</span><span class="ch">)</span> <span class="ch">$&lt;</span> -o <span class="ch">$(</span><span class="dt">OBJDIR</span><span class="ch">)</span>/<span class="ch">$@</span>
+
+<span class="dv"><span class="hljs-section">clean:</span></span>
+    <span class="ch">-$(</span><span class="dt">RM</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span>
+    <span class="ch">-$(</span><span class="dt">RM</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">OBJDIR</span><span class="ch">)</span><span class="fu">/*.o -r</span></code></pre>
+	</div>
+	<h3 id="自动推导规则">
+		7.自动推导规则</h3>
+	<p>
+		使用命令 make 编译扩展名为 .c 的 C 语言文件的时候，源文件的编译规则不用明确地给出。这是因为 make 进行编译的时候会使用一个默认的编译规则，按照默认规则完成对 .c 文件的编译，生成对应的 .o 文件。它执行命令 <code>cc -c</code> 来编译 .c 源文件。在 Makefile 中只需要给出需要重建的目标文件（一个 .o 文件），make 会自动为这个 .o 文件寻找合适的依赖文件（对应的 .c 文件），并且使用默认的命令来构建这个目标文件。</p>
+	<p>
+		对于上边的例子，默认规则是使用命令<code>cc -c main.c -o main.o</code>来创建文件 main.o 。对一个目标文件是&ldquo;文件名.o&ldquo;，依赖文件是&rdquo;文件名.c&ldquo;的规则，可以省略其编译规则的命令行，由 make 命令决定如何使用编译命令和选项。此默认规则称为 make 的隐含规则。</p>
+	<p>
+		这样，在书写 Makefile 时，就可以省略掉描述 .c 文件和 .o 依赖关系的规则，而只需要给出那些特定的规则描述（.o 目标所需要的 .h 文件）。因此上面的例子可以使用更加简单的方式书写， Makefile 文件的内容如下：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dt">CFLAGS </span><span class="ch">=</span><span class="st"> -Iadd -Isub -O2</span>
+<span class="dt">VPATH </span><span class="ch">=</span><span class="st"> add:sub</span>
+<span class="dt">OBJS </span><span class="ch">=</span><span class="st"> add_int.o add_float.o sub_int.o sub_float.o main.o</span>
+<span class="dt">TARGET </span><span class="ch">=</span><span class="st"> cacu</span>
+<span class="dv">$(TARGET):</span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -o <span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">CFLAGS</span><span class="ch">)</span>
+
+<span class="dv"><span class="hljs-section">clean:</span></span>
+    <span class="ch">-$(</span><span class="dt">RM</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span>
+    <span class="ch">-$(</span><span class="dt">RM</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span></code></pre>
+	</div>
+	<h3 id="递归-make">
+		8.递归 make</h3>
+	<p>
+		对于规模比较大的程序，需要多个人在多个目录下进行开发。如果只用一个 Makefile 来维护就会比较麻烦，因此可以在每个目录下建立自己的 Makefile ，然后在总控 Makefile 中调用子目录的 Makefile 文件。</p>
+	<p>
+		目录结构如下：</p>
+	<pre>
+<code class="hljs css">.
+├── <span class="hljs-selector-tag">add</span>
+│&nbsp;&nbsp; ├── <span class="hljs-selector-tag">add_float</span><span class="hljs-selector-class">.c</span>
+│&nbsp;&nbsp; ├── <span class="hljs-selector-tag">add</span><span class="hljs-selector-class">.h</span>
+│&nbsp;&nbsp; ├── <span class="hljs-selector-tag">add_int</span><span class="hljs-selector-class">.c</span>
+│&nbsp;&nbsp; └── <span class="hljs-selector-tag">Makefile</span>
+├── <span class="hljs-selector-tag">main</span><span class="hljs-selector-class">.c</span>
+├── <span class="hljs-selector-tag">Makefile</span>
+└── <span class="hljs-selector-tag">sub</span>
+    ├── <span class="hljs-selector-tag">Makefile</span>
+    ├── <span class="hljs-selector-tag">sub_float</span><span class="hljs-selector-class">.c</span>
+    ├── <span class="hljs-selector-tag">sub</span><span class="hljs-selector-class">.h</span>
+    └── <span class="hljs-selector-tag">sub_int</span><span class="hljs-selector-class">.c</span></code></pre>
+	<p>
+		<strong>1.递归调用的方式</strong></p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs">add：
+    cd add &amp;&amp; <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span></code></pre>
+	</div>
+	<p>
+		它等价于</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs">add：
+    <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> -C add</code></pre>
+	</div>
+	<p>
+		<strong>2.总控Makefile</strong></p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dt">CC </span><span class="ch">=</span><span class="st"> gcc</span>
+<span class="dt">CFLAGS </span><span class="ch">=</span><span class="st"> -O2</span>
+<span class="dt">TARGET </span><span class="ch">=</span><span class="st"> cacu</span>
+export <span class="dt">OBJSDIR </span><span class="ch">=</span><span class="st"> </span><span class="ch">$(</span><span class="kw">shell</span><span class="st"> pwd</span><span class="ch">)</span><span class="st">/objs</span>
+
+<span class="dv">$(TARGET):</span><span class="ch">$(</span><span class="dt">OBJSDIR</span><span class="ch">)</span><span class="dt"> main.o</span>
+    <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> -C add
+    <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> -C sub
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -o <span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">OBJSDIR</span><span class="ch">)</span>/*.o
+
+<span class="dv">$(OBJSDIR):</span>
+    mkdir -p <span class="ch">$@</span>
+
+<span class="dv">main.o:</span><span class="dt">%.o:%.c</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -c <span class="ch">$&lt;</span> -o <span class="ch">$(</span><span class="dt">OBJSDIR</span><span class="ch">)</span>/<span class="ch">$@</span> <span class="ch">$(</span><span class="dt">CFLAGS</span><span class="ch">)</span> -Iadd -Isub
+
+<span class="dv"><span class="hljs-section">clean:</span></span>
+    <span class="ch">-$(</span><span class="dt">RM</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span>
+    <span class="ch">-$(</span><span class="dt">RM</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">OBJSDIR</span><span class="ch">)</span><span class="fu">/*.o</span></code></pre>
+	</div>
+	<p>
+		如果总控 Makefile 中的一些变量需要传递给下层的 Makefile，可以使用 export 命令。如：<code>export OBJSDIR = ./objs</code></p>
+	<p>
+		<strong>3.子目录Makefile的编写</strong></p>
+	<p>
+		Add 目录下的 Makefile 如下：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dt">OBJS </span><span class="ch">=</span><span class="st"> add_int.o add_float.o</span>
+<span class="dv">all:</span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span>
+
+<span class="dv">$(OBJS):</span><span class="dt">%.o:%.c</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -c <span class="ch">$&lt;</span> -o <span class="ch">$(</span><span class="dt">OBJSDIR</span><span class="ch">)</span>/<span class="ch">$@</span> <span class="ch">$(</span><span class="dt">CFLAGS</span><span class="ch">)</span>
+
+<span class="dv"><span class="hljs-section">clean:</span></span>
+    <span class="ch">$(</span><span class="dt">RM</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span></code></pre>
+	</div>
+	<p>
+		Sub 目录下的 Makefile 如下：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dt">OBJS </span><span class="ch">=</span><span class="st"> sub_int.o sub_float.o</span>
+<span class="dv">all:</span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span>
+
+<span class="dv">$(OBJS):</span><span class="dt">%.o:%.c</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -c <span class="ch">$&lt;</span> -o <span class="ch">$(</span><span class="dt">OBJSDIR</span><span class="ch">)</span>/<span class="ch">$@</span> <span class="ch">$(</span><span class="dt">CFLAGS</span><span class="ch">)</span>
+
+<span class="dv"><span class="hljs-section">clean:</span></span>
+    <span class="ch">$(</span><span class="dt">RM</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span></code></pre>
+	</div>
+	<h2 id="makefile-中的函数">
+		Makefile 中的函数</h2>
+	<h3 id="获取匹配模式的文件名wildcard">
+		1.获取匹配模式的文件名wildcard</h3>
+	<p>
+		这个函数的功能是查找当前目录下所有符合模式 PATTERN 的文件名，其返回值是以空格分割的、当前目录下的所有符合模式 PATTERN 的文件名列表。其原型如下：</p>
+	<p>
+		<code>$(wildcard PATTERN)</code></p>
+	<p>
+		例如，如下模式返回当前目录下所有扩展名位 .c 的文件列表。</p>
+	<p>
+		<code>$(wildcard *.c)</code></p>
+	<h3 id="模式替换函数patsubst">
+		2.模式替换函数patsubst</h3>
+	<p>
+		这个函数的功能是查找字符串 text 中按照空格分开的单词，将符合模式 pattern 的字符串替换成 replacement。 Pattern 中的模式可以使用通配符， % 代表 0 个到 n 个字符，当 pattern 和 replacement 中都有 % 时，符合条件的字符将被 replacement 中的替换。函数的返回值是替换后的新字符串。其原型如下：</p>
+	<p>
+		<code>$(patsubst pattern, replacement, text)</code></p>
+	<p>
+		例如，需要将 C 文件替换为 .o 的目标文件可以使用如下模式：</p>
+	<p>
+		<code>$(patsubst %.c, %.o, add.c)</code></p>
+	<p>
+		上面的模式将 add.c 字符串作为输入，当扩展名为 .c 时符合模式 %.c ,其中 % 在这里代表 add，替换为 add.o，并作为输出字符串。</p>
+	<p>
+		<code>$(patsubst %.c, %.o, $(wildcard *.c))</code></p>
+	<p>
+		输出的字符串将当前扩展名为 .c 的文件替换成 .o 的文件列表。</p>
+	<h3 id="循环函数foreach">
+		3.循环函数foreach</h3>
+	<p>
+		这个函数的原型为：</p>
+	<p>
+		<code>$(foreach VAR, LIST, TEXT)</code></p>
+	<p>
+		函数的功能为 foreach 将 LIST 字符串中一个空格分割的单词，先传给临时变量 VAR ，然后执行 TEXT 表达式， TEXT 表达式处理结束后输出。其返回值是空格分割表达式 TEXT 的计算结果。</p>
+	<p>
+		例如，对于存在 add 和 sub 的两个目录，设置 DIRS 为 &quot;add sub ./&quot; 包含目录 add、sub 和当前目录。表达式 <code>$(wildcard $(dir)/*.c)</code> ,可以取出目录 add 和 sub 及当前目录中的所有扩展名为 .c 的C语言源文件：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dt">DIRS </span><span class="ch">=</span><span class="st"> sub add ./</span>
+<span class="dt">FILES </span><span class="ch">=</span><span class="st"> </span><span class="ch"><span class="hljs-variable">$(</span></span><span class="kw"><span class="hljs-variable">foreach</span></span><span class="st"><span class="hljs-variable"> dir</span></span><span class="kw"><span class="hljs-variable">,</span></span><span class="st"><span class="hljs-variable"> </span></span><span class="ch"><span class="hljs-variable">$(</span></span><span class="dt"><span class="hljs-variable">DIRS</span></span><span class="ch"><span class="hljs-variable">)</span></span><span class="kw">,</span><span class="st"> </span><span class="ch"><span class="hljs-variable">$(</span></span><span class="kw"><span class="hljs-variable">wildcard</span></span><span class="st"><span class="hljs-variable"> </span></span><span class="ch"><span class="hljs-variable">$(</span></span><span class="kw"><span class="hljs-variable">dir</span></span><span class="ch"><span class="hljs-variable">)</span></span><span class="st">/*.c</span><span class="ch">))</span></code></pre>
+	</div>
+	<p>
+		利用上面几个函数对原有的 Makefile 文件进行重新编写，使新的 Makefile 可以自动更新各个目录下的C语言源文件：</p>
+	<div class="sourceCode">
+		<pre class="sourceCode makefile">
+<code class="sourceCode makefile hljs"><span class="dt">CC </span><span class="ch">=</span><span class="st"> gcc</span>
+<span class="dt">CFLAGS </span><span class="ch">=</span><span class="st"> -O2 -Iadd -Isub</span>
+<span class="dt">TARGET </span><span class="ch">=</span><span class="st"> cacu</span>
+<span class="dt">DIRS </span><span class="ch">=</span><span class="st"> sub add .</span>
+<span class="dt">FILES </span><span class="ch">=</span><span class="st"> </span><span class="ch"><span class="hljs-variable">$(</span></span><span class="kw"><span class="hljs-variable">foreach</span></span><span class="st"><span class="hljs-variable"> dir</span></span><span class="kw"><span class="hljs-variable">,</span></span><span class="st"><span class="hljs-variable"> </span></span><span class="ch"><span class="hljs-variable">$(</span></span><span class="dt"><span class="hljs-variable">DIRS</span></span><span class="ch"><span class="hljs-variable">)</span></span><span class="kw">,</span><span class="st"> </span><span class="ch"><span class="hljs-variable">$(</span></span><span class="kw"><span class="hljs-variable">wildcard</span></span><span class="st"><span class="hljs-variable"> </span></span><span class="ch"><span class="hljs-variable">$(</span></span><span class="kw"><span class="hljs-variable">dir</span></span><span class="ch"><span class="hljs-variable">)</span></span><span class="st">/*.c</span><span class="ch">))</span>
+<span class="dt">OBJS </span><span class="ch">=</span><span class="st"> </span><span class="ch"><span class="hljs-variable">$(</span></span><span class="kw"><span class="hljs-variable">patsubst</span></span><span class="st"><span class="hljs-variable"> %.c</span></span><span class="kw"><span class="hljs-variable">,</span></span><span class="st"><span class="hljs-variable"> %.o</span></span><span class="kw"><span class="hljs-variable">,</span></span><span class="st"><span class="hljs-variable"> </span></span><span class="ch"><span class="hljs-variable">$(</span></span><span class="dt"><span class="hljs-variable">FILES</span></span><span class="ch"><span class="hljs-variable">)</span>)</span>
+<span class="dv">$(TARGET):</span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span>
+    <span class="ch">$(</span><span class="dt">CC</span><span class="ch">)</span> -o <span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span> <span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span>
+
+<span class="dv"><span class="hljs-section">clean:</span></span>
+    <span class="ch">-$(</span><span class="dt">RM</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">TARGET</span><span class="ch">)</span>
+    <span class="ch">-$(</span><span class="dt">RM</span><span class="ch">)</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">OBJS</span><span class="ch">)</span></code></pre>
+	</div>
+	<h2 id="总结">
+		总结</h2>
+	<p>
+		至此，已经可以阅读大部分软件的 Makefile 了～～～</p>
+</div>

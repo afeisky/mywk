@@ -1,0 +1,16 @@
+<p>
+	<span lang="EN-US" style="font-family: Tahoma; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); font-size: 10.5pt; color: rgb(31, 73, 125);">JHZ_6737_65_M0(LWG_DSDS)_EXT.mak</span><br />
+	<span style="font-family: Tahoma; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); font-size: 10.5pt; color: rgb(31, 73, 125);">-----------------------------------------<br />
+	（1）</span><span style="font-family: Tahoma; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); font-size: 10.5pt; color: rgb(31, 73, 125);"><span lang="EN-US">__2G_CAP_TURN_OFF__<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 作用：当手机的Preferred network type选择&ldquo;WCDMA only&rdquo;，手机发起GMM_ATTACH_Request时，在UE上报能力中，<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将Access Technology Type和RF Power Capability设置为000.&nbsp; 参考e-service:ALPS02709017<br />
+	<br />
+	&nbsp; 目前</span></span><span style="font-family: Tahoma; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); font-size: 10.5pt; color: rgb(31, 73, 125);"><span lang="EN-US"><span style="font-size: 10.5pt; color: rgb(31, 73, 125);"><span lang="EN-US">Pixi5-5 4G的测试情况，手机发起GMM_ATTACH_Request消息如下：</span></span><br />
+	&nbsp; 0001 .... = Access Technology Type: GSM E --note that GSM E covers GSM P (1)<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .... 1010&nbsp; 000. .... = Length in bits: 0x50 (80)<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...1 00.. RF Power Capability, GMSK Power Class: 2 W (33 dBm) (4)<br />
+	<br />
+	（2）</span></span><span style="font-family: Tahoma; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); font-size: 10.5pt; color: rgb(31, 73, 125);"><span lang="EN-US"><span style="font-size: 10.5pt; color: rgb(31, 73, 125);"><span lang="EN-US">__ADD_NEW_LTE_RF_SUPPORTED_BAND__<br />
+	&nbsp; &nbsp; &nbsp; &nbsp; 配置LTE band27，需要添加此配置，参考e-service:ALPS02721520</span></span><span class="Apple-converted-space"> </span></span></span></p>

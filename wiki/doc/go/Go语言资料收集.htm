@@ -1,0 +1,967 @@
+<h1 style="text-align:center">
+	Go语言资料收集</h1>
+<h2>
+	<a name="t1"></a>说明</h2>
+<ul>
+	<li>
+		<strong>发布站点</strong>&nbsp;<a href="https://github.com/wonderfo/wonderfogo/wiki">GitHub</a>&nbsp;<a href="http://blog.csdn.net/wonderfogo">CSDN</a>&nbsp;<a href="http://blog.sina.com.cn/wonderfogo">新浪</a></li>
+	<li>
+		<strong>最后更新</strong>&nbsp;2012-03-31&nbsp;Go1正式发布，更新相关资料，详见&nbsp;<a href="https://github.com/wonderfo/wonderfogo/wiki/log">变更记录</a></li>
+	<li>
+		<strong>缘起说明</strong>&nbsp;想学习称手的新语言，发现Go后非常感兴趣，也把接触到的一些资料整理共享出来。</li>
+	<li>
+		<strong>　　　　</strong>&nbsp;资料若有错误或缺漏，或者大家有更好的建议，欢迎&nbsp;<a href="mailto://wonderfo@yeah.net">邮件联系</a>&nbsp;可看&nbsp;<a href="https://github.com/wonderfo/wonderfogo/wiki/suggest">已收集建议</a></li>
+	<li>
+		<strong>收集原则</strong>&nbsp;尽量收集原创链接，有时会记录一些学习心得，或摘录一些启发自己的原文</li>
+	<li>
+		<strong>　　　　</strong>&nbsp;如果同学们觉得内容还有点帮助，欢迎转载，指明原始出处更好，谢谢！&nbsp;(^_^)</li>
+	<li>
+		<strong>　　　　</strong></li>
+	<li>
+		<strong>　注意　</strong>&nbsp;Go1变化较大，网上相关翻译文章可能未及时更新，请以官方英文为主。</li>
+</ul>
+<h2>
+	<a name="t2"></a>网址导航</h2>
+<h3>
+	<a name="t3"></a>搜索引擎</h3>
+<ul>
+	<li>
+		<strong>官网搜索</strong>&nbsp;<a href="http://golang.org/search">点这里</a>&nbsp;搜索官网上的代码和内容(搜索框在右上角)</li>
+	<li>
+		<strong>catv搜索</strong>&nbsp;<a href="http://go-lang.cat-v.org/go-search">点这里</a>&nbsp;搜索Go官网、项目、论坛和cat-v网(资源很多，如IRC日志等)</li>
+</ul>
+<h3>
+	<a name="t4"></a>官方资源</h3>
+<ul>
+	<li>
+		<h4>
+			<a name="t5"></a>版本安装</h4>
+		<ul style="margin-left:18px">
+			<li>
+				<strong>官网首页&nbsp;</strong>&nbsp;(<a href="http://golang.org/">发布版</a>&nbsp;<a href="http://weekly.golang.org/">weekly</a>)</li>
+			<li>
+				<strong>安装说明&nbsp;&nbsp;</strong>(<a href="http://golang.org/doc/install.html">发布版</a>&nbsp;<a href="http://weekly.golang.org/doc/install.html">weekly</a>&nbsp;<a href="http://golangwiki.org/wiki/index.php?title=%E5%AE%89%E8%A3%85">译</a>&nbsp;<a href="http://code.google.com/p/go/downloads/list">下载</a>)</li>
+			<li>
+				<strong>Release版</strong>&nbsp;(<a href="http://code.google.com/p/go/source/browse?name=release">源码</a>&nbsp;<a href="http://weekly.golang.org/doc/devel/release.html">历史</a>&nbsp;发布2012-03-28&nbsp;Go1&nbsp;基于&nbsp;weekly2012-03-27&nbsp;<a href="https://groups.google.com/group/golang-nuts/browse_thread/thread/7d5a2712dc0d4857#">宣布帖</a>)</li>
+			<li>
+				<strong>　　　　&nbsp;</strong>&nbsp;Go1相关文档(<a href="http://blog.golang.org/2012/03/go-version-1-is-released.html">宣布博文</a>-<a href="https://developers.google.com/appengine/downloads">译</a>&nbsp;<a href="http://weekly.golang.org/doc/go1.html">发版说明</a>&nbsp;<a href="http://golang.org/doc/go1compat.html">兼容说明</a>)</li>
+			<li>
+				<strong>　　　　&nbsp;</strong>&nbsp;Go1早期文档(<a href="http://blog.golang.org/2011/10/preview-of-go-version-1.html">博文</a>&nbsp;<a href="https://docs.google.com/document/pub?id=1ny8uI-_BHrDCZv_zNBSthNKAMX_fR_0dc6epA6lztRE">计划</a>&nbsp;<a href="https://groups.google.com/group/golang-nuts/browse_thread/thread/badc4f323431a4f6">反馈帖</a>)</li>
+			<li>
+				<strong>Weekly版&nbsp;</strong>&nbsp;(<a href="http://code.google.com/p/go/source/browse/?name=weekly">源码</a>&nbsp;<a href="http://weekly.golang.org/doc/devel/weekly.html">历史</a>&nbsp;发布2012-03-27&nbsp;<a href="http://groups.google.com/group/golang-nuts/browse_thread/thread/8a27f5641e3db4b8/2b32ed8a653fa08b">宣布帖</a>)</li>
+			<li>
+				<strong>Build状态</strong>&nbsp;(<a href="http://build.golang.org/">查看</a>)</li>
+			<li>
+				<strong>GAE-SDK</strong>&nbsp;(<a href="https://developers.google.com/appengine/downloads">下载</a>&nbsp;发布&nbsp;2012-03-29&nbsp;1.6.4&nbsp;<a href="http://googleappengine.blogspot.com.au/2012/03/go-version-1-now-on-app-engine.html">宣布博文</a>-<a href="http://www.guao.hk/posts/go-version-1-now-on-google-app-engine.html">译</a>&nbsp;<a href="https://groups.google.com/group/golang-nuts/browse_thread/thread/7cb9164e3e560427#">宣布帖</a>)</li>
+		</ul>
+	</li>
+	<li>
+		<h4>
+			<a name="t6"></a>参考手册</h4>
+		<ul style="margin-left:18px">
+			<li>
+				<strong>标准包　</strong>&nbsp;(<a href="http://golang.org/pkg/">发布版</a>&nbsp;<a href="http://weekly.golang.org/pkg/">weekly</a>&nbsp;<a href="http://golangwiki.org/wiki/index.php?title=%E5%8C%85%E5%88%97%E8%A1%A8">译</a>)</li>
+			<li>
+				<strong>命令工具</strong>&nbsp;(<a href="http://golang.org/cmd/">发布版</a>&nbsp;<a href="http://weekly.golang.org/cmd/">weekly</a>&nbsp;<a href="http://golangwiki.org/wiki/index.php?title=%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8">译1</a>&nbsp;<a href="http://golang-china.googlecode.com/svn/trunk/Chinese/golang.org/index.html#toc123">译2</a>)</li>
+			<li>
+				<strong>语言规范</strong>&nbsp;(<a href="http://golang.org/doc/go_spec.html">发布版</a>&nbsp;<a href="http://weekly.golang.org/doc/go_spec.html">weekly</a>&nbsp;<a href="http://code.google.com/p/ac-me/downloads/detail?name=fango.pdf&amp;can=2&amp;q=">译1</a>&nbsp;<a href="http://golangwiki.org/wiki/index.php?title=%E8%AF%AD%E8%A8%80%E8%A7%84%E8%8C%83">译2</a>)</li>
+			<li>
+				<strong>社区项目</strong>&nbsp;(<a href="http://godashboard.appsp0t.com/project">分类查看</a>)</li>
+		</ul>
+	</li>
+	<li>
+		<h4>
+			<a name="t7"></a>学习资料</h4>
+		<ul style="margin-left:18px">
+			<li>
+				<strong>官方博客</strong>&nbsp;(<a href="http://blog.golang.org/">网址</a>)</li>
+			<li>
+				<strong>社区Wiki</strong>&nbsp;(<a href="http://code.google.com/p/go-wiki/w/list">网址</a>)</li>
+			<li>
+				<strong>常见问题</strong>&nbsp;(<a href="http://golang.org/doc/go_faq.html">发布版</a>&nbsp;<a href="http://weekly.golang.org/doc/go_faq.html">weekly</a>&nbsp;<a href="http://code.google.com/p/golang-china/wiki/go_programming_faq">译</a>)</li>
+			<li>
+				&nbsp;</li>
+			<li>
+				<strong>Go在线运行</strong>&nbsp;(<a href="http://play.golang.org/">运行分享</a>&nbsp;<a href="https://chrome.google.com/extensions/detail/bjifdepdcpccnjmmbjdonhgmagclfhme#">chrome插件</a>)</li>
+			<li>
+				<strong>Go语言之旅</strong>&nbsp;(<a href="http://tour.golang.org/#1">英文版</a>&nbsp;<a href="http://code.google.com/p/go-tour/">源码</a>&nbsp;<a href="http://golangwiki.org/wiki/index.php?title=Go%E8%AF%AD%E8%A8%80%E4%B9%8B%E6%97%85">译1</a>&nbsp;<a href="http://www.mikespook.com/2011/11/%e7%bf%bb%e8%af%91go-%e6%8c%87%e5%8d%97/">译2</a>&nbsp;<a href="http://go-tour-zh.appsp0t.com/">中文版</a>)</li>
+			<li>
+				<strong>Go语言有效编程</strong>&nbsp;(<a href="http://golang.org/doc/effective_go.html">发布版</a>&nbsp;<a href="http://weekly.golang.org/doc/effective_go.html">weekly</a>&nbsp;<a href="http://golangwiki.org/wiki/index.php?title=Effective_Go">译1</a>&nbsp;<a href="http://code.google.com/p/golang-china/wiki/effective_go">译2</a>&nbsp;<a href="http://code.google.com/p/ac-me/downloads/detail?name=fango.pdf&amp;can=2&amp;q=">译3</a>)</li>
+			<li>
+				<strong>如何编写Go程序</strong>&nbsp;(<a href="http://golang.org/doc/code.html">发布版</a>&nbsp;<a href="http://weekly.golang.org/doc/code.html">weekly</a>&nbsp;<a href="http://golangwiki.org/wiki/index.php?title=%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99Go%E7%A8%8B%E5%BA%8F">译1</a>&nbsp;<a href="http://gossipcoder.com/?p=284">译2</a>)</li>
+			<li>
+				<strong>关于Go命令</strong>&nbsp;(<a href="http://golang.org/doc/articles/go_command.html">发布版</a>&nbsp;<a href="http://weekly.golang.org/doc/articles/go_command.html">weekly</a>)</li>
+			<li>
+				<strong>语言内存模型　</strong>&nbsp;(<a href="http://golang.org/doc/go_mem.html">发布版</a>&nbsp;<a href="http://weekly.golang.org/doc/go_mem.html">weekly</a>&nbsp;<a href="http://code.google.com/p/golang-china/wiki/go_mem">译</a>)</li>
+			<li>
+				<strong>使用GDB调试Go代码</strong>&nbsp;(<a href="http://golang.org/doc/debugging_with_gdb.html">发布版</a>&nbsp;<a href="http://weekly.golang.org/doc/debugging_with_gdb.html">weekly</a>)</li>
+			<li>
+				<strong>Codewalks：代码漫步</strong>&nbsp;(<a href="http://golang.org/doc/codewalk/">发布版</a>&nbsp;<a href="http://weekly.golang.org/doc/codewalk/">weekly</a>)</li>
+			<li>
+				<strong>用Go开发GAE</strong>&nbsp;(<a href="http://code.google.com/intl/zh-CN/appengine/docs/go/overview.html">概述</a>-<a href="http://www.mikespook.com/2011/05/%e3%80%90%e7%bf%bb%e8%af%91%e3%80%91app-engine-go-%e6%a6%82%e8%bf%b0/">译</a>&nbsp;<a href="https://developers.google.com/appengine/docs/go/gettingstarted/?hl=zh-CN">入门介绍</a>&nbsp;<a href="http://www.guao.hk/posts/brief-presentation-on-google-app-engine-with-golang.html">简明教程</a>&nbsp;<a href="http://code.google.com/intl/zh-CN/appengine/docs/go/">运行时环境</a>)</li>
+		</ul>
+	</li>
+	<li>
+		<h4>
+			<a name="t8"></a>项目开发</h4>
+		<ul style="margin-left:18px">
+			<li>
+				<strong>Go项目　&nbsp;</strong>&nbsp;(<a href="http://code.google.com/p/go/">首页</a>&nbsp;<a href="http://build.golang.org/">Build状态</a>&nbsp;<a href="http://code.google.com/p/go/source/browse/">源码浏览</a>&nbsp;<a href="http://code.google.com/p/go/source/list">提交日志</a>&nbsp;<a href="http://weekly.golang.org/doc/contribute.html">贡献准则</a>&nbsp;<a href="http://golang.org/CONTRIBUTORS">贡献人员</a>)</li>
+			<li>
+				<strong>Go问题　&nbsp;</strong>&nbsp;(<a href="http://code.google.com/p/go/issues/entry">提交</a>&nbsp;<a href="http://code.google.com/p/go/issues/list">所有</a>&nbsp;<a href="http://code.google.com/p/go/issues/list?q=label:os-windows">Windows</a>&nbsp;<a href="http://code.google.com/p/go/issues/list?q=status=HelpWanted">需外界帮助</a>)</li>
+			<li>
+				<strong>gccgo前端</strong>&nbsp;(<a href="http://code.google.com/p/gofrontend/">首页</a>&nbsp;<a href="http://weekly.golang.org/doc/gccgo_install.html">安装使用</a>&nbsp;<a href="http://weekly.golang.org/doc/gccgo_contribute.html">贡献说明</a>)</li>
+		</ul>
+	</li>
+	<li>
+		<h4>
+			<a name="t9"></a>邮件列表</h4>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://groups.google.com/group/golang-nuts">golang-nuts</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(讨论用Go开发)</li>
+			<li>
+				<a href="http://groups.google.com/group/golang-china">golang-china</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(讨论用Go开发，都是中文兄弟)</li>
+			<li>
+				<a href="http://groups.google.com/group/golang-dev">golang-dev</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(讨论Go自身开发)</li>
+			<li>
+				<a href="http://groups.google.com/group/golang-checkins">golang-checkins</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(汇集Go提交信息)</li>
+			<li>
+				<a href="https://groups.google.com/group/golang-announce">golang-announce</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Go版本发布的通知)</li>
+			<li>
+				<a href="https://groups.google.com/group/google-appengine-go">google-appengine-go</a>&nbsp;(讨论GAE的Go支持)</li>
+		</ul>
+	</li>
+	<li>
+		<h4>
+			<a name="t10"></a>其他资源</h4>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://blog.csdn.net/wonderfogo/article/details/7096176">IRC讨论频道&nbsp;</a></li>
+			<li>
+				<a href="http://twitter.com/go_nuts">@go_nuts&nbsp;at&nbsp;Twitter</a></li>
+			<li>
+				<a href="https://plus.google.com/101406623878176903605/posts">google+</a></li>
+		</ul>
+	</li>
+</ul>
+<h3>
+	<a name="t11"></a>cat-v</h3>
+<ul>
+	<li>
+		<a href="http://go-lang.cat-v.org/books">书籍</a>&nbsp;<a href="http://go-lang.cat-v.org/doc/">文章</a>&nbsp;<a href="http://go-lang.cat-v.org/talks/">讲演</a>&nbsp;<a href="http://go-lang.cat-v.org/irc-logs/">IRC日志</a></li>
+	<li>
+		<a href="http://go-lang.cat-v.org/dev-utils">相关开发工具</a></li>
+	<li>
+		<a href="http://go-lang.cat-v.org/text-editors/">支持Go的编辑器</a></li>
+	<li>
+		&nbsp;</li>
+	<li>
+		<a href="http://go-lang.cat-v.org/go-code">用Go开发的产品</a></li>
+	<li>
+		<a href="http://go-lang.cat-v.org/library-bindings">用cgo绑定的C库</a></li>
+	<li>
+		<a href="http://go-lang.cat-v.org/pure-go-libs">用Go直接开发的库</a></li>
+	<li>
+		&nbsp;</li>
+	<li>
+		<a href="http://go-lang.cat-v.org/organizations-using-go">使用Go的组织</a></li>
+	<li>
+		<a href="http://go-lang.cat-v.org/quotes">各方人士评价Go开发</a></li>
+	<li>
+		<a href="http://go-lang.cat-v.org/university-courses">大学Go培训课程情况</a></li>
+	<li>
+		&nbsp;</li>
+	<li>
+		<a href="http://go-lang.cat-v.org/other-implementations">Go语言其他实现</a></li>
+	<li>
+		<a href="http://go-lang.cat-v.org/arch-ports">Go支持的CPU架构</a></li>
+	<li>
+		<a href="http://go-lang.cat-v.org/os-ports">Go支持的操作系统</a></li>
+	<li>
+		<a href="http://go-lang.cat-v.org/packages">各操作系统下的安装包</a></li>
+</ul>
+<h3>
+	<a name="t12"></a>网站</h3>
+<ul>
+	<li>
+		<a href="http://www.reddit.com/r/golang/">Reddit投票</a></li>
+	<li>
+		<a href="http://stackoverflow.com/questions/tagged/go">Stackoverflow问答</a></li>
+	<li>
+		&nbsp;</li>
+	<li>
+		<a href="http://golangwiki.org/wiki/index.php?title=%E9%A6%96%E9%A1%B5">Go语言Wiki</a></li>
+	<li>
+		<a href="http://code.google.com/p/golang-china/">Go语言中文翻译项目</a></li>
+	<li>
+		<a href="http://code.google.com/p/ac-me/">ac-me</a></li>
+	<li>
+		&nbsp;</li>
+	<li>
+		<a href="http://bbs.golang-china.org/viewforum.php?f=1">Go语言中文论坛</a></li>
+	<li>
+		<a href="http://golangd.com/">Go程式語言學習園地</a></li>
+	<li>
+		&nbsp;</li>
+	<li>
+		<a href="http://www.gophertimes.com/">Gopher&nbsp;Times</a></li>
+</ul>
+<h3>
+	<a name="t13"></a>博客</h3>
+<ul>
+	<li>
+		<a href="http://www.mikespook.com/tag/golang/">邢兴</a>&nbsp;<a href="http://chaishushan.blog.163.com/blog/#m=0&amp;t=1&amp;c=fks_087068087085081071080094087095085085081066093084094074083">柴树杉</a>&nbsp;<a href="http://going-along.blogspot.com/">HowardFan</a>&nbsp;<a href="http://blog.codingnow.com/eo/go_oieno/">云风</a>&nbsp;<a href="http://blog.csdn.net/xushiweizh/article/category/924488">许式伟</a>&nbsp;<a href="http://trac.lvscar.info/wiki">lvyi</a>&nbsp;<a href="http://wifihack.net/blog/category/golang/">BianJiang</a>&nbsp;<a href="http://blog.dccmx.com/category/golang/">DCCMX</a>&nbsp;<a href="http://monnand.me/myblog.fcgi/tag/8/">monnand</a></li>
+	<li>
+		<a href="http://www.douban.com/people/davies/notes">刘洪清</a>&nbsp;<a href="http://www.betabears.com/category/dev/golang">贝塔熊</a>&nbsp;<a href="http://lxscn.com/blog/category/language/go/">Linxs</a>&nbsp;<a href="http://kejibo.com/page/6/?s=golang&amp;submit=Search">科技博</a>&nbsp;<a href="http://www.gossipcoder.com/">陈钢</a>&nbsp;<a href="http://cxwangyi.wordpress.com/category/go/">王益</a>&nbsp;<a href="http://chunhe.info/blogs/tags/go">Crane</a>&nbsp;<a href="http://blog.csdn.net/hopingwhite/article/category/705187">无心云</a>&nbsp;<a href="http://www.cnblogs.com/AllenDang/">AllenDang</a></li>
+</ul>
+<h2>
+	<a name="t14"></a>新闻资料</h2>
+<h3>
+	<a name="t15"></a>2012年</h3>
+<ul>
+	<li>
+		2012-03-29&nbsp;<strong>Go&nbsp;项目取得了历史性进展，Go&nbsp;1&nbsp;横空出世</strong>&nbsp;<a href="http://www.guao.hk/posts/go-project-reaches-major-milestone-go-1.html">新闻</a></li>
+</ul>
+<h3>
+	<a name="t16"></a>2011年</h3>
+<ul>
+	<li>
+		2011-11-17&nbsp;<strong>谷歌将在明年初推出Go语言首个正式版本1.0</strong>&nbsp;<a href="http://news.ccidnet.com/art/11099/20111116/3158785_1.html">新闻</a></li>
+	<li>
+		2011-11-10&nbsp;<strong>Go语言两周年</strong>&nbsp;<a href="http://blog.golang.org/2011/11/go-programming-language-turns-two.html">官方博文</a>(<a href="http://golangwiki.org/wiki/index.php?title=Go%E8%AF%AD%E8%A8%80%E4%B8%A4%E5%91%A8%E5%B9%B4">译</a>)</li>
+	<li>
+		2011-10-11&nbsp;<strong>Go&nbsp;App&nbsp;Engine&nbsp;SDK&nbsp;1.5.5发布</strong>&nbsp;<a href="http://blog.golang.org/2011/10/go-app-engine-sdk-155-released.html">官方博文</a>(<a href="http://golangwiki.org/wiki/index.php?title=Go_App_Engine_SDK_1.5.5%E5%8F%91%E5%B8%83">译</a>)</li>
+	<li>
+		2011-10-05&nbsp;<strong>Go&nbsp;1&nbsp;预览</strong>&nbsp;<a href="http://blog.golang.org/2011/10/preview-of-go-version-1.html">官方博文</a>(<a href="http://golangwiki.org/wiki/index.php?title=Go_1%E9%A2%84%E8%A7%88&amp;variant=zh">译</a>)</li>
+	<li>
+		2011-07-21&nbsp;<strong>Go在App&nbsp;Engine现在已经公开可用了</strong>&nbsp;<a href="http://blog.golang.org/2011/07/go-for-app-engine-is-now-generally.html">官方博文</a>&nbsp;<a href="http://www.infoq.com/cn/news/2011/07/GAE-Go">新闻1</a>&nbsp;<a href="http://simple-is-better.com/news/267">新闻2</a></li>
+	<li>
+		2011-06-03&nbsp;<strong>Google&nbsp;推出&nbsp;C++&nbsp;Go&nbsp;Java&nbsp;Scala的基准性能测试</strong>&nbsp;<a href="http://cnbeta.com/articles/145252.htm">新闻</a></li>
+	<li>
+		2011-05-18&nbsp;<strong>Dr.&nbsp;Dobb&rsquo;s对Ken&nbsp;Thompson的采访</strong>&nbsp;<a href="http://drdobbs.com/open-source/229502480">原文</a>(<a href="http://gossipcoder.com/?cat=5">译</a>)</li>
+	<li>
+		2011-04-16&nbsp;<strong>Brad&nbsp;Fitzpatrick&nbsp;正式参与到&nbsp;Go&nbsp;语言项目中</strong>&nbsp;<a href="http://www.guao.hk/posts/brad-fitzpatrick-move-to-go-lang.html">新闻</a></li>
+	<li>
+		2011-04-13&nbsp;<strong>Rob&nbsp;Pike谈Google&nbsp;Go：并发，Type&nbsp;System，内存管理和GC</strong>&nbsp;<a href="http://www.infoq.com/cn/interviews/pike-google-go-cn">新闻</a></li>
+	<li>
+		2011-05-23&nbsp;<strong>Go在Google&nbsp;I/O&nbsp;2011：视频</strong>&nbsp;<a href="http://blog.golang.org/2011/05/go-at-google-io-2011-videos.html">官方博文</a>(可参见后文讲演视频)</li>
+	<li>
+		2011-03-16&nbsp;<strong>Go变得更加稳定了</strong>&nbsp;<a href="http://blog.golang.org/2011/03/go-becomes-more-stable.html">官方博文</a></li>
+</ul>
+<h3>
+	<a name="t17"></a>2010年</h3>
+<ul>
+	<li>
+		2010-11-10&nbsp;<strong>Go语言一周年</strong>&nbsp;<a href="http://blog.golang.org/2010/11/go-one-year-ago-today.html">官方博文</a>(<a href="http://golangwiki.org/wiki/index.php?title=Go%E8%AF%AD%E8%A8%80%E4%B8%80%E5%91%A8%E5%B9%B4">译1</a>&nbsp;<a href="http://sd.csdn.net/a/20101115/281938.html">译2</a>)</li>
+	<li>
+		2010-10-12&nbsp;<strong>Google解决Go语言名称问题</strong>&nbsp;<a href="http://www.cnbeta.com/articles/124170.htm">新闻</a></li>
+	<li>
+		2010-09-15&nbsp;<strong>Go&nbsp;Playground介绍</strong>&nbsp;<a href="http://blog.golang.org/2010/09/introducing-go-playground.html">官方博文</a>&nbsp;<a href="http://www.iteye.com/news/17765">新闻</a></li>
+	<li>
+		2010-09-06&nbsp;<strong>Go&nbsp;荣获&nbsp;2010&nbsp;Bossie&nbsp;奖</strong>&nbsp;<a href="http://blog.golang.org/2010/09/go-wins-2010-bossie-award.html">官方博文</a>(<a href="http://golangwiki.org/wiki/index.php?title=Go%E8%8E%B7%E5%BE%972010%E5%B9%B4%E7%9A%84Bossie%E5%A5%96">译</a>)</li>
+	<li>
+		2010-07-22&nbsp;<strong>Go语言创始人对Java、C++的复杂性不满</strong>&nbsp;<a href="http://www.infoworld.com/d/developer-world/google-executive-frustrated-java-c-complexity-375">新闻</a>(<a href="http://java.csdn.net/a/20100727/277294.html">译</a>)</li>
+	<li>
+		2010-06-06&nbsp;<strong>Go在Google&nbsp;I/O&nbsp;2010：视频</strong>&nbsp;<a href="http://blog.golang.org/2010/06/go-programming-session-video-from.html">官方博文</a>(可参见后文讲演视频)</li>
+	<li>
+		2010-05-27&nbsp;<strong>Go在Google&nbsp;I/O&nbsp;2010：常见问题</strong>&nbsp;<a href="http://blog.golang.org/2010/05/go-at-io-frequently-asked-questions.html">官方博文</a>(<a href="http://golangwiki.org/wiki/index.php?title=Go%E5%9C%A8I/O%EF%BC%9A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94">译</a>)</li>
+	<li>
+		2010-05-12&nbsp;<strong>Go在Google&nbsp;I/O&nbsp;2010：即将来临</strong>&nbsp;<a href="http://blog.golang.org/2010/05/upcoming-google-io-go-events.html">官方博文</a></li>
+	<li>
+		2010-05-05&nbsp;<strong>新的谈话和教程</strong>&nbsp;<a href="http://blog.golang.org/2010/05/new-talk-and-tutorials.html">官方博文</a></li>
+	<li>
+		2010-03-18&nbsp;<strong>Go：2010年3月的最新消息</strong>&nbsp;<a href="http://blog.golang.org/2010/03/go-whats-new-in-march-2010.html">官方博文</a></li>
+	<li>
+		2010-01-29&nbsp;<strong>GCC宣布对Go语言的支持</strong>&nbsp;<a href="http://www.iteye.com/news/13213">新闻</a></li>
+	<li>
+		2010-01-11&nbsp;<strong>1月编程榜发布：Google&nbsp;Go意外夺得年度编程语言</strong>&nbsp;<a href="http://developer.51cto.com/art/201001/177046.htm">新闻</a></li>
+</ul>
+<h3>
+	<a name="t18"></a>2009年</h3>
+<ul>
+	<li>
+		2009-11-12&nbsp;<strong>Go语言源码的一个改动</strong>&nbsp;<a href="http://coolshell.cn/articles/1761.html">博文</a></li>
+	<li>
+		2011-11-11&nbsp;<strong>Go&nbsp;语言：Google&nbsp;的新编程语言</strong>&nbsp;<a href="http://coolshell.cn/articles/1751.html">博文</a>&nbsp;<a href="http://tech.it168.com/a2009/1117/810/000000810171.shtml">新闻</a></li>
+</ul>
+<h2>
+	<a name="t19"></a>官方资料</h2>
+<h3>
+	<a name="t20"></a>官方博文</h3>
+<ul>
+	<li>
+		<h4>
+			<a name="t21"></a>语言</h4>
+		<ul style="margin-left:18px">
+			<li>
+				2011-07-12&nbsp;<strong>错误处理和Go</strong>&nbsp;<a href="http://blog.golang.org/2011/07/error-handling-and-go.html">原文</a>(<a href="http://tech.it168.com/a2009/1117/810/000000810171.shtml">译1</a>&nbsp;<a href="http://golangwiki.org/wiki/index.php?title=%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%92%8CGo&amp;variant=zh">译2</a>)</li>
+			<li>
+				2011-05-25&nbsp;<strong>一个GIF解码器：Go接口的使用</strong>&nbsp;<a href="http://blog.golang.org/2011/05/gif-decoder-exercise-in-go-interfaces.html">原文</a></li>
+			<li>
+				2011-01-05&nbsp;<strong>Go的切片：用法和内幕</strong>&nbsp;<a href="http://blog.golang.org/2011/01/go-slices-usage-and-internals.html">原文</a></li>
+			<li>
+				2011-09-23&nbsp;<strong>Go的并发模式：超时、继续</strong>&nbsp;<a href="http://blog.golang.org/2010/09/go-concurrency-patterns-timing-out-and.html">原文</a>(<a href="http://golangwiki.org/wiki/index.php?title=Go%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F%EF%BC%9A%E8%B6%85%E6%97%B6%E3%80%81%E7%BB%A7%E7%BB%AD">译</a>)</li>
+			<li>
+				2010-08-04&nbsp;<strong>Defer、Panic&nbsp;和&nbsp;Recover</strong>&nbsp;<a href="http://blog.golang.org/2010/08/defer-panic-and-recover.html">原文</a>(<a href="http://golang-china.googlecode.com/svn-history/r177/trunk/Chinese/golang.org/defer_panic_recover.html">译1</a>&nbsp;<a href="http://golangwiki.org/wiki/index.php?title=Defer%E3%80%81Panic%E5%92%8CRecover">译2</a>)</li>
+			<li>
+				2010-07-07&nbsp;<strong>Go的声明语法</strong>&nbsp;<a href="http://blog.golang.org/2010/07/gos-declaration-syntax.html">原文</a>(<a href="http://golangwiki.org/wiki/index.php?title=Go%E7%9A%84%E5%A3%B0%E6%98%8E%E8%AF%AD%E6%B3%95">译</a>)</li>
+			<li>
+				2010-04-27&nbsp;<strong>JSON-RPC:接口的传说</strong>&nbsp;<a href="http://blog.golang.org/2010/04/json-rpc-tale-of-interfaces.html">原文</a></li>
+		</ul>
+	</li>
+	<li>
+		<h4>
+			<a name="t22"></a>包</h4>
+		<ul style="margin-left:18px">
+			<li>
+				2011-09-29&nbsp;<strong>Go的image/draw包</strong>&nbsp;<a href="http://blog.golang.org/2011/09/go-imagedraw-package.html">原文</a></li>
+			<li>
+				2011-09-21&nbsp;<strong>Go的image包</strong>&nbsp;<a href="http://blog.golang.org/2011/09/go-image-package.html">原文</a></li>
+			<li>
+				2011-09-06&nbsp;<strong>反射法则</strong>&nbsp;<a href="http://blog.golang.org/2011/09/laws-of-reflection.html">原文</a>(<a href="http://golangwiki.org/wiki/index.php?title=%E5%8F%8D%E5%B0%84%E6%B3%95%E5%88%99">译</a>)</li>
+			<li>
+				2011-03-24&nbsp;<strong>数据的Gobs</strong>&nbsp;<a href="http://blog.golang.org/2011/03/gobs-of-data.html">原文</a>(<a href="http://www.mikespook.com/2011/03/%e3%80%90%e7%bf%bb%e8%af%91%e3%80%91gob-%e7%9a%84%e6%95%b0%e6%8d%ae/">译1</a>&nbsp;<a href="http://code.google.com/p/holmescncodes/wiki/Gobs_of_Data">译2</a>)</li>
+			<li>
+				2011-01-25&nbsp;<strong>JSON和Go</strong>&nbsp;<a href="http://blog.golang.org/2011/01/json-and-go.html">原文</a></li>
+		</ul>
+	</li>
+	<li>
+		<h4>
+			<a name="t23"></a>工具</h4>
+		<ul style="margin-left:18px">
+			<li>
+				2011-06-24&nbsp;<strong>Go程序性能分析</strong>&nbsp;<a href="http://blog.golang.org/2011/06/profiling-go-programs.html">原文</a></li>
+			<li>
+				2011-03-31&nbsp;<strong>Godoc：文档化&nbsp;Go&nbsp;代码</strong>&nbsp;<a href="http://blog.golang.org/2011/03/godoc-documenting-go-code.html">原文</a>(<a href="http://www.mikespook.com/?p=932">译1</a>&nbsp;<a href="http://code.google.com/p/holmescncodes/wiki/Godoc_Documenting_Go_Code">译2</a>)</li>
+			<li>
+				2011-03-17&nbsp;<strong>C?&nbsp;Go?&nbsp;Cgo!</strong>&nbsp;<a href="http://blog.golang.org/2011/03/c-go-cgo.html">原文</a>(<a href="http://code.google.com/p/holmescncodes/wiki/C_Go_Cgo">译</a>)</li>
+		</ul>
+	</li>
+	<li>
+		<h4>
+			<a name="t24"></a>2012年其他博文</h4>
+		<ul style="margin-left:18px">
+			<li>
+				2011-03-28&nbsp;<strong>Go版本1发布</strong>&nbsp;<a href="http://blog.golang.org/2012/03/go-version-1-is-released.html">原文</a>(<a href="https://developers.google.com/appengine/downloads">译</a>)</li>
+		</ul>
+	</li>
+	<li>
+		<h4>
+			<a name="t25"></a>2011年其他博文</h4>
+		<ul style="margin-left:18px">
+			<li>
+				2011-12-21&nbsp;<strong>调查Go社区情况</strong>&nbsp;<a href="http://blog.golang.org/2011/12/getting-to-know-go-community.html">原文</a></li>
+			<li>
+				2011-12-19&nbsp;<strong>使用Go开发StatHat</strong>&nbsp;<a href="http://blog.golang.org/2011/12/building-stathat-with-go.html">原文</a></li>
+			<li>
+				2011-12-13&nbsp;<strong>从零到Go：24小时内登上Google主页的Go语言应用&ldquo;火鸡&rdquo;doodle开发纪实</strong>&nbsp;<a href="http://blog.golang.org/2011/12/from-zero-to-go-launching-on-google.html">原文</a>(<a href="http://www.guao.hk/posts/from-zero-to-go-launching-on-the-google-homepage-in-24-hours.html">译</a>)</li>
+			<li>
+				2011-11-01&nbsp;<strong>编写可扩展的App&nbsp;Engine应用</strong>&nbsp;<a href="http://blog.golang.org/2011/11/writing-scalable-app-engine.html">原文</a></li>
+			<li>
+				2011-10-30&nbsp;<strong>使用GNU调试器调试Go代码</strong>&nbsp;<a href="http://blog.golang.org/2011/10/debugging-go-programs-with-gnu-debugger.html">原文</a>(<a href="http://golangwiki.org/wiki/index.php?title=%E4%BD%BF%E7%94%A8GUN%E8%B0%83%E8%AF%95%E5%99%A8%E8%B0%83%E8%AF%95Go%E4%BB%A3%E7%A0%81">译</a>)</li>
+			<li>
+				2011-10-04&nbsp;<strong>从浏览器中学习Go</strong>&nbsp;<a href="http://blog.golang.org/2011/10/learn-go-from-your-browser.html">原文</a></li>
+			<li>
+				2011-09-01&nbsp;<strong>两个Go演讲：&ldquo;Go的词汇扫描&rdquo;和&ldquo;Cuddle：一个App&nbsp;Engine演示&rdquo;</strong>&nbsp;<a href="http://blog.golang.org/2011/09/two-go-talks-lexical-scanning-in-go-and.html">原文</a>&nbsp;<a href="http://v.youku.com/v_show/id_XMzAwODIzOTk2.html">词汇扫描优酷视频</a>&nbsp;<a href="http://v.youku.com/v_show/id_XMzAwNzYyMTgw.html">AppEngine优酷视频</a></li>
+			<li>
+				2011-06-30&nbsp;<strong>&ldquo;Go中的一级函数&rdquo;和新的教程说明</strong>&nbsp;<a href="http://blog.golang.org/2011/06/first-class-functions-in-go-and-new-go.html">原文</a></li>
+			<li>
+				2011-06-03&nbsp;<strong>Go外部库的关注</strong>&nbsp;<a href="http://blog.golang.org/2011/06/spotlight-on-external-go-libraries.html">原文</a></li>
+			<li>
+				2011-05-10&nbsp;<strong>Go和Google&nbsp;App&nbsp;Engine</strong>&nbsp;<a href="http://blog.golang.org/2011/05/go-and-google-app-engine.html">原文</a>(<a href="http://code.google.com/p/holmescncodes/wiki/Go_And_Google_App_Engine">译</a>)</li>
+			<li>
+				2011-04-21&nbsp;<strong>Go在Heroku中的应用</strong>&nbsp;<a href="http://blog.golang.org/2011/04/go-at-heroku.html">原文</a>(<a href="http://www.mikespook.com/2011/04/%e3%80%90%e7%bf%bb%e8%af%91%e3%80%91go-%e5%9c%a8-heroku/">译1</a>&nbsp;<a href="http://code.google.com/p/holmescncodes/wiki/Go_at_Heroku">译2</a>)</li>
+			<li>
+				2011-04-15&nbsp;<strong>Gofix介绍</strong>&nbsp;<a href="http://blog.golang.org/2011/04/introducing-gofix.html">原文</a>(<a href="http://www.mikespook.com/2011/04/%e3%80%90%e7%bf%bb%e8%af%91%e3%80%91gofix-%e4%bb%8b%e7%bb%8d/">译1</a>&nbsp;<a href="http://www.guao.hk/posts/gofix-for-go.html">译2</a>&nbsp;<a href="http://code.google.com/p/holmescncodes/wiki/Introducing_Gofix">译3</a>)</li>
+		</ul>
+	</li>
+	<li>
+		<h4>
+			<a name="t26"></a>2010年其他博文</h4>
+		<ul style="margin-left:18px">
+			<li>
+				2010-11-02&nbsp;<strong>调试Go程序（状态报告）</strong>&nbsp;<a href="http://blog.golang.org/2010/11/debugging-go-code-status-report.html">原文</a>(<a href="http://golangwiki.org/wiki/index.php?title=%E8%B0%83%E8%AF%95Go%E7%A8%8B%E5%BA%8F%EF%BC%88%E7%8A%B6%E6%80%81%E6%8A%A5%E5%91%8A%EF%BC%89">译</a>)</li>
+			<li>
+				2010-10-19&nbsp;<strong>实际的Go项目：SmartTwitter和web.go</strong>&nbsp;<a href="http://blog.golang.org/2010/10/real-go-projects-smarttwitter-and-webgo.html">原文</a>(<a href="http://golangwiki.org/wiki/index.php?title=%E5%AE%9E%E9%99%85%E7%9A%84Go%E9%A1%B9%E7%9B%AE%EF%BC%9ASmartTwitter%E5%92%8Cweb.go">译</a>&nbsp;<a href="http://www.hoisie.com/">作者</a>)</li>
+			<li>
+				2010-07-13&nbsp;<strong>用通讯来共享内存</strong>&nbsp;<a href="http://blog.golang.org/2010/07/share-memory-by-communicating.html">原文</a>(<a href="http://golangwiki.org/wiki/index.php?title=%E9%80%9A%E8%BF%87%E9%80%9A%E4%BF%A1%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98">译</a>)</li>
+			<li>
+				2010-04-20&nbsp;<strong>第三方库：goprotobuf&nbsp;和更多</strong>&nbsp;<a href="http://blog.golang.org/2010/04/third-party-libraries-goprotobuf-and.html">原文</a></li>
+		</ul>
+	</li>
+</ul>
+<h3>
+	<a name="t27"></a>社区Wiki</h3>
+<h3>
+	<a name="t28"></a>讲演视频</h3>
+<ul>
+	<li>
+		<strong>用Go写web程序</strong>&nbsp;<a href="http://golang.org/doc/talks/io2011/Writing_Web_Apps_in_Go.pdf">优酷视频</a>&nbsp;<a href="http://v.youku.com/v_show/id_XMzMxNzUxNjYw.html">优酷视频</a>&nbsp;<a href="http://www.youtube.com/watch?v=-i0hat7pdpk">YouTube视频</a>
+		<ul style="margin-left:18px">
+			<li>
+				Rob&nbsp;Pike&nbsp;和&nbsp;Andrew&nbsp;Gerrand&nbsp;在&nbsp;Google&nbsp;I/O&nbsp;2011&nbsp;大会上的谈话</li>
+			<li>
+				回顾一个简单web应用的架构和开发，揭示&nbsp;GAE&nbsp;上的&nbsp;Go实现</li>
+		</ul>
+	</li>
+	<li>
+		<strong>现实中的Go语言</strong>&nbsp;<a href="http://golang.org/doc/talks/io2011/Real_World_Go.pdf">PDF</a>&nbsp;<a href="http://www.youtube.com/watch?v=-i0hat7pdpk">土豆视频</a>
+		<ul style="margin-left:18px">
+			<li>
+				Andrew&nbsp;Gerrand&nbsp;在&nbsp;在Google&nbsp;I/O&nbsp;2011&nbsp;训练营（Boot&nbsp;Camp）上的谈话</li>
+			<li>
+				概述了Go语言的类型系统和并发模式，并提供四个用Go程序解决实际问题的案例</li>
+		</ul>
+	</li>
+	<li>
+		<strong>Go语言编程</strong>&nbsp;<a href="http://v.youku.com/v_show/id_XMTc5MTk3NTY0.html">优酷视频</a>&nbsp;<a href="http://www.youtube.com/watch?v=jgVhBThJdXc">YouTube视频</a>
+		<ul style="margin-left:18px">
+			<li>
+				Rob&nbsp;Pike&nbsp;和&nbsp;Russ&nbsp;Cox&nbsp;在&nbsp;Google&nbsp;I/O&nbsp;2010&nbsp;大会上的演讲</li>
+			<li>
+				通过一些表现Go语言特性的样例，揭示了Go与其他语言的不同</li>
+			<li>
+				内容涉及并发、内置类型、方法和其他类型、通过接口构建程序</li>
+		</ul>
+	</li>
+	<li>
+		<strong>Go语言编程实践</strong>&nbsp;<a href="http://wh3rd.net/practical-go/">幻灯</a>&nbsp;<a href="http://v.youku.com/v_show/id_XMjI1NzQyMjAw.html">优酷视频</a>
+		<ul style="margin-left:18px">
+			<li>
+				谈及使用Go语言开发一个完整的web应用</li>
+			<li>
+				通过一个简单的短地址服务，揭示设计、存储、并发、扩展性等细节</li>
+		</ul>
+	</li>
+	<li>
+		<strong>Go语言技术座谈</strong>&nbsp;<a href="http://golang.org/doc/talks/go_talk-20091030.pdf">PDF</a>&nbsp;<a href="http://v.youku.com/v_show/id_XMTU1NzY0NzIw.html">优酷视频(英文字幕)</a>&nbsp;<a href="http://www.youtube.com/watch?v=rKnDgT73v8s">YouTube视频</a>&nbsp;<a href="http://www.infoq.com/cn/news/2009/11/Go-Google-New-Language">相关新闻</a>
+		<ul style="margin-left:18px">
+			<li>
+				Rob&nbsp;Pike&nbsp;2009年10月在google的一次四小时演讲</li>
+			<li>
+				Go语言的第一次公开介绍，这以后Go语言不断在发展改变，但这次介绍依然是出色的</li>
+		</ul>
+	</li>
+	<li>
+		<strong>YouTube上的Go编程频道</strong>&nbsp;<a href="http://www.youtube.com/gocoding">频道</a>
+		<ul style="margin-left:18px">
+			<li>
+				编写、编译、发布Go包&nbsp;<a href="http://www.youtube.com/gocoding#p/u/0/jDWBJOXs_iI">YouTube视频</a>&nbsp;<a href="http://v.youku.com/v_show/id_XMTc5MTQ5NDMy.html">优酷视频</a></li>
+			<li>
+				编写Go的单元测试和基准测试&nbsp;<a href="http://www.youtube.com/watch?v=3brH0zOqm0w">YouTube视频</a></li>
+		</ul>
+	</li>
+	<li>
+		<strong>富于表现力的Go语言</strong>&nbsp;<a href="http://golang.org/doc/ExpressivenessOfGo.pdf">PDF</a>
+		<ul style="margin-left:18px">
+			<li>
+				Rob&nbsp;Pike&nbsp;在&nbsp;2010&nbsp;JAOO&nbsp;大会上的演讲</li>
+			<li>
+				谈到&nbsp;Go&nbsp;语言富于表现力，又容易理解</li>
+		</ul>
+	</li>
+	<li>
+		<strong>不同设计的Go语言</strong>&nbsp;<a href="http://www.oscon.com/oscon2010/public/schedule/detail/14760">演讲介绍</a>&nbsp;<a href="http://assets.en.oreilly.com/1/event/45/Another%20Go%20at%20Language%20Design%20Presentation.pdf">PDF</a>&nbsp;<a href="http://v.youku.com/v_show/id_XMjE0MzQ4OTY4.html">优酷视频</a>&nbsp;Pike在56:19时出现
+		<ul style="margin-left:18px">
+			<li>
+				Rob&nbsp;Pike&nbsp;在2010开源技术大会上的演讲</li>
+			<li>
+				为不了解Go语言的听众，提供的教程，介绍Go语言相关背景和重要特性。</li>
+		</ul>
+	</li>
+	<li>
+		<strong>Public&nbsp;Static&nbsp;Void</strong>&nbsp;<a href="http://www.oscon.com/oscon2010/public/schedule/detail/13423">演讲介绍</a>&nbsp;<a href="http://assets.en.oreilly.com/1/event/45/Public%20Static%20Void%20Presentation.pdf">PDF</a>&nbsp;<a href="http://v.youku.com/v_show/id_XMTkzOTM4OTA4.html">优酷视频</a>
+		<ul style="margin-left:18px">
+			<li>
+				Rob&nbsp;Pike&nbsp;在2010开源技术大会上的演讲</li>
+			<li>
+				反思面向对象的编程</li>
+		</ul>
+	</li>
+	<li>
+		<strong>新兴语言Go的演讲</strong>&nbsp;<a href="http://www.oscon.com/oscon2010/public/schedule/detail/15464">演讲介绍</a>&nbsp;<a href="http://assets.en.oreilly.com/1/event/45/Go%20Presentation.pdf">PDF</a>
+		<ul style="margin-left:18px">
+			<li>
+				Rob&nbsp;Pike&nbsp;在2010开源技术大会上，对新兴语言Go的演讲</li>
+			<li>
+				摘要：Go在并发性上和大多数语言都不同，即便是以并发为中心的Erlang等。&nbsp;回顾了从Hoare的1978年论坛到Go的历程，深刻介绍Go怎样以及为什么这样做</li>
+		</ul>
+	</li>
+	<li>
+		<strong>Go语言的GCC前端</strong>&nbsp;<a href="http://golang.org/doc/talks/gofrontend-gcc-summit-2010.pdf">PDF</a>
+		<ul style="margin-left:18px">
+			<li>
+				Ian&nbsp;Lance&nbsp;Taylor&nbsp;在&nbsp;GCC&nbsp;2010&nbsp;峰会上的演讲</li>
+			<li>
+				谈到了对GCC的Go语言前端</li>
+		</ul>
+	</li>
+	<li>
+		<strong>Go语言的宣传视频</strong>&nbsp;<a href="http://v.youku.com/v_show/id_XMTMyMTg4MDcy.html">优酷视频</a>&nbsp;<a href="http://www.youtube.com/watch?v=wwoWei-GAPo">YouTube视频</a>
+		<ul style="margin-left:18px">
+			<li>
+				Russ&nbsp;Cox&nbsp;演示Go语言的快速编译</li>
+		</ul>
+	</li>
+</ul>
+<h3>
+	<a name="t29"></a>开发团队</h3>
+<ul>
+	<li>
+		<strong>Ken&nbsp;Thompson</strong>&nbsp;<a href="http://baike.baidu.com/view/1664692.htm">百度百科</a>
+		<ul style="margin-left:18px">
+			<li>
+				Unix之父，1983年图灵奖（Turing&nbsp;Award）和1998年美国国家技术奖（National&nbsp;Medal&nbsp;of&nbsp;Technology）得主。</li>
+			<li>
+				是Unix操作系统、Plan9操作系统、UTF-8编码和B编程语言（C的前身）的创立者之一。</li>
+			<li>
+				94年底跑到莫斯科开米格29战机，然后2000年从贝尔实验室正式退休全职飞行。2007年加入谷歌</li>
+		</ul>
+	</li>
+	<li>
+		<strong>Rob&nbsp;Pike</strong>&nbsp;<a href="http://herpolhode.com/rob/">个人网站</a>&nbsp;<a href="http://research.google.com/people/r/">Google介绍</a>
+		<ul style="margin-left:18px">
+			<li>
+				曾在贝尔实验室工作，是Unix操作系统、Plan9操作系统、Limbo编程语言和UTF-8编码的主要设计者，</li>
+			<li>
+				还有两本书The&nbsp;Unix&nbsp;Programming&nbsp;Environment和The&nbsp;Practice&nbsp;of&nbsp;Programming；</li>
+		</ul>
+	</li>
+	<li>
+		<strong>Robert&nbsp;Griesemer</strong>
+		<ul style="margin-left:18px">
+			<li>
+				曾协助制作Java的HotSpot编译器，和Chrome浏览器的JavaScript引擎V8。</li>
+		</ul>
+	</li>
+	<li>
+		<strong>Ian&nbsp;Lance&nbsp;Taylor</strong>&nbsp;<a href="http://www.airs.com/blog/archives/category/programming">博客</a>
+		<ul style="margin-left:18px">
+			<li>
+				GCC社区的超级活跃人物，是gold连接器和GCC过程间优化LTO的主要设计者之一，是Zembu公司的创始人之一。</li>
+		</ul>
+	</li>
+	<li>
+		<strong>Russ&nbsp;Cox</strong>&nbsp;<a href="http://research.swtch.com/search/label/Go">博客</a>
+		<ul style="margin-left:18px">
+			<li>
+				Plan9圈子的名人。也可以说是Ken/Dennis/Rob的Unix衣钵的传承人。</li>
+			<li>
+				读高中时就连续三年代表美国参加国际信息学奥林匹克竞赛。然后在MIT直到2008年博士毕业。</li>
+			<li>
+				他把Plan9操作系统的运行环境几乎完整的移植到Linux，FreeBSD和MacOSX上。</li>
+		</ul>
+	</li>
+	<li>
+		<strong>Andrew&nbsp;Gerrand</strong>&nbsp;<a href="http://nf.id.au/tag/go">博客</a></li>
+	<li>
+		<strong>Brad&nbsp;Fitzpatrick</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://www.cnblogs.com/turingbooks/archive/2010/12/09/1901529.html">访谈Brad&nbsp;Fitzpatrick&mdash;《编程人生》</a></li>
+			<li>
+				80后，五岁学编程</li>
+			<li>
+				综合型SNS交友网站&nbsp;LogoLiveJournal&nbsp;创始人，后卖出</li>
+			<li>
+				网站日渐流行使其开发了memcached&nbsp;、Perlbal&nbsp;和&nbsp;MogileFS等开源项目</li>
+			<li>
+				2007&nbsp;年选择加入Google，2011年4月16日全职加入&nbsp;Go&nbsp;项目</li>
+		</ul>
+	</li>
+</ul>
+<h2>
+	<a name="t30"></a>其他资料</h2>
+<h3>
+	<a name="t31"></a>书籍教程</h3>
+<ul>
+	<li>
+		2011-11-22&nbsp;<strong>《Go&nbsp;Book》Miek&nbsp;Gieben</strong>
+		<ul style="margin-left:18px">
+			<li>
+				书籍：&nbsp;<a href="http://go-book.appsp0t.com/">原文网址</a>&nbsp;<a href="https://github.com/initpy/go-book">源文件</a></li>
+			<li>
+				作者：&nbsp;Yuuta&nbsp;(<a href="http://big.appsp0t.com/">博客</a>)</li>
+		</ul>
+	</li>
+	<li>
+		2011-11-10&nbsp;<strong>《Learning&nbsp;Go》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				书籍：&nbsp;<a href="http://www.miek.nl/projects/learninggo/index.html">原文网址</a>&nbsp;<a href="http://www.mikespook.com/learning-go/">《学习Go语言》中文</a></li>
+			<li>
+				作者：&nbsp;Miek&nbsp;Gieben&nbsp;(<a href="http://www.miek.nl/">博客</a>)</li>
+		</ul>
+	</li>
+	<li>
+		2011-10-16&nbsp;<strong>《Network&nbsp;programming&nbsp;with&nbsp;Go》</strong>&nbsp;Jan&nbsp;Newmarch&nbsp;<a href="http://jan.newmarch.name/go/">原文</a>
+		<ul style="margin-left:18px">
+			<li>
+				《Go语言网络编程》</li>
+		</ul>
+	</li>
+	<li>
+		2011-05-21&nbsp;<strong>《GoLang&nbsp;Tutorials》</strong>&nbsp;Sathish&nbsp;VJ&nbsp;<a href="http://golangtutorials.blogspot.com/2011/05/table-of-contents.html">原文</a>
+		<ul style="margin-left:18px">
+			<li>
+				《Go语言教程》</li>
+		</ul>
+	</li>
+	<li>
+		2010-02-22&nbsp;<strong>《Go语言入门教程》</strong>&nbsp;柴树杉&nbsp;<a href="http://bbs.golang-china.org/viewtopic.php?f=4&amp;t=45">地址</a></li>
+	<li>
+		2010-01-15&nbsp;<strong>《Google&nbsp;Go:&nbsp;A&nbsp;Primer》</strong>&nbsp;Samuel&nbsp;Tesla&nbsp;<a href="http://www.infoq.com/articles/google-go-primer">原文</a>
+		<ul style="margin-left:18px">
+			<li>
+				翻译：&nbsp;<a href="http://www.infoq.com/cn/articles/google-go-primer">《Google&nbsp;Go&nbsp;初级读本》</a></li>
+		</ul>
+	</li>
+</ul>
+<h3>
+	<a name="t32"></a>实践与评价 2011</h3>
+<ul>
+	<li>
+		2011-12-26&nbsp;<strong>《Uniqush:&nbsp;服务器端手机推送平台》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				Uniqush(<a href="https://groups.google.com/group/golang-china/browse_thread/thread/951b4d1cffd29c47">介绍帖</a>&nbsp;<a href="http://uniqush.org/">主页</a>&nbsp;<a href="http://www.google.com/url?sa=D&amp;q=http://uniqush.org/wiki/UniqushStory&amp;usg=AFQjCNGc1J44IsuCdJn74_Tdv3BuD7Rxmw">配图说明</a>&nbsp;<a href="http://github.com/monnand/uniqush">源码</a>)&nbsp;<a href="https://groups.google.com/group/golang-china/browse_thread/thread/110cd5f295a69ca8">Go体会帖</a></li>
+			<li>
+				作者&nbsp;monnand&nbsp;：已有十年开发经验，第一语言是C，用C/C++,&nbsp;Python,&nbsp;Perl，现在也用go，偶用java</li>
+			<li>
+				Uniqush是用Go开发的服务系统，开源，可自行搭建服务</li>
+			<li>
+				　常见智能手机平台都会提供云服务，负责向手机客户端推送消息（Google的android是C2DM，苹果叫APNS等）</li>
+			<li>
+				　uniqush&nbsp;抽象了官方云服务调用接口，开发者可以用统一的接口，开发推送消息的代码</li>
+			<li>
+				　后续支持更多云服务，另外还将提供客户端开发库</li>
+			<li>
+				Go体会</li>
+			<li>
+				　Go标准库变化太快，等Go1了</li>
+			<li>
+				　Gointerface最大好处在于，可以先实现后抽象</li>
+			<li>
+				　goroutine&nbsp;很适合多核，配合channel很方便很好用</li>
+			<li>
+				　内置map很方便，slice很好用...提高开发效率</li>
+			<li>
+				　面向对象？常用的设计模式都可以用Go来实现。你还要啥自行车呢？</li>
+			<li>
+				　效率！它是个编译语言！它要有效率！</li>
+		</ul>
+	</li>
+	<li>
+		2011-12-19&nbsp;<strong>《使用Go开发StatHat》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://blog.golang.org/2011/12/building-stathat-with-go.html">Go官方博文</a>&nbsp;<a href="http://www.stathat.com/src">开源模块</a></li>
+			<li>
+				作者Patrick&nbsp;Crosby：是&nbsp;Numerotron&nbsp;公司开发者</li>
+			<li>
+				从多方面详细探讨使用Go的原因：</li>
+			<li>
+				　前后端统一、好和快速的模版、快速开发编译测试、大并发支持、高性能、RPC、标准库、开源</li>
+		</ul>
+	</li>
+	<li>
+		2011-12-13&nbsp;<strong>《Google&nbsp;主页&ldquo;火鸡&rdquo;应用开发纪实》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://blog.golang.org/2011/12/from-zero-to-go-launching-on-google.html">Go官方博文</a>&nbsp;<a href="http://www.guao.hk/posts/from-zero-to-go-launching-on-the-google-homepage-in-24-hours.html">(译)</a>&nbsp;<a href="http://code.google.com/p/go-thanksgiving/">源码</a></li>
+			<li>
+				作者Reinaldo&nbsp;Aguiar：是Google&nbsp;搜索团队软件工程师</li>
+			<li>
+				App&nbsp;Engine&nbsp;runtime&nbsp;选型：图像处理任务极度依赖&nbsp;CPU...性能是决定性因素。</li>
+			<li>
+				Python&nbsp;2.7&nbsp;应用处理请求的中位响应时间为&nbsp;65&nbsp;毫秒，而&nbsp;Go&nbsp;是&nbsp;32&nbsp;毫秒。</li>
+			<li>
+				此前我对&nbsp;Go&nbsp;语言毫无经验，而时间又很紧：两天内达到生产需求。</li>
+			<li>
+				Go&nbsp;语言的语法直观、简单且洁净。我过去常与解析型语言打交道，尽管&nbsp;Go&nbsp;是静态类型系统的编译型语言，编写这款应用的感觉却更像是在用动态解析型语言。</li>
+			<li>
+				Go&nbsp;语言优秀的文档也帮助了我迅速完成开发...鼓励开发者深入挖掘软件包的实现，简化了对良好编程风格与规则的掌握。</li>
+		</ul>
+	</li>
+	<li>
+		2011-10-19&nbsp;<strong>《从&nbsp;Erlang&nbsp;到&nbsp;CERL&nbsp;到&nbsp;Golang》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://ecug.org/2011:lecturer">ECUG2011</a>&nbsp;<a href="https://qbox.me/">Q盘主页</a>&nbsp;<a href="http://ecug.googlecode.com/svn/trunk/ecug-con/2011/xushiwei/">PPT</a></li>
+			<li>
+				作者许式伟：金山高手，后到盛大创新院，现为QBox.me创始人，ECUG发起人</li>
+			<li>
+				Q盘QBOX.ME：服务端&nbsp;99%&nbsp;代码基于&nbsp;Golang、累计约&nbsp;10w&nbsp;行&nbsp;Golang&nbsp;代码</li>
+			<li>
+				Go类型系统</li>
+			<li>
+				　理念：除了不推荐操作符重载外，User&nbsp;Type&nbsp;与内置类型没有任何区别。</li>
+			<li>
+				　没有隐式的类型转换、没有重载、没有继承，只有组合（匿名组合可达部分继承效果）</li>
+			<li>
+				Go内存管理：Gc、透明（自动选择何时使用栈，何时使用堆）</li>
+			<li>
+				Go非侵入性接口：代码解耦，按需定义，无需事先进行&nbsp;&ldquo;统筹&rdquo;</li>
+			<li>
+				错误处理：defer；进程：goroutine；程通信：channel</li>
+			<li>
+				风险：新模块可尝试Go，推荐服务端，Go变化快，小众</li>
+		</ul>
+	</li>
+	<li>
+		2011-11-19&nbsp;<strong>《Thinking&nbsp;in&nbsp;Go》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://ecug.org/2011:lecturer">ECUG&nbsp;Con&nbsp;2011大会</a>&nbsp;<a href="http://ecug.googlecode.com/svn/trunk/ecug-con/2011/weiguangjing/">演讲PPT</a></li>
+			<li>
+				作者韦光京：基金买卖网CTO。Go语言尤其是Windows平台移植的积极贡献者。</li>
+			<li>
+				为什么喜欢Go：向Unix致敬、C+Python动静相宜、语法可读性强、开源、just&nbsp;for&nbsp;fun</li>
+			<li>
+				一些特别地方：自动类型推导减少打字</li>
+			<li>
+				非常实用工具：Gofmt格式化代码、Gofix自动更新代码、Godoc从Go代码中生成文档、Gotest&nbsp;测试框架Gotest测试框架、Gotest测试框架、Goinstall下载并编译安装库</li>
+			<li>
+				跨平台，交叉编译（设置GOOS，GOARCH环境变量）</li>
+			<li>
+				Google&nbsp;App&nbsp;Engine支持</li>
+			<li>
+				没有类的面向对象机制</li>
+			<li>
+				　任何类型都可以有方法，任何类型都可以是对象</li>
+			<li>
+				　Interface强制数据和代码分离</li>
+			<li>
+				　继承通过嵌入来实现（Mix-in）</li>
+			<li>
+				　冲突的简单处理</li>
+			<li>
+				动态特性：Duck&nbsp;typing（Interface定义方法集合，任何类型实现了这些方法就实现了这个interface）</li>
+			<li>
+				反射：Interface&nbsp;{}&nbsp;TypeOf&nbsp;ValueOf&nbsp;SetXXX</li>
+			<li>
+				并发：</li>
+			<li>
+				　语法级支持（Goroutines、Channel）；</li>
+			<li>
+				　Channel&nbsp;is&nbsp;First&nbsp;class（Channel传递的消息可以是channel）</li>
+			<li>
+				　用同步的方式来简化并发编程；</li>
+			<li>
+				　Communicating&nbsp;Sequential&nbsp;Processes&nbsp;(CSP)</li>
+		</ul>
+	</li>
+	<li>
+		2011-11-19&nbsp;<strong>《golang&nbsp;开发实践》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://ecug.org/2011:lecturer">ECUG&nbsp;Con&nbsp;2011大会</a>&nbsp;<a href="http://ecug.googlecode.com/svn/trunk/ecug-con/2011/mikespook/">演讲PPT</a>&nbsp;<a href="http://www.mikespook.com/2011/05/go-%E8%AF%AD%E8%A8%80%E7%9A%84-gearman-api/">博文</a>&nbsp;<a href="https://bitbucket.org/mikespook/gearman-go">源码</a></li>
+			<li>
+				作者邢兴：39&nbsp;健康网技术副总监</li>
+			<li>
+				gearman&nbsp;是分发任务的高效服务器框架。</li>
+			<li>
+				gearman-go&nbsp;是用go语言写的worker&nbsp;API</li>
+		</ul>
+	</li>
+	<li>
+		2011-06-07&nbsp;<strong>《Go编程语言，或者：为什么除了它，其他类C语言都是垃圾》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://www.syntax-k.de/projekte/go-review">原文</a>&nbsp;<a href="http://www.mikespook.com/2011/06/go%e7%bc%96%e7%a8%8b%e8%af%ad%e8%a8%801/">译一</a>&nbsp;<a href="http://www.mikespook.com/2011/06/go%e7%bc%96%e7%a8%8b%e8%af%ad%e8%a8%802/">二</a>&nbsp;<a href="http://www.mikespook.com/2011/06/go%e7%bc%96%e7%a8%8b%e8%af%ad%e8%a8%803/">三</a>&nbsp;<a href="http://www.mikespook.com/2011/06/go%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%804/">四</a>&nbsp;&nbsp;</li>
+		</ul>
+	</li>
+	<li>
+		2011-04-21&nbsp;<strong>《Go在Heroku中的应用》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://blog.golang.org/2011/04/go-at-heroku.html">Go官方博文</a>&nbsp;(<a href="http://www.mikespook.com/2011/04/%e3%80%90%e7%bf%bb%e8%af%91%e3%80%91go-%e5%9c%a8-heroku/">译1</a>&nbsp;<a href="http://code.google.com/p/holmescncodes/wiki/Go_at_Heroku">译2</a>)&nbsp;Doozer(<a href="http://xph.us/2011/04/13/introducing-doozer.html">介绍</a>&nbsp;<a href="https://github.com/ha/doozer">源码</a>&nbsp;<a href="http://www.mikespook.com/2011/04/%E9%AB%98%E9%80%9F%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E2%80%94%E2%80%94doozer/">中文介绍</a>)</li>
+			<li>
+				作者Keith&nbsp;Rarick&nbsp;和&nbsp;Blake&nbsp;Mizerany：是&nbsp;Heroku&nbsp;的系统工程师</li>
+			<li>
+				使用Doozer解决分布式系统物理服务器间的协作问题</li>
+			<li>
+				Doozer是用Go编写的，新的、一致性的、高可用的数据存储</li>
+			<li>
+				Go&nbsp;原生的并发机制使得这个任务更加简单</li>
+			<li>
+				垃圾回收机制改进了&nbsp;malloc&nbsp;和&nbsp;free</li>
+			<li>
+				goroutine&nbsp;和&nbsp;channel&nbsp;改进基于锁的并发</li>
+			<li>
+				Go标准包是在&nbsp;Doozer&nbsp;上的另一个巨大成功</li>
+			<li>
+				最喜欢的生产力提高来自于&nbsp;Go的代码格式化工具：gofmt</li>
+			<li>
+				Go静态连接意味着&nbsp;Doozer&nbsp;无序额外的依赖</li>
+			<li>
+				Go简洁的设计哲学与我们对软件工程的认识令人发狂的一致。</li>
+			<li>
+				将来的项目中使用&nbsp;Go&nbsp;已经有了一些想法。Doozer&nbsp;对于一个大系统来说只是刚刚开始。</li>
+		</ul>
+	</li>
+	<li>
+		2011-03-30&nbsp;<strong>《关于go语言》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://blog.csdn.net/soso_blog/article/details/6288751">博文</a></li>
+			<li>
+				作者：腾讯soso王益</li>
+			<li>
+				这只螃蟹很好吃；向大家推荐。</li>
+			<li>
+				总体感觉：语法简单、编译速度非常快、开发效率非常高</li>
+			<li>
+				我从高一开始写C++程序，这么些年里对Java、Python之流是学懂了就烦了放弃了，只有对C++忠贞不二；但是用了Go之后，现在已经不想再用C++写程序了。</li>
+			<li>
+				另 外从多个方面谈了自己的体会：Go&nbsp;vs&nbsp;C++、Class、Class&nbsp;Hierarchy、String、UTF&nbsp;和&nbsp;XML、 STL&nbsp;vector&nbsp;和&nbsp;map、Containers、Closure&nbsp;和&nbsp;Callback、Multi- threading&nbsp;和&nbsp;Synchronization、Protocol&nbsp;Buffer、Go进程间通信、格式化输出、gflags、glog、 HTTP&nbsp;Server、self-compilation、从Go调用C/C++</li>
+		</ul>
+	</li>
+	<li>
+		2011-03-26&nbsp;<strong>《Go语言Web开发》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://techparty.org/2011/04/04/201103-techparty-sz">沙龙</a>&nbsp;<a href="http://www.slideshare.net/yashi88/goweb-7506006">slide幻灯</a></li>
+			<li>
+				作者：韦光京</li>
+		</ul>
+	</li>
+	<li>
+		2011-02-27&nbsp;<strong>《Go语言》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://techparty.org/2011/03/04/280/">沙龙</a>&nbsp;<a href="http://techparty.org/2011/03/04/280/">slide幻灯</a></li>
+			<li>
+				作者：韦光京</li>
+			<li>
+				对分布式和多核的支持</li>
+			<li>
+				动静皆宜、编译飞快、语法很简单、关键字只有25个</li>
+			<li>
+				非常棒的并发支持、出色的包支持、没有类的继承</li>
+			<li>
+				Google只有一点影响到Go，而且这个影响非常正面</li>
+			<li>
+				Google的开发模式：codereview机制</li>
+		</ul>
+	</li>
+	<li>
+		2011-02-27&nbsp;<strong>《Go集成C和C++代码》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://techparty.org/2011/03/04/280/">沙龙</a>&nbsp;<a href="http://www.slideshare.net/yashi88/gocc">slide幻灯</a>&nbsp;<a href="http://bbs.golang-china.org/viewtopic.php?f=4&amp;t=294">PDF下载</a></li>
+			<li>
+				作者：柴树杉</li>
+		</ul>
+	</li>
+</ul>
+<h3>
+	<a name="t33"></a>实践与评价 2010</h3>
+<ul>
+	<li>
+		2010-12-13&nbsp;<strong>《beansdb&nbsp;卷土重来》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://www.douban.com/note/122507891/">博文</a>&nbsp;另参见&nbsp;<a href="http://www.douban.com/note/149163333/">Go&nbsp;语言中手动内存管理</a></li>
+			<li>
+				作者刘洪清：豆瓣工程师</li>
+			<li>
+				BeansDB（豆瓣开源数据存储系统）</li>
+			<li>
+				部署时的代理层用&nbsp;go</li>
+		</ul>
+	</li>
+	<li>
+		2010-11-18&nbsp;<strong>《Go&nbsp;语言初步》</strong>&nbsp;云风&nbsp;<a href="http://blog.codingnow.com/2010/11/go_prime.html">原文</a>
+		<ul style="margin-left:18px">
+			<li>
+				mix-in&nbsp;的接口风格。非常接近于我在用&nbsp;C&nbsp;时惯用的面向对象风格</li>
+			<li>
+				强类型系统。使得犯错误的机会大大降低。</li>
+			<li>
+				而编写程序又有点使用&nbsp;lua&nbsp;这种动态语言的感觉，总之，写起来很舒服。</li>
+			<li>
+				内置的&nbsp;string&nbsp;/&nbsp;slice&nbsp;类型，以及&nbsp;gc&nbsp;。这是我觉得现代编程必须的东西。</li>
+			<li>
+				defer&nbsp;是个有趣使用的东西，用它来实现&nbsp;RAII&nbsp;比&nbsp;C++&nbsp;利用栈上对象的析构函数的&nbsp;trick&nbsp;方案让人塌实多了。</li>
+			<li>
+				zero&nbsp;初始化。我一直觉得&nbsp;C++&nbsp;的构造函数特别多余。</li>
+			<li>
+				包系统特别的好。而且严格定义了包的初始化过程，即&nbsp;init&nbsp;函数。</li>
+			<li>
+				goroutine&nbsp;是个相当有用的设计。</li>
+			<li>
+				我发现我花了四年时间锤炼自己用&nbsp;C&nbsp;语言构建系统的能力，试图找到一个规范，可以更好的编写软件。结果发现只是对&nbsp;Go&nbsp;的模仿。缺乏语言层面的支持，只能是一个拙劣的模仿。</li>
+			<li>
+				学习新东西还是很累的。好在&nbsp;Go&nbsp;的各种设计都非常切合我的本意，所以自然是越写越舒服了。</li>
+			<li>
+				Go&nbsp;的引用和值分得很清楚，这使它更像&nbsp;C&nbsp;而不是&nbsp;Java&nbsp;，却又提供了&nbsp;C++&nbsp;提供不了的安全性。</li>
+			<li>
+				用&nbsp;Go&nbsp;写网络程序，真是非常舒心。socket&nbsp;和&nbsp;file&nbsp;在&nbsp;interface&nbsp;上的统一，暗合&nbsp;Unix&nbsp;之道。程序嘛，就是处理输入，产生输出。Reader&nbsp;和&nbsp;Writer&nbsp;接口让人愉快。</li>
+		</ul>
+	</li>
+	<li>
+		2010-04-25&nbsp;<strong>《Go语言:&nbsp;互联网时代的C》</strong>&nbsp;李兆海
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://www.slideshare.net/googol/go-c">slide幻灯</a></li>
+			<li>
+				<a href="http://bbs.golang-china.org/viewtopic.php?f=4&amp;t=80">沙龙</a>&nbsp;<a href="http://v.youku.com/v_show/id_XMTY4Mzk5NTc2.html">优酷视频</a></li>
+			<li>
+				<a href="http://www.beijing-open-party.org/topic/6">OpenParty</a>&nbsp;<a href="http://v.ku6.com/show/N23Mu0NSUqwTBK8p.html">酷6视频</a></li>
+		</ul>
+	</li>
+	<li>
+		2010-01-21&nbsp;<strong>《Go&nbsp;Lang介绍》</strong>&nbsp;余峰&nbsp;<a href="http://blog.yufeng.info/archives/193">原文</a></li>
+	<li>
+		2010-01-17&nbsp;<strong>《使用go语言一个月的认识》</strong>&nbsp;life&nbsp;<a href="http://goroot.group.iteye.com/group/topic/17335">原文</a></li>
+	<li>
+		2009-11-11&nbsp;<strong>《C,&nbsp;Erlang,&nbsp;Java&nbsp;和&nbsp;Go&nbsp;Web&nbsp;Server&nbsp;性能测试》</strong>&nbsp;Tim&nbsp;<a href="http://timyang.net/programming/c-erlang-java-performance/">原文</a></li>
+</ul>
+<h2>
+	<a name="t34"></a>开源项目</h2>
+<h3>
+	<a name="t35"></a>工具系列</h3>
+<ul>
+	<li>
+		2011-12-27&nbsp;<strong>密码生成器&nbsp;PwdGen</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="https://groups.google.com/group/golang-china/browse_thread/thread/8016f17748cb5c7b">讨论帖</a>&nbsp;<a href="https://bitbucket.org/chai2010/pwdgen/">项目主页</a></li>
+			<li>
+				作者：柴树杉</li>
+			<li>
+				针对CSDN等很多网站保存明文密码的问题，开发的密码生成工具</li>
+			<li>
+				主要用于对每个不同网站或ID随机生成不同的密码.</li>
+		</ul>
+	</li>
+</ul>
+<h2>
+	<a name="t36"></a>专题文章</h2>
+<h3>
+	<a name="t37"></a>数据结构</h3>
+<ul>
+	<li>
+		2010-05-28&nbsp;<strong>《Google&nbsp;Go!》</strong>&nbsp;Martin&nbsp;Aigner&nbsp;和&nbsp;Alexander&nbsp;Baumgartne&nbsp;<a href="http://www.softwareresearch.net/fileadmin/src/docs/teaching/SS10/Sem/Presentation_Aigner_Baumgartner.pdf">PDF</a>
+		<ul style="margin-left:18px">
+			<li>
+				用图形讲解数据类型、new、make和通道</li>
+		</ul>
+	</li>
+</ul>
+<h3>
+	<a name="t38"></a>cgo</h3>
+<ul>
+	<li>
+		2011-09-26&nbsp;Rob&nbsp;Thornton&nbsp;<strong>《Experimenting&nbsp;with&nbsp;Cgo》</strong>
+		<ul style="margin-left:18px">
+			<li>
+				<a href="http://noeffclue.blogspot.com/2011/09/experimenting-with-cgo-part-1.html">2011-09-26&nbsp;Part&nbsp;1</a></li>
+			<li>
+				<a href="http://noeffclue.blogspot.com/2011/10/experimenting-with-cgo-part-2.html">2011-10-03&nbsp;Part&nbsp;2</a></li>
+			<li>
+				<a href="http://noeffclue.blogspot.com/2011/10/experimenting-with-cgo-part-3-errno.html">2011-10-22&nbsp;Part&nbsp;3：Errno</a></li>
+		</ul>
+	</li>
+</ul>

@@ -1,0 +1,62 @@
+<div id="cnblogs_post_body">
+	<h1 class="postTitle">
+		<a class="postTitle2" href="http://www.cnblogs.com/mobile-veterans/archive/2012/07/20/2600722.html" id="cb_post_title_url">Android平台程序崩溃的类型及原因列举</a></h1>
+	<p>
+		Android平台程序崩溃大家都应该遇到过，force close和ANR应该是大家遇到较多的。</p>
+	<p>
+		这里把Android平台程序崩溃的各种类型做一个简述和原因列举。</p>
+	<p>
+		1.ANR（可见ANR）：</p>
+	<p>
+		发生场景：应用发生ANR。</p>
+	<p>
+		崩溃症状：系统弹出窗口询问用户选择&ldquo;Force Close&rdquo;或者&ldquo;Wait&rdquo;。</p>
+	<p>
+		&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&ldquo;Force Close&rdquo;将杀掉发生ANR的应用进程。&ldquo;Wait&rdquo;将会等待系统择机恢复此应用进程。</p>
+	<p>
+		发生原因：（1）应用主线程卡住，对其他请求响应超时。（2）死锁。（3）系统反应迟钝。（4）CPU负载过重。</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		2.Force Close：</p>
+	<p>
+		发生场景：应用进程崩溃。</p>
+	<p>
+		崩溃症状：系统弹出窗口提示用户某进程崩溃。</p>
+	<p>
+		发生原因：空指向异常或者未捕捉的异常。</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		3.Tombstones：</p>
+	<p>
+		发生场景：Native层崩溃</p>
+	<p>
+		崩溃症状：如果发生崩溃的native层和UI有关联（比如Browser），我们可以在UI上发现这个崩溃。</p>
+	<p>
+		&nbsp; &nbsp; 如果发生崩溃的native层是在后台并且和UI没有直接联系，那么对于用户来说是不可见的，如果是debug版本可能会有Log打印出当时的底层现场。</p>
+	<p>
+		发生原因：各种各样，需要具体情况具体分析。</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		4.系统服务崩溃（System Server Crash）：</p>
+	<p>
+		发生场景：系统服务是Android核心进程，此服务进程发生崩溃。</p>
+	<p>
+		崩溃症状：手机重启到Android启动界面</p>
+	<p>
+		发生原因：（1）系统服务看门狗发现异常。（2）系统服务发生未捕获异常。（3）OOM。（4）系统服务Native发生Tombstone。</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		5.Kernel Panics：</p>
+	<p>
+		发生场景：Linux内核发生严重错误</p>
+	<p>
+		崩溃症状：手机从bootloader开始完全重启</p>
+	<p>
+		发生原因：（1）Linux内核内存空间发生内存崩溃。（2）内核看门狗发现异常。（3）空指针操作内核。</p>
+</div>
+<div id="MySignature" style="display: block;">
+	本文原创，请勿用于商业用途。 转载请注明出处：http://www.cnblogs.com/mobile-veterans</div>

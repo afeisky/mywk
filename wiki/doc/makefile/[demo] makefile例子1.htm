@@ -1,0 +1,100 @@
+<p>
+	&nbsp;</p>
+<h1 class="csdn_top">
+	一个很好的makefile例子</h1>
+<p>
+	&nbsp;</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	相信在unix下编程的没有不知道makefile的，刚开始学习unix平台<br style="margin:0px; padding:0px" />
+	下的东西，了解了下makefile的制作，觉得有点东西可以记录下。<br style="margin:0px; padding:0px" />
+	　　下面是一个极其简单的例子：<br style="margin:0px; padding:0px" />
+	现在我要编译一个Hello world，需要如下三个文件：<br style="margin:0px; padding:0px" />
+	　　1. print.h<br style="margin:0px; padding:0px" />
+	　　　　　　#include&lt;stdio.h&gt;<br style="margin:0px; padding:0px" />
+	　　　　　　void printhello();</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	　　2. print.c<br style="margin:0px; padding:0px" />
+	　　　　　　#include&quot;print.h&quot;<br style="margin:0px; padding:0px" />
+	　　　　　　void printhello(){<br style="margin:0px; padding:0px" />
+	　　　　　　　　printf(&quot;Hello, world &quot;);<br style="margin:0px; padding:0px" />
+	　　　　　　}</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	　　　3. main.c<br style="margin:0px; padding:0px" />
+	　　　　　　#include &quot;print.h&quot;<br style="margin:0px; padding:0px" />
+	　　　　　　int main(void){<br style="margin:0px; padding:0px" />
+	　　　　　　　　printhello();<br style="margin:0px; padding:0px" />
+	　　　　　　　　return 0;<br style="margin:0px; padding:0px" />
+	　　　　　　}</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	　　好了，很简单的程序了。如果我们想要编译成功需要哪些步骤呢？<br style="margin:0px; padding:0px" />
+	我认为在这里需要理解的就两步：<br style="margin:0px; padding:0px" />
+	　　#&nbsp; 为每一个 *.c文件生成 *o文件。<br style="margin:0px; padding:0px" />
+	　　#&nbsp; 连接每一个*o文件，生成可执行文件。<br style="margin:0px; padding:0px" />
+	下面的makefile 就是根据这样的原则来写的。</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	&nbsp;</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	<span style="margin:0px; padding:0px; line-height:1.5; font-size:18px"><span style="margin:0px; padding:0px; line-height:1.5; color:rgb(255,0,255)">一：makefile 雏形：</span></span></p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	<span style="margin:0px; padding:0px; line-height:1.5; font-size:18px"><span style="margin:0px; padding:0px; line-height:1.5; color:rgb(255,0,255)">&nbsp;</span></span><br style="margin:0px; padding:0px" />
+	#makefile的撰写是基于规则的，当然这个规则也是很简单的，就是：<br style="margin:0px; padding:0px" />
+	#target : prerequisites&nbsp;<br style="margin:0px; padding:0px" />
+	　　command　　//任意的shell 命令</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	实例如下：<br style="margin:0px; padding:0px" />
+	makefile:<br style="margin:0px; padding:0px" />
+	　　　　helloworld : main.o print.o #helloword 就是我们要生成的目标<br style="margin:0px; padding:0px" />
+	　　　　　　　　　　　　　　　　　# main.o print.o是生成此目标的先决条件<br style="margin:0px; padding:0px" />
+	　　　　　　gcc -o helloworld main.o print.o#shell命令，最前面的一定是一个tab键</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	　　　　mian.o : mian.c print.h<br style="margin:0px; padding:0px" />
+	　　　　　　gcc -c main.c<br style="margin:0px; padding:0px" />
+	　　　　print.o : print.c print.h<br style="margin:0px; padding:0px" />
+	　　　　　　gcc -c print.c<br style="margin:0px; padding:0px" />
+	　　　　<br style="margin:0px; padding:0px" />
+	　　　　clean :　　　　　　　　　　<br style="margin:0px; padding:0px" />
+	　　　　　　　　rm helloworld main.o print.o<br style="margin:0px; padding:0px" />
+	　　OK，一个简单的makefile制作完毕，现成我们输入 make，自动调用Gcc编译了，<br style="margin:0px; padding:0px" />
+	输入 make clean就会删除 hellowworld mian.o print.o</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	<br style="margin:0px; padding:0px" />
+	<span style="margin:0px; padding:0px; line-height:1.5; color:rgb(255,0,255)"><span style="margin:0px; padding:0px; line-height:1.5; font-size:18px">二：小步改进：</span></span></p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	<br style="margin:0px; padding:0px" />
+	　　在上面的例子中我们可以发现 main.o print.o 被定义了多处，<br style="margin:0px; padding:0px" />
+	我们是不是可以向C语言中定义一个宏一样定义它呢？当然可以：<br style="margin:0px; padding:0px" />
+	makefile:<br style="margin:0px; padding:0px" />
+	　　　 objects =&nbsp; main.o print.o #应该叫变量的声明更合适</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	　　　　helloworld : $(objects) //声明了变量以后使用就要$()了<br style="margin:0px; padding:0px" />
+	　　　　　　gcc -o helloworld$(objects)<br style="margin:0px; padding:0px" />
+	　　　&nbsp; mian.o : mian.c print.h<br style="margin:0px; padding:0px" />
+	　　　　　　gcc -c main.c<br style="margin:0px; padding:0px" />
+	　　　　print.o : print.c print.h<br style="margin:0px; padding:0px" />
+	　　　　　　gcc -c print.c<br style="margin:0px; padding:0px" />
+	　　　　<br style="margin:0px; padding:0px" />
+	　　　　clean :　　　　　　　　　　<br style="margin:0px; padding:0px" />
+	　　　　　　　　rm helloworld $(objects)<br style="margin:0px; padding:0px" />
+	修改完毕，这样使用了变量的话在很多文件的工程中就能体现出方便性了。</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	<br style="margin:0px; padding:0px" />
+	<span style="margin:0px; padding:0px; line-height:1.5; font-size:18px"><span style="margin:0px; padding:0px; line-height:1.5; color:rgb(255,0,255)">三：再进一步：</span></span></p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	<br style="margin:0px; padding:0px" />
+	　　再看一下，为没一个*.o文件都写一句gcc -c main.c是不是显得多余了，<br style="margin:0px; padding:0px" />
+	能不能把它干掉？而且 main.c 和print.c都需要print.h，为每一个都写上是<br style="margin:0px; padding:0px" />
+	不是多余了，能不能再改进？<br style="margin:0px; padding:0px" />
+	能，当然能了：<br style="margin:0px; padding:0px" />
+	makefile:<br style="margin:0px; padding:0px" />
+	　　　&nbsp; objects =&nbsp; main.o print.o</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	　　　　helloworld : $(objects)&nbsp;<br style="margin:0px; padding:0px" />
+	　　　　　　gcc -o helloworld$(objects)<br style="margin:0px; padding:0px" />
+	　　　　<br style="margin:0px; padding:0px" />
+	　　　　$(objects) : print.h # 都依赖print.h<br style="margin:0px; padding:0px" />
+	　　　&nbsp; mian.o : mian.c&nbsp; #干掉了gcc -c main.c 让Gun make自动推导了。<br style="margin:0px; padding:0px" />
+	　　　　print.o : print.c 　　　　<br style="margin:0px; padding:0px" />
+	　　　　clean :　　　　　　　　　　<br style="margin:0px; padding:0px" />
+	　　　　　　　　rm helloworld $(objects)</p>
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(245,250,254)">
+	好了，一个简单的makefile就这样完毕了，简单吧。</p>

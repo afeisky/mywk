@@ -1,0 +1,20 @@
+<p>
+	<span style="color:#0000cd;"><span style="font-size: 16px;">Python: 二进制文件操作</span></span></p>
+<p>
+	&nbsp;</p>
+<p>
+	#!/usr/bin/python<br />
+	#coding:utf-8<br />
+	<br />
+	fin=open(&quot;userdate.bin&quot;,&#39;rb&#39;)<br />
+	byte=fin.read()<br />
+	fin.close()<br />
+	<br />
+	f = open(&quot;userdate.img&quot;, &#39;rb+&#39;)&nbsp;&nbsp;&nbsp; #&nbsp; 二进制读写模式<br />
+	f.seek(0, 2)&nbsp;&nbsp;&nbsp; # 指针移到文件到尾,第二个参数2是文件尾<br />
+	file_end = f.tell()&nbsp;&nbsp;&nbsp;&nbsp; # 文件结尾位置号<br />
+	f.seek(0,0)&nbsp;&nbsp;&nbsp;&nbsp; # 指针移到文件到头<br />
+	while f.tell() &lt; file_end:<br />
+	&nbsp;&nbsp;&nbsp; f.seek(1024-1, 1)&nbsp; # 指针在当前位置再移动1024个字节,第二个参数1是当前位置<br />
+	&nbsp;&nbsp;&nbsp; f.write(chr(0xff))<br />
+	f.close()</p>

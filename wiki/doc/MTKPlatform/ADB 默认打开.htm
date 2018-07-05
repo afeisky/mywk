@@ -1,0 +1,199 @@
+<pre style="color: rgb(0, 0, 0); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; word-wrap: break-word; white-space: pre-wrap;">
+    ADB 默认打开。  </pre>
+<p>
+	&nbsp;</p>
+<p>
+	1.device/</p>
+<p align="left">
+	diff --git a/jrdchz/shine_plus/device.mk b/jrdchz/shine_plus/device.mk</p>
+<p align="left">
+	index 6c773d2..61177a1 100644</p>
+<p align="left">
+	--- a/jrdchz/shine_plus/device.mk</p>
+<p align="left">
+	+++ b/jrdchz/shine_plus/device.mk</p>
+<p align="left">
+	@@ -86,7 +86,7 @@ endif</p>
+<p align="left">
+	&nbsp;endif</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	&nbsp;# Set default USB interface</p>
+<p align="left">
+	-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=mtp</p>
+<p align="left">
+	+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.sys.usb.config=mtp,adb</p>
+<p align="left">
+	&nbsp;PRODUCT_DEFAULT_PROPERTY_OVERRIDES += persist.service.acm.enable=0</p>
+<p align="left">
+	&nbsp;PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.mount.fs=EXT4</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	2.build/</p>
+<p align="left">
+	diff --git a/tools/post_process_props.py b/tools/post_process_props.py</p>
+<p align="left">
+	index a5af3c3..4c7febb 100755</p>
+<p align="left">
+	--- a/tools/post_process_props.py</p>
+<p align="left">
+	+++ b/tools/post_process_props.py</p>
+<p align="left">
+	@@ -36,7 +36,7 @@ def mangle_build_prop(prop):</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; realVal = &quot;none&quot;</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (len(values) &gt; 0):</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; realVal = values[0]</p>
+<p align="left">
+	-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prop.put(&quot;persist.sys.usb.config&quot;, realVal)</p>
+<p align="left">
+	+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prop.put(&quot;persist.sys.usb.config&quot;,&quot;mtp,adb&quot;);</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if prop.get(&quot;ro.build.type&quot;) == &quot;eng&quot;:</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prop.put(&quot;persist.sys.usb.config&quot;,&quot;mass_storage,adb&quot;);</p>
+<p align="left">
+	&nbsp;#Task1192861 disable USB debug in user version by ronghui.wang end</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	4.system$ git diff</p>
+<p align="left">
+	diff --git a/core/adb/adb_main.cpp b/core/adb/adb_main.cpp</p>
+<p align="left">
+	index 1360f3c..4fe84f1 100644</p>
+<p align="left">
+	--- a/core/adb/adb_main.cpp</p>
+<p align="left">
+	+++ b/core/adb/adb_main.cpp</p>
+<p align="left">
+	@@ -253,12 +253,14 @@ int adb_main(int is_daemon, int server_port)</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; auth_required = false;</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; auth_required = false;</p>
+<p align="left">
+	+</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp; //customize</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp; property_get(&quot;debug.adb_syncsize&quot;, value, &quot;0&quot;);</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp; syc_size_enabled = !strcmp(value, &quot;1&quot;);</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp; D(&quot;adb syc_size_enabled=%d &quot;, syc_size_enabled);</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	-&nbsp;&nbsp;&nbsp; adbd_auth_init();</p>
+<p align="left">
+	+&nbsp;&nbsp;&nbsp; //adbd_auth_init();</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp; // Our external storage path may be different than apps, since</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp; // we aren&#39;t able to bind mount after dropping root.</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	5.vendor/mediatek$ git diff</p>
+<p align="left">
+	diff --git a/proprietary/bootable/bootloader/lk/app/mt_boot/mt_boot.c b/proprietary/bootable/bootloader/lk/app/mt_boot/mt_boot.c</p>
+<p align="left">
+	index 249f75f..10d106f 100644</p>
+<p align="left">
+	--- a/proprietary/bootable/bootloader/lk/app/mt_boot/mt_boot.c</p>
+<p align="left">
+	+++ b/proprietary/bootable/bootloader/lk/app/mt_boot/mt_boot.c</p>
+<p align="left">
+	@@ -925,7 +925,7 @@ int boot_linux_fdt(void *kernel, unsigned *tags,</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if( uart_enable_check() )</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sprintf(cmdline,&quot;%s%s&quot;,cmdline,&quot; printk.disable_uart=0&quot;);</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else</p>
+<p align="left">
+	-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sprintf(cmdline,&quot;%s%s&quot;,cmdline,&quot; printk.disable_uart=1&quot;);</p>
+<p align="left">
+	+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sprintf(cmdline,&quot;%s%s&quot;,cmdline,&quot; printk.disable_uart=0&quot;);</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p align="left">
+	&nbsp;#else</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sprintf(cmdline,&quot;%s%s&quot;,cmdline,&quot; printk.disable_uart=0 ddebug_query=&quot;file *mediatek* +p ; file *gpu* =_&quot;&quot;);</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	6.kernel-3.18$ git diff</p>
+<p align="left">
+	diff --git a/drivers/misc/mediatek/mtprof/bootprof.c b/drivers/misc/mediatek/mtprof/bootprof.c</p>
+<p align="left">
+	index 150e232..b7079df 100644</p>
+<p align="left">
+	--- a/drivers/misc/mediatek/mtprof/bootprof.c</p>
+<p align="left">
+	+++ b/drivers/misc/mediatek/mtprof/bootprof.c</p>
+<p align="left">
+	@@ -71,7 +71,7 @@ static void bootup_finish(void)</p>
+<p align="left">
+	&nbsp;{</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initcall_debug = 0;</p>
+<p align="left">
+	&nbsp;#ifdef CONFIG_MT_PRINTK_UART_CONSOLE</p>
+<p align="left">
+	-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mt_disable_uart();</p>
+<p align="left">
+	+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //mt_disable_uart();</p>
+<p align="left">
+	&nbsp;#endif</p>
+<p align="left">
+	&nbsp;#ifdef CONFIG_MT_SCHED_MON_DEFAULT_ENABLE</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mt_sched_monitor_switch(1);</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	--------另一种办法强制打开adb---------------------------------------------------------------</p>
+<p style="margin-right: 0cm; margin-left: 0cm; text-align: justify; font-size: 14px; font-family: Calibri, sans-serif; color: rgb(51, 51, 51); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+	<span style="font-size: 10pt; font-family: 宋体;">系统默认是</span><span lang="EN-US" style="font-size: 10pt;">mtp</span><span style="font-size: 10pt; font-family: 宋体;">模式</span><span lang="EN-US" style="font-size: 10pt;">,</span><span style="font-size: 10pt; font-family: 宋体;">我这边是在</span><span lang="EN-US" style="font-size: 10pt;">mtp</span><span style="font-size: 10pt; font-family: 宋体;">模式时</span><span lang="EN-US" style="font-size: 10pt;">,</span><span style="font-size: 10pt; font-family: 宋体;">强制将</span><span lang="EN-US" style="font-size: 10pt;">adb</span><span style="font-size: 10pt; font-family: 宋体;">功能加上</span><span lang="EN-US" style="font-size: 10pt;">,</span><span style="font-size: 10pt; font-family: 宋体;">见如下</span><span lang="EN-US" style="font-size: 10pt;">patch;</span></p>
+<p style="margin-right: 0cm; margin-left: 0cm; text-align: justify; font-size: 14px; font-family: Calibri, sans-serif; color: rgb(51, 51, 51); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); margin-bottom: 12pt;">
+	<span lang="EN-US" style="font-size: 10pt;">--- a/mediatek/mt6580/init.mt6580.usb.rc<br />
+	+++ b/mediatek/mt6580/init.mt6580.usb.rc<br />
+	@@ -92,8 +92,9 @@ on property:sys.usb.config=mtp<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; write /sys/class/android_usb/android0/enable 0<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; write /sys/class/android_usb/android0/idVendor ${sys.usb.vid}<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; write /sys/class/android_usb/android0/idProduct 0168<br />
+	-&nbsp;&nbsp;&nbsp; write /sys/class/android_usb/android0/functions ${sys.usb.config}<br />
+	+&nbsp;&nbsp;&nbsp; write /sys/class/android_usb/android0/functions mtp,adb<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; write /sys/class/android_usb/android0/enable 1<br />
+	+&nbsp;&nbsp;&nbsp; start adbd<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; setprop sys.usb.state ${sys.usb.config}</span></p>
+<pre style="margin: 0cm 0cm 0.0001pt; text-align: justify; font-size: 14px; font-family: Calibri, sans-serif; color: rgb(51, 51, 51); font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-indent: 0px; text-transform: none; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">
+
+</pre>
+<p>
+	&nbsp;</p>

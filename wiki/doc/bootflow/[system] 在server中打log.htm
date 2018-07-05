@@ -1,0 +1,100 @@
+<p>
+	在server中打log :</p>
+<p>
+	<span style="color: rgb(0, 0, 0); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); font-family: 宋体;">目前在调试</span><span lang="EN-US" style="color: rgb(0, 0, 0); font-family: Calibri, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">service</span><span style="color: rgb(0, 0, 0); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); font-family: 宋体;">时，发现</span><span lang="EN-US" style="color: rgb(0, 0, 0); font-family: Calibri, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">log</span><span style="color: rgb(0, 0, 0); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); font-family: 宋体;">很难输出，现做了一些尝试，如下</span><span lang="EN-US" style="color: rgb(0, 0, 0); font-family: Calibri, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">(</span><span style="color: rgb(0, 0, 0); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); font-family: 宋体;">仅作调试用</span><span lang="EN-US" style="color: rgb(0, 0, 0); font-family: Calibri, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);">)</span><span style="color: rgb(0, 0, 0); font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); font-family: 宋体;">：</span></p>
+<p>
+	/vendor/xxx/srv1/</p>
+<p>
+	<span style="background-color:#ffff00;">方法一，在kernel log中打印</span></p>
+<p>
+	1).加入头文件<br />
+	<br />
+	#include &lt;cutils/klog.h&gt;<br />
+	<br />
+	2).原有Log输出重定向<br />
+	<br />
+	#define printf(x...) do { KLOG_ERROR(&quot;!!!!!!!!!!!!!!&quot;, x); } while (0)<br />
+	<br />
+	在代码的初始化阶段（如main函数开始）加入如下函数:<br />
+	<br />
+	klog_init();<br />
+	<br />
+	klog_set_level(KLOG_NOTICE_LEVEL);<br />
+	<br />
+	3).android.mk加入相关库文件<br />
+	<br />
+	LOCAL_STATIC_LIBRARIES := libcutils<br />
+	<br />
+	4).加入相关selinux权限，xxx为相关进程，如getver<br />
+	<br />
+	allow xxxx kmsg_device:chr_file {open write};</p>
+<p>
+	&nbsp;</p>
+<p>
+	查看：adb shell dmesg | grep AAA</p>
+<p>
+	adb shell cat proc/kmsg</p>
+<p>
+	<span style="background-color:#ffff00;">方法二: 在adb log中打印</span></p>
+<p>
+	1.service中添加android log</p>
+<p>
+	1).加入头文件:</p>
+<p>
+	#include &lt;android/log.h&gt;</p>
+<p>
+	2).定义TAG:</p>
+<p>
+	#define LOG_TAG &quot;getver:&quot;</p>
+<p>
+	3).原有的Log输出重定向</p>
+<p>
+	#define printf(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)</p>
+<p>
+	4).android.mk中加入相关库文件</p>
+<p>
+	LOCAL_SHARED_LIBRARIES := liblog</p>
+<p>
+	&nbsp;</p>
+<p>
+	值得注意的是，方法1中的Log可能在adb&nbsp;起来之前就被其他log给冲掉。但可以在系统起来后，用setprop ctl.start xxxx来启动相关service来查看log</p>
+<p>
+	&nbsp;</p>
+<p>
+	Z:m6tout argetproductmickey6tsystemin&gt;adb logcat | grep getver<br />
+	File STDIN:<br />
+	01-01 00:12:46.945&nbsp;&nbsp; 281&nbsp;&nbsp; 281 I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : service_to_fd shell:getver<br />
+	01-01 00:12:47.098&nbsp; 7736&nbsp; 7736 E getver: : [AAAA]<br />
+	01-01 00:12:47.100&nbsp; 7736&nbsp; 7736 E getver: : PRELOADER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:12:47.105&nbsp; 7736&nbsp; 7736 E getver: : read out byte cnt: 262144!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:12:47.109&nbsp; 7736&nbsp; 7736 E getver: : BOOTLOADER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:12:47.116&nbsp; 7736&nbsp; 7736 E getver: : read out byte cnt: 393216!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:12:47.120&nbsp; 7736&nbsp; 7736 E getver: : RECOVERYIMG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:12:47.210&nbsp; 7736&nbsp; 7736 E getver: : read out byte cnt: 9437184!!!!!!!!!!!!!!!!!!<br />
+	^C^C<br />
+	Z:m6tout argetproductmickey6tsystemin&gt;adb shell<br />
+	gemickey6t:/ # tver<br />
+	getver</p>
+<p>
+	<span style="background-color:#ffff00;">使用重定向输入出log:</span><br />
+	mickey6t:/ # <span style="color:#ff0000;"><span style="background-color: rgb(255, 255, 0);">(logcat | grep getver &amp;)</span></span><br />
+	(logcat | grep getver &amp;)<br />
+	mickey6t:/ # 01-01 00:18:53.113&nbsp; 7835&nbsp; 7835 E getver: : [AAAA]<br />
+	01-01 00:18:53.114&nbsp; 7835&nbsp; 7835 E getver: : PRELOADER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:18:53.121&nbsp; 7835&nbsp; 7835 E getver: : read out byte cnt: 262144!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:18:53.124&nbsp; 7835&nbsp; 7835 E getver: : BOOTLOADER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:18:53.131&nbsp; 7835&nbsp; 7835 E getver: : read out byte cnt: 393216!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:18:53.135&nbsp; 7835&nbsp; 7835 E getver: : RECOVERYIMG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:18:53.329&nbsp; 7835&nbsp; 7835 E getver: : read out byte cnt: 9437184!!!!!!!!!!!!!!!!!!<br />
+	<br />
+	<br />
+	<span style="background-color:#ffff00;">mickey6t:/ # getver</span><br />
+	getver<br />
+	01-01 00:19:11.777&nbsp; 7843&nbsp; 7843 E getver: : [AAAA]<br />
+	01-01 00:19:11.778&nbsp; 7843&nbsp; 7843 E getver: : PRELOADER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:19:11.788&nbsp; 7843&nbsp; 7843 E getver: : read out byte cnt: 262144!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:19:11.795&nbsp; 7843&nbsp; 7843 E getver: : BOOTLOADER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:19:11.806&nbsp; 7843&nbsp; 7843 E getver: : read out byte cnt: 393216!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:19:11.814&nbsp; 7843&nbsp; 7843 E getver: : RECOVERYIMG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!<br />
+	01-01 00:19:11.932&nbsp; 7843&nbsp; 7843 E getver: : read out byte cnt: 9437184!!!!!!!!!!!!!!!!!!<br />
+	mickey6t:/ #</p>

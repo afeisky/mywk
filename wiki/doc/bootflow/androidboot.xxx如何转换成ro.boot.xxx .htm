@@ -1,0 +1,146 @@
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<h1>
+	<span class="link_title"><a href="http://blog.csdn.net/kris_fei/article/details/50925356">androidboot.xxx如何转换成ro.boot.xxx </a></span></h1>
+<p>
+	&nbsp;</p>
+<p>
+	在kermel cmdline中我们经常会设置androidboot.xxx比如androidboot.selinux=disabled，</p>
+<p>
+	但是代码中并不能搜到对应的内容，其实是init做了统一转换。</p>
+<p>
+	init进程中有：</p>
+<p>
+	main -&gt; process_kernel_cmdline -&gt; import_kernel_cmdline -&gt; import_kernel_nv:</p>
+<div class="dp-highlighter bg_cpp">
+	<div class="bar">
+		<div class="tools">
+			<b>[cpp]</b> <a class="ViewSource" href="http://blog.csdn.net/kris_fei/article/details/50925356?locationNum=2&amp;fps=1#" title="view plain">view plain</a><span data-mod="popu_168"> <a class="CopyToClipboard" href="http://blog.csdn.net/kris_fei/article/details/50925356?locationNum=2&amp;fps=1#" title="copy">copy</a></span><span data-mod="popu_169"> </span><span class="tracking-ad" data-mod="popu_167"><a href="https://code.csdn.net/snippets/1615237" style="text-indent:0;" target="_blank" title="在CODE上查看代码片"><img alt="在CODE上查看代码片" height="12" src="https://code.csdn.net/assets/CODE_ico.png" style="position:relative;top:1px;left:2px;" width="12" /></a></span><span class="tracking-ad" data-mod="popu_170"><a href="https://code.csdn.net/snippets/1615237/fork" style="text-indent:0;" target="_blank" title="派生到我的代码片"><img alt="派生到我的代码片" height="12" src="https://code.csdn.net/assets/ico_fork.svg" style="position:relative;top:2px;left:2px;" width="12" /></a></span></div>
+	</div>
+	<ol class="dp-cpp" start="1">
+		<li class="alt">
+			<span><span class="keyword">void</span><span>&nbsp;import_kernel_cmdline(</span><span class="datatypes">int</span><span>&nbsp;in_qemu,&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">void</span><span>&nbsp;(*import_kernel_nv)(</span><span class="datatypes">char</span><span>&nbsp;*name,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;in_qemu))&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>{&nbsp;&nbsp;</span></li>
+		<li>
+			<span>......&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*读取cmdline中的内容*/</span><span>&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;fd&nbsp;=&nbsp;open(<span class="string">&quot;/proc/cmdline&quot;</span><span>,&nbsp;O_RDONLY);&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(fd&nbsp;&gt;=&nbsp;0)&nbsp;{&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;n&nbsp;=&nbsp;read(fd,&nbsp;cmdline,&nbsp;</span><span class="keyword">sizeof</span><span>(cmdline)&nbsp;-&nbsp;1);&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(n&nbsp;&lt;&nbsp;0)&nbsp;n&nbsp;=&nbsp;0;&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>......&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;import_kernel_nv(ptr,&nbsp;in_qemu);&nbsp;&nbsp;</span></li>
+		<li>
+			<span>......&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>}&nbsp;&nbsp;</span></li>
+	</ol>
+</div>
+<div class="dp-highlighter bg_cpp">
+	<div class="bar">
+		<div class="tools">
+			<b>[cpp]</b> <a class="ViewSource" href="http://blog.csdn.net/kris_fei/article/details/50925356?locationNum=2&amp;fps=1#" title="view plain">view plain</a><span data-mod="popu_168"> <a class="CopyToClipboard" href="http://blog.csdn.net/kris_fei/article/details/50925356?locationNum=2&amp;fps=1#" title="copy">copy</a></span><span data-mod="popu_169"> </span><span class="tracking-ad" data-mod="popu_167"><a href="https://code.csdn.net/snippets/1615237" style="text-indent:0;" target="_blank" title="在CODE上查看代码片"><img alt="在CODE上查看代码片" height="12" src="https://code.csdn.net/assets/CODE_ico.png" style="position:relative;top:1px;left:2px;" width="12" /></a></span><span class="tracking-ad" data-mod="popu_170"><a href="https://code.csdn.net/snippets/1615237/fork" style="text-indent:0;" target="_blank" title="派生到我的代码片"><img alt="派生到我的代码片" height="12" src="https://code.csdn.net/assets/ico_fork.svg" style="position:relative;top:2px;left:2px;" width="12" /></a></span></div>
+	</div>
+	<ol class="dp-cpp" start="1">
+		<li class="alt">
+			<span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;import_kernel_nv(</span><span class="datatypes">char</span><span>&nbsp;*name,&nbsp;</span><span class="datatypes">int</span><span>&nbsp;for_emulator)&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>{&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>......&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*读取所有androidboot.开头的内容*/</span><span>&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span class="keyword">else</span><span>&nbsp;</span><span class="keyword">if</span><span>&nbsp;(!strncmp(name,&nbsp;</span><span class="string">&quot;androidboot.&quot;</span><span>,&nbsp;12)&nbsp;&amp;&amp;&nbsp;name_len&nbsp;&gt;&nbsp;12)&nbsp;{&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span><span>&nbsp;</span><span class="datatypes">char</span><span>&nbsp;*boot_prop_name&nbsp;=&nbsp;name&nbsp;+&nbsp;12;&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">char</span><span>&nbsp;prop[PROP_NAME_MAX];&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="datatypes">int</span><span>&nbsp;cnt;&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/*将androidboot.替换成ro.boot.*/</span><span>&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cnt&nbsp;=&nbsp;snprintf(prop,&nbsp;<span class="keyword">sizeof</span><span>(prop),&nbsp;</span><span class="string">&quot;ro.boot.%s&quot;</span><span>,&nbsp;boot_prop_name);&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(cnt&nbsp;&lt;&nbsp;PROP_NAME_MAX)&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;property_set(prop,&nbsp;value);&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li>
+		<li>
+			<span>}&nbsp;&nbsp;</span></li>
+	</ol>
+</div>
+<p>
+	事实上接下来还会再替换一次：</p>
+<div class="dp-highlighter bg_cpp">
+	<div class="bar">
+		<div class="tools">
+			<b>[cpp]</b> <a class="ViewSource" href="http://blog.csdn.net/kris_fei/article/details/50925356?locationNum=2&amp;fps=1#" title="view plain">view plain</a><span data-mod="popu_168"> <a class="CopyToClipboard" href="http://blog.csdn.net/kris_fei/article/details/50925356?locationNum=2&amp;fps=1#" title="copy">copy</a></span><span data-mod="popu_169"> </span><span class="tracking-ad" data-mod="popu_167"><a href="https://code.csdn.net/snippets/1615237" style="text-indent:0;" target="_blank" title="在CODE上查看代码片"><img alt="在CODE上查看代码片" height="12" src="https://code.csdn.net/assets/CODE_ico.png" style="position:relative;top:1px;left:2px;" width="12" /></a></span><span class="tracking-ad" data-mod="popu_170"><a href="https://code.csdn.net/snippets/1615237/fork" style="text-indent:0;" target="_blank" title="派生到我的代码片"><img alt="派生到我的代码片" height="12" src="https://code.csdn.net/assets/ico_fork.svg" style="position:relative;top:2px;left:2px;" width="12" /></a></span></div>
+	</div>
+	<ol class="dp-cpp" start="1">
+		<li class="alt">
+			<span><span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;export_kernel_boot_props(</span><span class="keyword">void</span><span>)&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>{&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>......&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">struct</span><span>&nbsp;{&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span><span>&nbsp;</span><span class="datatypes">char</span><span>&nbsp;*src_prop;&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span><span>&nbsp;</span><span class="datatypes">char</span><span>&nbsp;*dest_prop;&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span><span>&nbsp;</span><span class="datatypes">char</span><span>&nbsp;*def_val;&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;prop_map[]&nbsp;=&nbsp;{&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;<span class="string">&quot;ro.boot.serialno&quot;</span><span>,&nbsp;</span><span class="string">&quot;ro.serialno&quot;</span><span>,&nbsp;</span><span class="string">&quot;&quot;</span><span>,&nbsp;},&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;<span class="string">&quot;ro.boot.mode&quot;</span><span>,&nbsp;</span><span class="string">&quot;ro.bootmode&quot;</span><span>,&nbsp;</span><span class="string">&quot;unknown&quot;</span><span>,&nbsp;},&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;<span class="string">&quot;ro.boot.baseband&quot;</span><span>,&nbsp;</span><span class="string">&quot;ro.baseband&quot;</span><span>,&nbsp;</span><span class="string">&quot;unknown&quot;</span><span>,&nbsp;},&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;<span class="string">&quot;ro.boot.bootloader&quot;</span><span>,&nbsp;</span><span class="string">&quot;ro.bootloader&quot;</span><span>,&nbsp;</span><span class="string">&quot;unknown&quot;</span><span>,&nbsp;},&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;};&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span><span>&nbsp;(i&nbsp;=&nbsp;0;&nbsp;i&nbsp;&lt;&nbsp;ARRAY_SIZE(prop_map);&nbsp;i++)&nbsp;{&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ret&nbsp;=&nbsp;property_get(prop_map[i].src_prop,&nbsp;tmp);&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>&nbsp;(ret&nbsp;&gt;&nbsp;0)&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;property_set(prop_map[i].dest_prop,&nbsp;tmp);&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;property_set(prop_map[i].dest_prop,&nbsp;prop_map[i].def_val);&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li>
+		<li>
+			<span>......&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>}&nbsp;&nbsp;</span></li>
+	</ol>
+	<div class="save_code tracking-ad" data-mod="popu_249" style="display: block;">
+		<a><img src="http://static.blog.csdn.net/images/save_snippets.png" /></a></div>
+</div>
+<p>
+	&nbsp;</p>

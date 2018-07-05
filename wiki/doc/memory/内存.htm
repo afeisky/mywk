@@ -1,0 +1,690 @@
+<p>
+	&nbsp;</p>
+<p>
+	常用命令：</p>
+<p>
+	<span style="background-color:#ff8c00;">dumpsys meminfo ,&nbsp; ps&nbsp; , kill -9 pid(要使用root)</span></p>
+<p>
+	<span style="color: rgb(0, 0, 0); font-family: Tahoma; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">adb shell </span><span style="color:#ff0000;"><span style="font-family: Tahoma; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline ! important; float: none;">dumpsys </span></span><span style="color: rgb(0, 0, 0); font-family: Tahoma; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">procstats --hours 3</span></p>
+<p>
+	<span style="color: rgb(0, 0, 0); font-family: Tahoma; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">adb shell </span><span style="color:#ff0000;"><span style="font-family: Tahoma; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline ! important; float: none;">procrank</span></span></p>
+<p>
+	<span style="font-family: Tahoma; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline ! important; float: none;">adb shell cat /proc/<span style="color:#ff0000;">meminfo</span></span></p>
+<p>
+	adb shell<span style="color:#ff0000;"> ps -x</span></p>
+<p>
+	adb shell <span style="color:#0000ff;">free</span><br />
+	Linux下的cache和buffer是物理内存分配给高速缓存，以保证系统运行的更快，使用free命令可以查看内存的使用情况，</p>
+<p>
+	<img alt="" src="data:image/png;base64,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" /></p>
+<p>
+	此处的内存使用情况：第一行的free+buffer为物理内存分配出来，但是free和buffer还没有使用的大小。<br />
+	第二行的-/+buffer/cache中的使用内存used为物理内存分配给buffer和cached的使用情况，free为真实的内存剩余大小。<br />
+	总内存：memory=used+free=used1+free1=buffers+cached+used1+free<br />
+	也就是说：free1=free+buffers+cache。<br />
+	内存中的buffers和cached为内存使用的机制。<br />
+	Buffers和cached：<br />
+	Buffers（缓冲区）为还没有写入硬盘，cached（缓存）为已被从硬盘中读取和存入硬盘以备使用。</p>
+<p>
+	<span style="background-color:#ff0000;">* </span>下面是free的运行结果，一共有4行。为了方便说明，我加上了列号。这样可以把free的输出看成一个二维数组FO(Free Output)。例如：</p>
+<ul>
+	<li>
+		FO[2][1] =&nbsp;24677460</li>
+	<li>
+		FO[3][2] =&nbsp;10321516&nbsp;&nbsp;</li>
+</ul>
+<div class="cnblogs_code">
+	<div>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6<br />
+		1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; free&nbsp;&nbsp;&nbsp;&nbsp; shared&nbsp;&nbsp;&nbsp; buffers&nbsp;&nbsp;&nbsp;&nbsp; cached<br />
+		2 Mem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 24677460&nbsp;&nbsp; 23276064&nbsp;&nbsp;&nbsp; 1401396&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 870540&nbsp;&nbsp; 12084008<br />
+		3 -/+ buffers/cache:&nbsp;&nbsp; 10321516&nbsp;&nbsp; 14355944<br />
+		4 Swap:&nbsp;&nbsp;&nbsp;&nbsp; 25151484&nbsp;&nbsp;&nbsp;&nbsp; 224188&nbsp;&nbsp; 24927296</div>
+</div>
+<p>
+	　　free的输出一共有四行，第四行为交换区的信息，分别是交换的总量（total），使用量（used）和有多少空闲的交换区（free），这个比较清楚，不说太多。</p>
+<p>
+	　　free输出地第二行和第三行是比较让人迷惑的。这两行都是说明内存使用情况的。第一列是总量（total），第二列是使用量（used），第三列是可用量（free）。</p>
+<p>
+	<span style="color: #ff0000;">　　第二行的输出时从操作系统（OS）来看的。</span>也就是说，从OS的角度来看，计算机上一共有:</p>
+<ul>
+	<li>
+		24677460KB（缺省时free的单位为KB）物理内存，即FO[2][1]；</li>
+	<li>
+		在这些物理内存中有23276064KB（即FO[2][2]）被使用了；</li>
+	<li>
+		还用1401396KB（即FO[2][3]）是可用的；</li>
+</ul>
+<p>
+	这里得到第一个等式：</p>
+<ul>
+	<li>
+		FO[2][1] = FO[2][2] + FO[2][3]</li>
+</ul>
+<p>
+	FO[2][4]表示被几个进程共享的内存的，现在已经deprecated，其值总是0（当然在一些系统上也可能不是0，主要取决于free命令是怎么实现的）。</p>
+<p>
+	FO[2][5]表示被OS buffer住的内存。FO[2][6]表示被OS cache的内存。在有些时候buffer和cache这两个词经常混用。不过在一些比较低层的软件里是要区分这两个词的，看老外的洋文:</p>
+<ul>
+	<li>
+		<span style="color: #ff0000;"><em>A buffer is something that has yet to be &quot;written&quot; to disk.&nbsp;</em></span></li>
+	<li>
+		<span style="color: #ff0000;"><em>A cache is something that has been &quot;read&quot; from the disk and stored for later use.</em></span></li>
+</ul>
+<p>
+	<span style="color: #ff0000;">也就是说buffer是用于存放要输出到disk（块设备）的数据的，而cache是存放从disk上读出的数据。这二者是为了提高IO性能的，并由OS管理。</span></p>
+<p>
+	Linux和其他成熟的操作系统（例如windows），为了提高IO read的性能，总是要多cache一些数据，这也就是为什么FO[2][6]（cached memory）比较大，而FO[2][3]比较小的原因。我们可以做一个简单的测试:</p>
+<ol>
+	<li>
+		释放掉被系统cache占用的数据；
+		<div class="cnblogs_code">
+			<div>
+				echo&nbsp;3&gt;/proc/sys/vm/drop_caches</div>
+		</div>
+		<p>
+			&nbsp;</p>
+	</li>
+	<li>
+		读一个大文件，并记录时间；</li>
+	<li>
+		关闭该文件；</li>
+	<li>
+		重读这个大文件，并记录时间；</li>
+</ol>
+<p>
+	第二次读应该比第一次快很多。原来我做过一个BerkeleyDB的读操作，大概要读5G的文件，几千万条记录。在我的环境上，第二次读比第一次大概可以快9倍左右。</p>
+<p>
+	<span style="color: #ff0000;">　　free输出的第三行是从一个应用程序的角度看系统内存的使用情况。</span></p>
+<ul>
+	<li>
+		对于FO[3][2]，即-buffers/cache，表示一个应用程序认为系统被用掉多少内存；</li>
+	<li>
+		对于FO[3][3]，即+buffers/cache，表示一个应用程序认为系统还有多少内存；</li>
+</ul>
+<p>
+	<span style="color: #ff0000;">因为被系统cache和buffer占用的内存可以被快速回收，所以通常FO[3][3]比FO[2][3]会大很多。</span></p>
+<p>
+	这里还用两个等式：</p>
+<ul>
+	<li>
+		<span style="color: #ff0000;">FO[3][2] = FO[2][2] - FO[2][5] - FO[2][6]</span></li>
+	<li>
+		<span style="color: #ff0000;">FO[3][3] = FO[2][3] + FO[2][5] + FO[2][6]</span></li>
+</ul>
+<p>
+	这二者都不难理解。</p>
+<p>
+	　　free命令由procps.*.rpm提供（在Redhat系列的OS上）。free命令的所有输出值都是从/proc/meminfo中读出的。</p>
+<p>
+	在系统上可能有meminfo(2)这个函数，它就是为了解析/proc/meminfo的。procps这个包自己实现了meminfo()这个函数。可以下载一个procps的tar包看看具体实现，现在最新版式3.2.8。</p>
+<p>
+	Linux内核中cache的实现：<br />
+	Kmem_cache是Linux内核提供的快速内存缓冲接口，这些内存块要求是大小相同的，因为分配 出的内存在接口师范时并不是真正释放，而是作为缓存保留，下一次请求分配时就可以直接使用，省去了各种内存块初始化或者释放的操作，因此分配速度很快，通 常用于大数量的内存块儿分配情况，如：inode节点，skbuff头，netfilter的连接，可以通过/proc/slabinfo文件直接读取 cache分配情况。<br />
+	Kmem_cache在/proc/slabinfo中可以找到。</p>
+<p>
+	<img alt="" src="data:image/png;base64,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" /></p>
+<p>
+	&nbsp;</p>
+<p>
+	新的概念：<br />
+	Page:Linux中，page是内核中内存基本管理单元，每个page的内存大小是固定的，对于x86来说，page是 4k，slab则是kmem_cache的具体内存空间形式，根据cache的对象的大小，每个slab可以有1-32个page，如果把cache对象 比一个page的空间还小，那么这个page对象会容纳多个对象以尽可能利用空间。<br />
+	Kmem_cache数据结构并没有定义在.h的头文件。</p>
+<p>
+	&nbsp;</p>
+<p>
+	root@jhz6580_we_3_m:/ # <span style="color:#0000ff;"><span style="background-color: rgb(255, 165, 0);">procrank</span></span><br />
+	<span style="color:#0000ff;">procrank</span><br />
+	&nbsp; PID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vss&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rss&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pss&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uss&nbsp;&nbsp;&nbsp;&nbsp; Swap&nbsp;&nbsp;&nbsp; PSwap&nbsp; cmdline<br />
+	&nbsp; 849&nbsp; 1129324K&nbsp; 102864K&nbsp;&nbsp; 50322K&nbsp;&nbsp; 45080K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; system_server<br />
+	&nbsp;1364&nbsp;&nbsp; 792556K&nbsp;&nbsp; 96580K&nbsp;&nbsp; 43185K&nbsp;&nbsp; 38616K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.systemui<br />
+	&nbsp; 224&nbsp;&nbsp; 214188K&nbsp;&nbsp; 44272K&nbsp;&nbsp; 37778K&nbsp;&nbsp; 36556K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/mediaserver<br />
+	&nbsp;1921&nbsp;&nbsp; 772288K&nbsp;&nbsp; 72412K&nbsp;&nbsp; 26183K&nbsp;&nbsp; 24588K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.mediatek.voicecommand<br />
+	&nbsp;1876&nbsp;&nbsp; 752872K&nbsp;&nbsp; 73932K&nbsp;&nbsp; 24886K&nbsp;&nbsp; 22396K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.phone<br />
+	&nbsp;2124&nbsp;&nbsp; 771924K&nbsp;&nbsp; 75868K&nbsp;&nbsp; 23717K&nbsp;&nbsp; 19408K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.launcher3<br />
+	&nbsp; 253&nbsp;&nbsp; 950740K&nbsp;&nbsp; 75408K&nbsp;&nbsp; 15819K&nbsp;&nbsp;&nbsp; 9568K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; zygote<br />
+	&nbsp;2463&nbsp;&nbsp; 713856K&nbsp;&nbsp; 60764K&nbsp;&nbsp; 12966K&nbsp;&nbsp; 10816K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; android.process.media<br />
+	&nbsp;2824&nbsp;&nbsp; 725628K&nbsp;&nbsp; 59104K&nbsp;&nbsp; 11443K&nbsp;&nbsp;&nbsp; 9384K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.email<br />
+	&nbsp;2162&nbsp;&nbsp; 720984K&nbsp;&nbsp; 58708K&nbsp;&nbsp; 10992K&nbsp;&nbsp;&nbsp; 9056K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.mms<br />
+	&nbsp;1795&nbsp;&nbsp; 716588K&nbsp;&nbsp; 59352K&nbsp;&nbsp; 10778K&nbsp;&nbsp;&nbsp; 8808K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.inputmethod.latin<br />
+	&nbsp;3068&nbsp;&nbsp; 712448K&nbsp;&nbsp; 57368K&nbsp;&nbsp;&nbsp; 9992K&nbsp;&nbsp;&nbsp; 8176K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; android.process.acore<br />
+	&nbsp;3119&nbsp;&nbsp; 711400K&nbsp;&nbsp; 56856K&nbsp;&nbsp;&nbsp; 9973K&nbsp;&nbsp;&nbsp; 8164K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.browser<br />
+	&nbsp;1935&nbsp;&nbsp; 716728K&nbsp;&nbsp; 53424K&nbsp;&nbsp;&nbsp; 7554K&nbsp;&nbsp;&nbsp; 5948K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.mediatek.mtklogger<br />
+	&nbsp;2290&nbsp;&nbsp; 709836K&nbsp;&nbsp; 54196K&nbsp;&nbsp;&nbsp; 7494K&nbsp;&nbsp;&nbsp; 5884K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.calendar<br />
+	&nbsp;3088&nbsp;&nbsp; 971196K&nbsp;&nbsp; 52920K&nbsp;&nbsp;&nbsp; 7253K&nbsp;&nbsp;&nbsp; 5720K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.gallery3d<br />
+	&nbsp;2807&nbsp;&nbsp; 710568K&nbsp;&nbsp; 54284K&nbsp;&nbsp;&nbsp; 7036K&nbsp;&nbsp;&nbsp; 5120K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.deskclock<br />
+	&nbsp;2423&nbsp;&nbsp; 718180K&nbsp;&nbsp; 53876K&nbsp;&nbsp;&nbsp; 6961K&nbsp;&nbsp;&nbsp; 4980K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.settings<br />
+	&nbsp;2669&nbsp;&nbsp; 705840K&nbsp;&nbsp; 53288K&nbsp;&nbsp;&nbsp; 6700K&nbsp;&nbsp;&nbsp; 5120K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.providers.calendar<br />
+	&nbsp;1881&nbsp;&nbsp; 706108K&nbsp;&nbsp; 51528K&nbsp;&nbsp;&nbsp; 6032K&nbsp;&nbsp;&nbsp; 4456K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.mediatek.hotknot.service<br />
+	&nbsp;3104&nbsp;&nbsp; 705368K&nbsp;&nbsp; 50752K&nbsp;&nbsp;&nbsp; 5445K&nbsp;&nbsp;&nbsp; 3828K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.android.quicksearchbox<br />
+	&nbsp;3048&nbsp;&nbsp; 703636K&nbsp;&nbsp; 51264K&nbsp;&nbsp;&nbsp; 5416K&nbsp;&nbsp;&nbsp; 3772K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.mediatek.ppl<br />
+	&nbsp;2898&nbsp;&nbsp; 703656K&nbsp;&nbsp; 51928K&nbsp;&nbsp;&nbsp; 5275K&nbsp;&nbsp;&nbsp; 3656K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.mediatek.omacp<br />
+	&nbsp;2964&nbsp;&nbsp; 703784K&nbsp;&nbsp; 50152K&nbsp;&nbsp;&nbsp; 5147K&nbsp;&nbsp;&nbsp; 3696K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.mediatek.systemupdate<br />
+	&nbsp;1895&nbsp;&nbsp; 713228K&nbsp;&nbsp; 50628K&nbsp;&nbsp;&nbsp; 5084K&nbsp;&nbsp;&nbsp; 3544K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.mediatek.voiceextension<br />
+	&nbsp;2923&nbsp;&nbsp; 703692K&nbsp;&nbsp; 51308K&nbsp;&nbsp;&nbsp; 5039K&nbsp;&nbsp;&nbsp; 3512K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.mediatek.schpwronoff<br />
+	&nbsp;1909&nbsp;&nbsp; 705436K&nbsp;&nbsp; 50016K&nbsp;&nbsp;&nbsp; 4870K&nbsp;&nbsp;&nbsp; 3360K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.mediatek.nlpservice<br />
+	&nbsp; 223&nbsp;&nbsp;&nbsp; 54680K&nbsp;&nbsp; 12676K&nbsp;&nbsp;&nbsp; 4798K&nbsp;&nbsp;&nbsp; 3472K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/drmserver<br />
+	&nbsp; 237&nbsp;&nbsp;&nbsp; 55080K&nbsp;&nbsp; 12592K&nbsp;&nbsp;&nbsp; 4773K&nbsp;&nbsp;&nbsp; 3456K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/vtservice<br />
+	&nbsp;1844&nbsp;&nbsp; 703680K&nbsp;&nbsp; 49016K&nbsp;&nbsp;&nbsp; 4699K&nbsp;&nbsp;&nbsp; 3252K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; system<br />
+	&nbsp;2959&nbsp;&nbsp; 706856K&nbsp;&nbsp; 49324K&nbsp;&nbsp;&nbsp; 4696K&nbsp;&nbsp;&nbsp; 3232K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; org.simalliance.openmobileapi.service:remote<br />
+	&nbsp;2987&nbsp;&nbsp; 703672K&nbsp;&nbsp; 49024K&nbsp;&nbsp;&nbsp; 4658K&nbsp;&nbsp;&nbsp; 3232K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; org.simalliance.openmobileapi.uicc1terminal<br />
+	&nbsp;2992&nbsp;&nbsp; 703672K&nbsp;&nbsp; 49012K&nbsp;&nbsp;&nbsp; 4654K&nbsp;&nbsp;&nbsp; 3228K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; org.simalliance.openmobileapi.uicc2terminal<br />
+	&nbsp;3007&nbsp;&nbsp; 703672K&nbsp;&nbsp; 48996K&nbsp;&nbsp;&nbsp; 4641K&nbsp;&nbsp;&nbsp; 3212K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; org.simalliance.openmobileapi.eseterminal<br />
+	&nbsp;2875&nbsp;&nbsp; 703572K&nbsp;&nbsp; 48816K&nbsp;&nbsp;&nbsp; 4537K&nbsp;&nbsp;&nbsp; 3128K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; com.mediatek.thermalmanager<br />
+	&nbsp;2938&nbsp;&nbsp; 703664K&nbsp;&nbsp; 48552K&nbsp;&nbsp;&nbsp; 4448K&nbsp;&nbsp;&nbsp; 3004K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; org.simalliance.openmobileapi.service<br />
+	&nbsp; 207&nbsp;&nbsp; 103448K&nbsp;&nbsp;&nbsp; 8028K&nbsp;&nbsp;&nbsp; 3616K&nbsp;&nbsp;&nbsp; 2976K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/surfaceflinger<br />
+	&nbsp; 265&nbsp;&nbsp;&nbsp; 45688K&nbsp;&nbsp; 10536K&nbsp;&nbsp;&nbsp; 3499K&nbsp;&nbsp;&nbsp; 2412K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/em_svr<br />
+	&nbsp; 259&nbsp;&nbsp;&nbsp; 41144K&nbsp;&nbsp;&nbsp; 9364K&nbsp;&nbsp;&nbsp; 3154K&nbsp;&nbsp;&nbsp; 2144K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/program_binary_service<br />
+	&nbsp; 189&nbsp;&nbsp;&nbsp; 21148K&nbsp;&nbsp;&nbsp; 3832K&nbsp;&nbsp;&nbsp; 2719K&nbsp;&nbsp;&nbsp; 2688K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/logd<br />
+	&nbsp; 229&nbsp;&nbsp;&nbsp; 22832K&nbsp;&nbsp;&nbsp; 3608K&nbsp;&nbsp;&nbsp; 2433K&nbsp;&nbsp;&nbsp; 2400K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/mobile_log_d<br />
+	&nbsp;2712&nbsp;&nbsp;&nbsp; 15892K&nbsp;&nbsp;&nbsp; 4280K&nbsp;&nbsp;&nbsp; 2158K&nbsp;&nbsp;&nbsp; 1128K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; tcpdump<br />
+	&nbsp; 556&nbsp;&nbsp;&nbsp; 43156K&nbsp;&nbsp;&nbsp; 2976K&nbsp;&nbsp;&nbsp; 1726K&nbsp;&nbsp;&nbsp; 1700K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/mtkrild<br />
+	&nbsp; 238&nbsp;&nbsp;&nbsp; 48500K&nbsp;&nbsp;&nbsp; 2772K&nbsp;&nbsp;&nbsp; 1514K&nbsp;&nbsp;&nbsp; 1468K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/mtk_agpsd<br />
+	&nbsp; 260&nbsp;&nbsp;&nbsp; 26600K&nbsp;&nbsp;&nbsp; 4316K&nbsp;&nbsp;&nbsp; 1424K&nbsp;&nbsp;&nbsp; 1200K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/atci_service<br />
+	&nbsp; 190&nbsp;&nbsp;&nbsp; 20192K&nbsp;&nbsp;&nbsp; 3016K&nbsp;&nbsp;&nbsp; 1367K&nbsp;&nbsp;&nbsp; 1260K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/vold<br />
+	&nbsp;1361&nbsp;&nbsp;&nbsp; 13984K&nbsp;&nbsp;&nbsp; 2092K&nbsp;&nbsp;&nbsp; 1251K&nbsp;&nbsp;&nbsp; 1240K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/sdcard<br />
+	&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; 10564K&nbsp;&nbsp;&nbsp; 1284K&nbsp;&nbsp;&nbsp;&nbsp; 956K&nbsp;&nbsp;&nbsp;&nbsp; 692K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 24K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 24K&nbsp; /init<br />
+	&nbsp; 220&nbsp;&nbsp;&nbsp; 22880K&nbsp;&nbsp;&nbsp; 2204K&nbsp;&nbsp;&nbsp;&nbsp; 921K&nbsp;&nbsp;&nbsp;&nbsp; 872K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/netd<br />
+	&nbsp; 498&nbsp;&nbsp;&nbsp; 22408K&nbsp;&nbsp;&nbsp; 2092K&nbsp;&nbsp;&nbsp;&nbsp; 920K&nbsp;&nbsp;&nbsp;&nbsp; 892K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/mdlogger<br />
+	&nbsp; 252&nbsp;&nbsp;&nbsp; 16296K&nbsp;&nbsp;&nbsp; 2676K&nbsp;&nbsp;&nbsp;&nbsp; 844K&nbsp;&nbsp;&nbsp;&nbsp; 756K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/guiext-server<br />
+	&nbsp; 221&nbsp;&nbsp;&nbsp; 12624K&nbsp;&nbsp;&nbsp; 1984K&nbsp;&nbsp;&nbsp;&nbsp; 839K&nbsp;&nbsp;&nbsp;&nbsp; 800K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/debuggerd<br />
+	&nbsp;3217&nbsp;&nbsp;&nbsp; 12544K&nbsp;&nbsp;&nbsp; 1680K&nbsp;&nbsp;&nbsp;&nbsp; 800K&nbsp;&nbsp;&nbsp;&nbsp; 788K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; procrank<br />
+	&nbsp; 233&nbsp;&nbsp;&nbsp; 16732K&nbsp;&nbsp;&nbsp; 2184K&nbsp;&nbsp;&nbsp;&nbsp; 781K&nbsp;&nbsp;&nbsp;&nbsp; 740K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/pq<br />
+	&nbsp; 147&nbsp;&nbsp;&nbsp; 10048K&nbsp;&nbsp;&nbsp; 1044K&nbsp;&nbsp;&nbsp;&nbsp; 772K&nbsp;&nbsp;&nbsp;&nbsp; 508K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /sbin/ueventd<br />
+	&nbsp; 228&nbsp;&nbsp;&nbsp; 14264K&nbsp;&nbsp;&nbsp; 2220K&nbsp;&nbsp;&nbsp;&nbsp; 766K&nbsp;&nbsp;&nbsp;&nbsp; 696K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/keystore<br />
+	&nbsp; 214&nbsp;&nbsp;&nbsp; 12648K&nbsp;&nbsp;&nbsp; 1936K&nbsp;&nbsp;&nbsp;&nbsp; 703K&nbsp;&nbsp;&nbsp;&nbsp; 656K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/ccci_mdinit<br />
+	&nbsp; 239&nbsp;&nbsp;&nbsp; 66780K&nbsp;&nbsp;&nbsp; 1744K&nbsp;&nbsp;&nbsp;&nbsp; 673K&nbsp;&nbsp;&nbsp;&nbsp; 640K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/slpd<br />
+	&nbsp; 254&nbsp;&nbsp;&nbsp; 13956K&nbsp;&nbsp;&nbsp; 2064K&nbsp;&nbsp;&nbsp;&nbsp; 634K&nbsp;&nbsp;&nbsp;&nbsp; 572K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/gatekeeperd<br />
+	&nbsp; 243&nbsp;&nbsp;&nbsp; 14740K&nbsp;&nbsp;&nbsp; 1872K&nbsp;&nbsp;&nbsp;&nbsp; 621K&nbsp;&nbsp;&nbsp;&nbsp; 596K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/GoogleOtaBinder<br />
+	&nbsp; 235&nbsp;&nbsp;&nbsp; 14832K&nbsp;&nbsp;&nbsp; 1892K&nbsp;&nbsp;&nbsp;&nbsp; 617K&nbsp;&nbsp;&nbsp;&nbsp; 592K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/dm_agent_binder<br />
+	&nbsp; 241&nbsp;&nbsp;&nbsp; 13968K&nbsp;&nbsp;&nbsp; 1668K&nbsp;&nbsp;&nbsp;&nbsp; 611K&nbsp;&nbsp;&nbsp;&nbsp; 568K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/xbin/mnld<br />
+	&nbsp; 226&nbsp;&nbsp;&nbsp; 11252K&nbsp;&nbsp;&nbsp; 1612K&nbsp;&nbsp;&nbsp;&nbsp; 606K&nbsp;&nbsp;&nbsp;&nbsp; 580K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/installd<br />
+	&nbsp; 236&nbsp;&nbsp;&nbsp; 14732K&nbsp;&nbsp;&nbsp; 1828K&nbsp;&nbsp;&nbsp;&nbsp; 573K&nbsp;&nbsp;&nbsp;&nbsp; 548K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/ppl_agent<br />
+	&nbsp;2312&nbsp;&nbsp;&nbsp; 15396K&nbsp;&nbsp;&nbsp; 1836K&nbsp;&nbsp;&nbsp;&nbsp; 569K&nbsp;&nbsp;&nbsp;&nbsp; 524K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/gas_srv<br />
+	&nbsp; 251&nbsp;&nbsp;&nbsp; 14408K&nbsp;&nbsp;&nbsp; 1808K&nbsp;&nbsp;&nbsp;&nbsp; 552K&nbsp;&nbsp;&nbsp;&nbsp; 528K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/MtkCodecService<br />
+	&nbsp; 245&nbsp;&nbsp;&nbsp; 14656K&nbsp;&nbsp;&nbsp; 1788K&nbsp;&nbsp;&nbsp;&nbsp; 543K&nbsp;&nbsp;&nbsp;&nbsp; 520K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/nvram_agent_binder<br />
+	&nbsp; 212&nbsp;&nbsp;&nbsp; 11528K&nbsp;&nbsp;&nbsp; 1456K&nbsp;&nbsp;&nbsp;&nbsp; 514K&nbsp;&nbsp;&nbsp;&nbsp; 496K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/ccci_fsd<br />
+	&nbsp; 269&nbsp;&nbsp;&nbsp; 13868K&nbsp;&nbsp;&nbsp;&nbsp; 560K&nbsp;&nbsp;&nbsp;&nbsp; 512K&nbsp;&nbsp;&nbsp;&nbsp; 512K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /sbin/adbd<br />
+	&nbsp; 499&nbsp;&nbsp;&nbsp; 25492K&nbsp;&nbsp;&nbsp; 1392K&nbsp;&nbsp;&nbsp;&nbsp; 512K&nbsp;&nbsp;&nbsp;&nbsp; 500K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/gsm0710muxd<br />
+	&nbsp; 204&nbsp;&nbsp;&nbsp; 10528K&nbsp;&nbsp;&nbsp;&nbsp; 528K&nbsp;&nbsp;&nbsp;&nbsp; 484K&nbsp;&nbsp;&nbsp;&nbsp; 484K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /sbin/healthd<br />
+	&nbsp;3194&nbsp;&nbsp;&nbsp; 11384K&nbsp;&nbsp;&nbsp; 1416K&nbsp;&nbsp;&nbsp;&nbsp; 435K&nbsp;&nbsp;&nbsp;&nbsp; 368K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/sh<br />
+	&nbsp; 219&nbsp;&nbsp;&nbsp; 11384K&nbsp;&nbsp;&nbsp; 1368K&nbsp;&nbsp;&nbsp;&nbsp; 434K&nbsp;&nbsp;&nbsp;&nbsp; 368K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/sh<br />
+	&nbsp; 250&nbsp;&nbsp;&nbsp; 11888K&nbsp;&nbsp;&nbsp; 1560K&nbsp;&nbsp;&nbsp;&nbsp; 431K&nbsp;&nbsp;&nbsp;&nbsp; 412K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/batterywarning<br />
+	&nbsp; 248&nbsp;&nbsp;&nbsp; 11892K&nbsp;&nbsp;&nbsp; 1584K&nbsp;&nbsp;&nbsp;&nbsp; 428K&nbsp;&nbsp;&nbsp;&nbsp; 408K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/thermald<br />
+	&nbsp; 249&nbsp;&nbsp;&nbsp; 11812K&nbsp;&nbsp;&nbsp; 1460K&nbsp;&nbsp;&nbsp;&nbsp; 419K&nbsp;&nbsp;&nbsp;&nbsp; 404K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/fuelgauged<br />
+	&nbsp; 263&nbsp;&nbsp;&nbsp; 11256K&nbsp;&nbsp;&nbsp; 1356K&nbsp;&nbsp;&nbsp;&nbsp; 412K&nbsp;&nbsp;&nbsp;&nbsp; 396K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/atcid<br />
+	&nbsp; 255&nbsp;&nbsp;&nbsp; 10996K&nbsp;&nbsp;&nbsp; 1348K&nbsp;&nbsp;&nbsp;&nbsp; 400K&nbsp;&nbsp;&nbsp;&nbsp; 380K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/xbin/perfprofd<br />
+	&nbsp;2710&nbsp;&nbsp;&nbsp; 11128K&nbsp;&nbsp;&nbsp; 1364K&nbsp;&nbsp;&nbsp;&nbsp; 397K&nbsp;&nbsp;&nbsp;&nbsp; 340K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; sh<br />
+	&nbsp; 206&nbsp;&nbsp;&nbsp; 11260K&nbsp;&nbsp;&nbsp; 1284K&nbsp;&nbsp;&nbsp;&nbsp; 386K&nbsp;&nbsp;&nbsp;&nbsp; 372K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/servicemanager<br />
+	&nbsp; 240&nbsp;&nbsp;&nbsp; 10812K&nbsp;&nbsp;&nbsp; 1304K&nbsp;&nbsp;&nbsp;&nbsp; 381K&nbsp;&nbsp;&nbsp;&nbsp; 356K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/wifi2agps<br />
+	&nbsp; 205&nbsp;&nbsp;&nbsp; 11640K&nbsp;&nbsp;&nbsp; 1352K&nbsp;&nbsp;&nbsp;&nbsp; 363K&nbsp;&nbsp;&nbsp;&nbsp; 348K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/lmkd<br />
+	&nbsp;2706&nbsp;&nbsp;&nbsp; 14184K&nbsp;&nbsp;&nbsp;&nbsp; 888K&nbsp;&nbsp;&nbsp;&nbsp; 347K&nbsp;&nbsp;&nbsp;&nbsp; 152K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/netdiag<br />
+	&nbsp; 210&nbsp;&nbsp;&nbsp; 10996K&nbsp;&nbsp;&nbsp; 1192K&nbsp;&nbsp;&nbsp;&nbsp; 323K&nbsp;&nbsp;&nbsp;&nbsp; 312K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/6620_launcher<br />
+	&nbsp; 231&nbsp;&nbsp;&nbsp; 12896K&nbsp;&nbsp;&nbsp; 1584K&nbsp;&nbsp;&nbsp;&nbsp; 316K&nbsp;&nbsp;&nbsp;&nbsp; 100K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/netdiag<br />
+	&nbsp; 247&nbsp;&nbsp;&nbsp; 11820K&nbsp;&nbsp;&nbsp; 1188K&nbsp;&nbsp;&nbsp;&nbsp; 300K&nbsp;&nbsp;&nbsp;&nbsp; 288K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/thermal<br />
+	&nbsp; 257&nbsp;&nbsp;&nbsp; 10724K&nbsp;&nbsp;&nbsp; 1148K&nbsp;&nbsp;&nbsp;&nbsp; 280K&nbsp;&nbsp;&nbsp;&nbsp; 268K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0K&nbsp; /system/bin/sn<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ------&nbsp;&nbsp; ------&nbsp;&nbsp; ------&nbsp; ------<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 462526K&nbsp; 383376K&nbsp;&nbsp; 24576K&nbsp; TOTAL<br />
+	<br />
+	RAM: 972280K total, 35676K free, 15008K buffers, 344724K cached, 400K shmem, 79192K slab</p>
+<p>
+	Uss 是 Apps 单独占有的内存</p>
+<p>
+	Pss 是 Apps 占用的共享内存平均数 (&nbsp;&nbsp; 就是: 共享内存 / 进程数 &nbsp; )　+ Uss</p>
+<p>
+	总结：</p>
+<p>
+	1)一个简单的 Android 应用，占用空间可能是 5M&nbsp;</p>
+<p>
+	( 当然你运行的程序多了, 每个程序分摊的的共享内存降低, 很有可能接近 dalvik heap 内存大小, 前提是你调用的 native 接口不会分配很大的内存&nbsp; )</p>
+<p>
+	2)DDMS中显示的是 dalvik&nbsp; heap 的内存, 但不包括native 的内存 ( native 也可能在 OS 的栈和堆中分配内存)</p>
+<p>
+	3) VSIZE 和 RSS 不能衡量 Android 应用的内存占用</p>
+<p>
+	arnoldlu的专栏<br />
+	meminfo vmstat procrank top等详解<br />
+	2012-12-27 15:42 2991人阅读 评论(1) 收藏 举报<br />
+	meminfo<br />
+	<br />
+	命令：cat /proc/meminfo<br />
+	实例：<br />
+	MemTotal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 234312 kB<br />
+	MemFree:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3448 kB<br />
+	Buffers:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 92 kB<br />
+	Cached:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 18052 kB<br />
+	<br />
+	SwapCached:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 25556 kB<br />
+	<br />
+	Active:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 50564 kB<br />
+	<br />
+	Inactive:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 50236 kB<br />
+	<br />
+	Active(anon):&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 41924 kB<br />
+	<br />
+	Inactive(anon):&nbsp;&nbsp;&nbsp; 41968 kB<br />
+	<br />
+	Active(file):&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8640 kB<br />
+	<br />
+	Inactive(file):&nbsp;&nbsp;&nbsp;&nbsp; 8268 kB<br />
+	<br />
+	Unevictable:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1164 kB<br />
+	<br />
+	Mlocked:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 17028 kB<br />
+	<br />
+	HighTotal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 kB<br />
+	<br />
+	HighFree:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 kB<br />
+	<br />
+	LowTotal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 234312 kB<br />
+	<br />
+	LowFree:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3448 kB<br />
+	<br />
+	SwapTotal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 196604 kB<br />
+	<br />
+	SwapFree:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 114384 kB<br />
+	<br />
+	Dirty:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 kB<br />
+	<br />
+	Writeback:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 kB<br />
+	<br />
+	AnonPages:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 83900 kB<br />
+	<br />
+	Mapped:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 53944 kB<br />
+	<br />
+	Shmem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 44 kB<br />
+	<br />
+	Slab:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 17540 kB<br />
+	<br />
+	SReclaimable:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5828 kB<br />
+	<br />
+	SUnreclaim:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11712 kB<br />
+	<br />
+	KernelStack:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4184 kB<br />
+	<br />
+	PageTables:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5304 kB<br />
+	<br />
+	NFS_Unstable:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 kB<br />
+	<br />
+	Bounce:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 kB<br />
+	<br />
+	WritebackTmp:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 kB<br />
+	<br />
+	CommitLimit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 313760 kB<br />
+	<br />
+	Committed_AS:&nbsp;&nbsp;&nbsp; 2792956 kB<br />
+	<br />
+	VmallocTotal:&nbsp;&nbsp;&nbsp;&nbsp; 778240 kB<br />
+	<br />
+	VmallocUsed:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 115160 kB<br />
+	<br />
+	VmallocChunk:&nbsp;&nbsp;&nbsp;&nbsp; 405852 kB<br />
+	<br />
+	&nbsp;<br />
+	<br />
+	解释：<br />
+	<br />
+	MemTotal: 所有可用RAM大小 （即物理内存减去一些预留位和内核的二进制代码大小）<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; MemFree: LowFree与HighFree的总和<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; Buffers: 用来给块设备做的缓冲大小（只记录文件系统的metadata以及 tracking in-flight pages，就是说 buffers是用来存储，目录里面有什么内容，权限等等。）<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; Cached: 用来给文件做缓冲大小（直接用来记忆我们打开的文件）. 它不包括SwapCached<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; SwapCached: 已经被交换出来的内存，但仍然被存放在swapfile中。用来在需要的时候很快的被替换而不需要再次打开I/O端口。<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; Active: 最近经常被使用的内存，除非非常必要否则不会被移作他用.<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; Inactive: 最近不经常被使用的内存，非常用可能被用于其他途径.<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; HighTotal:<br />
+	&nbsp;&nbsp;&nbsp; HighFree: 高位内存是指所有在860MB以上的内存空间，该区域主要用于用户空间的程序或者是缓存页面。内核必须使用不同的手法使用该段内存，因此它比低位内存要慢一些。<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; LowTotal:<br />
+	&nbsp;&nbsp;&nbsp; LowFree: 低位可以达到高位内存一样的作用，而且它还能够被内核用来记录一些自己的数据结构。<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Among many other things, it is where everything from the Slab is<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; allocated.&nbsp; Bad things happen when you&#39;re out of lowmem.<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; SwapTotal: 交换空间的总和<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; SwapFree: 从RAM中被替换出暂时存在磁盘上的空间大小<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; Dirty: 等待被写回到磁盘的内存大小。<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; Writeback: 正在被写回到磁盘的内存大小。<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; Mapped: 影射文件的大小。<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; Slab: 内核数据结构缓存<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; VmallocTotal: vmalloc内存大小<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; VmallocUsed: 已经被使用的虚拟内存大小。<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; VmallocChunk: largest contigious block of vmalloc area which is free<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; CommitLimit: Based on the overcommit ratio(&#39;vm.overcommit_ratio&#39;),<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this is the total amount of&nbsp; memory currently available to<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; be allocated on the system. This limit is only adhered to<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if strict overcommit accounting is enabled (mode 2 in<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;vm.overcommit_memory&#39;).<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The CommitLimit is calculated with the following formula:<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CommitLimit = (&#39;vm.overcommit_ratio&#39; * Physical RAM) + Swap<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For example, on a system with 1G of physical RAM and 7G<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; of swap with a `vm.overcommit_ratio` of 30 it would<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; yield a CommitLimit of 7.3G.<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; For more details, see the memory overcommit documentation<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in vm/overcommit-accounting.<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	Committed_AS: The amount of memory presently allocated on<br />
+	the system.<br />
+	The committed memory is a sum of all of the memory which<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; has been allocated by processes, even if it has not been<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;used&quot; by them as of yet. A process which malloc()&#39;s 1G<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; of memory, but only touches 300M of it will only show up<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; as using 300M of memory even if it has the address space<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; allocated for the entire 1G. This 1G is memory which has<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; been &quot;committed&quot; to by the VM and can be used at any time<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; by the allocating application. With strict overcommit<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enabled on the system (mode 2 in &#39;vm.overcommit_memory&#39;),<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; allocations which would exceed the CommitLimit (detailed<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; above) will not be permitted. This is useful if one needs<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to guarantee that processes will not fail due to lack of<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memory once that memory has been successfully allocated.<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; VmallocTotal: 可以vmalloc虚拟内存大小<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; VmallocUsed: 已经被使用的虚拟内存大小。<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; VmallocChunk: largest contigious block of vmalloc area which is free<br />
+	<br />
+	提示：</p>
+<div style="LINE-HEIGHT: 25px; FONT-FAMILY: Arial, sans-serif, Helvetica, Tahoma">
+	<span style="LINE-HEIGHT: 19px; WHITE-SPACE: nowrap; FONT-SIZE: 12px"><span style="LINE-HEIGHT: 21px; COLOR: #0000ff">MemoryInfo所描述的内存使用情况都可以通过命令</span><span style="LINE-HEIGHT: 21px; COLOR: #ff6600">adb shell&nbsp;&quot;dumpsys meminfo %curProcessName%&quot;</span><span style="LINE-HEIGHT: 21px; COLOR: #0000ff">&nbsp;得到</span>。</span></div>
+<p>
+	<br />
+	使用adb shell cat /proc/meminfo 命令，查看剩余的空间还有多少，通常的系统剩余空间是: MemFree + cached<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 如下看到的系统剩余空间是：5616K + 158632K<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cat proc/meminfo<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MemTotal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 483724 kB<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MemFree:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5616 kB<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Buffers:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2732 kB<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cached:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 158632 kB<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SwapCached:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 kB<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Active:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 277336 kB<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Inactive:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 83232 kB<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Active(anon):&nbsp;&nbsp;&nbsp;&nbsp; 197452 kB<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 需要注意的是，在setting-&gt;apps-&gt;running app里面看到的剩余空间是上述MemFree + cached + background running app memory - SECOND_SERVER_MEM，具体的计算方法参考：RunningProcessView.java(/alps/package/apps/settings/src/com/android/setting/applications)里面的void refreshUi(boolean dataChanged)函数<br />
+	&nbsp;<br />
+	vmstat<br />
+	[root@localhost ~]# vmstat -n 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (每个3秒刷新一次）<br />
+	procs -----------memory---------- ---swap-- -----io---- --system-- ----cpu----<br />
+	r b&nbsp;&nbsp; swpd&nbsp;&nbsp; free&nbsp;&nbsp; buff cache&nbsp;&nbsp; si&nbsp;&nbsp; so&nbsp;&nbsp;&nbsp; bi&nbsp;&nbsp;&nbsp; bo&nbsp;&nbsp; in&nbsp;&nbsp;&nbsp; cs us sy id wa<br />
+	1 0&nbsp;&nbsp;&nbsp; 144 186164 105252 2386848&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 18&nbsp;&nbsp; 166&nbsp;&nbsp; 83&nbsp;&nbsp;&nbsp;&nbsp; 2 48 21 31 0<br />
+	2 0&nbsp;&nbsp;&nbsp; 144 189620 105252 2386848&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp; 177 1039 1210 34 10 56 0<br />
+	0 0&nbsp;&nbsp;&nbsp; 144 214324 105252 2386848&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 10 1071&nbsp;&nbsp; 670 32 5 63 0<br />
+	0 0&nbsp;&nbsp;&nbsp; 144 202212 105252 2386848&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp; 189 1035&nbsp;&nbsp; 558 20 3 77 0<br />
+	2 0&nbsp;&nbsp;&nbsp; 144 158772 105252 2386848&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp; 203 1065 2832 70 14 15 0<br />
+	vmstat所带参数请用man vmstat查看<br />
+	Procs<br />
+	r: 等待运行的进程数 b: 处在非中断睡眠状态的进程数 w: 被交换出去的可运行的进程数。此数由 linux 计算得出，但 linux 并不耗尽交换空间<br />
+	Memory<br />
+	swpd: 虚拟内存使用情况，单位：KB<br />
+	free: 空闲的内存，单位KB<br />
+	buff: 被用来做为缓存的内存数，单位：KB<br />
+	Swap<br />
+	si: 从磁盘交换到内存的交换页数量，单位：KB/秒<br />
+	so: 从内存交换到磁盘的交换页数量，单位：KB/秒<br />
+	IO<br />
+	bi: 发送到块设备的块数，单位：块/秒<br />
+	bo: 从块设备接收到的块数，单位：块/秒<br />
+	System<br />
+	in: 每秒的中断数，包括时钟中断<br />
+	cs: 每秒的环境（上下文）切换次数<br />
+	CPU<br />
+	按 CPU 的总使用百分比来显示<br />
+	us: CPU 使用时间<br />
+	sy: CPU 系统使用时间<br />
+	id: 闲置时间<br />
+	准测<br />
+	r，b&asymp;0，<br />
+	如果fre，将会出现连续不断的页面调度，将导致系统性能问题。<br />
+	对于page列，re，pi，po，cy维持于比较稳定的状态，PI率不超过5，如果有pagin发生，那么关联页面必须先进行pageout<br />
+	在内存相对紧张的环境下pagein会强制对不同的页面进行steal操作。如果系统正在读一个大批的永久页面，你也许可以看到po和pi列<br />
+	会出现不一致的增长，这种情景并不一定表明系统负载过重，但是有必要对应用程序的数据访问模式进行见检查。在稳定的情况下，扫描率和重置率几乎相等，在<br />
+	多个进程处理使用不同的页面的情况下，页面会更加不稳定和杂乱，这时扫描率可能会比重置率高出。<br />
+	faults列，in，sy，cs会不断跳跃，这里没有明确的限制，唯一的就是这些值最少大于100<br />
+	cpu列，us，sys，id和wa也是不确定的，最理想的状态是使cpu处于100%工作状态，单这只适合单用户的情况下。<br />
+	如果在多用户环境中us＋sys》80，进程就会在运行队列中花费等待时间，响应时间和吞吐量就会下降。wa&gt;40表明磁盘io没有也许存在不合理的平衡，或者对磁盘操作比较频繁，<br />
+	vmstat各项：<br />
+	procs:<br />
+	r--&gt;在运行队列中等待的进程数<br />
+	b--&gt;在等待io的进程数<br />
+	w--&gt;可以进入运行队列但被替换的进程<br />
+	memoy<br />
+	swap--&gt;现时可用的交换内存（k表示）<br />
+	free--&gt;空闲的内存（k表示）<br />
+	pages<br />
+	re－－》回收的页面<br />
+	mf－－》非严重错误的页面<br />
+	pi－－》进入页面数（k表示）<br />
+	po－－》出页面数（k表示）<br />
+	fr－－》空余的页面数（k表示）<br />
+	de－－》提前读入的页面中的未命中数<br />
+	sr－－》通过时钟算法扫描的页面<br />
+	disk 显示每秒的磁盘操作。 s表示scsi盘，0表示盘号<br />
+	fault 显示每秒的中断数<br />
+	in－－》设备中断<br />
+	sy－－》系统中断<br />
+	cy－－》cpu交换<br />
+	cpu 表示cpu的使用状态<br />
+	cs－－》用户进程使用的时间<br />
+	sy－－》系统进程使用的时间<br />
+	id－－》cpu空闲的时间<br />
+	如果 r经常大于 4 ，且id经常少于40，表示cpu的负荷很重。<br />
+	如果pi，po 长期不等于0，表示内存不足。<br />
+	如果disk 经常不等于0， 且在 b中的队列 大于3， 表示 io性能不好。<br />
+	Linux在具有高稳定性、可靠性的同时，具有很好的可伸缩性和扩展性，能够针对不同的应用和硬件环境调整，优化出满足当前应用需要的最佳性能。因此企业在维护Linux系统、进行系统调优时，了解系统性能分析工具是至关重要的。<br />
+	　　在Linux下有很多系统性能分析工具，比较常见的有top、free、ps、time、timex、uptime等。下文将介绍几个较为重要的性能分析工具vmstat、iostat和sar及其使用。<br />
+	　　用vmstat监视内存使用情况<br />
+	　　vmstat是Virtual Meomory Statistics（虚拟内存统计）的缩写，可对操作系统的虚拟内存、进程、CPU活动进行监视。它是对系统的整体情况进行统计，不足之处是无法对某个进程进行深入分析。<br />
+	　　vmstat的语法如下：<br />
+	<br />
+	　　vmstat [-V] [-n] [delay [count]]<br />
+	　　其中，－V表示打印出版本信息；－n表示在周期性循环输出时，输出的头部信息仅显示一次；delay是两次输出之间的延迟时间；count是指按照这个时间间隔统计的次数。对于vmstat输出各字段的含义，可运行man vmstat查看<br />
+	<br />
+	procrank<br />
+	&nbsp;<br />
+	使用adb shell procrank 命令(仅ENG版本可用)，查看有哪些app占用内存过多，请以PSS栏位为参考，重点关注自己安装的一些APK以及PSS值比较大的process<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; adb shell procrank<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vss&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rss&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pss&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uss&nbsp; cmdline<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 476&nbsp;&nbsp; 65312K&nbsp;&nbsp; 65284K&nbsp;&nbsp; 38499K&nbsp;&nbsp; 35560K&nbsp; com.android.launcher<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 268&nbsp;&nbsp; 54916K&nbsp;&nbsp; 54880K&nbsp;&nbsp; 30001K&nbsp;&nbsp; 27000K&nbsp; system_server<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 110&nbsp;&nbsp; 32196K&nbsp;&nbsp; 28988K&nbsp;&nbsp; 18924K&nbsp;&nbsp; 12432K&nbsp; /system/bin/surfaceflinger<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 347&nbsp;&nbsp; 42400K&nbsp;&nbsp; 42320K&nbsp;&nbsp; 15445K&nbsp;&nbsp; 10704K&nbsp; com.android.systemui<br />
+	<br />
+	对于尚明中占用比较异常的process，可以透过 adb shell showmap [pid](仅ENG版本可用)查看具体使用情况。以system_server 为例，先adb shell ps system_server得到pid：<br />
+	&nbsp;&nbsp;&nbsp; adb shell ps system_server<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; USER&nbsp;&nbsp;&nbsp;&nbsp; PID&nbsp;&nbsp; PPID&nbsp; VSIZE&nbsp; RSS&nbsp;&nbsp;&nbsp;&nbsp; WCHAN&nbsp;&nbsp;&nbsp; PC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NAME<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; system&nbsp;&nbsp;&nbsp; 268&nbsp;&nbsp; 111&nbsp;&nbsp; 406736 54876 ffffffff 400e9c70 S system_server<br />
+	&nbsp; &nbsp;<br />
+	&nbsp;&nbsp;&nbsp; 再&nbsp; adb shell showmap 268查看各个.so以及 heap，stack的使用情况，做初步的判断（同样以PSS栏位参考）<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; adb shell showmap 268<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; virtual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shared&nbsp;&nbsp; shared&nbsp; private&nbsp; private<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RSS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PSS&nbsp;&nbsp;&nbsp; clean&nbsp;&nbsp;&nbsp; dirty&nbsp;&nbsp;&nbsp; clean&nbsp;&nbsp;&nbsp; dirty&nbsp;&nbsp;&nbsp; # object<br />
+	&nbsp;&nbsp;&nbsp; -------- -------- -------- -------- -------- -------- -------- ---- ------------------------------<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 72&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 1 /data/dalvik-cache/system@app@SettingsProvider.apk@classes.dex<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 352&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 148&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 103&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 48&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 52&nbsp;&nbsp; 18 /data/dalvik-cache/system@framework@android.policy.jar@classes.dex<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1348&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 1 /data/dalvik-cache/system@framework@apache-xml.jar@classes.dex<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 956&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 60&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 52&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 1 /data/dalvik-cache/system@framework@bouncycastle.jar@classes.dex<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 1 /data/dalvik-cache/system@framework@core-junit.jar@classes.dex<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3292&nbsp;&nbsp;&nbsp;&nbsp; 1056&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 126&nbsp;&nbsp;&nbsp;&nbsp; 1012&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 44&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 1 /data/dalvik-cache/system@framework@core.jar@classes.dex<br />
+	&nbsp;<br />
+	<br />
+	top<br />
+	<br />
+	top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。下面详细介绍它的使用方法。<br />
+	top - 01:06:48 up&nbsp; 1:22,&nbsp; 1 user,&nbsp; load average: 0.06, 0.60,&nbsp; 0.48<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tasks:&nbsp; 29 total,&nbsp;&nbsp; 1 running,&nbsp; 28 sleeping,&nbsp;&nbsp; 0 stopped,&nbsp;&nbsp; 0&nbsp; zombie<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cpu(s):&nbsp; 0.3% us,&nbsp; 1.0% sy,&nbsp; 0.0% ni, 98.7% id,&nbsp; 0.0% wa,&nbsp; 0.0%&nbsp; hi,&nbsp; 0.0% si<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mem:&nbsp;&nbsp;&nbsp; 191272k total,&nbsp;&nbsp; 173656k used,&nbsp;&nbsp;&nbsp; 17616k free,&nbsp;&nbsp;&nbsp; 22052k&nbsp; buffers<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Swap:&nbsp;&nbsp; 192772k total,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0k used,&nbsp;&nbsp; 192772k free,&nbsp;&nbsp; 123988k&nbsp; cached<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PID USER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PR&nbsp; NI&nbsp; VIRT&nbsp; RES&nbsp; SHR S %CPU %MEM&nbsp;&nbsp;&nbsp;&nbsp; TIME+&nbsp; COMMAND<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1379 root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16&nbsp;&nbsp; 0&nbsp; 7976 2456 1980 S&nbsp; 0.7&nbsp; 1.3&nbsp;&nbsp; 0:11.03&nbsp; sshd<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 14704 root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16&nbsp;&nbsp; 0&nbsp; 2128&nbsp; 980&nbsp; 796 R&nbsp; 0.7&nbsp; 0.5&nbsp;&nbsp; 0:02.72 top<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16&nbsp;&nbsp; 0&nbsp; 1992&nbsp; 632&nbsp; 544 S&nbsp; 0.0&nbsp; 0.3&nbsp;&nbsp; 0:00.90 init<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 34&nbsp; 19&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 0 S&nbsp; 0.0&nbsp; 0.0&nbsp;&nbsp; 0:00.00 ksoftirqd/0<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RT&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp; 0 S&nbsp; 0.0&nbsp; 0.0&nbsp;&nbsp; 0:00.00&nbsp; watchdog/0<br />
+	<br />
+	统计信息区前五行是系统整体的统计信息。第一行是任务队列信息，同 uptime&nbsp; 命令的执行结果。其内容如下：<br />
+	01:06:48 当前时间<br />
+	up 1:22 系统运行时间，格式为时:分<br />
+	1 user 当前登录用户数<br />
+	load average: 0.06, 0.60, 0.48 系统负载，即任务队列的平均长度。<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 三个数值分别为&nbsp; 1分钟、5分钟、15分钟前到现在的平均值。<br />
+	<br />
+	第二、三行为进程和CPU的信息。当有多个CPU时，这些内容可能会超过两行。内容如下：<br />
+	Tasks: 29 total 进程总数<br />
+	1 running 正在运行的进程数<br />
+	28 sleeping 睡眠的进程数<br />
+	0 stopped 停止的进程数<br />
+	0 zombie 僵尸进程数<br />
+	Cpu(s): 0.3% us 用户空间占用CPU百分比<br />
+	1.0% sy 内核空间占用CPU百分比<br />
+	0.0% ni 用户进程空间内改变过优先级的进程占用CPU百分比<br />
+	98.7% id 空闲CPU百分比<br />
+	0.0% wa 等待输入输出的CPU时间百分比<br />
+	0.0% hi&nbsp; &nbsp;<br />
+	0.0% si&nbsp; &nbsp;<br />
+	<br />
+	最后两行为内存信息。内容如下：<br />
+	Mem: 191272k total 物理内存总量<br />
+	173656k used 使用的物理内存总量<br />
+	17616k free 空闲内存总量<br />
+	22052k buffers 用作内核缓存的内存量<br />
+	Swap: 192772k total 交换区总量<br />
+	0k used 使用的交换区总量<br />
+	192772k free 空闲交换区总量<br />
+	123988k cached 缓冲的交换区总量。<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 内存中的内容被换出到交换区，而后又被换入到内存，但使用过的交换区尚未被覆盖，<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 该数值即为这些内容已存在于内存中的交换区的大小。<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 相应的内存再次被换出时可不必再对交换区写入。<br />
+	<br />
+	进程信息区统计信息区域的下方显示了各个进程的详细信息。首先来认识一下各列的含义。<br />
+	序号 列名 含义<br />
+	a PID 进程id<br />
+	b PPID 父进程id<br />
+	c RUSER Real user name<br />
+	d UID 进程所有者的用户id<br />
+	e USER 进程所有者的用户名<br />
+	f GROUP 进程所有者的组名<br />
+	g TTY 启动进程的终端名。不是从终端启动的进程则显示为 ?<br />
+	h PR 优先级<br />
+	i NI nice值。负值表示高优先级，正值表示低优先级<br />
+	j P 最后使用的CPU，仅在多CPU环境下有意义<br />
+	k %CPU 上次更新到现在的CPU时间占用百分比<br />
+	l TIME 进程使用的CPU时间总计，单位秒<br />
+	m TIME+ 进程使用的CPU时间总计，单位1/100秒<br />
+	n %MEM 进程使用的物理内存百分比<br />
+	o VIRT 进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES<br />
+	p SWAP 进程使用的虚拟内存中，被换出的大小，单位kb。<br />
+	q RES 进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA<br />
+	r CODE 可执行代码占用的物理内存大小，单位kb<br />
+	s DATA 可执行代码以外的部分(数据段+栈)占用的物理内存大小，单位kb<br />
+	t SHR 共享内存大小，单位kb<br />
+	u nFLT 页面错误次数<br />
+	v nDRT 最后一次写入到现在，被修改过的页面数。<br />
+	w S 进程状态。<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D=不可中断的睡眠状态<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; R=运行<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; S=睡眠<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T=跟踪/停止<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Z=僵尸进程<br />
+	x COMMAND 命令名/命令行<br />
+	y WCHAN 若该进程在睡眠，则显示睡眠中的系统函数名<br />
+	z Flags 任务标志，参考 sched.h<br />
+	<br />
+	默认情况下仅显示比较重要的&nbsp; PID、USER、PR、NI、VIRT、RES、SHR、S、%CPU、%MEM、TIME+、COMMAND&nbsp; 列。可以通过下面的快捷键来更改显示内容。<br />
+	更改显示内容通过 f 键可以选择显示的内容。按 f 键之后会显示列的列表，按 a-z&nbsp; 即可显示或隐藏对应的列，最后按回车键确定。<br />
+	按 o 键可以改变列的显示顺序。按小写的 a-z 可以将相应的列向右移动，而大写的 A-Z&nbsp; 可以将相应的列向左移动。最后按回车键确定。<br />
+	按大写的 F 或 O 键，然后按 a-z 可以将进程按照相应的列进行排序。而大写的&nbsp; R 键可以将当前的排序倒转。<br />
+	<br />
+	<br />
+	meminfo check total memory<br />
+	<br />
+	procrank:<br />
+	<br />
+	VSS - Virtual Set Size 虚拟耗用内存（包含共享库占用的内存）<br />
+	RSS - Resident Set Size 实际使用物理内存（包含共享库占用的内存）<br />
+	PSS - Proportional Set Size 实际使用的物理内存（比例分配共享库占用的内存）<br />
+	USS - Unique Set Size 进程独自占用的物理内存（不包含共享库占用的内存）<br />
+	<br />
+	<br />
+	<br />
+	android 内存监控 procrank vss pss 2012-11-08 09:58:06&nbsp;&nbsp;&nbsp;&nbsp; 上传者: wangdaochina 下载(0) 浏览(2039) 评论(0) 推荐(0)<br />
+	<br />
+	标签: android ...&nbsp; &nbsp;<br />
+	<br />
+	资源描述:<br />
+	&nbsp;通过 pss 和 uss 来查看进程使用的内存情况<br />
+	在模拟器上 adb shell procrank 可以查看到以下信息<br />
+	zhengs-MacBook-Air:~ yajun0601$ adb shell<br />
+	shell@android:/ $ procrank -p<br />
+	warning: could not read usage for 2698<br />
+	PID Vss Rss Pss Uss cmdline<br />
+	2016 78832K 64164K 44719K 43628K system_server<br />
+	3801 61348K 61208K 39134K 37648K android.process.acore<br />
+	2213 190408K 48296K 29257K 28352K com.cyanogenmod.trebuchet<br />
+	2113 74216K 44292K 25702K 24816K com.android.systemui<br />
+	2179 38532K 38420K 20892K 20032K com.sohu.inputmethod.sogou<br />
+	2199 38148K 35016K 17414K 16740K com.android.phone<br />
+	25599 57616K 39628K 16420K 14680K com.zdworks.android.zdclock:zdclock<br />
+	24931 29920K 29840K 13524K 12964K com.wali.NetworkAssistant<br />
+	3447 34072K 33988K 12113K 11024K com.wandoujia.phoen<br />
+	下面解释这四项：<br />
+	Overview<br />
+	The aim of this post is to provide information that will assist in interpreting memory reports from various tools so the true memory usage for Linux processes and the system can be determined.<br />
+	Android has a tool called procrank (/system/xbin/procrank), which lists out the memory usage of Linux processes in order from highest to lowest usage. The sizes reported per process are VSS, RSS, PSS, and USS.<br />
+	For the sake of simplicity in this description, memory will be expressed in terms of pages, rather than bytes. Linux systems like ours manage memory in 4096 byte pages at the lowest level.<br />
+	VSS (reported as VSZ from ps) is the total accessible address space of a process. This size also includes memory that may not be resident in RAM like mallocs that have been allocated but not written to. VSS is of very little use for determing real memory usage of a process.<br />
+	RSS is the total memory actually held in RAM for a process. RSS can be misleading, because it reports the total all of the shared libraries that the process uses, even though a shared library is only loaded into memory once regardless of how many processes use it. RSS is not an accurate representation of the memory usage for a single process.<br />
+	PSS differs from RSS in that it reports the proportional size of its shared libraries, i.e. if three processes all use a shared library that has 30 pages, that library will only contribute 10 pages to the PSS that is reported for each of the three processes. PSS is a very useful number because when the PSS for all processes in the system are summed together, that is a good representation for the total memory usage in the system. When a process is killed, the shared libraries that contributed to its PSS will be proportionally distributed to the PSS totals for the remaining processes still using that library. In this way PSS can be slightly misleading, because when a process is killed, PSS does not accurately represent the memory returned to the overall system.<br />
+	USS is the total private memory for a process, i.e. that memory that is completely unique to that process. USS is an extremely useful number because it indicates the true incremental cost of running a particular process. When a process is killed, the USS is the total memory that is actually returned to the system. USS is the best number to watch when initially suspicious of memory leaks in a process.<br />
+	For systems that have Python available, there is also a nice tool called smem that will report memory statistics including all of these categories.</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	----------------------</p>
+<p>
+	/proc/sys/vm/swappines&nbsp; 这个值默认0.100， 100表示，尽量使用swap空间。这个值越小意味着系统对swap的使用频率就越低,即会尽可能使用你的物理内存。</p>
+<div>
+	<div id="imcontent">
+		<span segoe="" style="font-family:">ZRAM大小修改：device/mediatek/mt6580/enableswap.sh</span></div>
+</div>
+<div>
+	<div id="imcontent">
+		<span segoe="" style="font-family:">#!/bin/sh<br />
+		echo $((1024*1024*100)) &gt; /sys/block/zram0/disksize<br />
+		/system/bin/tiny_mkswap /dev/block/zram0<br />
+		/system/bin/tiny_swapon /dev/block/zram0</span></div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	dumpsys meminfo &amp;&amp; cat /proc/sys/vm/swappiness &amp;&amp; cat /sys/block/zram0/disksize &amp;&amp; <span style="background-color:#ffd700;">cat proc/swaps</span><br />
+	free &amp;&amp; cat /proc/meminfo | grep Free &amp;&amp; cat /proc/meminfo | grep Cached &amp;&amp; cat /proc/meminfo | grep Swap &amp;&amp; ps -x | grep hawk &amp;&amp; ps -x | grep chrome<br />
+	<br />
+	[root@timeserver ~]# sysctl vm.swappiness=10<br />
+	vm.swappiness = 10<br />
+	[root@timeserver ~]# cat /proc/sys/vm/swappiness&nbsp; 或 sysctl -q vm.swappiness<br />
+	10<br />
+	这只是临时调整的方法，重启后会回到默认设置的<br />
+	<br />
+	root@BUZZ6T4G:/ # ps -x | grep hawk<br />
+	USER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PID&nbsp;&nbsp;&nbsp;&nbsp; PPID&nbsp; VSIZE&nbsp;&nbsp;&nbsp;&nbsp; RSS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WCHAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PC&nbsp; NAME<br />
+	u0_a106&nbsp;&nbsp; 12745 960&nbsp;&nbsp; 766656 33116 SyS_epoll_ 00000000 S com.hawk.android.keyboard (u:24, s:17)</p>

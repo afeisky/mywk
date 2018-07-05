@@ -1,0 +1,254 @@
+<p>
+	<span style="font-size:16px;"><span style="color: rgb(0, 0, 205);">Service 与 Activity 的数据转送 (动态广播)</span></span></p>
+<p>
+	----------------------------------------------------------</p>
+<p>
+	package afei.demo_service;<br />
+	<br />
+	import android.Manifest;<br />
+	import android.app.Activity;<br />
+	import android.content.BroadcastReceiver;<br />
+	import android.content.Context;<br />
+	import android.content.Intent;<br />
+	import android.content.IntentFilter;<br />
+	import android.content.pm.PackageManager;<br />
+	import android.net.Uri;<br />
+	import android.os.Bundle;<br />
+	import android.util.Log;<br />
+	import android.view.View;<br />
+	import android.webkit.WebView;<br />
+	import android.widget.Button;<br />
+	import android.widget.ProgressBar;<br />
+	import android.widget.TextView;<br />
+	<br />
+	<br />
+	public class <span style="color:#ff0000;">MainActivity </span>extends Activity {<br />
+	&nbsp;&nbsp;&nbsp; private static final String TAG = &quot;Demo_Service&quot;;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; private WebView mWebView;<br />
+	&nbsp;&nbsp;&nbsp; private View mLoading;<br />
+	&nbsp;&nbsp;&nbsp; private Intent mIntent;<br />
+	&nbsp;&nbsp;&nbsp; private TextView mMessageView;<br />
+	&nbsp;&nbsp;&nbsp; private ProgressBar mProgressbar;<br />
+	&nbsp;&nbsp;&nbsp; private TextView textView1;<br />
+	&nbsp;&nbsp;&nbsp; private Button btnDown;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; @Override<br />
+	&nbsp;&nbsp;&nbsp; protected void onCreate(Bundle savedInstanceState) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; super.onCreate(savedInstanceState);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setContentView(R.layout.activity_main);<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mWebView = (WebView) findViewById(R.id.webView1);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; btnDown = (Button) findViewById(R.id.download_btn);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; btnDown.setOnClickListener(new View.OnClickListener() {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void onClick(View view) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stopService();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; });<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, &quot;----onCreate()!&quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mIntent = getIntent();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mIntent.getData() != null) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uri uri = mIntent.getData();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, &quot;----onCreate() 22 &quot;);<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; requestPermissionAndLoad();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; init();<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; private void init() {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, &quot;--&gt;init&quot;);<br />
+	<br />
+	<span style="color:#ff0000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IntentFilter filter = new IntentFilter(MyService.ActionUI);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; registerReceiver(broadcastReceiver, filter);</span><br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; startService();<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp; private void startService(){<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Intent intentService=new Intent(this.getApplication(), MyService.class);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intentService.putExtra(&quot;flag&quot;, 1);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.getApplication().startService(intentService);<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp; private void stopService(){<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Intent intentService=new Intent(this.getApplication(), MyService.class);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.getApplication().stopService(intentService);<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; private String lines=&quot;&quot;;<br />
+	&nbsp;&nbsp;&nbsp;<span style="color:#ff0000;"> BroadcastReceiver broadcastReceiver = new BroadcastReceiver() { //使用动态广播<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void onReceive(Context context, Intent intent) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // TODO Auto-generated method stub<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //textView.setText(intent.getExtras().getString(&quot;data&quot;));<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String str=intent.getExtras().getString(&quot;count&quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; updateUI(str);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp; };</span><br />
+	&nbsp;&nbsp;&nbsp; private void updateUI(String str){<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lines=str+&quot;&lt;/br&gt;&quot;+lines;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mWebView.loadData(lines , &quot;text/html&quot;, &quot;utf8&quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, str);<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp; private void loadUrl() {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, &quot;----loadUrl() 11 &quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mIntent.hasExtra(Intent.EXTRA_TITLE)) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, &quot;----loadUrl() 22 &quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setTitle(mIntent.getStringExtra(Intent.EXTRA_TITLE));<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, &quot;----loadUrl() 33 &quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mWebView.loadData(&quot;---&gt;&quot; + String.valueOf(mIntent.getData()), &quot;text/html&quot;, &quot;utf8&quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG, String.valueOf(mIntent.getData()));<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; private void requestPermissionAndLoad() {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uri destination = mIntent.getData();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (destination != null) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Is this a local file?<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (&quot;file&quot;.equals(destination.getScheme())<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;&amp; PackageManager.PERMISSION_DENIED ==<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loadUrl();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; @Override<br />
+	&nbsp;&nbsp;&nbsp; public void onRequestPermissionsResult(int requestCode,<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String permissions[], int[] grantResults) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // We only ever request 1 permission, so these arguments should always have the same form.<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; assert permissions.length == 1;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; assert Manifest.permission.READ_EXTERNAL_STORAGE.equals(permissions[0]);<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (grantResults.length == 1 &amp;&amp; PackageManager.PERMISSION_GRANTED == grantResults[0]) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Try again now that we have the permission.<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loadUrl();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; finish();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; @Override<br />
+	&nbsp;&nbsp;&nbsp; protected void onDestroy() {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mWebView.destroy();<br />
+	<span style="color:#ff0000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unregisterReceiver(broadcastReceiver);</span><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; super.onDestroy();<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	<br />
+	<br />
+	}</p>
+<p>
+	----------------------------------------------------------------------------------</p>
+<p>
+	&nbsp;</p>
+<p>
+	package afei.demo_service;<br />
+	<br />
+	import android.app.Service;<br />
+	import android.content.Intent;<br />
+	import android.os.Binder;<br />
+	import android.os.IBinder;<br />
+	import android.util.Log;<br />
+	<br />
+	/**<br />
+	&nbsp;* Created by chaofei on 17-12-8.<br />
+	&nbsp;*/<br />
+	<br />
+	public class <span style="color:#ff0000;">MyService </span>extends Service {<br />
+	&nbsp;&nbsp;&nbsp; private static final String TAG = &quot;Demo_Service1&quot;;<br />
+	&nbsp;&nbsp;&nbsp; private final IBinder myBinder = new LocalBinder();<br />
+	&nbsp;&nbsp;&nbsp; public static final String ActionUI=&quot;afei.demo_service.updateui&quot;;<br />
+	&nbsp;&nbsp;&nbsp; private boolean isRunning=false;<br />
+	&nbsp;&nbsp;&nbsp; private int count=0;<br />
+	&nbsp;&nbsp;&nbsp; @Override<br />
+	&nbsp;&nbsp;&nbsp; public IBinder onBind(Intent intent) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.e(TAG, &quot;onBind()&quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Toast.makeText(this, &quot;onBind()&quot;, Toast.LENGTH_SHORT).show();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return myBinder;<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; @Override<br />
+	&nbsp;&nbsp;&nbsp; public void onCreate() {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; super.onCreate();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.e(TAG, &quot;onCreate()&quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Toast.makeText(this, &quot;onCreate()&quot;, Toast.LENGTH_SHORT).show();<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp; @Override<br />
+	&nbsp;&nbsp;&nbsp; public int onStartCommand(Intent intent, int flags, int startId) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; start1();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return super.onStartCommand(intent, flags, startId);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp; @Override<br />
+	&nbsp;&nbsp;&nbsp; public void onDestroy() {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.e(TAG, &quot;onDestroy()&quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Toast.makeText(this, &quot;onDestroy()&quot;, Toast.LENGTH_SHORT).show();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; super.onDestroy();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isRunning = false;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count = 0;<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp; public class LocalBinder extends Binder {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MyService getService() {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return MyService.this;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; private void start1(){<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.e(TAG, &quot;start!!!&quot;);<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; isRunning = true;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new Thread(new Runnable() {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public void run() {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (isRunning) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Thread.sleep(1000);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } catch (InterruptedException e) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e.printStackTrace();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count++;<br />
+	<span style="color:#ff0000;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Intent intent = new Intent();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intent.putExtra(&quot;count&quot;, &quot;:&quot;+count);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intent.setAction(ActionUI);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sendBroadcast(intent);</span><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }).start();<br />
+	&nbsp;&nbsp;&nbsp; }<br />
+	}</p>
+<p>
+	&nbsp;</p>
+<p>
+	------------<span style="color:#ff0000;">-AndroidManifest.xml</span>----------------------------------------------------------</p>
+<p>
+	&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;<br />
+	&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;<br />
+	&nbsp;&nbsp;&nbsp; package=&quot;afei.demo_service&quot;&gt;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; &lt;application<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:allowBackup=&quot;true&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:icon=&quot;@mipmap/ic_launcher&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:label=&quot;@string/app_name&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:supportsRtl=&quot;true&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:theme=&quot;@style/AppTheme&quot;&gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;activity android:name=&quot;.MainActivity&quot;&gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;intent-filter&gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/intent-filter&gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/activity&gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color:#ff0000;">&lt;service<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:name=&quot;afei.demo_service.MyService&quot;</span><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:enabled=&quot;true&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:exported=&quot;true&quot;&gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;intent-filter android:priority=&quot;1000&quot; &gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;action android:name=&quot;afei.demo_service.MyService&quot; /&gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/intent-filter&gt;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/service&gt;<br />
+	&nbsp;&nbsp;&nbsp; &lt;/application&gt;<br />
+	<br />
+	&lt;/manifest&gt;</p>

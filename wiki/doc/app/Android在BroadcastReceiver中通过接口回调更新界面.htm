@@ -1,0 +1,124 @@
+<p>
+	&nbsp;</p>
+<h1 class="csdn_top">
+	Android在BroadcastReceiver中通过接口回调更新界面</h1>
+<div class="article_bar clearfix">
+	<div class="artical_tag">
+		<span class="original">原创 </span> <span class="time">2015年10月13日 17:45:37</span></div>
+	<ul class="article_tags clearfix csdn-tracking-statistics tracking-click" data-mod="popu_377">
+		<li class="tit">
+			标签：</li>
+		<li>
+			<a href="http://so.csdn.net/so/search/s.do?q=android&amp;t=blog" target="_blank">android</a> <span>/</span></li>
+		<li>
+			<a href="http://so.csdn.net/so/search/s.do?q=broadcastreceiver&amp;t=blog" target="_blank">broadcastreceiver</a> <span>/</span></li>
+	</ul>
+	<ul class="right_bar">
+		<li>
+			&nbsp;</li>
+	</ul>
+</div>
+<div class="article_bar clearfix">
+	<ul class="right_bar">
+		<li class="edit">
+			<a class="btn-noborder" href="http://write.blog.csdn.net/postedit/49101869"> <span class="txt">编辑</span> </a></li>
+		<li class="del">
+			<a class="btn-noborder"> <span class="txt">删除</span> </a></li>
+	</ul>
+</div>
+<div class="markdown_views">
+	<p>
+		之前写广播接收器都是写在Activity的内部的,觉得看起来很乱的感觉,毕竟广播也事和活动是同一级别的组件之一,哪儿能放在活动的里面啊,决定就来封装一下,发现居然没有思路,,同事说用静态类,直接点就可以了,</p>
+	<pre>
+<code>但是静态类在内存中不会被回收,只有等程序结束后才会回收,所以决定用接口回调
+
+接口回调在安卓中用的很多吧,这个不懂的可以自行搜索一下哈,就不普及基础了,
+</code></pre>
+	<ol>
+		<li>
+			新建一个接口UpdateUIListenner.class</li>
+	</ol>
+	<pre class="prettyprint">
+<code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">UpdateUIListenner</span> {</span>
+
+    <span class="hljs-javadoc">/**
+     * 更新UI
+     */</span>
+    <span class="hljs-keyword">void</span> UpdateUI(String str);
+}
+</code></pre>
+	<ol>
+		<li>
+			新建一个BroadcastReceiver取名 MyReceiver</li>
+	</ol>
+	<pre class="prettyprint">
+<code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyReceiver</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BroadcastReceiver</span> {</span>
+
+    UpdateUIListenner updateUIListenner;
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onReceive</span>(Context context, Intent intent) {
+        String key = intent.getStringExtra(<span class="hljs-string">&quot;key&quot;</span>);
+        updateUIListenner.UpdateUI(key);
+
+    }
+
+    <span class="hljs-javadoc">/**
+     * 监听广播接收器的接收到的数据
+     *<span class="hljs-javadoctag"> @param</span> updateUIListenner
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetOnUpdateUIListenner</span>(UpdateUIListenner updateUIListenner) {
+        <span class="hljs-keyword">this</span>.updateUIListenner = updateUIListenner;
+
+    }
+}</code></pre>
+	<ol>
+		<li>
+			在MainActivity里面</li>
+	</ol>
+	<pre class="prettyprint">
+<code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AppCompatActivity</span> {</span>
+    MyReceiver myReceiver;
+    TextView tv1;
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span>(Bundle savedInstanceState) {
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button btn = (Button) findViewById(R.id.btnSend);
+        tv1 = (TextView) findViewById(R.id.tv);
+        btn.setOnClickListener(<span class="hljs-keyword">new</span> View.OnClickListener() {
+            <span class="hljs-annotation">@Override</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onClick</span>(View v) {
+                <span class="hljs-comment">//发送广播</span>
+                Intent intent = <span class="hljs-keyword">new</span> Intent();
+                intent.putExtra(<span class="hljs-string">&quot;key&quot;</span>, <span class="hljs-string">&quot;数据数据&quot;</span>);
+                intent.setAction(<span class="hljs-string">&quot;gengxin&quot;</span>);
+                sendBroadcast(intent);
+                Log.e(<span class="hljs-string">&quot;+++++&quot;</span>,<span class="hljs-string">&quot;发送广播&quot;</span>);
+
+            }
+        });
+        <span class="hljs-comment">//注册广播  ------接口回调不能使用静态注册,只能动态注册</span>
+        myReceiver = <span class="hljs-keyword">new</span> MyReceiver();
+        IntentFilter intentFilter = <span class="hljs-keyword">new</span> IntentFilter();
+        intentFilter.addAction(<span class="hljs-string">&quot;gengxin&quot;</span>);
+        registerReceiver(myReceiver, intentFilter);
+        myReceiver.SetOnUpdateUIListenner(<span class="hljs-keyword">new</span> UpdateUIListenner() {
+            <span class="hljs-annotation">@Override</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">UpdateUI</span>(String str) {
+                tv1.setText(str);
+            }
+        });
+
+
+    }
+
+    <span class="hljs-annotation">@Override</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onDestroy</span>() {
+        <span class="hljs-keyword">super</span>.onDestroy();
+        unregisterReceiver(myReceiver);
+    }</code></pre>
+	<p>
+		<a href="http://download.csdn.net/detail/boxrice/9177869" target="_blank">源码下载(Android Studio)</a></p>
+</div>

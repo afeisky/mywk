@@ -1,0 +1,447 @@
+<div class="postTitle">
+	<a href="http://www.cnblogs.com/chengmo/archive/2010/10/02/1841355.html" id="cb_post_title_url">linux shell 字符串操作（长度，查找，替换）详解</a></div>
+<div id="cnblogs_post_body">
+	<p>
+		&nbsp;</p>
+	<p>
+		在做shell批处理程序时候，经常会涉及到字符串相关操作。有很多命令语句，如：awk,sed都可以做字符串各种操作。 其实shell内置一系列操作符号，可以达到类似效果，大家知道，使用内部操作符会省略启动外部程序等时间，因此速度会非常的快。</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		<strong>一、判断读取字符串值</strong></p>
+	<blockquote>
+		<table bgcolor="#666666" border="0" cellpadding="4" cellspacing="1" width="476">
+			<colgroup>
+				<col />
+				<col />
+			</colgroup>
+			<thead>
+				<tr>
+					<th bgcolor="#cccccc">
+						表达式</th>
+					<th bgcolor="#cccccc" width="347">
+						含义</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td bgcolor="#ffffff">
+						${var}</td>
+					<td bgcolor="#ffffff" width="347">
+						变量var的值, 与$var相同</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						&nbsp;</td>
+					<td bgcolor="#ffffff" width="347">
+						&nbsp;</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${var-DEFAULT}</td>
+					<td bgcolor="#ffffff" width="347">
+						如果var没有被声明, 那么就以$DEFAULT作为其值 *</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${var:-DEFAULT}</td>
+					<td bgcolor="#ffffff" width="347">
+						如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						&nbsp;</td>
+					<td bgcolor="#ffffff" width="347">
+						&nbsp;</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${var=DEFAULT}</td>
+					<td bgcolor="#ffffff" width="347">
+						如果var没有被声明, 那么就以$DEFAULT作为其值 *</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${var:=DEFAULT}</td>
+					<td bgcolor="#ffffff" width="347">
+						如果var没有被声明, 或者其值为空, 那么就以$DEFAULT作为其值 *</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						&nbsp;</td>
+					<td bgcolor="#ffffff" width="347">
+						&nbsp;</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${var+OTHER}</td>
+					<td bgcolor="#ffffff" width="347">
+						如果var声明了, 那么其值就是$OTHER, 否则就为null字符串</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${var:+OTHER}</td>
+					<td bgcolor="#ffffff" width="347">
+						如果var被设置了, 那么其值就是$OTHER, 否则就为null字符串</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						&nbsp;</td>
+					<td bgcolor="#ffffff" width="347">
+						&nbsp;</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${var?ERR_MSG}</td>
+					<td bgcolor="#ffffff" width="347">
+						如果var没被声明, 那么就打印$ERR_MSG *</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${var:?ERR_MSG}</td>
+					<td bgcolor="#ffffff" width="347">
+						如果var没被设置, 那么就打印$ERR_MSG *</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						&nbsp;</td>
+					<td bgcolor="#ffffff" width="347">
+						&nbsp;</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${!varprefix*}</td>
+					<td bgcolor="#ffffff" width="347">
+						匹配之前所有以varprefix开头进行声明的变量</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${!varprefix@}</td>
+					<td bgcolor="#ffffff" width="347">
+						匹配之前所有以varprefix开头进行声明的变量</td>
+				</tr>
+			</tbody>
+		</table>
+	</blockquote>
+	<p>
+		<span style="color: #808000">加入了&ldquo;*&rdquo;&nbsp; 不是意思是： 当然, 如果变量var已经被设置的话, 那么其值就是$var.</span></p>
+	<blockquote>
+		<p>
+			[chengmo@localhost ~]$ echo ${abc-&#39;ok&#39;}<br />
+			ok<br />
+			[chengmo@localhost ~]$ echo $abc</p>
+		<p>
+			[chengmo@localhost ~]$ echo ${abc=&#39;ok&#39;}<br />
+			ok<br />
+			[chengmo@localhost ~]$ echo $abc<br />
+			ok</p>
+		<p>
+			&nbsp;</p>
+		<p>
+			<span style="color: #0000ff">如果abc 没有声明&ldquo;=&quot; 还会给abc赋值。</span></p>
+		<p>
+			[chengmo@localhost ~]$ var1=11;var2=12;var3=<br />
+			[chengmo@localhost ~]$ echo ${!v@}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+			var1 var2 var3<br />
+			[chengmo@localhost ~]$ echo ${!v*}<br />
+			var1 var2 var3</p>
+		<p>
+			&nbsp;</p>
+		<p>
+			<span style="color: #0000ff">${!varprefix*}与${!varprefix@}相似，可以通过变量名前缀字符，搜索已经定义的变量,无论是否为空值。</span></p>
+	</blockquote>
+	<p>
+		&nbsp;</p>
+	<p>
+		<strong>二、字符串操作（长度，读取，替换）</strong></p>
+	<blockquote>
+		<table bgcolor="#333333" border="0" cellpadding="4" cellspacing="1" height="630" width="462">
+			<colgroup>
+				<col />
+				<col />
+			</colgroup>
+			<thead>
+				<tr>
+					<th bgcolor="#cccccc">
+						表达式</th>
+					<th bgcolor="#cccccc" width="229">
+						含义</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td bgcolor="#ffffff">
+						${#string}</td>
+					<td bgcolor="#ffffff" width="229">
+						$string的长度</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						&nbsp;</td>
+					<td bgcolor="#ffffff" width="229">
+						&nbsp;</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${string:position}</td>
+					<td bgcolor="#ffffff" width="229">
+						在$string中, 从位置$position开始提取子串</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${string:position:length}</td>
+					<td bgcolor="#ffffff" width="229">
+						在$string中, 从位置$position开始提取长度为$length的子串</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						&nbsp;</td>
+					<td bgcolor="#ffffff" width="229">
+						&nbsp;</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${string#substring}</td>
+					<td bgcolor="#ffffff" width="229">
+						从变量$string的开头, 删除最短匹配$substring的子串</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${string##substring}</td>
+					<td bgcolor="#ffffff" width="229">
+						从变量$string的开头, 删除最长匹配$substring的子串</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${string%substring}</td>
+					<td bgcolor="#ffffff" width="229">
+						从变量$string的结尾, 删除最短匹配$substring的子串</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${string%%substring}</td>
+					<td bgcolor="#ffffff" width="229">
+						从变量$string的结尾, 删除最长匹配$substring的子串</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						&nbsp;</td>
+					<td bgcolor="#ffffff" width="229">
+						&nbsp;</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${string/substring/replacement}</td>
+					<td bgcolor="#ffffff" width="229">
+						使用$replacement, 来代替第一个匹配的$substring</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${string//substring/replacement}</td>
+					<td bgcolor="#ffffff" width="229">
+						使用$replacement, 代替<em>所有</em>匹配的$substring</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${string/#substring/replacement}</td>
+					<td bgcolor="#ffffff" width="229">
+						如果$string的<em>前缀</em>匹配$substring, 那么就用$replacement来代替匹配到的$substring</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						${string/%substring/replacement}</td>
+					<td bgcolor="#ffffff" width="229">
+						如果$string的<em>后缀</em>匹配$substring, 那么就用$replacement来代替匹配到的$substring</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff">
+						&nbsp;</td>
+					<td bgcolor="#ffffff" width="229">
+						&nbsp;</td>
+				</tr>
+			</tbody>
+		</table>
+	</blockquote>
+	<p>
+		<span style="color: #808000"><strong>说明：&quot;*</strong> $substring&rdquo;可以是一个<em>正则表达式</em>.</span></p>
+	<p>
+		&nbsp;</p>
+	<blockquote>
+		<p>
+			<strong>1.长度</strong></p>
+		<p>
+			[web97@salewell97 ~]$ test=&#39;I love china&#39;<br />
+			[web97@salewell97 ~]$ echo ${#test}<br />
+			12</p>
+		<p>
+			${#变量名}得到字符串长度</p>
+		<p>
+			&nbsp;</p>
+		<p>
+			<span style="color: #000000"><strong>2.截取字串</strong></span></p>
+		<p>
+			[chengmo@localhost ~]$ test=&#39;I love china&#39;<br />
+			[chengmo@localhost ~]$ echo ${test:5}&nbsp;&nbsp;&nbsp;&nbsp;<br />
+			e china<br />
+			[chengmo@localhost ~]$ echo ${test:5:10}<br />
+			e china</p>
+		<p>
+			${变量名:起始:长度}得到子字符串</p>
+		<p>
+			&nbsp;</p>
+		<p>
+			<strong>3.字符串删除</strong></p>
+		<p>
+			[chengmo@localhost ~]$ test=&#39;c:/windows/boot.ini&#39;<br />
+			[chengmo@localhost ~]$ echo ${test#/}<br />
+			c:/windows/boot.ini<br />
+			[chengmo@localhost ~]$ echo ${test#*/}<br />
+			windows/boot.ini<br />
+			[chengmo@localhost ~]$ echo ${test##*/}<br />
+			boot.ini</p>
+		<p>
+			[chengmo@localhost ~]$ echo ${test%/*}<br />
+			c:/windows<br />
+			[chengmo@localhost ~]$ echo ${test%%/*}</p>
+		<p>
+			${变量名#substring正则表达式}从字符串开头开始配备substring,删除匹配上的表达式。</p>
+		<p>
+			${变量名%substring正则表达式}从字符串结尾开始配备substring,删除匹配上的表达式。</p>
+		<p>
+			注意：${test##*/},${test%/*} 分别是得到文件名，或者目录地址最简单方法。</p>
+		<p>
+			<strong>4.字符串替换</strong></p>
+		<p>
+			[chengmo@localhost ~]$ test=&#39;c:/windows/boot.ini&#39;<br />
+			[chengmo@localhost ~]$ echo ${test///}<br />
+			c:windows/boot.ini<br />
+			[chengmo@localhost ~]$ echo ${test////}<br />
+			c:windowsoot.ini</p>
+		<p>
+			&nbsp;</p>
+		<p>
+			${变量/查找/替换值} 一个&ldquo;/&rdquo;表示替换第一个，&rdquo;//&rdquo;表示替换所有,当查找中出现了：&rdquo;/&rdquo;请加转义符&rdquo;/&rdquo;表示。</p>
+	</blockquote>
+	<p>
+		<strong>三、性能比较</strong></p>
+	<blockquote>
+		<p>
+			在shell中，通过awk,sed,expr 等都可以实现，字符串上述操作。下面我们进行性能比较。</p>
+		<p>
+			[chengmo@localhost ~]$ test=&#39;c:/windows/boot.ini&#39;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+			[chengmo@localhost ~]$ time for i in $(seq 10000);do a=${#test};done;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+		<p>
+			real&nbsp;&nbsp;&nbsp; 0m0.173s<br />
+			user&nbsp;&nbsp;&nbsp; 0m0.139s<br />
+			sys&nbsp;&nbsp;&nbsp;&nbsp; 0m0.004s</p>
+		<p>
+			[chengmo@localhost ~]$ time for i in $(seq 10000);do a=$(expr length $test);done;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+		<p>
+			real&nbsp;&nbsp;&nbsp; 0m9.734s<br />
+			user&nbsp;&nbsp;&nbsp; 0m1.628s</p>
+		<p>
+			&nbsp;</p>
+		<p>
+			<span style="color: #808000">速度相差上百倍，调用外部命令处理，与内置操作符性能相差非常大。在shell编程中，尽量用内置操作符或者函数完成。使用awk,sed类似会出现这样结果。</span></p>
+		<p>
+			&nbsp;</p>
+		<p>
+			&nbsp;</p>
+	</blockquote>
+</div>
+<div class="article_title">
+	<h1>
+		<span class="link_title">shell中取字符串子串的几种方式</span></h1>
+</div>
+<div class="article_content" id="article_content">
+	<p>
+		（1）awk中函数substr<br />
+		substr(源字符串,开始索引,长度)&nbsp;&nbsp; 开始索引以0开始<br />
+		示例：<br />
+		awk &#39;{$a=substr($0,0,2);print $a;}&#39; filename<br />
+		假设文件中为只有一行为abcdefg，则返回结果为ab</p>
+	<p>
+		<br />
+		（2）expr substr<br />
+		expr substr 字符串 开始索引 长度&nbsp;&nbsp; 开始索引以1开始<br />
+		示例：</p>
+	<p>
+		expr substr &quot;abc&quot; 2 2<br />
+		显示bc<br />
+		<br />
+		（3）echo ${str:开始索引} 或 echo ${str:开始索引:长度}&nbsp;&nbsp; 开始索引为0<br />
+		示例：<br />
+		str=&quot;abc&quot;<br />
+		echo ${str:1}，显示bc<br />
+		echo ${str:1:2}，显示bc</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		<span style="font-size:18px;"><a href="http://www.111cn.net/sys/linux/43822.htm">linux中shell截取字符串方法总结</a></span></p>
+	<p class="title">
+		<a href="http://www.tektea.com/archives/1050.html">[Linux]如何在Shell脚本中计算字符串长度？</a></p>
+	<p>
+		截取字符串的方法一共有八种，主要为以下方法</p>
+	<p>
+		&nbsp; linux中shell截取字符串方法总结<br />
+		<br />
+		[Linux]如何在Shell脚本中计算字符串长度？<br />
+		<br />
+		截取字符串的方法一共有八种，主要为以下方法<br />
+		<br />
+		shell中截取字符串的方法有很多中，<br />
+		${expression}一共有9种使用方法。<br />
+		${parameter:-word}<br />
+		${parameter:=word}<br />
+		${parameter:?word}<br />
+		${parameter:+word}<br />
+		上面4种可以用来进行缺省值的替换。<br />
+		${#parameter}<br />
+		上面这种可以获得字符串的长度。<br />
+		${parameter%word} 最小限度从后面截取word<br />
+		${parameter%%word} 最大限度从后面截取word<br />
+		${parameter#word} 最小限度从前面截取word<br />
+		${parameter##word} 最大限度从前面截取word<br />
+		上面4个就是用来截取字符串的方法了。<br />
+		有了着四种用法就不必使用cut命令来截取字符串了<br />
+		第一种又可以分为四种情况，下面一一介绍。<br />
+		<br />
+		1、使用 # 号操作符。用途是从左边开始删除第一次出现子字符串即其左边字符，保留右边字符。用法为#*substr,例如：<br />
+		str=&#39;http://www.你的域名.com/cut-string.html&#39;<br />
+		echo ${str#*//}<br />
+		得到的结果为www.你的域名.com/cut-string.html，即删除从左边开始到第一个&quot;//&quot;及其左边所有字符2、使用 ## 号操作符。用途是从左边开始删除最后一次出现子字符串即其左边字符，保留右边字符。用法为##*substr,例如：<br />
+		str=&#39;http://www.你的域名.com/cut-string.html&#39;<br />
+		echo ${str##*/}<br />
+		得到的结果为cut-string.html，即删除最后出现的&quot;/&quot;及其左边所有字符<br />
+		3、使用 % 号操作符。用途是从右边开始删除第一次出现子字符串即其右边字符，保留左边字符。用法为%substr*,例如：<br />
+		str=&#39;http://www.你的域名.com/cut-string.html&#39;<br />
+		echo ${str%/*}<br />
+		得到的结果为http://www.你的域名.com，即删除从右边开始到第一个&quot;/&quot;及其右边所有字符<br />
+		4、使用 %% 号操作符。用途是从右边开始删除最后一次出现子字符串即其右边字符，保留左边字符。用法为%%substr*,例如：<br />
+		str=&#39;http://www.你的域名.com/cut-string.html&#39;<br />
+		echo ${str%%/*}<br />
+		得到的结果为http://www.你的域名.com，即删除从右边开始到最后一个&quot;/&quot;及其右边所有字符<br />
+		<br />
+		第二种也分为四种，分别介绍如下：<br />
+		1、从左边第几个字符开始以及字符的个数，用法为:start:len,例如：<br />
+		str=&#39;http://www.你的域名.com/cut-string.html&#39;<br />
+		echo ${var:0:5}<br />
+		其中的 0 表示左边第一个字符开始，5 表示字符的总个数。<br />
+		结果是：http:<br />
+		2、从左边第几个字符开始一直到结束，用法为:start,例如：<br />
+		str=&#39;http://www.你的域名.com/cut-string.html&#39;<br />
+		echo ${var:7}<br />
+		其中的 7 表示左边第8个字符开始<br />
+		结果是：www.你的域名.com/cut-string.html<br />
+		3、从右边第几个字符开始以及字符的个数，用法:0-start:len,例如：<br />
+		str=&#39;http://www.你的域名.com/cut-string.html&#39;<br />
+		echo ${str:0-15:10}<br />
+		其中的 0-6 表示右边算起第6个字符开始，10 表示字符的个数。<br />
+		结果是：cut-string<br />
+		3、从右边第几个字符开始一直到结束，用法:0-start,例如：<br />
+		str=&#39;http://www.你的域名.com/cut-string.html&#39;<br />
+		echo ${str:0-4}<br />
+		其中的 0-6 表示右边算起第6个字符开始，10 表示字符的个数。<br />
+		结果是：html<br />
+		注：（左边的第一个字符是用 0 表示，右边的第一个字符用 0-1 表示）</p>
+</div>

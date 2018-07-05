@@ -1,0 +1,269 @@
+<p>
+	<span style="color:#0000ff;"><span style="font-size: 22px;">Shell 写一个命令行应用的例子 #</span></span></p>
+<p>
+	<br />
+	# release.sh : build a release tarball<br />
+	#<br />
+	# USAGE: release.sh [--security] [--tag TAG POSTFIX] [--postfix POSTFIX]<br />
+	#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [--rev REV] [--europe] PROJECT VERSION [SIGNING-USER]<br />
+	#<br />
+	#&nbsp;&nbsp; The project is either &#39;httpd-2.0&#39;, &#39;httpd-2.2&#39;, &#39;httpd-2.3&#39;<br />
+	#<br />
+	#&nbsp;&nbsp; The version number is specified as MAJOR.MINOR.PATCH (and will be used in<br />
+	#&nbsp;&nbsp; the output tarball name). The script will then look for a CVS tag named<br />
+	#&nbsp;&nbsp; &quot;MAJOR.MINOR.PATCH&quot; and export it into a subdirectory (of the current<br />
+	#&nbsp;&nbsp; directory). Next, it will run the appropriate commands to prepare and<br />
+	#&nbsp;&nbsp; construct the tarball. The subdirectory will be cleaned up upon exit.<br />
+	#<br />
+	#&nbsp;&nbsp; The &quot;signing user&quot; is the name of the key that you&#39;ll be signing the<br />
+	#&nbsp;&nbsp; release with.<br />
+	#<br />
+	<br />
+	RELEASECHECK=&quot;`echo $0 | sed &#39;s/release.sh$/releasecheck.sh/&#39;`&quot;<br />
+	ROLL=&quot;`echo $0 | sed &#39;s/release.sh$/roll.sh/&#39;`&quot;<br />
+	<br />
+	# This forces all exported releases to be on the same timezone<br />
+	# when SVN props are used inside files.<br />
+	TZ=UTC<br />
+	export TZ<br />
+	<br />
+	SVNHOST=svn.apache.org<br />
+	<br />
+	while true<br />
+	do<br />
+	&nbsp; case &quot;$1&quot; in<br />
+	&nbsp;&nbsp;&nbsp; --security)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; security_release=1<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;Security Release support is broken and still uses CVS. Update release.sh&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exit 1<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shift<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; --tag)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tagged_release=1<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tag=&quot;$2&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; postfix=&quot;$3&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shift 3<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; --postfix)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; postfix=&quot;$2&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shift 2<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; --rev)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rev=&quot;$2&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shift 2<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; --europe)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SVNHOST=svn.eu.apache.org<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shift<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; --*)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;Unknown option &#39;$1&#39;&quot; &gt;&amp;2<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;USAGE: $0 [--security] [--tag TAG POSTFIX] [--postfix POSTFIX] [--rev REV] [--europe] PROJECT VERSION [SIGNING-USER]&quot; &gt;&amp;2<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;&nbsp; see the comments in this script for more info.&quot; &gt;&amp;2<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; exit 1<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; ;;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; *)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; # apparently there are no options left<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; break<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; ;;<br />
+	&nbsp; esac<br />
+	done<br />
+	<br />
+	if test &quot;$#&quot; != 2 &amp;&amp; test &quot;$#&quot; != 3; then<br />
+	&nbsp; echo &quot;USAGE: $0 [--security] [--tag TAG POSTFIX] [--postfix POSTFIX] [--rev REV] [--europe] PROJECT VERSION [SIGNING-USER]&quot; &gt;&amp;2<br />
+	&nbsp; echo &quot;&nbsp; see the comments in this script for more info.&quot; &gt;&amp;2<br />
+	&nbsp; exit 1<br />
+	fi<br />
+	<br />
+	# Run tests to ensure that our requirements are met<br />
+	${RELEASECHECK} || exit 1<br />
+	<br />
+	project=&quot;$1&quot;<br />
+	version=&quot;$2&quot;<br />
+	user=&quot;$3&quot;<br />
+	separate_deps=0<br />
+	<br />
+	case &quot;$1&quot; in<br />
+	&nbsp; httpd-2.0)<br />
+	&nbsp;&nbsp;&nbsp; ver_path=&quot;include/ap_release.h&quot;<br />
+	&nbsp;&nbsp;&nbsp; ver_define=&quot;AP_SERVER_PATCHLEVEL&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; expected_major=&quot;2&quot;<br />
+	&nbsp;&nbsp;&nbsp; expected_minor=&quot;0&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; branch=&quot;branches/2.0.x&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; apr_xxx_in_srclib=1<br />
+	&nbsp;&nbsp;&nbsp; apr_tag=&quot;0.9.18&quot;<br />
+	&nbsp;&nbsp;&nbsp; apu_tag=&quot;0.9.17&quot;<br />
+	&nbsp;&nbsp;&nbsp; ;;<br />
+	<br />
+	&nbsp; httpd-2.2)<br />
+	&nbsp;&nbsp;&nbsp; ver_path=&quot;include/ap_release.h&quot;<br />
+	&nbsp;&nbsp;&nbsp; ver_define=&quot;AP_SERVER_PATCHLEVEL&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; expected_major=&quot;2&quot;<br />
+	&nbsp;&nbsp;&nbsp; expected_minor=&quot;2&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; branch=&quot;branches/2.2.x&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; apr_xxx_in_srclib=1<br />
+	&nbsp;&nbsp;&nbsp; apr_tag=&quot;1.3.9&quot;<br />
+	&nbsp;&nbsp;&nbsp; apu_tag=&quot;1.3.9&quot;<br />
+	&nbsp;&nbsp;&nbsp; ;;<br />
+	<br />
+	&nbsp; httpd-2.3)<br />
+	&nbsp;&nbsp;&nbsp; ver_path=&quot;include/ap_release.h&quot;<br />
+	&nbsp;&nbsp;&nbsp; ver_define=&quot;AP_SERVER_PATCHLEVEL&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; expected_major=&quot;2&quot;<br />
+	&nbsp;&nbsp;&nbsp; expected_minor=&quot;3&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; branch=&quot;trunk&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; apr_xxx_in_srclib=1<br />
+	&nbsp;&nbsp;&nbsp; apr_tag=&quot;1.3.9&quot;<br />
+	&nbsp;&nbsp;&nbsp; apu_tag=&quot;1.3.9&quot;<br />
+	&nbsp;&nbsp;&nbsp; separate_deps=1<br />
+	&nbsp;&nbsp;&nbsp; ;;<br />
+	&nbsp; *)<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;ERROR: &#39;$1&#39; is an unknown project.&quot; &gt;&amp;2<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;&nbsp; choose one of: httpd-2.0, httpd-2.2, or httpd-2.3&quot; &gt;&amp;2<br />
+	&nbsp;&nbsp;&nbsp; exit 1<br />
+	esac<br />
+	<br />
+	major=&quot;`echo ${version} | sed &#39;s/\..*$//&#39;`&quot;<br />
+	minor=&quot;`echo ${version} | sed &#39;s/^[0-9]*\.\([0-9]*\)\..*$/\1/&#39;`&quot;<br />
+	patch=&quot;`echo ${version} | sed &#39;s/^.*\.//&#39;`&quot;<br />
+	<br />
+	if test ${tagged_release}; then<br />
+	&nbsp; tagname=&quot;${tag}&quot;<br />
+	else<br />
+	&nbsp; tagname=&quot;${version}&quot;<br />
+	fi<br />
+	<br />
+	dirname=&quot;`echo ${project} | sed &#39;s/-[0-9]*\.[0-9]*$//&#39;`&quot;<br />
+	dirname=&quot;${dirname}-${version}&quot;<br />
+	if test &quot;${postfix}&quot; != &quot;&quot;; then<br />
+	&nbsp; postfix=&quot;-${postfix}&quot;<br />
+	&nbsp; dirname=&quot;${dirname}${postfix}&quot;<br />
+	elif test &quot;${rev}&quot; != &quot;&quot;; then<br />
+	&nbsp; postfix=&quot;-r${rev}&quot;<br />
+	&nbsp; dirname=&quot;${dirname}${postfix}&quot;<br />
+	fi<br />
+	if test ${security_release}; then<br />
+	&nbsp; dirname=&quot;${dirname}-security&quot;<br />
+	fi<br />
+	<br />
+	if test &quot;$rev&quot; != &quot;&quot;; then<br />
+	&nbsp; rev=&quot;-r ${rev}&quot;<br />
+	fi<br />
+	<br />
+	split=&quot;---------------------------------------------------------------------&quot;<br />
+	<br />
+	echo $split<br />
+	echo &quot;&quot;<br />
+	<br />
+	if test ${security_release}; then<br />
+	&nbsp; echo &quot;&nbsp; SECURITY RELEASE&quot;<br />
+	fi<br />
+	echo &quot;&nbsp; Version: ${version}&quot;<br />
+	echo &quot; Tag name: ${tagname}&quot;<br />
+	echo &quot;Directory: ${dirname}&quot;<br />
+	echo &quot;&quot;<br />
+	<br />
+	if test &quot;${expected_major}&quot; -ne &quot;${major}&quot; || test &quot;${expected_minor}&quot; -ne &quot;${minor}&quot;; then<br />
+	&nbsp; echo &quot;ERROR: project doesn&#39;t match tag&quot; &gt;&amp;2<br />
+	&nbsp; exit 1<br />
+	fi<br />
+	<br />
+	if test -d ${dirname}; then<br />
+	&nbsp; echo &quot;ERROR: for safety, you must manually remove ${dirname}.&quot; &gt;&amp;2<br />
+	&nbsp; exit 1<br />
+	fi<br />
+	<br />
+	<br />
+	# make sure that the perms are good for the tarball<br />
+	umask 022<br />
+	<br />
+	echo $split<br />
+	echo &quot;&quot;<br />
+	echo &quot;Starting SVN export of ${project} to ${dirname} ...&quot;<br />
+	echo &quot;&quot;<br />
+	<br />
+	if test &quot;${rev}&quot; != &quot;&quot;; then<br />
+	&nbsp; svn export ${rev} https://${SVNHOST}/repos/asf/httpd/httpd/${branch} ${dirname} &gt; /dev/null || exit 1<br />
+	else<br />
+	&nbsp; svn export https://${SVNHOST}/repos/asf/httpd/httpd/tags/${tagname} ${dirname} &gt; /dev/null || exit 1<br />
+	fi<br />
+	<br />
+	### Add a check to see if what was checked out matches $vsn<br />
+	<br />
+	if test ${apr_xxx_in_srclib}; then<br />
+	&nbsp; echo &quot;Starting SVN export of apr-${apr_tag} to ${dirname}/srclib ...&quot;<br />
+	&nbsp; svn export https://${SVNHOST}/repos/asf/apr/apr/tags/${apr_tag} ${dirname}/srclib/apr &gt; /dev/null || exit 1<br />
+	&nbsp; echo &quot;Starting SVN export of apr-util-${apu_tag} to ${dirname}/srclib ...&quot;<br />
+	&nbsp; svn export https://${SVNHOST}/repos/asf/apr/apr-util/tags/${apu_tag} ${dirname}/srclib/apr-util &gt; /dev/null || exit 1<br />
+	fi<br />
+	<br />
+	echo $split<br />
+	echo &quot;&quot;<br />
+	<br />
+	if test ${tagged_release}; then<br />
+	#&nbsp; echo &quot;Fixing up version define (replacing -dev with ${postfix})&quot;<br />
+	#&nbsp; mv ${dirname}/${ver_path} ${dirname}/${ver_path}~<br />
+	#&nbsp; cat ${dirname}/${ver_path}~ | sed -e &quot;s/\(${ver_define}.*\)-dev/\1${postfix}/&quot; &gt; ${dirname}/${ver_path}<br />
+	#&nbsp; rm ${dirname}/${ver_path}~<br />
+	&nbsp; echo &quot;&quot;<br />
+	<br />
+	&nbsp; echo $split<br />
+	&nbsp; echo &quot;&quot;<br />
+	<br />
+	elif grep &quot;#define.*${ver_define}.*-dev&quot; ${dirname}/${ver_path} &gt; /dev/null; then<br />
+	&nbsp; echo &quot;ERROR: ${ver_path} still defines a development version.&quot; &gt;&amp;2<br />
+	&nbsp; echo &quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This script can only produce formal releases.&quot; &gt;&amp;2<br />
+	&nbsp; exit 1<br />
+	fi<br />
+	<br />
+	if test ${security_release}; then<br />
+	&nbsp; patch_dir=&quot;${dirname}-patches&quot;<br />
+	<br />
+	&nbsp; if test -d &quot;${patch_dir}&quot;; then<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;Starting CVS update of ${patch_dir}&quot;<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;&quot;<br />
+	&nbsp;&nbsp;&nbsp; ( cd ${patch_dir} &amp;&amp;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cvs up -dP 2&gt;/dev/null<br />
+	&nbsp;&nbsp;&nbsp; ) || exit 1<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;&quot;<br />
+	&nbsp; else<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;Starting CVS checkout of httpd-security/patches/${version}-dev to ${patch_dir}&quot;<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;&quot;<br />
+	&nbsp;&nbsp;&nbsp; cvs -d cvs.apache.org:/home/cvs co -d ${patch_dir} httpd-security/patches/${version}-dev &gt; /dev/null || exit 1<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;&quot;<br />
+	&nbsp; fi<br />
+	&nbsp;<br />
+	&nbsp; echo &quot;Applying patches...&quot;<br />
+	&nbsp; for p in `find ${patch_dir} -type f -name &#39;*.patch&#39;`<br />
+	&nbsp; do<br />
+	&nbsp;&nbsp;&nbsp; ( cd ${dirname} &amp;&amp;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cat ../${p} | patch -p0 --no-backup-if-mismatch<br />
+	&nbsp;&nbsp;&nbsp; ) || exit 1<br />
+	&nbsp; done<br />
+	&nbsp;<br />
+	&nbsp; echo $split<br />
+	&nbsp; echo &quot;&quot;<br />
+	fi<br />
+	<br />
+	echo &quot;Copying CHANGES file&quot;<br />
+	echo &quot;&quot;<br />
+	<br />
+	cp ${dirname}/CHANGES CHANGES_${major}.${minor}<br />
+	<br />
+	${ROLL} ${dirname} ${user} ${separate_deps}|| exit 1<br />
+	&nbsp;</p>

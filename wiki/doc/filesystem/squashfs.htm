@@ -1,0 +1,302 @@
+<div id="ibm-leadspace-head">
+	<div id="ibm-leadspace-body">
+		<h1>
+			squashfs</h1>
+		<dl class="lemmaWgt-lemmaTitle lemmaWgt-lemmaTitle-">
+		</dl>
+		<div class="edit-prompt">
+			本词条缺少<strong>名片图</strong>，补充相关内容使词条更完整，还能快速升级，赶紧来<a class="edit-prompt-link j-edit-link">编辑</a>吧！</div>
+		<div class="lemma-summary">
+			<div class="para">
+				SquashFS<sup>[1]</sup><a class="sup-anchor" name="ref_[1]_1059623">&nbsp;</a> 是一套基于Linux内核使用的压缩只读文件系统。该文件系统能够压缩系统内的文档,<a href="http://baike.baidu.com/subview/1097021/6281805.htm" target="_blank">inode</a>以及目录，文件最大支持2^64字节。</div>
+		</div>
+		<div class="basic-info cmn-clearfix">
+			<dl class="basicInfo-block basicInfo-left">
+				<dt class="basicInfo-item name">
+					中文名</dt>
+				<dd class="basicInfo-item value">
+					squashfs</dd>
+				<dt class="basicInfo-item name">
+					基&nbsp;&nbsp;&nbsp;&nbsp;础</dt>
+				<dd class="basicInfo-item value">
+					Linux内核</dd>
+			</dl>
+			<dl class="basicInfo-block basicInfo-right">
+				<dt class="basicInfo-item name">
+					文件最大支持</dt>
+				<dd class="basicInfo-item value">
+					2^64字节</dd>
+				<dt class="basicInfo-item name">
+					类&nbsp;&nbsp;&nbsp;&nbsp;型</dt>
+				<dd class="basicInfo-item value">
+					开源软件</dd>
+			</dl>
+		</div>
+		<div class="lemmaWgt-lemmaCatalog">
+			<div class="lemma-catalog">
+				<h2 class="block-title">
+					目录</h2>
+				<div class="catalog-list column-1">
+					<ol>
+						<li class="level1">
+							<span class="index">1</span> <span class="text"><a href="http://baike.baidu.com/link?url=RzwfbQynWFuu4hawN0eQ_AB_U88qz_WMPPLb-5sxFTwf1fpSaFLps_rfeAKjwsVE0f7EUfHkvTCOGmok-XVZkK#1">简介</a></span></li>
+						<li class="level1">
+							<span class="index">2</span> <span class="text"><a href="http://baike.baidu.com/link?url=RzwfbQynWFuu4hawN0eQ_AB_U88qz_WMPPLb-5sxFTwf1fpSaFLps_rfeAKjwsVE0f7EUfHkvTCOGmok-XVZkK#2">版本</a></span></li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<div class="anchor-list">
+			&nbsp;</div>
+		<div class="para-title level-2">
+			<h2 class="title-text">
+				简介</h2>
+			<a class="edit-icon j-edit-link" data-edit-dl="1" style="display: block;">编辑</a></div>
+		<div class="para">
+			SquashFS是基于<a href="http://baike.baidu.com/subview/130692/130692.htm" target="_blank">GPL</a>协议的开源软件。初始的版本使用<a href="http://baike.baidu.com/subview/966625/966625.htm" target="_blank">gzip</a>压缩，2.6.34版本<a href="http://baike.baidu.com/subview/573460/573460.htm" target="_blank">Linux内核</a>增加了支持<a href="http://baike.baidu.com/subview/1363182/1363182.htm" target="_blank">LZMA</a>和LZO压缩，并且在2.6.38<a href="http://baike.baidu.com/subview/6744074/6872244.htm" target="_blank">内核版本</a>上增加支持XZ压缩。</div>
+		<div class="anchor-list">
+			&nbsp;</div>
+		<div class="para-title level-2">
+			<h2 class="title-text">
+				版本</h2>
+			<a class="edit-icon j-edit-link" data-edit-dl="2" style="display: block;">编辑</a></div>
+		<div class="para">
+			SquashFS有几个不同的版本，这里给出一些主要的信息</div>
+		<div class="para">
+			Squashfs 4.2 : 最新的版本，并适用于2.6.29版本以后的<a href="http://baike.baidu.com/subview/573460/573460.htm" target="_blank">Linux内核</a>。</div>
+		<div class="para">
+			Squashfs 4.1 : 支持XZ压缩，并适用于2.6.29版本以后的Linux内核。</div>
+		<div class="para">
+			Squashfs 3.4 : 该版本是3.X的最后一个版本，并适用于2.6.29版本之前的内核。</div>
+		<h1>
+			&nbsp;</h1>
+		<h1>
+			基于 SquashFS 构建 Linux 可读写文件系统</h1>
+	</div>
+	<div class="dw-summary-columns" id="dw-summary-area">
+		<div class="ibm-col-6-4">
+			<p>
+				在当前的嵌入式操作系统开发中，Linux 操作系统通常被压缩成 Image 后存放在 Flash 设备中。在系统启动过程中，这些 Image 被直接挂载到根文件系统， 然而这时的根文件系统是只读的， 用户不能在这个文件系统中进行任何写的操作。 如果把 Image 解压后直接拷贝到内存中，也可以实现写的功能，但是嵌入式系统一直存在内存大小方面的限制，所以将整个 Linux 系统拷入内存是不可取的。 本文将介绍一种直接挂载 Image 到根目录下，同时实现文件系统可读写的功能。</p>
+			<p class="ibm-no-print ibm-ind-link">
+				&nbsp;</p>
+		</div>
+		<div class="ibm-col-6-2 dw-toc-margin">
+			<p class="dw-summary-author">
+				<a class="ibm-popup-link" href="http://www.ibm.com/developerworks/cn/linux/1306_qinzl_squashfs/#authorN1001B">秦 志雷</a>, 软件工程师, IBM</p>
+			<p class="dw-summary-date">
+				2013 年 7 月 01 日</p>
+			<div class="ibm-container" id="dw-toc">
+				<div class="ibm-container-body">
+					<ul class="ibm-twisty">
+						<li>
+							<a class="ibm-twisty-trigger ibm-twisty-trigger-closed" href="http://www.ibm.com/developerworks/cn/linux/1306_qinzl_squashfs/#toggle"><img alt="expand" src="http://www.ibm.com/i/c.gif" /></a><span class="ibm-twisty-head">内容</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="ibm-pcon">
+	<div id="ibm-content">
+		<div id="ibm-content-body">
+			<div id="ibm-content-main">
+				<div class="ibm-columns">
+					<div class="ibm-col-1-1">
+						<div class="dw-article-sidebar dw-bluemix" id="dwc-exp-a">
+							<img alt="" height="64" src="http://dw1.s81c.com/developerworks/i/bluemix-graphic.png" width="64" />
+							<p>
+								在 IBM Bluemix 云平台上开发并部署您的下一个应用。</p>
+							<p class="ibm-button-link-alternate dw-button-green">
+								<a class="dw-button-large" href="https://developer.ibm.com/sso/bmregistration?lang=zh_CN&amp;ca=dwchina-_-bluemix-_-1306_qinzl_squashfs-_-sidebar" id="tutc-sbar-bmix-home-btn-ABa">开始您的试用</a></p>
+						</div>
+						<h2 id="major1">
+							嵌入式 Linux 启动过程</h2>
+						<p>
+							本文所描述的的 Linux Image 由 BootLoader、kernel、initrd、rootfs 组成，它们共同存在于一个可以启动的存储设备中（本文以 USB 为例）。组成架构如下：</p>
+						<h5 id="fig1">
+							图 1. 可启动 linux 镜像文件结构</h5>
+						<img alt="aaa" src="http://www.ibm.com/developerworks/cn/linux/1306_qinzl_squashfs/PIC_bootableLinuxImg1.jpg" width="349" />
+						<p>
+							各个模块的作用如下：</p>
+						<ul class="ibm-bullet-list">
+							<li>
+								<strong>Boot Loader</strong>：由 BIOS 加载，用于将后续的 Kernel 和 initrd 的装载到内存中</li>
+							<li>
+								<strong>kernel</strong>：为 initrd 运行提供基础的运行环境</li>
+							<li>
+								<strong>initrd</strong>：检测并加载各种驱动程序</li>
+							<li>
+								<strong>rootfs</strong>：根文件系统，用户的各种操作都是基于这个被最后加载的文件系统</li>
+						</ul>
+						<p>
+							其调用顺序是 Boot Loader-&gt;kernel-&gt;initrd-&gt;rootfs。</p>
+						<p>
+							当机器上电时首先 BIOS 会启动，然后装载 USB 设备中的 Boot Loader、kernel,、nitrd 到内存中，由于这些文件大小总和小于 10M，所以我们直接拷贝到内存中再执行不会有问题。</p>
+						<p>
+							最后要加载的 rootfs 是用户最终进行读写操作的文件系统。</p>
+						<ul class="ibm-bullet-list">
+							<li>
+								在非嵌入式系统中，这部分文件通常储存在可直接读写的硬盘上，因此直接挂载到根目录后（例如：mount /dev/sda1 /mnt）就可以进行读写操作。</li>
+							<li>
+								在 嵌入式系统中，它是一个压缩的文件系统，大小通常是好几百兆，解压后的大小都超过 1G，如果直接 mount 到系统目录，那么系统目录是只读的，不可进行写入操作。而如果把它加压到内存中可以实现读写的操作，但是这么大的文件直接解压到内存中对于嵌入式设备来说 是不可接受的。因此我们需要找到一种不拷贝 rootfs 到内存中，同时又可以对最终的根文件系统进行读写的方法。</li>
+						</ul>
+						<h2 id="major2">
+							只读式压缩文件系统介绍</h2>
+						<p>
+							在 嵌入式的环境之下，内存和外存资源都需要节约使用。如果使用 RAMDISK（把内存当作 disk）方式来使用文件系统，那么在系统运行之后，首先要把外存 (Flash) 上的映像文件解压缩到内存中，构造起 RAMDISK 环境，才可以开始运行程序。但是它也有很致命的弱点。在正常情况下，同样的代码不仅在外存中占据了空间 ( 以压缩后的形式存在 )，而且还在内存中占用了更大的空间 ( 以解压缩之后的形式存在 )，这违背了嵌入式环境下尽量节省资源的要求。以下两种方案的诞生就是为了解决这个问题：</p>
+						<p>
+							<strong>CramFS</strong></p>
+						<p>
+							CramFS 文件系统是专门针对闪存设计的只读压缩的文件系统，它并不需要一次性地将文件系统中的所有内容都解压缩到内存之中，而只是在系统需要访问某个位置的数据的 时侯，马上计算出该数据在 CramFS 中的位置，将其实时地解压缩到内存之中，然后通过对内存的访问来获取文件系统中需要读取的数据。CramFS 中的解压缩以及解压缩之后的内存中数据存放位置都是由 CramFS 文件系统本身进行维护的，用户并不需要了解具体的实现过程，因此这种方式增强了透明度，对开发人员来说，既方便，又节省了存储空间。</p>
+						<p>
+							<strong>SquashFS</strong></p>
+						<p>
+							SquashFS 也是一个只读的文件系统，它可以将整个文件系统压缩在一起，存放在某个设备，某个分区或者普通的文件中。如果您将其压缩到一个设备中，那么您可以将其直接 mount 起来使用，而如果它仅仅是个文件的话，您可以将其当为一个 loopback 设备使用。</p>
+						<p>
+							更多信息请参考&ldquo;<a href="http://en.wikipedia.org/wiki/SquashFS">SquashFS</a>&rdquo;和&ldquo;<a href="http://en.wikipedia.org/wiki/Cramfs">CramFS</a>&rdquo;。</p>
+						<p>
+							本文主要介绍基于 SquashFS 的可读写文件系统构建。</p>
+						<p class="ibm-ind-link ibm-back-to-top">
+							<a class="ibm-anchor-up-link" href="http://www.ibm.com/developerworks/cn/linux/1306_qinzl_squashfs/#ibm-pcon">回页首</a></p>
+						<h2 id="major3">
+							Squash 压缩文件系统的创建</h2>
+						<p>
+							&quot;<a href="http://pkgs.org/archlinux/archlinux-community-i686/squashfs-tools-4.2-2-i686.pkg.tar.xz.html">下载并安装 Squash 工具</a>&quot;</p>
+						<p>
+							步骤 1：创建空的根文件系统，文件系统的大小为 65536 &times; 24000/1024/1024=1.5G。接下来我们会在这个空的根文件系统中存放文件。</p>
+						<div class="dw-sidebar ibm-inset">
+							<h2 id="sidebar1">
+								注释：</h2>
+							<p>
+								dd: 读取源文件的内容并创建一个新文件，if 指定源文件内容，of 指定新文件名字，bs 和 count 指定新文件的大小<br />
+								mke2fs: 将新创建的 rootfs 格式化为 Linux 可识别的文件系统</p>
+						</div>
+						<h5 id="listing1">
+							清单 1. 创建空的根文件系统</h5>
+						<div class="codesection">
+							<pre class="displaycode">
+  dd if=/dev/zero of=rootfs bs=65536 count=24000   mke2fs -F rootfs</pre>
+						</div>
+						<p>
+							<br />
+							步骤 2：挂载空的根文件系统，将 1.5G 的文件系统挂载在 mnt 目录下，然后通过 mnt 目录将内容写入根文件系统。</p>
+						<h5 id="listing2">
+							清单 2. 挂载空的根文件系统</h5>
+						<div class="codesection">
+							<pre class="displaycode">
+  mkdir mnt   mount rootfs mnt -o loop</pre>
+						</div>
+						<p>
+							步骤 3：拷贝根文件目录的内容到文件系统</p>
+						<h5 id="listing3">
+							清单 3. 拷贝根文件目录统</h5>
+						<div class="codesection">
+							<pre class="displaycode">
+  cp -rp yourRootDir mnt   umount mnt</pre>
+						</div>
+						<p>
+							拷贝完后根文件系统的内容，如图 2 所示：</p>
+						<h5 id="fig2">
+							图 2. 根文件系统内容</h5>
+						<img alt="aaa" src="http://www.ibm.com/developerworks/cn/linux/1306_qinzl_squashfs/PIC_rootfsContent.jpg" width="533" />
+						<p>
+							<br />
+							步骤 4：完成根文件系统的创建，这时的 rootfs 没有被压缩，接下来我们用工具将其压缩成 Squash 格式的文件系统</p>
+						<div class="dw-sidebar ibm-inset">
+							<h2 id="sidebar2">
+								注释：</h2>
+							<p>
+								mksquashfs-4.1 是在安装 Squash 工具的过程中生成的命令，用于将一个文件夹下的内容打包并压缩成一个文件系统。其后第一个参数为文件夹，第二个参数为生成的文件系统。</p>
+						</div>
+						<h5 id="listing4">
+							清单 4. 创建根文件系统</h5>
+						<div class="codesection">
+							<pre class="displaycode">
+  mkdir squashfs-dir   mv rootfs squshfs-dir   mksquashfs-4.1 squashfs-dir squashRootfs</pre>
+						</div>
+						<p>
+							到这里我们就完成了 Squash 压缩文件系统的创建。接下来我们将讨论如何在 Linux 启动的过程中加载这个压缩文件系统。</p>
+						<p class="ibm-ind-link ibm-back-to-top">
+							<a class="ibm-anchor-up-link" href="http://www.ibm.com/developerworks/cn/linux/1306_qinzl_squashfs/#ibm-pcon">回页首</a></p>
+						<h2 id="major4">
+							加载压缩文件系统所使用的工具</h2>
+						<p>
+							在加载压缩文件系统之前，我们需要确定您的 Linux 内核支持这种文件系统。 Device mapper 是 Linux 2.6 内核中提供的一种从逻辑设备到物理设备的映射框架机制，在该机制下，用户可以很方便的根据自己的需要制定实现存储资源的管理策略。</p>
+						<p>
+							确保在 initrd 中已经集成&ldquo;<a href="http://pkgs.org/search/?keyword=device-mapper">device-mapper</a>&rdquo;</p>
+						<p class="ibm-ind-link ibm-back-to-top">
+							<a class="ibm-anchor-up-link" href="http://www.ibm.com/developerworks/cn/linux/1306_qinzl_squashfs/#ibm-pcon">回页首</a></p>
+						<h2 id="major5">
+							加载 Squash 压缩文件系统</h2>
+						<p>
+							可读写文件系统原理如图 3 所示：</p>
+						<h5 id="fig3">
+							图 3. 可读写文件系统原理</h5>
+						<img alt="aaa" src="http://www.ibm.com/developerworks/cn/linux/1306_qinzl_squashfs/figure1.gif" width="357" />
+						<p>
+							squashRootfs 里面存储了我们原始的根文件系统，我们在根文件系统中所有的写操作会直接写入 cowfile.out(cow:copy-on-write)， 当我们读取根文件系统时，如果读取的内容没有变化，将直接从 squashRootfs 中读取，如果读取的内容被更新过，将从 cowfile.out 中读取。cowfile.out 文件的大小一般要比 squshRootfs 小，如果 cowfile.out 被写满，根文件系统的读写操作将会出错，因此有必要给 cowfile.out 设置一个合理的大小以防止被写满。</p>
+						<p>
+							由于 rootfs 是被 initrd 加载的，因此我们需要在 initrd 里面加入装载 rootfs 的代码。initrd 整个的执行过程是调用 /sbin/init 这个脚本文件，因此我们在这个脚本的最后加入以下代码逻辑即可。</p>
+						<div class="dw-sidebar ibm-inset">
+							<h2 id="sidebar3">
+								注释：</h2>
+							<p>
+								<br />
+								1. dm-mirror 为 device mapper 工作所需要的驱动<br />
+								<br />
+								2. mknod: 创建一些设备文件，参数 1：设备文件名 参数 2：设备类型 参数 3：主设备号 参数 4：次设备号<br />
+								<br />
+								3. 将 squashRootfs 通过 loop 设备的形式挂载在目录 /realroot/mnt/ 下<br />
+								<br />
+								4. 将 /realroot/mnt/rootfs 设置为 loop 设备，并和 /dev/loop1 绑定<br />
+								<br />
+								5. &quot;|&quot;之前的部分是构建 dmsetup 的参数，其中 $(blockdev --getsize /dev/loop1) 表示创建镜像文件的大小，/dev/loop1 /dev/loop2 表示镜像文件是以 /realroot/mnt/rootfs 和 /realroot/mnt/cowfile.out 为蓝本进行创建的（在前面的操作中 loop1 和 loop2 分别进行了绑定操作）</p>
+						</div>
+						<h5 id="listing5">
+							清单 5. 构建可读写文件系统脚本</h5>
+						<div class="codesection">
+							<pre class="displaycode">
+    # 加载驱动 ,<em>参见注释 1</em>    modprobe dm-mirror         # 创建设备 ,<em>参见注释 2</em>    mknod /dev/zero c 1 5     mknod /dev/loop0 b 7 0     mknod /dev/loop1 b 7 1     mknod /dev/loop2 b 7 2     mkdir /dev/cow     mknod /dev/cow/ctl b 241 255     mknod /dev/cow/0 b 241 0         # 挂载 squash 根文件系统，挂载完后您可以在 /realroot/mnt/ 下找到 rootfs 文件 ,<em>参见注释 3</em>    mount /realroot/mnt/squashRootfs /realroot/mnt/ -o loop         # 设置 rootfs 为 loop 设备 ,<em>参见注释 4</em>    losetup /dev/loop1 /realroot/mnt/rootfs         # 创建 cowfile.out 并挂载为 loop 设备，我们将来的写操作都会写入 cowfile.out     dd if=/dev/zero of=/realroot/mnt/cowfile.out bs=2K count=137500     losetup /dev/loop2 /realroot/mnt/cowfile.out         # 将 /realroot/mnt/rootfs 和 /realroot/mnt/cowfile.out 结合起来创建一个逻辑根文件设备，    # 设备文件为 /dev/mapper/root_fs，,<em>参见注释 5</em>    echo &quot;0 $(blockdev --getsize /dev/loop1) snapshot /dev/loop1 /dev/loop2 p 64&quot; |     dmsetup create root_fs         # 将上面创建的逻辑根文件设备 /dev/mapper/root_fs 挂载就可以看到一个可读写的根文件系统    mount /dev/mapper/root_fs /realroot/mnt/Image         # 切换到最终可读写的根文件系统    cd /realroot/mnt/Image     chroot ./sbin/init -i</pre>
+						</div>
+						<p>
+							加下来您就可以看到 rootfs 的所有内容，如图 4 所示：</p>
+						<h5 id="fig4">
+							图 4. 被挂载的根文件系统内容</h5>
+						<img alt="aaa" src="http://www.ibm.com/developerworks/cn/linux/1306_qinzl_squashfs/PIC_rootDir.jpg" width="476" />
+						<p>
+							还可以在这个文件系统中进行写操作，如图 5 所示：</p>
+						<h5 id="fig5">
+							图 5. 根文件系统的写操作</h5>
+						<img alt="aaa" src="http://www.ibm.com/developerworks/cn/linux/1306_qinzl_squashfs/PIC_write.jpg" width="458" />
+						<p>
+							最重要的是 rootfs 没有被拷贝到内存中。</p>
+						<p class="ibm-ind-link ibm-back-to-top">
+							<a class="ibm-anchor-up-link" href="http://www.ibm.com/developerworks/cn/linux/1306_qinzl_squashfs/#ibm-pcon">回页首</a></p>
+						<h2 id="major6">
+							结束语</h2>
+						<p>
+							由于篇幅的限制，本文只给出了基本的描述。希望有更一步了解的读者可以通过对以下 linux 命令的学习来深入了解。</p>
+						<p>
+							构建 Squash 压缩文件系统构所使用的主要命令：</p>
+						<ul class="ibm-bullet-list">
+							<li>
+								<strong>mksquashfs:</strong>创建 Squash 压缩文件系统</li>
+						</ul>
+						<p>
+							使用 Squash 压缩文件系统构所使用的主要命令：</p>
+						<ul class="ibm-bullet-list">
+							<li>
+								<strong>mknod:</strong>创建 Squash 压缩文件系统</li>
+							<li>
+								<strong>losetup:</strong>设置并控制 Loop 设备</li>
+							<li>
+								<strong>chroot:</strong>改变根目录</li>
+							<li>
+								<strong>dmsetup:</strong>低水平逻辑卷管理</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

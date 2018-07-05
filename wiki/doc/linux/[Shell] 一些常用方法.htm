@@ -1,0 +1,857 @@
+<p>
+	<span style="font-size:20px;"><span style="color: rgb(0, 0, 255);">Shell Ò»Ð©³£ÓÃ·½·¨</span></span></p>
+<p>
+	&nbsp;</p>
+<p>
+	#echo &quot;-1-$target_device&quot;<br />
+	&nbsp;&nbsp;&nbsp; if (echo -n $target_device | grep -q -e &quot;full&quot;) ; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; target_device=`echo ${target_device/#&quot;full_&quot;} `<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #target_device=`echo &quot;$target_device&quot; | sed s/-eng// `<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #target_device=`echo &quot;$target_device&quot; | sed s/-user// `<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #target_device=`echo &quot;$target_device&quot; | sed s/-userdebug// `<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #echo &quot;-2-$target_device&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ./build/tools/mk.sh init $target_device<br />
+	<br />
+	<br />
+	<br />
+	---------<br />
+	pp=&quot;able/b&quot; &amp;&amp; test=bootable/boot &amp;&amp; echo &quot;$test&quot; | sed &quot;s/$pp/AA/g&quot; &nbsp;<br />
+	½á¹û&nbsp; bootAA/boot<br />
+	<br />
+	---------<br />
+	path=&quot;bootable/bootloader/lk/target&quot;<br />
+	path_string=&quot;bootable/bootloader/lk/target&quot;<br />
+	list=` echo $* |find $path -type d -maxdepth 1 `<br />
+	echo &quot;---$list&quot;<br />
+	list=` echo $* |find $path -type d -maxdepth 1 | sed &quot;s/$path_string//g&quot; | sed &quot;s////g&quot;&nbsp; `<br />
+	echo &quot;-==$list&quot;<br />
+	------------<br />
+	<br />
+	&nbsp;if (echo -n $choice | grep -q -e &quot;^full_.*eng&quot;); then&nbsp;&nbsp; #²éÕÒfull_¿ªÍ·eng½áÎ²µÄ×Ö´®<br />
+	&nbsp;&nbsp;&nbsp; echo -e &quot;[31m [05m&nbsp;&nbsp; &nbsp;$i. $choice[0m&quot;&nbsp;&nbsp; #´øÑÕÉ«<br />
+	&nbsp;else<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;&nbsp;&nbsp; &nbsp;$i. $choice &quot;<br />
+	&nbsp;fi<br />
+	<br />
+	------------<br />
+	#$@²ÎÊý¸ñÊ½»¯È¡Öµ<br />
+	DASH_ARGS=$(echo &quot;$@&quot; | awk -v RS=&quot; &quot; -v ORS=&quot; &quot; &#39;/^-.*$/&#39;) &nbsp;<br />
+	DIRS=$(echo &quot;$@&quot; | awk -v RS=&quot; &quot; -v ORS=&quot; &quot; &#39;/^[^-].*$/&#39;) &nbsp;<br />
+	echo &quot;DASH_ARGS: @DASH_ARGS&quot;<br />
+	echo &quot;DIRS : @DIRS&quot;<br />
+	for DIR in $DASH_ARGS ; do &nbsp;<br />
+	&nbsp; echo &quot;$DIR&quot;<br />
+	done<br />
+	<br />
+	for DIR in $DIRS ; do &nbsp;<br />
+	&nbsp; echo &quot;$DIR&quot;<br />
+	done<br />
+	-------------------------------------------------<br />
+	<br />
+	<br />
+	1¡¢½«µ±Ç°Ä¿Â¼ÏÂ°üº¬jack´®µÄÎÄ¼þÖÐ£¬jack×Ö·û´®Ìæ»»Îªtom<br />
+	<br />
+	sed -i &quot;s/jack/tom/g&quot; `grep &quot;jack&quot; -rl ./`<br />
+	<br />
+	2¡¢½«Ä³¸öÎÄ¼þÖÐµÄjack×Ö·û´®Ìæ»»Îªtom<br />
+	<br />
+	sed -i &quot;s/jack/tom/g&quot; test.txt<br />
+	<br />
+	<br />
+	----------------------------------------------------------------------------------------------------<br />
+	#!/bin/bash<br />
+	<br />
+	################################################################################<br />
+	# Name: repren.sh<br />
+	# Description:<br />
+	#&nbsp;&nbsp; °´Ë³Ðò×öÒÔÏÂÊÂÇé£º<br />
+	#&nbsp;&nbsp; 1. ²éÕÒÌØ¶¨ÀàÐÍµÄÎÄ¼þ£¬Èç .h¡¢.cpp<br />
+	#&nbsp;&nbsp; 2. ½«ÎÄ¼þÄÚÈÝÖÐµÄÎÄ±¾ OLD_TEXT Ìæ»»³É NEW_TEXT<br />
+	#&nbsp;&nbsp; 3. ½«º¬ OLD_TEXT µÄÎÄ¼þÃûÖØÃüÃûÎª NEW_TEXT<br />
+	#&nbsp;&nbsp; 4. ½«º¬ OLD_TEXT µÄÄ¿Â¼ÃûÖØÃüÃûÎª NEW_TEXT<br />
+	#<br />
+	# Author:&nbsp;&nbsp; Breaker &lt;breaker.zy_AT_gmail&gt;<br />
+	# Date:&nbsp;&nbsp;&nbsp;&nbsp; 2011-10<br />
+	################################################################################<br />
+	<br />
+	# IFS ±íÊ¾ for Óï¾äÖÐ¸÷ÏîÖ®¼äµÄ·Ö¸ô·û<br />
+	OLDIFS = $IFS<br />
+	IFS = $&#39; &#39;&nbsp;&nbsp; # $ Ê¹×ÖÃæÁ¿Æô¶¯×ªÒå£¬·ñÔò ÎªÖ±½Ó×ÖÃæÁ¿¶ø·Ç LF<br />
+	SCRIPT_NAME = `basename &quot;$0&quot; `<br />
+	<br />
+	# ÓÃ·¨<br />
+	usage()<br />
+	{<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;usage:&quot;<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;&nbsp; $SCRIPT_NAME OLD_TEXT NEW_TEXT&quot;<br />
+	}<br />
+	<br />
+	if [ $# -lt 2 ]; then<br />
+	&nbsp;&nbsp;&nbsp; usage<br />
+	&nbsp;&nbsp;&nbsp; exit -1<br />
+	fi<br />
+	<br />
+	# Ìæ»»Ç°ºóµÄ ÎÄ±¾<br />
+	OLD_TEXT = &quot;$1&quot;<br />
+	NEW_TEXT = &quot;$2&quot;<br />
+	<br />
+	OLD_TEXT_UPPER = ` echo $OLD_TEXT | tr &#39;[a-z]&#39; &#39;[A-Z]&#39; `&nbsp;&nbsp;&nbsp;&nbsp; # È«´óÐ´µÄ ¾ÉÎÄ±¾<br />
+	OLD_TEXT_LOWER = ` echo $OLD_TEXT | tr &#39;[A-Z]&#39; &#39;[a-z]&#39; `&nbsp;&nbsp;&nbsp;&nbsp; # È«Ð¡Ð´µÄ ¾ÉÎÄ±¾<br />
+	<br />
+	NEW_TEXT_UPPER = ` echo $NEW_TEXT | tr &#39;[a-z]&#39; &#39;[A-Z]&#39; `&nbsp;&nbsp;&nbsp;&nbsp; # È«´óÐ´µÄ ÐÂÎÄ±¾<br />
+	NEW_TEXT_LOWER = ` echo $NEW_TEXT | tr &#39;[A-Z]&#39; &#39;[a-z]&#39; `&nbsp;&nbsp;&nbsp;&nbsp; # È«Ð¡Ð´µÄ ÐÂÎÄ±¾<br />
+	<br />
+	echo -e &#39;replace text &amp; rename file ... &#39;<br />
+	<br />
+	# ²éÕÒÖ¸¶¨ÎÄ¼þ<br />
+	FIND_REGEX = &#39;.*(/(makefile|readme)|.(h|hxx|hpp|c|cpp|cxx|txt|mak|rc|x(ht)?ml|html?|sln|vcproj))&#39;<br />
+	FILES = `find -type f -regextype posix-egrep -iregex &quot;$FIND_REGEX&quot; `<br />
+	<br />
+	# ÎÄ±¾Ìæ»»Ê±µÄ ×Ö·û´®±ß½ç<br />
+	#SED_REGEX=&#39;(|_)&#39;<br />
+	SED_REGEX = &#39;(|[0-9_])&#39;<br />
+	#SED_REGEX=&#39;(|[0-9a-zA-Z_])&#39;<br />
+	<br />
+	# ÖØÃüÃûÊ±µÄ ÎÄ¼þÃû±ß½ç<br />
+	#GREP_REGEX=&#39;(|_)&#39;<br />
+	GREP_REGEX = &#39;(|[0-9_])&#39;<br />
+	#GREP_REGEX=&#39;(|[0-9a-zA-Z_])&#39;<br />
+	<br />
+	# ¶ÔÃ¿¸ö²éÕÒµ½µÄÎÄ¼þÈ¥×ö...<br />
+	for EACH in $FILES<br />
+	do<br />
+	&nbsp;&nbsp;&nbsp; # Ìæ»»ÎÄ¼þÖÐµÄÎÄ±¾ OLD_TEXT Îª NEW_TEXT<br />
+	&nbsp;&nbsp;&nbsp; sed -i &quot;s/$SED_REGEX$OLD_TEXT$SED_REGEX/$NEW_TEXT/g&quot; $EACH<br />
+	&nbsp;&nbsp;&nbsp; sed -i &quot;s/$SED_REGEX$OLD_TEXT_UPPER$SED_REGEX/$NEW_TEXT_UPPER/g&quot; $EACH<br />
+	&nbsp;&nbsp;&nbsp; sed -i &quot;s/$SED_REGEX$OLD_TEXT_LOWER$SED_REGEX/$NEW_TEXT_LOWER/g&quot; $EACH<br />
+	&nbsp;&nbsp;&nbsp; echo &quot;$EACH: replace: $OLD_TEXT =&gt; $NEW_TEXT&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; # ÖØÃüÃûº¬ OLD_TEXT µÄÎÄ¼þÃûÎª NEW_TEXT<br />
+	&nbsp;&nbsp;&nbsp; OLD_FILE_0 = `basename $EACH | grep -E -i &quot;$GREP_REGEX$OLD_TEXT$GREP_REGEX&quot; `&nbsp;&nbsp;&nbsp; # Ö»Õë¶ÔÎÄ¼þÃû£¬²»¹ÜÄ¿Â¼²¿·Ö<br />
+	&nbsp;&nbsp;&nbsp; if [ &quot;$OLD_FILE_0&quot; ! = &quot;&quot; ]; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIR = `dirname $EACH `<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OLD_FILE = &quot;$DIR/$OLD_FILE_0&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NEW_FILE_0 = ` echo &quot;$OLD_FILE_0&quot; | sed &quot;s/$OLD_TEXT/$NEW_TEXT/gi&quot; `<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NEW_FILE = &quot;$DIR/$NEW_FILE_0&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mv &quot;$OLD_FILE&quot; &quot;$NEW_FILE&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;rename: $OLD_FILE =&gt; $NEW_FILE&quot;<br />
+	&nbsp;&nbsp;&nbsp; fi<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; echo &#39;&#39;<br />
+	done<br />
+	<br />
+	echo -e &#39;rename dir ... &#39;<br />
+	<br />
+	# ¸ü¸ÄÄ¿Â¼Ãû£ºÖØÃüÃûº¬ OLD_TEXT µÄÄ¿Â¼Ãû<br />
+	DIRS = `find -type d `<br />
+	for EACH in $DIRS; do<br />
+	&nbsp;&nbsp;&nbsp; OLD_DIR_0 = `basename $EACH | grep -E -i &quot;$GREP_REGEX$OLD_TEXT$GREP_REGEX&quot; `<br />
+	&nbsp;&nbsp;&nbsp; if [ &quot;$OLD_DIR_0&quot; ! = &quot;&quot; ]; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OLD_DIR_DIR = `dirname $EACH `<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OLD_OLD_DIR = &quot;$OLD_DIR_DIR/$OLD_DIR_0&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NEW_DIR_0 = ` echo &quot;$OLD_DIR_0&quot; | sed &quot;s/$OLD_TEXT/$NEW_TEXT/gi&quot; `<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NEW_DIR_DIR = ` echo &quot;$OLD_DIR_DIR&quot; | sed &quot;s/$OLD_TEXT/$NEW_TEXT/gi&quot; `<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # find ÏÈÊä³ö¸¸Ä¿Â¼£¬ËùÒÔ¸¸Ä¿Â¼ÕâÊ±ÒÑ¾­ÖØÃüÃûÁË<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # ËùÒÔ OLD_DIR ÓÉÐÂµÄ¸¸Ä¿Â¼ÃûºÍ OLD_DIR_0 Æ´³É£¬¶ø²»ÊÇÔ­À´µÄ OLD_OLD_DIR ÁË<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OLD_DIR = &quot;$NEW_DIR_DIR/$OLD_DIR_0&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NEW_DIR = &quot;$NEW_DIR_DIR/$NEW_DIR_0&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mv &quot;$OLD_DIR&quot; &quot;$NEW_DIR&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;rename: $OLD_OLD_DIR =&gt; $NEW_DIR&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo &#39;&#39;<br />
+	&nbsp;&nbsp;&nbsp; fi<br />
+	done<br />
+	<br />
+	# »Ö¸´»·¾³<br />
+	IFS = $OLDIFS<br />
+	<br />
+	-----------------------------------------------------------------------------------------------------------------</p>
+<div class="article_content" id="article_content">
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<span style="font-size:22px;"><span style="color: rgb(0, 0, 255);">Ò»Ð©³£ÓÃµÄShell±à³Ì£¨½Å±¾£©ÃüÁîºÍÓï¾ä£¬¿ÉÒÔÂú×ãÒ»°ãÐèÇó¡£</span></span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<strong><span style="background-color:inherit"><span style="font-size:14px">½ÓÊÕµ½µÄÃüÁî²ÎÊý£º</span></span></strong>
+		<div style="font-size:14px">
+			<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+				<li style="background-color:inherit">
+					²ÎÊý¸öÊý£º</li>
+			</ul>
+			$#</div>
+		<div style="font-size:14px">
+			&nbsp;</div>
+		<div style="font-size:14px">
+			<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+				<li style="background-color:inherit">
+					²ÎÊýÖµ£º</li>
+			</ul>
+		</div>
+		<div style="font-size:14px">
+			ÃüÁî±¾Éí£º$0</div>
+		<div style="font-size:14px">
+			µÚÒ»¸ö²ÎÊý£º$1</div>
+		<div style="font-size:14px">
+			µÚ¶þ¸ö²ÎÊý£º$2</div>
+		<div style="font-size:14px">
+			&hellip;&hellip;</div>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<span style="line-height:1.5; background-color:inherit"><span style="background-color:inherit"><span style="background-color:inherit"><strong><span style="font-size:14px">ÍË³öÃüÁî£º</span></strong></span></span></span></div>
+	<span style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">exit</span>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<span style="font-family:Î¢ÈíÑÅºÚ; line-height:21px"><span style="background-color:inherit"><strong><span style="font-size:14px">echoÃüÁî£º</span></strong></span></span>
+	<div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			&nbsp;</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+				<li style="background-color:inherit">
+					»»ÐÐ£º</li>
+			</ul>
+			echo</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+				<li style="background-color:inherit">
+					Êä³öºó²»»»ÐÐ£º</li>
+			</ul>
+		</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			echo&nbsp;<span style="color:#e36c09; background-color:inherit">-n&nbsp;</span>&quot;ÇëÑ¡Ôñ£¨y/n£©£¿&quot;</div>
+		<div>
+			<ul>
+				<li>
+					<span style="font-family:Î¢ÈíÑÅºÚ"><span style="font-size:14px; line-height:21px">Êä³öºó²»»»ÐÐ£¬²¢°Ñ¹â±êÒÆµ½×î×ó£¨ÒÔ±ãÏÂ´ÎÊä³ö¸²¸Çµ±Ç°ÐÐ£©</span></span></li>
+			</ul>
+		</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			echo <span style="color:#ff6600"> -ne</span> &quot;$i &quot;</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			<br style="background-color:inherit" />
+			<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+				<li style="background-color:inherit">
+					ÀûÓÃ×ªÒå·ûºÅÊä³öË«ÒýºÅ£º&nbsp;</li>
+			</ul>
+			echo &quot;»¶Ó­Ê¹ÓÃ&quot;ÕýÊ½·þÎñÆ÷&quot;²¿Êð¹¤¾ß¡£&quot;</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			&nbsp;</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+				<li style="background-color:inherit">
+					Êä³öÖÐ´ø±äÁ¿£º</li>
+			</ul>
+		</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			echo &quot;¼´½«²¿ÊðÏîÄ¿£º<span style="color:#e36c09; background-color:inherit">$project_name</span>&quot;</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			&nbsp;</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+				<li style="background-color:inherit">
+					Êä³ö´ø×ªÒå·ûµÄ×Ö·û´®£º</li>
+			</ul>
+		</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			echo&nbsp;<span style="color:#e36c09; background-color:inherit">-e</span>&nbsp;&quot;first<span style="color:#e36c09; background-color:inherit"> </span>second&quot;</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			&nbsp;</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+				<li style="background-color:inherit">
+					Êä³öµ½ÎÄ¼þ</li>
+			</ul>
+		</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			×·¼Óµ½ÎÄ¼þÎ²£ºecho -e $log_info&nbsp;<span style="color:#e36c09; background-color:inherit">&gt;&gt;</span>&nbsp;deploy.log</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			¸²¸ÇÎÄ¼þÄÚÈÝ£ºecho -e $log_info<span style="color:#e36c09; background-color:inherit">&nbsp;&gt;</span>&nbsp;deploy.log</div>
+		<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+			&nbsp;</div>
+	</div>
+	<span style="font-family:Î¢ÈíÑÅºÚ; line-height:21px"><span style="background-color:inherit"><strong><span style="font-size:14px">printfÃüÁî£º</span></strong></span></span>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<div>
+			<strong>£¨¿ÉÒÔ´úÌæecho£¬¸ñÊ½»¯Êä³ö£¬ºÍCÓïÑÔÖÐµÄprintfº¯Êý¹¦ÄÜÏàÍ¬£©</strong></div>
+		<div>
+			&nbsp;</div>
+		<div>
+			<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+				<li style="background-color:inherit">
+					Êä³öÒ»¸öÐ¡ÊýµãºóÁ½Î»µÄÊý£¬²¢»»ÐÐ£º</li>
+			</ul>
+		</div>
+		<div>
+			printf &quot;The number is&nbsp;<span style="color:#e36c09; background-color:inherit">%.2f</span>.<span style="color:#e36c09; background-color:inherit"> </span>&quot; 100</div>
+		<div>
+			&nbsp;</div>
+		<div>
+			<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+				<li style="background-color:inherit">
+					Êä³öÒ»¸öÖ¸¶¨¿í¶ÈµÄ×Ö·û´®£º</li>
+			</ul>
+		</div>
+		<div>
+			×ó¶ÔÆë£ºprintf &quot;<span style="color:#e36c09; background-color:inherit">%-20s&nbsp;%-15s&nbsp;</span>%10.2f &quot; &quot;Stephen&quot; &quot;Liu&quot; 35</div>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		ÓÒ¶ÔÆë£ºprintf &quot;|<span style="color:#e36c09; background-color:inherit">%10s</span>| &quot; hello</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<span style="line-height:1.5; background-color:inherit"><span style="background-color:inherit"><span style="background-color:inherit"><strong><span style="font-size:14px">±äÁ¿£º</span></strong></span></span></span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">¶¨Òå£º&nbsp;</span></li>
+		</ul>
+		<span style="background-color:inherit; line-height:1.5">profile=&quot;production&quot;</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">Ê¹ÓÃ£º&nbsp;</span></li>
+		</ul>
+		<span style="background-color:inherit; line-height:1.5">echo&nbsp;<span style="color:#e36c09; background-color:inherit">$</span>profile</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">±äÁ¿Æ´½Ó£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		log_info=&quot;$log_info,$target_ip&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<span style="background-color:inherit"><span style="background-color:inherit"><strong><span style="font-size:14px">Êý×é£º</span></strong></span></span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">¶¨Òå£º</span></li>
+		</ul>
+		<span style="background-color:inherit; line-height:1.5">servers=(&quot;192.168.0.31&quot; &quot;192.168.0.39&quot;)</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<span style="background-color:inherit; line-height:1.5">projects=(&quot;public&quot; &quot;industry&quot; &quot;logistics&quot; &quot;misc&quot;)</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">»ñµÃÕû¸öÊý×é£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		${projects[*]}</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">»ñµÃÊý×éÔªËØ¸öÊý£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		${#servers[@]}</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<strong>ÊýÑ§ÔËËã£º</strong></div>
+	<div>
+		<ul>
+			<li>
+				<span style="font-family:Î¢ÈíÑÅºÚ"><span style="font-size:14px; line-height:21px">¼Ó£ºx=$(expr &quot;$a&quot; + &quot;$b&quot;)</span></span></li>
+			<li>
+				<span style="font-family:Î¢ÈíÑÅºÚ"><span style="font-size:14px; line-height:21px">¼õ£ºx=$(($a - $b))</span></span></li>
+			<li>
+				<span style="font-family:Î¢ÈíÑÅºÚ"><span style="font-size:14px; line-height:21px">³Ë£ºx=$(expr $a * $b)</span></span></li>
+			<li>
+				<span style="font-family:Î¢ÈíÑÅºÚ"><span style="font-size:14px; line-height:21px">³ý£ºx=&nbsp;$(expr $a / $b)</span></span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<span style="font-family:Î¢ÈíÑÅºÚ; line-height:21px"><span style="background-color:inherit"><strong><span style="font-size:14px">if Óï¾ä£¨Ìõ¼þÅÐ¶ÏÍ¬ÑùÊÊÓÃÓÚwhileÓï¾äºÍforÓï¾ä£©£º</span></strong></span></span>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">ÅÐ¶ÏÒ»¸ö±äÁ¿£¨project£©ÊÇ·ñ·Ç¿Õ£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		if [<span style="color:#0070c0; background-color:inherit">&nbsp;</span><span style="color:rgb(227,108,9); line-height:1.5">$project&nbsp;</span><span style="background-color:inherit; line-height:1.5">];then</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; echo &quot;Variable &quot;project&quot; is null.&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">ÅÐ¶Ï²»µÈÓÚ£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		if [ $#&nbsp;<span style="color:#e36c09; background-color:inherit">-ne</span>&nbsp;3 ];then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; echo &quot;ÃüÁîÐÐ²ÎÊý²»ÊÇ3¸ö&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<div>
+			&nbsp;</div>
+		<div>
+			<strong>×¢£ºÊýÖµ´óÐ¡ÅÐ¶ÏµÄÒ»Ð©ÃüÁî£º</strong></div>
+		<div>
+			gt£º´óÓÚ£¨greater than£©</div>
+		<div>
+			lt£ºÐ¡ÓÚ<span style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">£¨less than£©</span></div>
+		<div>
+			eq£ºµÈÓÚ<span style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">£¨equal£©</span></div>
+		<div>
+			ne£º²»µÈÓÚ<span style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">£¨not equal£©</span></div>
+		<div>
+			ge£º´óÓÚµÈÓÚ<span style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">£¨greater or equal£©</span></div>
+		<div>
+			le£ºÐ¡ÓÚµÈÓÚ&nbsp;<span style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">£¨less or equal£©</span></div>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="line-height:1.5; background-color:inherit">²¼¶ûÖµÅÐ¶Ï£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<span style="background-color:inherit; line-height:1.5">&nbsp; &nbsp; if [&nbsp;<span style="color:#e36c09; background-color:inherit">&quot;$is_ip_correct&quot; = false</span>&nbsp;];then&nbsp;</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; echo &quot;ÎÞÐ§µÄipµØÖ·£¬ÇëÊ¹ÓÃÏÂÃæipÖ®Ò»£º&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; echo ${servers[*]}</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; exit</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">×Ö·û´®ÅÐ¶Ï£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		ÊÇ·ñÏàµÈ£º</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		if<span style="color:#e36c09; background-color:inherit">&nbsp;[ &quot;$confirm&quot; == &quot;y&quot; ]&nbsp;</span>&amp;&amp;<span style="color:#e36c09; background-color:inherit">&nbsp;[ &quot;$confirm&quot; != &quot;n&quot; ]</span>;do</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp;&nbsp;# do something...</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		ÊÇ·ñÎª¿Õ£¨¿Õ·µ»Øtrue£©£º if [<span style="color:#ff6600">-z</span> $string ]</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		ÊÇ·ñ·Ç¿Õ£¨·Ç¿Õ·µ»Øtrue£©£º<span style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">&nbsp;if [&nbsp;</span><span style="color:#ff6600; font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">-n</span><span style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">&nbsp;$string ]</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">ÕýÔò±í´ïÊ½ÅÐ¶Ï</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		if [[&nbsp;<span style="color:#e36c09; background-color:inherit">$1 =~ ^public|industry$</span>&nbsp;]] &amp;&amp; [[&nbsp;<span style="color:#e36c09; background-color:inherit">$3 =~ ^[yn]$</span>&nbsp;]];then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;&nbsp;# do something...</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		if&nbsp;<span style="color:#e36c09; background-color:inherit">[[ ! $deploy_more =~ [yn] ]]</span>;then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp;# do something...</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">ÅÐ¶ÏÎÄ¼þÊÇ·ñ´æÔÚ£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		if [ !&nbsp;<span style="color:#e36c09; background-color:inherit">-f&nbsp;</span>target/$project.war ];then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp;# do something...</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">ÅÐ¶ÏÄ¿Â¼ÊÇ·ñ´æÔÚ£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		if [&nbsp;<span style="color:#e36c09; background-color:inherit">-d</span>&nbsp;$2/webapps/$1 ];then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; # do something...</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">ÅÐ¶ÏÒ»¸öÎÄ¼þÃû£¨×Ö·û´®£©µÄºó×º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		backup_file=&quot;/backup/java_data/$1-$today.war&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		backup_file=&quot;/backup/java_data/$1-$today.gz&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; if [&nbsp;<span style="color:#e36c09; background-color:inherit">&quot;${backup_file##*.}&quot;</span>&nbsp;= &quot;war&quot; ];then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; cp $backup_file $1.war</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; elif &nbsp;[&nbsp;<span style="color:#e36c09; background-color:inherit">&quot;${backup_file##*.}&quot;</span>&nbsp;= &quot;gz&quot; ];then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; tar zxvf $backup_file</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; else</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; echo &quot;±¸·ÝÎÄ¼þ¸ñÊ½²»¶Ô&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; exit</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<span style="line-height:1.5"><span style="background-color:inherit"><strong><span style="font-size:14px">read Óï¾ä£¨¶ÁÈ¡ÓÃ»§ÊäÈëµÄ×Ö·û´®£©£º</span></strong></span></span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">×î¼òµ¥µÄÓÃ·¨£º¶ÁÈ¡ÓÃ»§ÊäÈëµ½±äÁ¿yes_or_no</span></li>
+		</ul>
+		<span style="font-size:14px">read yes_or_no</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<br style="background-color:inherit" />
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">ÌáÊ¾ÓÃ»§ÊäÈëy»òn</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<span style="color:#e36c09; background-color:inherit">read -e -p &quot;ÊÇ·ñ±¸·Ý£º£¨y/n£©£¿&quot; -i &quot;y&quot; needbackup</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		£¨²ÎÊýËµÃ÷£º-e£º²»ÖªÓÐÊ²Ã´ÓÃ£¬µ«Èç¹ûÈ¥µôÁË£¬-i¾ÍÊ§Ð§ÁË£»-p£ººóÃæ½Ó×ÅÌáÊ¾Óï¾ä£»-i£ººóÃæ½Ó×ÅÈ±Ê¡ÊäÈë£»×îºóÒ»¸ö²ÎÊýÊÇ±£´æÓÃ»§ÊäÈëµÄ±äÁ¿¡£<span style="background-color:inherit; line-height:1.5">£©</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<span style="font-family:Î¢ÈíÑÅºÚ; line-height:21px"><span style="background-color:inherit"><strong><span style="font-size:14px">select Óï¾ä£¨ÌáÊ¾ÓÃ»§´ÓÁÐ±íÖÐÑ¡ÔñÒ»¸ö£©£º</span></strong></span></span>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">ÐÞ¸ÄÄ¬ÈÏÌáÊ¾Óï£¨Ä¬ÈÏÖµÊÇ&quot;#?&quot;£©£º</span></li>
+		</ul>
+		<span style="font-size:14px; line-height:1.5; background-color:inherit"><span style="color:#e36c09; background-color:inherit">&nbsp;PS3=</span>&quot;ÇëÑ¡ÔñÒ»¸öÏîÄ¿£º&quot;</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">ÌáÊ¾ÓÃ»§´ÓÊý×éÖÐÑ¡ÔñÒ»¸öÖµ£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; select<span style="color:#e36c09; background-color:inherit">&nbsp;project in ${projects[*]}</span>;do</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; if [ $project ];then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; break</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; done</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		»ò¼ÓÉÏÍË³öÌõ¼þ£º</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;select target_ip in<span style="color:#e36c09; background-color:inherit">&nbsp;${servers[*]}</span>&nbsp;&quot;<span style="color:#e36c09; background-color:inherit">Exit£¨ÍË³ö£©</span>&quot;;do</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; if [ &quot;$target_ip&quot; = &quot;Exit£¨ÍË³ö£©&quot; &nbsp;]; then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; echo &quot;Ð»Ð»Ê¹ÓÃ£¡Good-Bye£¡&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; break</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; &nbsp; fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; if [ $target_ip ]; then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; &nbsp; # do something</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;done</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<span style="font-family:Î¢ÈíÑÅºÚ; line-height:21px"><span style="background-color:inherit"><strong><span style="font-size:14px">case Óï¾ä£º</span></strong></span></span>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; case $project in</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<span style="background-color:inherit; line-height:1.5">&nbsp; &nbsp; public)&nbsp;</span><span style="background-color:inherit; line-height:1.5">&nbsp;project_name=&quot;´óÖÚ°æ&quot; ;;</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<span style="background-color:inherit; line-height:1.5">&nbsp; &nbsp;logistics)&nbsp;</span><span style="background-color:inherit; line-height:1.5">project_name=&quot;ÅäËÍ</span><span style="line-height:1.5">°æ</span><span style="background-color:inherit; line-height:1.5">&quot; ;;</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<span style="background-color:inherit; line-height:1.5">&nbsp; &nbsp; misc)&nbsp;</span><span style="background-color:inherit; line-height:1.5">project_name=&quot;ÔÓÏî°æ&quot; ;;</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<span style="background-color:inherit; line-height:1.5">&nbsp; esac</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<span style="font-family:Î¢ÈíÑÅºÚ; line-height:21px"><span style="background-color:inherit"><strong><span style="font-size:14px">while Óï¾ä£º</span></strong></span></span>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">ÅäºÏÕýÔò±í´ïÊ½ÅÐ¶ÏÊ¹ÓÃ£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; while [[ ! $needbackup =~ ^[yn]$ ]];do</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; read -e -p &quot;ÊÇ·ñ±¸·Ý£º£¨y/n£©£¿&quot; -i &quot;y&quot; needbackup</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; done</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="font-size:14px">ÓÃ&ldquo;...&rdquo;×ö½ø¶ÈÌõ</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		echo -n &quot;µÈ´ý$port ¶Ë¿Ú´ò¿ª&hellip;&hellip;&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		while [ ! $pid_new ];do</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; #sleep 1</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; pid_new=`netstat -nlp | grep $port | awk &#39;{print $7}&#39; | awk -F &quot;/&quot; &#39;{print $1}&#39;`</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; echo -n &quot;&hellip;&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		done</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<span style="background-color:inherit"><strong><span style="font-size:14px">forÓï¾ä£º</span></strong></span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:24px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				±éÀú£º</li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:24px">
+		<span style="color:#e36c09; background-color:inherit">for ip_t in ${servers[*]}</span>;do</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:24px">
+		&nbsp; if [ &quot;$2&quot; = &quot;$ip_t&quot; ];then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:24px">
+		&nbsp; &nbsp; is_ip_correct=true</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:24px">
+		&nbsp; &nbsp; break</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:24px">
+		&nbsp; fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:24px">
+		done</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<span style="font-family:Î¢ÈíÑÅºÚ; line-height:21px"><span style="background-color:inherit"><strong><span style="font-size:14px">µ÷ÓÃÆäËû³ÌÐò£º</span></strong></span></span>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">Ê¹ÓÃ``£¬²¢»ñµÃÊä³ö½á¹û£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; PS3=&quot;ÇëÑ¡ÔñÒ»¸ö·ÖÖ§£º&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; select branch in&nbsp;<span style="color:#e36c09; background-color:inherit">`svn list svn://&lt;svn_host&gt;/java/code/branches`</span>;do</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; &nbsp; if [ $branch ];then</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; svn_dir=&quot;svn://&lt;svn_host&gt;/java/code/branches/$branch&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; project_dir=$branch</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; break</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; &nbsp; fi</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; &nbsp; &nbsp; done</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px; font-size:14px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">Ê¹ÓÃ$()£¬</span><span style="line-height:1.5">²¢»ñµÃÊä³ö½á¹û£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		today=<span style="color:#e36c09; background-color:inherit">$(date&nbsp;</span>+%Y-%m-%d/%H:%M:%S<span style="color:#e36c09; background-color:inherit">)</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		svn_version=<span style="color:#e36c09; background-color:inherit">$(</span>svn info $svn_dir | grep &quot;Last Changed Rev:&quot; | awk &#39;{print $4}&#39;<span style="color:#e36c09; background-color:inherit">)</span></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				ÎÞÉùµØµ÷ÓÃÆäËû³ÌÐò£¨²»Êä³ö½á¹û£¬¼´°Ñ½á¹ûÊä³öµ½Ò»¸önullÉè±¸ÖÐ£©</li>
+		</ul>
+		<div style="background-color:inherit">
+			rm $2/logs/m* $2/logs/l* $2/logs/h* $2/logs/catalina.2015*&nbsp;<span style="color:#e36c09; background-color:inherit">&amp;&gt;/dev/null &amp;</span></div>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<span style="font-family:Î¢ÈíÑÅºÚ; line-height:21px"><span style="background-color:inherit"><strong><span style="font-size:14px">awk£¨ÓÃÀ´¶Ô×Ö·û´®½øÐÐÇÐÆ¬´¦Àí£¬Ò»°ãÅäºÏgrepÊ¹ÓÃ£©£º</span></strong></span></span>
+	<div style="font-family:Î¢ÈíÑÅºÚ; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">»ñµÃÒÔ¿Õ¸ñ·Ö¸ôµÄµÚËÄ¸ö×Ö·û´®£º</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		svn_version=$(svn info $svn_dir | grep &quot;Last Changed Rev:&quot; |&nbsp;<span style="color:#e36c09; background-color:inherit">awk &#39;{print $4}&#39;</span>)</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				<span style="background-color:inherit; line-height:1.5">»ñµÃÒÔÌØÊâ·Ö¸ô·û£¨&quot;/&quot;£©·Ö¸ôµÄµÚÒ»¸ö×Ö·û´®</span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;awk<span style="color:#e36c09; background-color:inherit">&nbsp;-F &quot;/&quot;</span>&nbsp;&#39;{print $1}&#39;</div>
+	<div>
+		<ul>
+			<li>
+				<span style="font-family:Î¢ÈíÑÅºÚ"><span style="font-size:14px; line-height:21px"><span microsoft="" style="color:rgb(51,51,51); font-family:">print NF} ºÍ {print $NF}</span><br microsoft="" style="padding:0px; margin:0px; color:rgb(51,51,51); font-family:" />
+				<span microsoft="" style="color:rgb(51,51,51); font-family:">Ç°ÕßÊÇÊä³öÁËÓò¸öÊý£¬ºóÕßÊÇÊä³ö×îºóÒ»¸ö×Ö¶ÎµÄÄÚÈÝ</span><br microsoft="" style="padding:0px; margin:0px; color:rgb(51,51,51); font-family:" />
+				<span microsoft="" style="color:rgb(51,51,51); font-family:">Èç£º~# echo $PWD | awk -F/ &#39;{print $NF}&#39;</span><br />
+				</span></span></li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<ul style="margin-top:0px; margin-bottom:0px; background-color:inherit">
+			<li style="background-color:inherit">
+				»ñÈ¡ËùÓÐ¶Ë¿ÚºÅÎª $port µÄ½ø³Ì£¬²¢É±µô</li>
+		</ul>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		for pid in `netstat -nlp | grep $port | awk &#39;{print $7}&#39; | awk -F &quot;/&quot; &#39;{print $1}&#39;`</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		do</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; echo &quot;==========================Warning========================&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; echo &quot;ÎÞ·¨Õý³£¹Ø±Õ½ø³Ì£¬¶Ë¿Ú£º$port£¬Ö±½Ókillµô£¬½ø³ÌºÅ£º$pid&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; echo &quot;==========================Warning========================&quot;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp; kill $pid</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		done</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		&nbsp;</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<strong>ÊµÀý£º</strong></div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		1¡¢µ¹¼ÆÊ±£º</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<div class="dp-highlighter bg_plain">
+			<div class="bar">
+				<div class="tools">
+					&nbsp;</div>
+			</div>
+			<ol start="1">
+				<li class="alt">
+					<span><span>#!/bin/sh&nbsp;&nbsp;</span></span></li>
+				<li>
+					<span>&nbsp;&nbsp;</span></li>
+				<li class="alt">
+					<span>seconds_left=15&nbsp;&nbsp;</span></li>
+				<li>
+					<span>&nbsp;&nbsp;</span></li>
+				<li class="alt">
+					<span>echo&nbsp;&quot;ÇëµÈ´ý${seconds_left}Ãë&hellip;&hellip;&quot;&nbsp;&nbsp;</span></li>
+				<li>
+					<span>while&nbsp;[&nbsp;$seconds_left&nbsp;-gt&nbsp;0&nbsp;];do&nbsp;&nbsp;</span></li>
+				<li class="alt">
+					<span>&nbsp;&nbsp;echo&nbsp;-n&nbsp;$seconds_left&nbsp;&nbsp;</span></li>
+				<li>
+					<span>&nbsp;&nbsp;sleep&nbsp;1&nbsp;&nbsp;</span></li>
+				<li class="alt">
+					<span>&nbsp;&nbsp;seconds_left=$(($seconds_left&nbsp;-&nbsp;1))&nbsp;&nbsp;</span></li>
+				<li>
+					<span>&nbsp;&nbsp;echo&nbsp;-ne&nbsp;&quot; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;&nbsp;#Çå³ý±¾ÐÐÎÄ×Ö&nbsp;&nbsp;</span></li>
+				<li class="alt">
+					<span>done&nbsp;&nbsp;</span></li>
+				<li>
+					<span>echo&nbsp;&quot;done!&quot;&nbsp;&nbsp;</span></li>
+			</ol>
+		</div>
+	</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		2¡¢ÃüÁîÖ´ÐÐÊ§°ÜÊ±×Ô¶¯ÖØÊÔ£¬Ö±µ½³É¹¦£¨±ÈÈçÖ´ÐÐsvn checkoutÃüÁî£¬¿ÉÄÜÒòÎªÍøÂçÎÊÌâ²»³É¹¦£©£º</div>
+	<div style="font-family:Î¢ÈíÑÅºÚ; font-size:14px; line-height:21px">
+		<div class="dp-highlighter bg_plain">
+			<div class="bar">
+				<div class="tools">
+					&nbsp;</div>
+			</div>
+			<ol start="1">
+				<li class="alt">
+					<span><span>svn&nbsp;checkout&nbsp;$svn_dir&nbsp;&nbsp;</span></span></li>
+				<li>
+					<span>&nbsp;&nbsp;</span></li>
+				<li class="alt">
+					<span>while&nbsp;[&nbsp;!&nbsp;$?&nbsp;-eq&nbsp;0&nbsp;];do&nbsp;&nbsp;</span></li>
+				<li>
+					<span>&nbsp;&nbsp;echo&nbsp;&quot;ÖØÊÔ&hellip;&hellip;&quot;&nbsp;&nbsp;</span></li>
+				<li class="alt">
+					<span>&nbsp;&nbsp;svn&nbsp;checkout&nbsp;$svn_dir&nbsp;&nbsp;</span></li>
+				<li>
+					<span>done;&nbsp;&nbsp;</span></li>
+				<li class="alt">
+					<span>&nbsp;&nbsp;</span></li>
+				<li>
+					<span>echo&nbsp;&quot;done!&quot;&nbsp;&nbsp;</span></li>
+			</ol>
+		</div>
+		--------------------------------------------------</div>
+	<div>
+		&nbsp;</div>
+</div>

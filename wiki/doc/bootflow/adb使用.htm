@@ -1,0 +1,134 @@
+<p>
+	<span style="font-size:16px;"><span style="color: rgb(0, 0, 205);">adb管理设备硬件</span></span></p>
+<p>
+	adb kill-server // 终止adb服务进程</p>
+<p>
+	adb start-server // 重启adb服务进程</p>
+<p>
+	adb root // 已root权限重启adb服务</p>
+<p>
+	adb wait-for-device // 在模拟器/设备连接之前把命令转载在adb的命令器中</p>
+<p>
+	<span style="color:#0000cd;">adb管理设备</span></p>
+<p>
+	adb devices&nbsp; // 显示连接到计算机的设备</p>
+<p>
+	adb get-serialno // 获取设备的ID和序列号serialNumber</p>
+<p>
+	------------------重启----------------------------------------------</p>
+<p>
+	adb reboot&nbsp; // 重启设备a</p>
+<p>
+	db reboot bootloader&nbsp; // 重启到bootloader，即刷机模式</p>
+<p>
+	adb reboot recovery&nbsp; // 重启到recovery，即恢复模式-</p>
+<p>
+	-----------------发送命令到设备--------------------------------------a</p>
+<p>
+	db [-d|-e|-s &lt;serialNumber&gt;] &lt;command&gt;-d 发送命令给usb连接的设备</p>
+<p>
+	-e 发送命令到模拟器设备</p>
+<p>
+	-s &lt;serialNumber&gt; 发送命令到指定设备</p>
+<p>
+	<span style="color:#0000cd;">adb管理设备硬件信息</span></p>
+<p>
+	adb shell&nbsp; cat /sys/class/net/wlan0/address&nbsp; // 获取mac地址</p>
+<p>
+	adb shell cat /proc/cpuinfo&nbsp; // 获取cpu序列号</p>
+<p>
+	<span style="color:#0000cd;">管理设备app:</span></p>
+<p>
+	adb install &lt;apkfile&gt;&nbsp; // 安装</p>
+<p>
+	apkadb install -r &lt;apkfile&gt; // 保留数据和缓存文件，重新安装apk，</p>
+<p>
+	adb install -s &lt;apkfile&gt;&nbsp; // 安装apk到sd卡</p>
+<p>
+	------------------卸载----------------------------------------------</p>
+<p>
+	adb uninstall &lt;package&gt;&nbsp; // 卸载app</p>
+<p>
+	adb uninstall -k &lt;package&gt;&nbsp; // 卸载app但保留数据和缓存文件</p>
+<p>
+	------------------启动app-------------------------------------------</p>
+<p>
+	adb shell am start -n &lt;package_name&gt;/.&lt;activity_class_name&gt; // 启动应用</p>
+<p>
+	------------------查看内存占用----------------------------------------</p>
+<p>
+	adb shell top&nbsp; // 查看设备cpu和内存占用情况</p>
+<p>
+	adb shell top -m 6 // 查看占用内存前6的app</p>
+<p>
+	adb shell top -n 1 // 刷新一次内存信息，然后返回</p>
+<p>
+	adb shell procrank // 查询各进程内存使用情况</p>
+<p>
+	adb shell kill [pid] // 杀死一个进程</p>
+<p>
+	adb shell ps // 查看进程列表</p>
+<p>
+	adb shell ps -x [PID] // 查看指定进程状态adb shell service list // 查看后台services信息</p>
+<p>
+	adb shell cat /proc/meminfo // 查看当前内存占用</p>
+<p>
+	adb shell cat /proc/iomem // 查看IO内存分区</p>
+<p>
+	<span style="color:#0000cd;">adb的文件操作</span></p>
+<p>
+	adb remount&nbsp; // 将system分区重新挂载为可读写分区</p>
+<p>
+	adb push &lt;local&gt; &lt;remote&gt; // 从本地复制文件到设备</p>
+<p>
+	adb pull &lt;remote&gt;&nbsp; &lt;local&gt; // 从设备复制文件到本地</p>
+<p>
+	adb shell ls // 列出目录下的文件和文件夹，等同于dos中的dir命令</p>
+<p>
+	adb shell cd &lt;folder&gt; // 进入文件夹，等同于dos中的cd 命令</p>
+<p>
+	adb shell rename path/oldfilename path/newfilename // 重命名文件</p>
+<p>
+	adb shell rm /system/avi.apk&nbsp; // 删除system/avi.apk</p>
+<p>
+	adb shell rm -r &lt;folder&gt; // 删除文件夹及其下面所有文件</p>
+<p>
+	adb shell mv path/file newpath/file // 移动文件</p>
+<p>
+	adb shell chmod 777 /system/fonts/DroidSansFallback.ttf // 设置文件权限</p>
+<p>
+	adb shell mkdir path/foldelname // 新建文件夹</p>
+<p>
+	adb shell cat &lt;file&gt; // 查看文件内容</p>
+<p>
+	<span style="color:#b22222;">adb命令行操作：</span></p>
+<ol class="dp-cpp" start="1">
+	<li>
+		<span><span>fastboot&nbsp;模式:&nbsp; 按住音量下和power键能进fast&nbsp;boot模式不&nbsp; </span></span></li>
+</ol>
+<p>
+	&nbsp;&nbsp; 查找属性值&nbsp; <span>getprop&nbsp;|&nbsp;grep&nbsp;ro.mmitest&nbsp; </span></p>
+<p>
+	&nbsp;&nbsp; /proc/bootprof&nbsp;&nbsp; 开机log信息</p>
+<p>
+	&nbsp;&nbsp;&nbsp; getevent -i&nbsp;&nbsp;&nbsp; 查看输入输出设备</p>
+<p>
+	<span style="color:#0000ff;">查看内存ram使用情况</span><br />
+	&nbsp; adb shell cat proc/meminfo<br />
+	&nbsp; adb shell dumpsys<br />
+	adb shell ps查看应用对应的进程号(pid)<br />
+	adb shell dumpsys meminfo 4007 查看pid=4007的应用的使用内存情况</p>
+<p>
+	dumpsys activity -f | grep Focused</p>
+<p>
+	-----调试Trustonic Tee时----</p>
+<ol>
+	<li>
+		你可否ls -l /data/app/mcRegistry列出該目錄底下的內容?</li>
+	<li>
+		執行adb shell env | grep MC_AUTH_TOKEN_PATH&nbsp;查看MC_AUTH_TOKEN_PATH路徑是否有被定義?</li>
+	<li>
+		若MC_AUTH_TOKEN_PATH路徑有被定義，請ls列出該目錄底下的內容?</li>
+</ol>
+<p>
+	----------------</p>

@@ -1,0 +1,32 @@
+<p>
+	MTK LOG分析</p>
+<p>
+	<span>上层的『开机</span><span>&nbsp;android log</span><span>』</span><span>(adb logcat -b main -b system -b events -v time &gt; android.log) -----&gt; </span><span>再找异常 </span></p>
+<p>
+	<span>后续尚待贵司录制上层的『开机</span><span>&nbsp;android log</span><span>』</span><span>(adb logcat -b main -b system -b events -v time &gt; android.log) -----&gt; </span><span>再找异常 </span><br />
+	<br />
+	<span>☆ </span><span>『开机</span><span>&nbsp;android log</span><span>』需与『开机</span><span>&nbsp;uart log</span><span>』同时录制。请贵司上传『开机</span><span>&nbsp;android log</span><span>』需与『开机</span><span>&nbsp;uart log</span><span>』前，事先检查</span><span>&nbsp;2 </span><span>份</span><span>logs</span><span>在对应的时间段内是否皆有对应的</span><span>logs</span><span>。 </span></p>
+<p>
+	<span>目前我在服务器编译1B1U 1B1V两个user版本，并在这两个版本上打开mtklog，与uart log开关，具体设置： </span></p>
+<p>
+	1. /device/mediatek/common/mtklog/mtklog-config-basic-user.prop<span> 和 </span>mtklog-config-bsp-user.prop<span>&nbsp;把所有的false改成true! </span></p>
+<p>
+	<span>2. </span>/kernel-3.18/drivers/misc/mediatek/mtprof/mt_printk_ctrl.c&nbsp;&nbsp; 把 mt_need_uart_console = 0; /* default, no uart */ 改成mt_need_uart_console = 1;</p>
+<p>
+	<span>只改了这两个地方，升级之后，复现不了重启现象！ </span></p>
+<p>
+	<span>3. 关于mtk 这个要求，我们这边有什么办法去同时获取android Log and uart log，又要保证问题能复现？ </span></p>
+<p>
+	&nbsp;</p>
+<ol>
+	<li>
+		<strong>打开广播</strong><strong>Log</strong><strong>来测试：使用命令</strong><strong>&nbsp;adb shell&nbsp;dumpsys activity log br on&nbsp;</strong><strong>（重启手机后失效）</strong></li>
+</ol>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 另外，出现问题后，最好dump下广播信息：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>adb shell dumpsys activity b</strong></p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	<span>GAT工具分析</span></p>

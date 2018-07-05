@@ -1,0 +1,124 @@
+<p>
+	<span style="font-size:16px;"><span style="color: rgb(0, 0, 205);">MTK提出对 RAM内存小的项目优化：</span></span></p>
+<p>
+	Dear customer，<br />
+	关于lowmemorykiller问题，请不要安装太多APK，建议贵司可以参考如下修改，缓解memory的使用。<br />
+	（1）修改frameworksaseservicescorejavacomandroidserveramProcessList.java<br />
+	static final int MAX_CACHED_APPS = 32; // 改为 static final int MAX_CACHED_APPS = 8;<br />
+	<br />
+	（2）调整Low Memory Killer minifree门限值，frameworksaseservicescorejavacomandroidserveramProcessList.java中，<br />
+	调整下面的mOomMinFreeHigh里面的后三项 ，分别增大1.1倍 1.2倍，1.5倍<br />
+	// These are the high-end OOM level limits. This is appropriate for a<br />
+	190 // 1280x800 or larger screen with around 1GB RAM. Values are in KB.<br />
+	191 private final int[] mOomMinFreeHigh = new int[] {<br />
+	192 73728, 92160, 110592,<br />
+	193 129024, 147456, 184320<br />
+	194 };<br />
+	<br />
+	（3）修改device/mediatek/[your project]/enableswap.sh文件<br />
+	# Set swappiness<br />
+	echo 100 &gt; /proc/sys/vm/swappiness ==&gt; 改为 echo 60 &gt; /proc/sys/vm/swappiness<br />
+	echo 100 &gt; /sys/fs/cgroup/memory/sw/memory.swappiness ==&gt; 改为 echo 60 &gt; /sys/fs/cgroup/memory/sw/memory.swappiness<br />
+	<br />
+	（4）参考下面FAQ调整dirty_background_ratio、dirty_ratio，以往其他客户经验是减半：<br />
+	FAQ13684 iowait问题成因及对策<br />
+	可以在device/mediatek/mt6580/init.mt6580.rc增加是可以的，只要保证添加的位置能够执行到即可。<br />
+	修改是否成功，可以在开机后进入adb shell，用下面命令查看：<br />
+	root@android:/ # cat /proc/sys/vm/dirty_ratio<br />
+	root@android:/ # cat /proc/sys/vm/dirty_background_ratio<br />
+	<br />
+	（5）修改/frameworks/base/services/core/java/com/android/server/am/ProcessList.java中<br />
+	long getCachedRestoreThresholdKb() {<br />
+	return mCachedRestoreLevel; //将mCachedRestoreLevel 改为 mCachedRestoreLevel/2<br />
+	}<br />
+	这个修改目的，当 AMS 计算出系统 Memory 紧张时候，将超过这个 Size 的进程，ADJ&gt;=9时， 就砍掉<br />
+	<br />
+	Thanks！</p>
+<p>
+	---------------------------------------------------------------------------------------------------------------------------------------</p>
+<h4>
+	Comments #3</h4>
+<h4>
+	<a bgcolor="#dcdcdc" href="mailto:christopher.wu@tcl.com?subject=MTK Defect:4042913" style="color:#0000000;">scheduleuser (integrity1)</a>, 2017-01-19 18:21:17:</h4>
+<p>
+	Dear customer，<br />
+	memory有user、kernel、reserve等几种，只有user space的anon部分才可能压缩出去。<br />
+	<br />
+	lmk起来归根接底还是memory过低造成，贵司是1G memory，如果是64bit系统的话，那配置确实是偏低的。</p>
+<p>
+	&nbsp;</p>
+<div id="divContentId">
+	<div class="ExternalClassAA853604BB534093B842D93C57BA6C71" style="visibility: visible;">
+		<div style="visibility: visible;">
+			<div class="ExternalClass7E65E52FEEC64654AF72057FCEF95F1A" style="visibility: visible;">
+				<div style="visibility: visible;">
+					<span style="font-size:large;">[DESCRIPTION]&nbsp;<span style="color:#0000cd;"> FAQ13684 iowait问题成因及对策</span></span></div>
+				<div style="visibility: visible;">
+					<span style="font-size:small;"><span style="font-size:small;">&nbsp;</span></span>
+					<div style="visibility: visible;">
+						<span style="color:#000000;font-size:12pt;background-color:#ffffff;">根据 <a href="https://onlinesso.mediatek.com/" style="color:#000000;text-decoration:underline;background-color:#ffffff;">MediaTek On-Line</a> &gt; <a href="https://onlinesso.mediatek.com/Pages/eCourse.aspx" style="color:#000000;text-decoration:underline;background-color:#ffffff;">eCourse Home</a> &gt; <a href="https://onlinesso.mediatek.com/Pages/eCourse.aspx?001=002" style="color:#000000;text-decoration:underline;background-color:#ffffff;">SW</a> &gt; <a href="https://onlinesso.mediatek.com/Pages/eCourse.aspx?001=002&amp;002=002002" style="color:#000000;text-decoration:underline;background-color:#ffffff;">ALPS</a> &gt; <a href="https://onlinesso.mediatek.com/Pages/eCourse.aspx?001=002&amp;002=002002&amp;003=002002005" style="color:#000000;text-decoration:underline;background-color:#ffffff;">Common Framework</a>的<span class="LnCTitleCss">Application Not Responding(ANR) Analyze</span></span></div>
+					<div style="visibility: visible;">
+						<span style="color:#000000;font-size:12pt;background-color:#ffffff;">确定是iowait导致的ANR</span></div>
+				</div>
+				<div style="visibility: visible;">
+					&nbsp;</div>
+				<div style="visibility: visible;">
+					&nbsp;</div>
+				<div style="visibility: visible;">
+					<div style="visibility: visible;">
+						<span style="font-size:large;">[SOLUTION]</span></div>
+				</div>
+				<div style="visibility: visible;">
+					<span style="font-size:small;">&nbsp;</span></div>
+				<div style="visibility: visible;">
+					成因：</div>
+				<div style="visibility: visible;">
+					1. 系统因为io导致进程wait；</div>
+				<div style="visibility: visible;">
+					2. 数据请求量大；</div>
+				<div style="visibility: visible;">
+					3. 存储器性能欠佳（TLC的eMMC和SD Card表现明显）</div>
+				<div style="visibility: visible;">
+					&nbsp;</div>
+				<div style="visibility: visible;">
+					原理：</div>
+				<div style="visibility: visible;">
+					&nbsp;Linux 用pdflush进程把数据从缓存页写入硬盘，pdflush写入硬盘看两个参数：<br />
+					1. 数据在页缓存中是否超出3秒 (default)，如果是，标记为脏页缓存；<br />
+					/proc/sys/vm/dirty_expire_centiseconds</div>
+				<div style="visibility: visible;">
+					<br />
+					2. 脏页缓存是否达到工作内存的10%(default)；<br />
+					/proc/sys/vm/dirty_background_ratio</div>
+				<div style="visibility: visible;">
+					&nbsp;</div>
+				<div style="visibility: visible;">
+					以下参数也会影响到pdflush<br />
+					/proc/sys/vm/dirty_ratio (default 20)：&nbsp;global_dirtyable_memory的最大百分比，系统所能拥有的最大脏页缓存的总量。</div>
+				<div style="visibility: visible;">
+					超过这个值，开启pdflush写入硬盘。如果cache增长快于pdflush，那么整个系统在20%的时候遇到I/O瓶颈，所有的I/O都要等待cache被pdflush进硬盘后才能重新开始。<br />
+					&nbsp;<br />
+					对于有高度写入操作的系统<br />
+					dirty_background_ratio: 主要调整参数。如果需要把缓存持续的而不是一下子大量的写入硬盘，降低这个值。<br />
+					dirty_ratio：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 第二调整参数。</div>
+				<div style="visibility: visible;">
+					&nbsp;</div>
+				<div style="visibility: visible;">
+					对策：</div>
+				<div style="visibility: visible;">
+					如果有大量的写操作，为避免I/O的长时间等待，可以设置：<br />
+					$ echo 3 &gt; /proc/sys/vm/dirty_background_ratio<br />
+					$ echo 10 &gt; /proc/sys/vm/dirty_ratio</div>
+				<div style="visibility: visible;">
+					&nbsp;</div>
+				<div style="visibility: visible;">
+					可以在init.rc中修改，如果user版本（未开mtklog）难以复现，建议不做修改。</div>
+				<div style="visibility: visible;">
+					因为通过调整内核参数，将写活动的高峰分布成频繁的多次写，每次写入的数据比较少。<br />
+					以这种方式执行的效率比较低，减少了内核组合写操作的机会。</div>
+				<div style="visibility: visible;">
+					&nbsp;</div>
+			</div>
+		</div>
+	</div>
+</div>

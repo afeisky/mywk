@@ -1,0 +1,995 @@
+<p>
+	git log file</p>
+<p>
+	git <span style="color:#ff0000;">blame </span>file</p>
+<p>
+	删除dint分支的代码，保留.git，repo forall &ndash;c &ldquo;git rm . -r&rdquo;<br />
+	删除一部的FSR代码中.git库，repo forall &ndash;c &ldquo;rm &ndash;rf *.git&rdquo;，可用find &ndash;name &ldquo;*.git&rdquo;查看是否全部删除<br />
+	git <span style="color:#ff0000;">merge-file</span> new_file origin_file patch_file&nbsp;&nbsp; # new_file需要打补丁的文件, origin_file是上一次补丁的文件, patch_file是当前补丁的文件<br />
+	git <span style="color:#ff0000;">format-patch </span>commit_id_old commit_id_new<br />
+	git <span style="color:#ff0000;">am</span> format-patch_index001.patch</p>
+<p>
+	<span style="font-size:24px;">&nbsp;Git 常用命令整理</span></p>
+<div class="iteye-blog-content-contain" style="font-size: 14px;">
+	<h2>
+		初始化配置</h2>
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span class="preprocessor">#配置使用git仓库的人员姓名</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;config&nbsp;--global&nbsp;user.name&nbsp;<span class="string">&quot;Your&nbsp;Name&nbsp;Comes&nbsp;Here&quot;</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#配置使用git仓库的人员email</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;config&nbsp;--global&nbsp;user.email&nbsp;you@yourdomain.example.com&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#配置到缓存&nbsp;默认15分钟</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;config&nbsp;--global&nbsp;credential.helper&nbsp;cache&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#修改缓存时间</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;config&nbsp;--global&nbsp;credential.helper&nbsp;<span class="string">&#39;cache&nbsp;--timeout=3600&#39;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;config&nbsp;--global&nbsp;color.ui&nbsp;<span class="keyword">true</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;config&nbsp;--global&nbsp;alias.co&nbsp;checkout&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;config&nbsp;--global&nbsp;alias.ci&nbsp;commit&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;config&nbsp;--global&nbsp;alias.st&nbsp;status&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;config&nbsp;--global&nbsp;alias.br&nbsp;branch&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;config&nbsp;--global&nbsp;core.editor&nbsp;<span class="string">&quot;mate&nbsp;-w&quot;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;设置Editor使用textmate&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;config&nbsp;-1&nbsp;#列举所有配置&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#用户的git配置文件~/.gitconfig</span><span>&nbsp;&nbsp;</span></span></li>
+		</ol>
+	</div>
+	&nbsp;<br />
+	<h2>
+		<strong>查看、添加、提交、删除、找回，重置修改文件</strong></h2>
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span>git&nbsp;help&nbsp;&lt;command&gt;&nbsp;&nbsp;#&nbsp;显示command的help&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;show&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;显示某次提交的内容&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;show&nbsp;$id&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;co&nbsp;&nbsp;--&nbsp;&lt;file&gt;&nbsp;&nbsp;&nbsp;#&nbsp;抛弃工作区修改&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;co&nbsp;&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;抛弃工作区修改&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;add&nbsp;&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;将工作文件修改提交到本地暂存区&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;add&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;将所有修改过的工作文件提交暂存区&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;rm&nbsp;&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;从版本库中删除文件&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;rm&nbsp;&lt;file&gt;&nbsp;--cached&nbsp;&nbsp;#&nbsp;从版本库中删除文件，但不删除文件&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;reset&nbsp;&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;从暂存区恢复到工作文件&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;reset&nbsp;--&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;从暂存区恢复到工作文件&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;reset&nbsp;--hard&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;ci&nbsp;&lt;file&gt;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;ci&nbsp;.&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;ci&nbsp;-a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;将git&nbsp;add,&nbsp;git&nbsp;rm和git&nbsp;ci等操作都合并在一起做&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;ci&nbsp;-am&nbsp;<span class="string">&quot;some&nbsp;comments&quot;</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;ci&nbsp;--amend&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;修改最后一次提交记录&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;revert&nbsp;&lt;$id&gt;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;恢复某次提交的状态，恢复动作本身也创建了一次提交对象&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;revert&nbsp;HEAD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;恢复最后一次提交的状态&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+	&nbsp;
+	<h2>
+		<strong>查看文件diff</strong></h2>
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span>git&nbsp;diff&nbsp;&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;比较当前文件和暂存区文件差异&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;diff&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;diff&nbsp;&lt;$id1&gt;&nbsp;&lt;$id2&gt;&nbsp;&nbsp;&nbsp;#&nbsp;比较两次提交之间的差异&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;diff&nbsp;&lt;branch1&gt;..&lt;branch2&gt;&nbsp;#&nbsp;在两个分支之间比较&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;diff&nbsp;--staged&nbsp;&nbsp;&nbsp;#&nbsp;比较暂存区和版本库差异&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;diff&nbsp;--cached&nbsp;&nbsp;&nbsp;#&nbsp;比较暂存区和版本库差异&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;diff&nbsp;--stat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;仅仅比较统计信息&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+	&nbsp;<br />
+	<h2>
+		<strong>查看提交记录</strong></h2>
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span>git&nbsp;log&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;log&nbsp;&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;查看该文件每次提交记录&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;log&nbsp;-p&nbsp;&lt;file&gt;&nbsp;&nbsp;&nbsp;#&nbsp;查看每次详细修改内容的diff&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;log&nbsp;-p&nbsp;-2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;查看最近两次详细修改内容的diff&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;log&nbsp;--stat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#查看提交统计信息&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git blame &lt;file&gt;&nbsp;&nbsp; #查看每一行的最新修改记录。</span></li>
+		</ol>
+	</div>
+	&nbsp;
+	<p>
+		&nbsp;<strong>tig</strong></p>
+	<p>
+		Mac上可以使用tig代替diff和log，<code>brew install tig</code></p>
+	<p>
+		&nbsp;</p>
+	<h2>
+		取得Git仓库</h2>
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span class="preprocessor">#初始化一个版本仓库</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;init&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#Clone远程版本库</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;clone&nbsp;git@xbc.me:wordpress.git&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#添加远程版本库origin，语法为&nbsp;git&nbsp;remote&nbsp;add&nbsp;[shortname]&nbsp;[url]</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;remote&nbsp;add&nbsp;origin&nbsp;git@xbc.me:wordpress.git&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#查看远程仓库</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;remote&nbsp;-v&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+	<p>
+		&nbsp;</p>
+	<h2>
+		提交你的修改</h2>
+</div>
+<div class="iteye-blog-content-contain" style="font-size: 14px;">
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span class="preprocessor">#添加当前修改的文件到暂存区</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;add&nbsp;.&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#如果你自动追踪文件，包括你已经手动删除的，状态为Deleted的文件</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;add&nbsp;-u&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#提交你的修改</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;commit&nbsp;&ndash;m&nbsp;<span class="string">&quot;你的注释&quot;</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#推送你的更新到远程服务器,语法为&nbsp;git&nbsp;push&nbsp;[远程名]&nbsp;[本地分支]:[远程分支]</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;push&nbsp;origin&nbsp;master&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#查看文件状态</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;status&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#跟踪新文件</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;add&nbsp;readme.txt&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#从当前跟踪列表移除文件，并完全删除</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;rm&nbsp;readme.txt&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#仅在暂存区删除，保留文件在当前目录，不再跟踪</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;rm&nbsp;&ndash;cached&nbsp;readme.txt&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#重命名文件</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;mv&nbsp;reademe.txt&nbsp;readme&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#查看提交的历史记录</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;log&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#修改最后一次提交注释的，利用&ndash;amend参数</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;commit&nbsp;--amend&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#忘记提交某些修改，下面的三条命令只会得到一个提交。</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;commit&nbsp;&ndash;m&nbsp;&amp;quot;add&nbsp;readme.txt&amp;quot;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;add&nbsp;readme_forgotten&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;commit&nbsp;&ndash;amend&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#假设你已经使用git&nbsp;add&nbsp;.，将修改过的文件a、b加到暂存区</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#现在你只想提交a文件，不想提交b文件，应该这样</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;reset&nbsp;HEAD&nbsp;b&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#取消对文件的修改</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;checkout&nbsp;&ndash;-&nbsp;readme.txt&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+	&nbsp;
+	<h2>
+		<strong>查看、切换、创建和删除分支</strong></h2>
+</div>
+<div class="iteye-blog-content-contain" style="font-size: 14px;">
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span>git&nbsp;br&nbsp;-r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;查看远程分支&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;br&nbsp;&lt;new_branch&gt;&nbsp;#&nbsp;创建新的分支&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;br&nbsp;-v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;查看各个分支最后提交信息&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;br&nbsp;--merged&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;查看已经被合并到当前分支的分支&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;br&nbsp;--no-merged&nbsp;&nbsp;#&nbsp;查看尚未被合并到当前分支的分支&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;co&nbsp;&lt;branch&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;切换到某个分支&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;co&nbsp;-b&nbsp;&lt;new_branch&gt;&nbsp;#&nbsp;创建新的分支，并且切换过去&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;co&nbsp;-b&nbsp;&lt;new_branch&gt;&nbsp;&lt;branch&gt;&nbsp;&nbsp;#&nbsp;基于branch创建新的new_branch&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;co&nbsp;$id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;co&nbsp;$id&nbsp;-b&nbsp;&lt;new_branch&gt;&nbsp;&nbsp;#&nbsp;把某次历史提交记录checkout出来，创建成一个分支&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;br&nbsp;-d&nbsp;&lt;branch&gt;&nbsp;&nbsp;#&nbsp;删除某个分支&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;br&nbsp;-D&nbsp;&lt;branch&gt;&nbsp;&nbsp;#&nbsp;强制删除某个分支&nbsp;(未被合并的分支被删除的时候需要强制)&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+	&nbsp;
+	<h2>
+		<strong>分支合并和rebase</strong></h2>
+</div>
+<div class="iteye-blog-content-contain" style="font-size: 14px;">
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span>git&nbsp;merge&nbsp;&lt;branch&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;将branch分支合并到当前分支&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;merge&nbsp;origin/master&nbsp;--no-ff&nbsp;&nbsp;#&nbsp;不要Fast-Foward合并，这样可以生成merge提交&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;rebase&nbsp;master&nbsp;&lt;branch&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;将master&nbsp;rebase到branch，相当于：&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;co&nbsp;&lt;branch&gt;&nbsp;&amp;&amp;&nbsp;git&nbsp;rebase&nbsp;master&nbsp;&amp;&amp;&nbsp;git&nbsp;co&nbsp;master&nbsp;&amp;&amp;&nbsp;git&nbsp;merge&nbsp;&lt;branch&gt;&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+	&nbsp;
+	<h2>
+		<strong>Git补丁管理(方便在多台机器上开发同步时用)</strong></h2>
+</div>
+<div class="iteye-blog-content-contain" style="font-size: 14px;">
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span>git&nbsp;diff&nbsp;&gt;&nbsp;../sync.patch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;生成补丁&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;apply&nbsp;../sync.patch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;打补丁&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;apply&nbsp;--check&nbsp;../sync.patch&nbsp;&nbsp;#测试补丁能否成功&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+	&nbsp;
+	<h2>
+		<strong>Git暂存管理</strong></h2>
+</div>
+<div class="iteye-blog-content-contain" style="font-size: 14px;">
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span>git&nbsp;stash&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;暂存&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;stash&nbsp;list&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;列所有stash&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;stash&nbsp;apply&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;恢复暂存的内容&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;stash&nbsp;drop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;删除暂存区&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+	&nbsp;
+	<h2>
+		<strong>Git远程分支管理</strong></h2>
+</div>
+<div class="iteye-blog-content-contain" style="font-size: 14px;">
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span>git&nbsp;pull&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;抓取远程仓库所有分支更新并合并到本地&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;pull&nbsp;--no-ff&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;抓取远程仓库所有分支更新并合并到本地，不要快进合并&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;fetch&nbsp;origin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;抓取远程仓库更新&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;merge&nbsp;origin/master&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;将远程主分支合并到本地当前分支&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;co&nbsp;--track&nbsp;origin/branch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;跟踪某个远程分支创建相应的本地分支&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;co&nbsp;-b&nbsp;&lt;local_branch&gt;&nbsp;origin/&lt;remote_branch&gt;&nbsp;&nbsp;#&nbsp;基于远程分支创建本地分支，功能同上&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;push&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;push所有分支&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;push&nbsp;origin&nbsp;master&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;将本地主分支推到远程主分支&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;master&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;push&nbsp;origin&nbsp;&lt;local_branch&gt;&nbsp;&nbsp;&nbsp;#&nbsp;创建远程分支，&nbsp;origin是远程仓库名&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;push&nbsp;origin&nbsp;&lt;local_branch&gt;:&lt;remote_branch&gt;&nbsp;&nbsp;#&nbsp;创建远程分支&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;push&nbsp;origin&nbsp;:&lt;remote_branch&gt;&nbsp;&nbsp;#先删除本地分支(git&nbsp;br&nbsp;-d&nbsp;&lt;branch&gt;)，然后再push删除远程分支&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+	&nbsp;<br />
+	<h2>
+		基本的分支管理</h2>
+</div>
+<div class="iteye-blog-content-contain" style="font-size: 14px;">
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span class="preprocessor">#创建一个分支</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;branch&nbsp;iss53&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#切换工作目录到iss53</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;chekcout&nbsp;iss53&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#将上面的命令合在一起，创建iss53分支并切换到iss53</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;chekcout&nbsp;&ndash;b&nbsp;iss53&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#合并iss53分支，当前工作目录为master</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;merge&nbsp;iss53&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#合并完成后，没有出现冲突，删除iss53分支</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;branch&nbsp;&ndash;d&nbsp;iss53&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#拉去远程仓库的数据，语法为&nbsp;git&nbsp;fetch&nbsp;[remote-name]</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;fetch&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#fetch&nbsp;会拉去最新的远程仓库数据，但不会自动到当前目录下，要自动合并</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;pull&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#查看远程仓库的信息</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;remote&nbsp;show&nbsp;origin&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;</span></li>
+			<li>
+				<span><span class="preprocessor">#建立本地的dev分支追踪远程仓库的develop分支</span><span>&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;checkout&nbsp;&ndash;b&nbsp;dev&nbsp;origin/develop&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+</div>
+<div class="iteye-blog-content-contain" style="font-size: 14px;">
+	<h2>
+		<strong>Git远程仓库管理</strong></h2>
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span>git&nbsp;remote&nbsp;-v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;查看远程服务器地址和仓库名称&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>git&nbsp;remote&nbsp;show&nbsp;origin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;查看远程服务器仓库状态&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;remote&nbsp;add&nbsp;origin&nbsp;git@&nbsp;github:robbin/robbin_site.git&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;添加远程仓库地址&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;remote&nbsp;set-url&nbsp;origin&nbsp;git@&nbsp;github.com:robbin/robbin_site.git&nbsp;#&nbsp;设置远程仓库地址(用于修改远程仓库地址)&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;remote&nbsp;rm&nbsp;&lt;repository&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;删除远程仓库&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+	&nbsp;
+	<h2>
+		<strong>创建远程仓库</strong></h2>
+</div>
+<div class="iteye-blog-content-contain" style="font-size: 14px;">
+	<div class="dp-highlighter" id="">
+		<div class="bar">
+			<div class="tools">
+				C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+		</div>
+		<ol class="dp-cpp" start="1">
+			<li>
+				<span><span>git&nbsp;clone&nbsp;--bare&nbsp;robbin_site&nbsp;robbin_site.git&nbsp;&nbsp;#&nbsp;用带版本的项目创建纯版本仓库&nbsp;&nbsp;</span></span></li>
+			<li>
+				<span>scp&nbsp;-r&nbsp;my_project.git&nbsp;git@&nbsp;git.csdn.net:~&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;将纯仓库上传到服务器上&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>mkdir&nbsp;robbin_site.git&nbsp;&amp;&amp;&nbsp;cd&nbsp;robbin_site.git&nbsp;&amp;&amp;&nbsp;git&nbsp;--bare&nbsp;init&nbsp;#&nbsp;在服务器创建纯仓库&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;remote&nbsp;add&nbsp;origin&nbsp;git@&nbsp;github.com:robbin/robbin_site.git&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;设置远程仓库地址&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;master&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;客户端首次提交&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;develop&nbsp;&nbsp;#&nbsp;首次将本地develop分支提交到远程develop分支，并且track&nbsp;&nbsp;</span></li>
+			<li>
+				<span>&nbsp;&nbsp;&nbsp;</span></li>
+			<li>
+				<span>git&nbsp;remote&nbsp;set-head&nbsp;origin&nbsp;master&nbsp;&nbsp;&nbsp;#&nbsp;设置远程仓库的HEAD指向master分支&nbsp;&nbsp;</span></li>
+		</ol>
+	</div>
+</div>
+<div class="iteye-blog-content-contain" style="font-size: 14px;">
+	也可以命令设置跟踪远程库和本地库</div>
+<div class="dp-highlighter" id="">
+	<div class="bar">
+		<div class="tools">
+			C代码 &nbsp;<a title="收藏这段代码"><img alt="收藏代码" class="star" src="http://justcoding.iteye.com/images/icon_star.png" /></a></div>
+	</div>
+	<ol class="dp-cpp" start="1">
+		<li>
+			<span><span>git&nbsp;branch&nbsp;--set-upstream&nbsp;master&nbsp;origin/master&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>git&nbsp;branch&nbsp;--set-upstream&nbsp;develop&nbsp;origin/develop&nbsp;&nbsp;</span></li>
+	</ol>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	--------------------------------------------------------------------------------------------------------------------</p>
+<p>
+	git reset --hard HEAD&nbsp;&nbsp;&nbsp; 返回当前最新的commit的<br />
+	git reset --hard HEAD^&nbsp;&nbsp; 返回当前上一个的commit的<br />
+	git reset --soft HEAD&nbsp;&nbsp; 返回当前上一个的commit的<br />
+	git branch -a<br />
+	git branch name1&nbsp;&nbsp; # create branch name1 in local<br />
+	git branch -d name1&nbsp; # delete name1<br />
+	git checkout -b name1 origin/name1&nbsp; # checkout remote&#39;s name1, name local name1 , and switch to name1,<br />
+	git reset&nbsp; #<br />
+	git clean -d -f&nbsp;&nbsp; #<br />
+	git checkout xx.txt<br />
+	git checkout .<br />
+	git checkout --hard commit_id<br />
+	git rebase -i HEAD~[number_of_commits] # 你可以用rebase命令把多个commit压缩成一个,<br />
+	git rebase -i HEAD~2 如果你想要压缩最后两个commit<br />
+	git stash<br />
+	git stash list<br />
+	git stash apply<br />
+	git cherry-pick --continue&nbsp; 继续我们的 cherry-pick 进程<br />
+	git mergetool&nbsp;&nbsp; # 在 ~/.gitconfig 文件中加入以下内容：<br />
+	git reflog<br />
+	git log --graph --oneline -all&nbsp;&nbsp; 查看所有log.&nbsp;&nbsp; git log --oneline -2<br />
+	git log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit &nbsp;<br />
+	git config --global alias.lg &quot;log --color --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit&quot; &nbsp;<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	一、 Git 常用命令速查<br />
+	git branch 查看本地所有分支<br />
+	git status 查看当前状态<br />
+	git commit 提交<br />
+	git branch -a 查看所有的分支<br />
+	git branch -r 查看远程所有分支<br />
+	git commit -am &quot;init&quot; 提交并且加注释<br />
+	git remote add origin git@192.168.1.119:ndshow<br />
+	git push origin master 将文件给推到服务器上<br />
+	git remote show origin 显示远程库origin里的资源<br />
+	git push origin master:develop<br />
+	git push origin master:hb-dev 将本地库与服务器上的库进行关联<br />
+	git checkout --track origin/dev 切换到远程dev分支<br />
+	git branch -D master develop 删除本地库develop<br />
+	git checkout -b dev 建立一个新的本地分支dev<br />
+	git merge origin/dev 将分支dev与当前分支进行合并<br />
+	git checkout dev 切换到本地dev分支<br />
+	git remote show 查看远程库<br />
+	git add .<br />
+	git rm 文件名(包括路径) 从git中删除指定文件<br />
+	git clone git://github.com/schacon/grit.git 从服务器上将代码给拉下来<br />
+	git config --list 看所有用户<br />
+	git ls-files 看已经被提交的<br />
+	git rm [file name] 删除一个文件<br />
+	git commit -a 提交当前repos的所有的改变<br />
+	git add [file name] 添加一个文件到git index<br />
+	git commit -v 当你用－v参数的时候可以看commit的差异<br />
+	git commit -m &quot;This is the message describing the commit&quot; 添加commit信息<br />
+	git commit -a -a是代表add，把所有的change加到git index里然后再commit<br />
+	git commit -a -v 一般提交命令<br />
+	git log 看你commit的日志<br />
+	git diff 查看尚未暂存的更新<br />
+	git rm a.a 移除文件(从暂存区和工作区中删除)<br />
+	git rm --cached a.a 移除文件(只从暂存区中删除)<br />
+	git commit -m &quot;remove&quot; 移除文件(从Git中删除)<br />
+	git rm -f a.a 强行移除修改后文件(从暂存区和工作区中删除)<br />
+	git diff --cached 或 $ git diff --staged 查看尚未提交的更新<br />
+	git stash push 将文件给push到一个临时空间中<br />
+	git stash pop 将文件从临时空间pop下来<br />
+	---------------------------------------------------------<br />
+	git remote add origin git@github.com:username/Hello-World.git<br />
+	git push origin master 将本地项目给提交到服务器中<br />
+	-----------------------------------------------------------<br />
+	git pull 本地与服务器端同步<br />
+	-----------------------------------------------------------------<br />
+	git push (远程仓库名) (分支名) 将本地分支推送到服务器上去。<br />
+	git push origin serverfix:awesomebranch<br />
+	------------------------------------------------------------------<br />
+	git fetch 相当于是从远程获取最新版本到本地，不会自动merge<br />
+	git commit -a -m &quot;log_message&quot; (-a是提交所有改动，-m是加入log信息) 本地修改同步至服务器端 ：<br />
+	git branch branch_0.1 master 从主分支master创建branch_0.1分支<br />
+	git branch -m branch_0.1 branch_1.0 将branch_0.1重命名为branch_1.0<br />
+	git checkout branch_1.0/master 切换到branch_1.0/master分支<br />
+	du -hs<br />
+	<br />
+	git branch 删除远程branch<br />
+	git push origin :branch_remote_name<br />
+	git branch -r -d branch_remote_name<br />
+	-----------------------------------------------------------<br />
+	<br />
+	初始化版本库，并提交到远程服务器端<br />
+	mkdir WebApp<br />
+	cd WebApp<br />
+	git init 本地初始化<br />
+	touch README<br />
+	git add README 添加文件<br />
+	git commit -m &#39;first commit&#39;<br />
+	git remote add origin git@github.com:daixu/WebApp.git<br />
+	<br />
+	增加一个远程服务器端<br />
+	<br />
+	上面的命令会增加URL地址为&#39;git@github.com:daixu/WebApp.git&#39;，名称为origin的远程服务器库，以后提交代码的时候只需要使用 origin别名即可<br />
+	<br />
+	二、 Git 命令速查表<br />
+	1、常用的Git命令<br />
+	git add&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 添加至暂存区&nbsp;&nbsp; &nbsp;<br />
+	git add&ndash;interactive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 交互式添加&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	git apply&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 应用补丁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	git am&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 应用邮件格式补丁<br />
+	git annotate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 同义词，等同于 git blame<br />
+	git archive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 文件归档打包&nbsp;&nbsp; &nbsp;<br />
+	git bisect&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 二分查找&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	git blame&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 文件逐行追溯&nbsp;&nbsp; &nbsp;<br />
+	git branch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 分支管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	git cat-file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 版本库对象研究工具<br />
+	git checkout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 检出到工作区、切换或创建分支<br />
+	git cherry-pick&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 提交拣选<br />
+	git citool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 图形化提交，相当于 git gui 命令<br />
+	git clean&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 清除工作区未跟踪文件<br />
+	git clone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 克隆版本库<br />
+	git commit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 提交<br />
+	git config&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查询和修改配置<br />
+	git describe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 通过里程碑直观地显示提交ID<br />
+	git diff&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 差异比较<br />
+	git difftool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 调用图形化差异比较工具<br />
+	git fetch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 获取远程版本库的提交<br />
+	git format-patch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 创建邮件格式的补丁文件。参见 git am 命令<br />
+	git grep&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 文件内容搜索定位工具<br />
+	git gui&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 基于Tcl/Tk的图形化工具，侧重提交等操作<br />
+	git help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 帮助<br />
+	git init&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 版本库初始化<br />
+	git init-db*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 同义词，等同于 git init<br />
+	git log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示提交日志<br />
+	git merge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 分支合并<br />
+	git mergetool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 图形化冲突解决<br />
+	git mv&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 重命名<br />
+	git pull&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 拉回远程版本库的提交<br />
+	git push&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 推送至远程版本库<br />
+	git rebase&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 分支变基<br />
+	git rebase&ndash;interactive&nbsp;&nbsp;&nbsp; 交互式分支变基<br />
+	git reflog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 分支等引用变更记录管理<br />
+	git remote&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 远程版本库管理<br />
+	git repo-config*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 同义词，等同于 git config<br />
+	git reset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 重置改变分支&ldquo;游标&rdquo;指向<br />
+	git rev-parse&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将各种引用表示法转换为哈希值等<br />
+	git revert&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 反转提交<br />
+	git rm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 删除文件<br />
+	git show&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示各种类型的对象<br />
+	git stage*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 同义词，等同于 git add<br />
+	git stash&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 保存和恢复进度<br />
+	git status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示工作区文件状态<br />
+	git tag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 里程碑管理<br />
+	2、对象库操作相关命令&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	git commit-tree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从树对象创建提交<br />
+	git hash-object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从标准输入或文件计算哈希值或创建对象<br />
+	git ls-files&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示工作区和暂存区文件<br />
+	git ls-tree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示树对象包含的文件<br />
+	git mktag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 读取标准输入创建一个里程碑对象<br />
+	git mktree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 读取标准输入创建一个树对象<br />
+	git read-tree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 读取树对象到暂存区<br />
+	git update-index&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 工作区内容注册到暂存区及暂存区管理<br />
+	git unpack-file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 创建临时文件包含指定 blob 的内容<br />
+	git write-tree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从暂存区创建一个树对象<br />
+	3、引用操作相关命令&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	git check-ref-format&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 检查引用名称是否符合规范<br />
+	git for-each-ref&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 引用迭代器，用于shell编程<br />
+	git ls-remote&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示远程版本库的引用<br />
+	git name-rev&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将提交ID显示为友好名称<br />
+	git peek-remote*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 过时命令，请使用 git ls-remote<br />
+	git rev-list&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示版本范围<br />
+	git show-branch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示分支列表及拓扑关系<br />
+	git show-ref&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示本地引用<br />
+	git symbolic-ref&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示或者设置符号引用<br />
+	git update-ref&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 更新引用的指向<br />
+	git verify-tag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 校验 GPG 签名的Tag<br />
+	4、版本库管理相关&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	git count-objects&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示松散对象的数量和磁盘占用<br />
+	git filter-branch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 版本库重构<br />
+	git fsck&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 对象库完整性检查<br />
+	git fsck-objects*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 同义词，等同于 git fsck<br />
+	git gc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 版本库存储优化<br />
+	git index-pack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从打包文件创建对应的索引文件<br />
+	git lost-found*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 过时，请使用 git fsck &ndash;lost-found<br />
+	git pack-objects&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从标准输入读入对象ID，打包到文件<br />
+	git pack-redundant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查找多余的 pack 文件<br />
+	git pack-refs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将引用打包到 .git/packed-refs 文件中<br />
+	git prune&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从对象库删除过期对象<br />
+	git prune-packed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将已经打包的松散对象删除<br />
+	git relink&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 为本地版本库中相同的对象建立硬连接<br />
+	git repack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将版本库未打包的松散对象打包<br />
+	git show-index&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 读取包的索引文件，显示打包文件中的内容<br />
+	git unpack-objects&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从打包文件释放文件<br />
+	git verify-pack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 校验对象库打包文件<br />
+	5、数据传输相关&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	git fetch-pack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 执行 git fetch 或 git pull 命令时在本地执行此命令，用于从其他版本库获取缺失的对象<br />
+	git receive-pack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 执行 git push 命令时在远程执行的命令，用于接受推送的数据<br />
+	git send-pack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 执行 git push 命令时在本地执行的命令，用于向其他版本库推送数据<br />
+	git upload-archive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 执行 git archive &ndash;remote 命令基于远程版本库创建归档时，远程版本库执行此命令传送归档<br />
+	git upload-pack&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 执行 git fetch 或 git pull 命令时在远程执行此命令，将对象打包、上传<br />
+	6、邮件相关&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	git imap-send&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将补丁通过 IMAP 发送<br />
+	git mailinfo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从邮件导出提交说明和补丁<br />
+	git mailsplit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将 mbox 或 Maildir 格式邮箱中邮件逐一提取为文件<br />
+	git request-pull&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 创建包含提交间差异和执行PULL操作地址的信息<br />
+	git send-email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 发送邮件<br />
+	7、协议相关<br />
+	git daemon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 实现Git协议<br />
+	git http-backend&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 实现HTTP协议的CGI程序，支持智能HTTP协议<br />
+	git instaweb&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 即时启动浏览器通过 gitweb 浏览当前版本库<br />
+	git shell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 受限制的shell，提供仅执行Git命令的SSH访问<br />
+	git update-server-info&nbsp;&nbsp;&nbsp;&nbsp; 更新哑协议需要的辅助文件<br />
+	git http-fetch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 通过HTTP协议获取版本库<br />
+	git http-push&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 通过HTTP/DAV协议推送<br />
+	git remote-ext&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 由Git命令调用，通过外部命令提供扩展协议支持<br />
+	git remote-fd&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 由Git命令调用，使用文件描述符作为协议接口<br />
+	git remote-ftp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 由Git命令调用，提供对FTP协议的支持<br />
+	git remote-ftps&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 由Git命令调用，提供对FTPS协议的支持<br />
+	git remote-http&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 由Git命令调用，提供对HTTP协议的支持<br />
+	git remote-https&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 由Git命令调用，提供对HTTPS协议的支持<br />
+	git remote-testgit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 协议扩展示例脚本<br />
+	8、版本库转换和交互相关<br />
+	git archimport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 导入Arch版本库到Git<br />
+	git bundle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 提交打包和解包，以便在不同版本库间传递<br />
+	git cvsexportcommit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将Git的一个提交作为一个CVS检出<br />
+	git cvsimport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 导入CVS版本库到Git。或者使用 cvs2git<br />
+	git cvsserver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git的CVS协议模拟器，可供CVS命令访问Git版本库<br />
+	git fast-export&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将提交导出为 git-fast-import 格式<br />
+	git fast-import&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 其他版本库迁移至Git的通用工具<br />
+	git svn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Git 作为前端操作 Subversion<br />
+	9、合并相关的辅助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	git merge-base&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 供其他脚本调用，找到两个或多个提交最近的共同祖先<br />
+	git merge-file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 针对文件的两个不同版本执行三向文件合并<br />
+	git merge-index&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 对index中的冲突文件调用指定的冲突解决工具<br />
+	git merge-octopus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 合并两个以上分支。参见 git merge 的octopus合并策略<br />
+	git merge-one-file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 由 git merge-index 调用的标准辅助程序<br />
+	git merge-ours&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 合并使用本地版本，抛弃他人版本。参见 git merge 的ours合并策略<br />
+	git merge-recursive&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 针对两个分支的三向合并。参见 git merge 的recursive合并策略<br />
+	git merge-resolve&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 针对两个分支的三向合并。参见 git merge 的resolve合并策略<br />
+	git merge-subtree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 子树合并。参见 git merge 的 subtree 合并策略<br />
+	git merge-tree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显式三向合并结果，不改变暂存区<br />
+	git fmt-merge-msg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 供执行合并操作的脚本调用，用于创建一个合并提交说明<br />
+	git rerere&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 重用所记录的冲突解决方案<br />
+	10、 杂项&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	git bisect&ndash;helper&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 由 git bisect 命令调用，确认二分查找进度<br />
+	git check-attr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示某个文件是否设置了某个属性<br />
+	git checkout-index&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从暂存区拷贝文件至工作区<br />
+	git cherry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查找没有合并到上游的提交<br />
+	git diff-files&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 比较暂存区和工作区，相当于 git diff &ndash;raw<br />
+	git diff-index&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 比较暂存区和版本库，相当于 git diff &ndash;cached &ndash;raw<br />
+	git diff-tree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 比较两个树对象，相当于 git diff &ndash;raw A B<br />
+	git difftool&ndash;helper&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 由 git difftool 命令调用，默认要使用的差异比较工具<br />
+	git get-tar-commit-id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从 git archive 创建的 tar 包中提取提交ID<br />
+	git gui&ndash;askpass&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 命令 git gui 的获取用户口令输入界面<br />
+	git notes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 提交评论管理<br />
+	git patch-id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 补丁过滤行号和空白字符后生成补丁唯一ID<br />
+	git quiltimport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将Quilt补丁列表应用到当前分支<br />
+	git replace&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 提交替换<br />
+	git shortlog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 对 git log 的汇总输出，适合于产品发布说明<br />
+	git stripspace&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 删除空行，供其他脚本调用<br />
+	git submodule&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 子模组管理<br />
+	git tar-tree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 过时命令，请使用 git archive<br />
+	git var&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示 Git 环境变量<br />
+	git web&ndash;browse&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 启动浏览器以查看目录或文件<br />
+	git whatchanged&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 显示提交历史及每次提交的改动<br />
+	git-mergetool&ndash;lib&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 包含于其他脚本中，提供合并/差异比较工具的选择和执行<br />
+	git-parse-remote&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 包含于其他脚本中，提供操作远程版本库的函数<br />
+	git-sh-setup&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 包含于其他脚本中，提供 shell 编程的函数库<br />
+	<br />
+	下面脚本之家小编特为大家分享一个图片版的<br />
+	Git命令参考手册(文本版)<br />
+	<br />
+	git init&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 初始化本地git仓库（创建新仓库）<br />
+	git config --global user.name &quot;xxx&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 配置用户名<br />
+	git config --global user.email &quot;xxx@xxx.com&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 配置邮件<br />
+	git config --global color.ui true&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # git status等命令自动着色<br />
+	git config --global color.status auto<br />
+	git config --global color.diff auto<br />
+	git config --global color.branch auto<br />
+	git config --global color.interactive auto<br />
+	git clone git+ssh://git@192.168.01.168/xxx.git&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # clone远程仓库<br />
+	git status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 查看当前版本状态（是否修改）<br />
+	git add xyz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 添加xyz文件至index<br />
+	git add .&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 增加当前子目录下所有更改过的文件至index<br />
+	git commit -m &#39;xxx&#39;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 提交<br />
+	git commit --amend -m &#39;xxx&#39;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 合并上一次提交（用于反复修改）<br />
+	git commit -am &#39;xxx&#39;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 将add和commit合为一步<br />
+	git rm xxx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 删除index中的文件<br />
+	git rm -r *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 递归删除<br />
+	git log&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示提交日志<br />
+	git log -1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示1行日志 -n为n行<br />
+	git log -5<br />
+	git log --stat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示提交日志及相关变动文件<br />
+	git log -p -m<br />
+	git show fcb02e6e4f2f7c5a3337763e5c0013802e392918&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示某个提交的详细内容<br />
+	git show dfb02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 可只用commitid的前几位<br />
+	git show HEAD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示HEAD提交日志<br />
+	git show HEAD^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示HEAD的父（上一个版本）的提交日志 ^^为上两个版本 ^5为上5个版本<br />
+	git tag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示已存在的tag<br />
+	git tag -a v2.0 -m &#39;xxx&#39;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 增加v2.0的tag<br />
+	git show v2.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示v2.0的日志及详细内容<br />
+	git log v2.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示v2.0的日志<br />
+	git diff&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示所有未添加至index的变更<br />
+	git diff --cached&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示所有已添加index但还未commit的变更<br />
+	git diff HEAD^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 比较与上一个版本的差异<br />
+	git diff HEAD -- ./lib&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 比较与HEAD版本lib目录的差异<br />
+	git diff origin/master..master&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 比较远程分支master上有本地分支master上没有的<br />
+	git diff origin/master..master --stat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 只显示差异的文件，不显示具体内容<br />
+	git remote add origin git+ssh://git@192.168.01.168/xx.git # 增加远程定义（用于push/pull/fetch）<br />
+	git branch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示本地分支<br />
+	git branch --contains 50089&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示包含提交50089的分支<br />
+	git branch -a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示所有分支<br />
+	git branch -r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示所有原创分支<br />
+	git branch --merged&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示所有已合并到当前分支的分支<br />
+	git branch --no-merged&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示所有未合并到当前分支的分支<br />
+	git branch -m master master_copy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 本地分支改名<br />
+	git checkout -b master_copy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 从当前分支创建新分支master_copy并检出<br />
+	git checkout -b master master_copy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 上面的完整版<br />
+	git checkout features/performance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 检出已存在的features/performance分支<br />
+	git checkout --track hotfixes/BJVEP933&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 检出远程分支hotfixes/BJVEP933并创建本地跟踪分支<br />
+	git checkout v2.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 检出版本v2.0<br />
+	git checkout -b devel origin/develop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 从远程分支develop创建新本地分支devel并检出<br />
+	git checkout -- README&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 检出head版本的README文件（可用于修改错误回退）<br />
+	git merge origin/master&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 合并远程master分支至当前分支<br />
+	git cherry-pick ff44785404a8e&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 合并提交ff44785404a8e的修改<br />
+	git push origin master&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 将当前分支push到远程master分支<br />
+	git push origin :hotfixes/BJVEP933&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 删除远程仓库的hotfixes/BJVEP933分支<br />
+	git push --tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 把所有tag推送到远程仓库<br />
+	git fetch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 获取所有远程分支（不更新本地分支，另需merge）<br />
+	git fetch --prune&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 获取所有原创分支并清除服务器上已删掉的分支<br />
+	git pull origin master&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 获取远程分支master并merge到当前分支<br />
+	git mv README README2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 重命名文件README为README2<br />
+	git reset --hard HEAD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 将当前版本重置为HEAD（通常用于merge失败回退）<br />
+	git rebase<br />
+	git branch -d hotfixes/BJVEP933&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 删除分支hotfixes/BJVEP933（本分支修改已合并到其他分支）<br />
+	git branch -D hotfixes/BJVEP933&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 强制删除分支hotfixes/BJVEP933<br />
+	git ls-files&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 列出git index包含的文件<br />
+	git show-branch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 图示当前分支历史<br />
+	git show-branch --all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 图示所有分支历史<br />
+	git whatchanged&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示提交历史对应的文件修改<br />
+	git revert dfb02e6e4f2f7b573337763e5c0013802e392818&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 撤销提交dfb02e6e4f2f7b573337763e5c0013802e392818<br />
+	git ls-tree HEAD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 内部命令：显示某个git对象<br />
+	git rev-parse v2.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 内部命令：显示某个ref对于的SHA1 HASH<br />
+	git reflog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示所有提交，包括孤立节点<br />
+	git show HEAD@{5}<br />
+	git show master@{yesterday}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 显示master分支昨天的状态<br />
+	git log --pretty=format:&#39;%h %s&#39; --graph&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 图示提交日志<br />
+	git show HEAD~3<br />
+	git show -s --pretty=raw 2be7fcb476<br />
+	git stash&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 暂存当前修改，将所有至为HEAD状态<br />
+	git stash list&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 查看所有暂存<br />
+	git stash show -p stash@{0}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 参考第一次暂存<br />
+	git stash apply stash@{0}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 应用第一次暂存<br />
+	git grep &quot;delete from&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # 文件中搜索文本&ldquo;delete from&rdquo;<br />
+	git grep -e &#39;#define&#39; --and -e SORT_DIRENT<br />
+	git gc<br />
+	git fsck<br />
+	---------------------------------------------------------------------------------------------------------------------<br />
+	&nbsp; <span style="color:#ff0000;">安装 Gitolite in ubuntu</span><br />
+	<br />
+	<span style="color:#0000ff;">root@swd3: sudo apt-get -y install git<br />
+	root@swd3: sudo apt-get -y install gitolite<br />
+	<br />
+	<br />
+	添加git用户和同名用户组，加上--system参数，用户就不会在登陆界面显示。<br />
+	root@swd3: sudo adduser --system --shell /bin/sh --group --disabled-password --home /home/git git<br />
+	<br />
+	<br />
+	生成ssh key，一路回车下来。<br />
+	root@swd3: ssh-keygen -t rsa<br />
+	<br />
+	<br />
+	将你当前用户的ssh pub key复制到/tmp下备用，由于我用的是桌面版在同一台机器上。<br />
+	root@swd3: cp ~/.ssh/id_rsa.pub /tmp/wuchaofei_git.pub<br />
+	<br />
+	<br />
+	root@swd3:~# sudo su - git<br />
+	$ pwd<br />
+	/home/git<br />
+	$ gl-setup /tmp/wuchaofei_git.pub<br />
+	The default settings in the rc file (/home/git/.gitolite.rc) are fine for most<br />
+	people but if you wish to make any changes, you can do so now.<br />
+	<br />
+	hit enter...<br />
+	creating gitolite-admin...<br />
+	Initialized empty Git repository in /home/git/repositories/gitolite-admin.git/<br />
+	creating testing...<br />
+	Initialized empty Git repository in /home/git/repositories/testing.git/<br />
+	[master (root-commit) c5596b1] start<br />
+	&nbsp;2 files changed, 6 insertions(+)<br />
+	&nbsp;create mode 100644 conf/gitolite.conf<br />
+	&nbsp;create mode 100644 keydir/wuchaofei_git.pub<br />
+	$<br />
+	<br />
+	<br />
+	把管理库gitolite-admin克隆过来就可以开始git用户及代码库的管理了，如果不能克隆，那么就说明初始化的ssh pub key错了，如图就是成功了。<br />
+	root@swd3: git clone ssh://git@localhost/gitolite-admin.git</span><br />
+	----------------------------------------------------------------------------------------------------------------</p>

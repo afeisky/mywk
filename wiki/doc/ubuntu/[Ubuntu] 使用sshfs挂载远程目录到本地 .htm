@@ -1,0 +1,252 @@
+<h1>
+	<span class="link_title"><a href="http://blog.csdn.net/netwalk/article/details/12952719"> Ubuntu下使用sshfs挂载远程目录到本地 </a> </span></h1>
+<p style="text-align:center">
+	<strong><span style="font-size:24px">Ubuntu下使用sshfs挂载远程目录到本地</span></strong></p>
+<p>
+	&nbsp;</p>
+<p align="left">
+	<span style="color:#333333">访问局域网中其他</span><span style="color:#333333">Ubuntu</span><span style="color:#333333">机器</span><span style="color:#333333">,</span><span style="color:#333333">在不同机器间跳来跳去</span><span style="color:#333333">,</span><span style="color:#333333">很是麻烦</span><span style="color:#333333">,</span><span style="color:#333333">如果能够把远程目录映射到本地无疑会大大方面使用，就像</span><span style="color:#333333">Windows</span><span style="color:#333333">下的网络映射盘一样。在</span><span style="color:#333333">Linux</span><span style="color:#333333">的世界无疑也会有这种机制和方式，最近在使用的过程中选择了</span><span style="color:#333333">sshfs</span><span style="color:#333333">这个工具来达到把远程目录映射到本地的功能。</span></p>
+<p align="left">
+	SSHFS可在本地安装的文件系统中，通过SSH获得所有加密的通信优势。<span style="color:#333333">使用</span><span style="color:#333333">sshfs</span><span style="color:#333333">可以把远程目录直接映射到本地</span><span style="color:#333333">,</span><span style="color:#333333">无需修改远程机器的设置</span><span style="color:#333333">,</span><span style="color:#333333">仅要求有</span><span style="color:#333333">ssh</span><span style="color:#333333">连接的权限</span><span style="color:#333333">(ssh</span><span style="color:#333333">都没有的话</span><span style="color:#333333">,</span><span style="color:#333333">还能干啥</span><span style="color:#333333">?)</span></p>
+<p align="left">
+	<span style="color:#333333">官网地址</span><span style="color:#333333">:&nbsp;<a href="http://fuse.sourceforge.net/sshfs.html" target="_blank"><span style="color:#0088CC">http://fuse.sourceforge.net/sshfs.html</span></a></span></p>
+<h1>
+	<a name="t0"></a><strong>一、SSHFS for Ubuntu</strong></h1>
+<p align="left">
+	<span style="font-size:14px">首先简单介绍一下SSHF。</span></p>
+<p align="left">
+	<span style="font-size:14px">关于SSH的介绍和安装使用可参考：<a href="http://blog.csdn.net/netwalk/article/details/12951031" target="_blank">SSH简介及工作机制</a>以及<a href="http://blog.csdn.net/netwalk/article/details/12952051" target="_blank">Ubuntu环境下SSH的安装及使用</a>这两篇文章。</span></p>
+<p align="left">
+	<span style="font-size:14px">SSH 是一个强大且安全的工具，我们除了可以用它来远程管理主机外，还可以通过它<a href="http://tmublr.com/blog/ubuntu_ssh_tunneling" target="_blank"><span style="color:windowtext">建立</span><span style="color:windowtext"> SSH tunnel</span><span style="color:windowtext">作</span><span style="color:windowtext"> Proxy</span><span style="color:windowtext">用</span></a>，远程传输文件等等。而这里我想要介绍另外一个功能，那就是结合 sshfs 这个工具可以把远程主机的文件系统映射到本地主机上，透过 SSH 把远程文件系统挂载到本机上，这样我们可以不必使用 scp 工具就可以做到直接复制及删除远程主机的文件了，就像操作本地磁盘一样方便。</span></p>
+<p align="left">
+	<span style="font-size:14px">SSH是连接两台独立计算机，进行远程控制任务的受信任的方式。</span></p>
+<p align="left">
+	<span style="font-size:14px">SSHFS最炫的地方在于可在本地安装的文件系统中，通过SSH获得所有加密的通信优势。sshfs 是基于&nbsp;<a href="http://fuse.sourceforge.net/" target="_blank"><span style="color:windowtext">FUSE</span></a>&nbsp;构建的 SSH 文件系统客户端程序，通过它远程主机的配置无需作任何改变，就可以透过 SSH 协议来挂载远程文件系统了，非常方便及安全。</span></p>
+<p align="left">
+	&nbsp;</p>
+<h1>
+	<a name="t1"></a><strong>二、Ubuntu 上安装sshfs</strong></h1>
+<p align="left">
+	<span style="font-size:14px">Ubuntu源中已经包含了sshfs,以及所需的fuse包，直接安装即可：</span></p>
+<p align="left">
+	&nbsp;</p>
+<div class="dp-highlighter bg_html">
+	<div class="bar">
+		<div class="tools">
+			<b>[html]</b> <a class="ViewSource" href="http://blog.csdn.net/netwalk/article/details/12952719#" title="view plain">view plain</a><span data-mod="popu_168"> <a class="CopyToClipboard" href="http://blog.csdn.net/netwalk/article/details/12952719#" title="copy">copy</a></span><span data-mod="popu_169"> </span></div>
+	</div>
+	<ol class="dp-xml" start="1">
+		<li class="alt">
+			<span><span>sudo&nbsp;apt-get&nbsp;install&nbsp;sshfs&nbsp;&nbsp;</span></span></li>
+	</ol>
+</div>
+<br />
+<br />
+<p align="left">
+	<span style="font-size:14px">安装的时候会自动创建用户组fuse，要使用sshfs的用户需要先加到这个用户组里才行（记得完成后还要重新登录），不然会没有权限执行fusermount：</span></p>
+<div style="background:#F4F5F7">
+	<p align="left">
+		<span style="font-size:14px">fuse: failed to exec fusermount: Permission denied</span></p>
+</div>
+<p>
+	&nbsp;</p>
+<h1>
+	<a name="t2"></a><strong><span style="color:#333333">三、</span>挂载远程文件系统/目录</strong></h1>
+<p align="left">
+	<strong><span style="font-size:14px">挂载的一般格式为：</span></strong></p>
+<p align="left">
+	&nbsp;</p>
+<div class="dp-highlighter bg_html">
+	<div class="bar">
+		<div class="tools">
+			<b>[html]</b> <a class="ViewSource" href="http://blog.csdn.net/netwalk/article/details/12952719#" title="view plain">view plain</a><span data-mod="popu_168"> <a class="CopyToClipboard" href="http://blog.csdn.net/netwalk/article/details/12952719#" title="copy">copy</a></span><span data-mod="popu_169"> </span></div>
+	</div>
+	<ol class="dp-xml" start="1">
+		<li class="alt">
+			<span><span>sudo&nbsp;sshfs&nbsp;{{user&nbsp;id}}@{{server&nbsp;hostname}}:{{desiredremote&nbsp;share}}&nbsp;{{desired&nbsp;local&nbsp;mount&nbsp;point}}&nbsp;-o&nbsp;</span><span class="attribute">idmap</span><span>=</span><span class="attribute-value">user</span><span>&nbsp;-o&nbsp;allow_other&nbsp;</span><span class="attribute">-ouid</span><span>={{local&nbsp;user&nbsp;id}}&nbsp;-o&nbsp;</span><span class="attribute">gid</span><span>={{local&nbsp;group&nbsp;id}}&nbsp;&nbsp;</span></span></li>
+	</ol>
+</div>
+<br />
+<br />
+<p align="left">
+	<span style="font-size:14px">其中重点选项：</span></p>
+<div style="background:#D9D9D9">
+	<p align="left">
+		<span style="font-size:14px">-o transform_symlinks 表示转换绝对链接符号为相对链接符号</span></p>
+	<p align="left">
+		<span style="font-size:14px">-o follow_symlinks 沿用服务器上的链接符号</span></p>
+	<p align="left">
+		<span style="font-size:14px">-C 压缩，或者-o compression=yes</span></p>
+	<p align="left">
+		<span style="font-size:14px">-o reconnect 自动重连</span></p>
+	<p align="left">
+		<span style="font-size:14px">-o cache=yes</span></p>
+	<p align="left">
+		<span style="font-size:14px">-o allow_other</span></p>
+</div>
+<p align="left">
+	<span style="font-size:14px">挂载格式看起来比较头晕，这里结合我的使用给出一个简洁直观的格式：</span></p>
+<p align="left">
+	&nbsp;</p>
+<div class="dp-highlighter bg_html">
+	<div class="bar">
+		<div class="tools">
+			<b>[html]</b> <a class="ViewSource" href="http://blog.csdn.net/netwalk/article/details/12952719#" title="view plain">view plain</a><span data-mod="popu_168"> <a class="CopyToClipboard" href="http://blog.csdn.net/netwalk/article/details/12952719#" title="copy">copy</a></span><span data-mod="popu_169"> </span></div>
+	</div>
+	<ol class="dp-xml" start="1">
+		<li class="alt">
+			<span><span>sshfs&nbsp;-o&nbsp;transform_symlinks&nbsp;-ofollow_symlinks&nbsp;&nbsp;user@hostname:&nbsp;[dir]mountpoint&nbsp;&nbsp;</span></span></li>
+	</ol>
+</div>
+<br />
+<br />
+<p align="left">
+	<span style="font-size:14px">实例如下：</span></p>
+<p align="left">
+	&nbsp;</p>
+<div class="dp-highlighter bg_html">
+	<div class="bar">
+		<div class="tools">
+			<b>[html]</b> <a class="ViewSource" href="http://blog.csdn.net/netwalk/article/details/12952719#" title="view plain">view plain</a><span data-mod="popu_168"> <a class="CopyToClipboard" href="http://blog.csdn.net/netwalk/article/details/12952719#" title="copy">copy</a></span><span data-mod="popu_169"> </span></div>
+	</div>
+	<ol class="dp-xml" start="1">
+		<li class="alt">
+			<span><span>sshfs&nbsp;&ndash;o&nbsp;</span><span class="attribute">cache</span><span>=</span><span class="attribute-value">yes</span><span>,allow_other&nbsp;user@192.168.1.200:/home/user/code&nbsp;home/user/code&nbsp;&nbsp;</span></span></li>
+	</ol>
+</div>
+<br />
+<br />
+<p align="left">
+	<span style="font-size:14px">说明：</span></p>
+<p align="left">
+	<span style="font-size:14px">1、 连接的时候可能需要管理员权限，在挂载命令前sudo即可。</span></p>
+<p align="left">
+	<span style="font-size:14px">2、更多参数请 man sshfs ，如果碰到其它问题请参考<a href="http://apps.sourceforge.net/mediawiki/fuse/index.php?title=SshfsFaq" target="_blank"><span style="color:windowtext">官方的</span><span style="color:windowtext"> FAQ</span></a>&nbsp;。</span></p>
+<p align="left">
+	<span style="font-size:14px">3、如果想不输入密码的话，可以使用 SSH key 认证方式。</span></p>
+<p align="left">
+	<span style="font-size:14px">4、执行命令后 Ubuntu 会自动在桌面上显示挂载的 sshfs 文件系统盘，现在你就可以像操作本地磁盘一样操作这个映射的磁盘了。</span></p>
+<h1>
+	<a name="t3"></a><strong>四、卸载</strong></h1>
+<div style="background:#D9D9D9">
+	<p align="left">
+		fusemount &ndash;u /home/user/code</p>
+</div>
+<p align="left">
+	&nbsp;</p>
+<h1>
+	<a name="t4"></a><strong>五、sshfs选项</strong></h1>
+<div class="dp-highlighter bg_html">
+	<div class="bar">
+		<div class="tools">
+			<b>[html]</b> <a class="ViewSource" href="http://blog.csdn.net/netwalk/article/details/12952719#" title="view plain">view plain</a><span data-mod="popu_168"> <a class="CopyToClipboard" href="http://blog.csdn.net/netwalk/article/details/12952719#" title="copy">copy</a></span><span data-mod="popu_169"> </span></div>
+	</div>
+	<ol class="dp-xml" start="1">
+		<li class="alt">
+			<span><span>general&nbsp;options:&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;opt,[opt...]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mount&nbsp;options&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-h&nbsp;&nbsp;&nbsp;--help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;help&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-V&nbsp;&nbsp;&nbsp;--version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;version&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;</span></li>
+		<li>
+			<span>SSHFS&nbsp;options:&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-p&nbsp;PORT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;equivalent&nbsp;to&nbsp;&#39;-o&nbsp;<span class="attribute">port</span><span>=</span><span class="attribute-value">PORT</span><span>&#39;&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;equivalent&nbsp;to&nbsp;&#39;-o&nbsp;<span class="attribute">compression</span><span>=</span><span class="attribute-value">yes</span><span>&#39;&nbsp;#启用压缩,建议配上&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-F&nbsp;ssh_configfile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;specifies&nbsp;alternative&nbsp;ssh&nbsp;configuration&nbsp;file&nbsp;#使用非默认的ssh配置文件&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;equivalent&nbsp;to&nbsp;&#39;-o&nbsp;<span class="attribute">ssh_protocol</span><span>=</span><span class="attribute-value">1</span><span>&#39;&nbsp;#不要用啊&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;reconnect&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reconnect&nbsp;to&nbsp;server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#自动重连&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;delay_connect&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delay&nbsp;connection&nbsp;to&nbsp;server&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;sshfs_sync&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;synchronous&nbsp;writes&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;no_readahead&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;synchronous&nbsp;reads&nbsp;(no&nbsp;speculative&nbsp;readahead)&nbsp;#提前预读&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;sshfs_debug&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;some&nbsp;debugging&nbsp;information&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">cache</span><span>=</span><span class="attribute-value">BOOL</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enable&nbsp;caching&nbsp;{yes,no}&nbsp;(default:&nbsp;yes)&nbsp;#能缓存目录结构之类的信息&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">cache_timeout</span><span>=</span><span class="attribute-value">N</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sets&nbsp;timeout&nbsp;for&nbsp;caches&nbsp;in&nbsp;seconds&nbsp;(default:&nbsp;20)&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">cache_X_timeout</span><span>=</span><span class="attribute-value">N</span><span>&nbsp;&nbsp;&nbsp;sets&nbsp;timeout&nbsp;for&nbsp;{stat,dir,link}&nbsp;cache&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">workaround</span><span>=</span><span class="attribute-value">LIST</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;colon&nbsp;separated&nbsp;list&nbsp;of&nbsp;workarounds&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no&nbsp;workarounds&nbsp;enabled&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all&nbsp;workarounds&nbsp;enabled&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[no]rename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fix&nbsp;renaming&nbsp;to&nbsp;existing&nbsp;file&nbsp;(default:&nbsp;off)&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[no]nodelaysrv&nbsp;&nbsp;&nbsp;set&nbsp;nodelay&nbsp;tcp&nbsp;flag&nbsp;in&nbsp;sshd&nbsp;(default:&nbsp;off)&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[no]truncate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fix&nbsp;truncate&nbsp;for&nbsp;old&nbsp;servers&nbsp;(default:&nbsp;off)&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[no]buflimit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fix&nbsp;buffer&nbsp;fillup&nbsp;bug&nbsp;in&nbsp;server&nbsp;(default:&nbsp;on)&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">idmap</span><span>=</span><span class="attribute-value">TYPE</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user/group&nbsp;ID&nbsp;mapping,&nbsp;possible&nbsp;types&nbsp;are:&nbsp;&nbsp;#文件权限uid/gid映射关系&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no&nbsp;translation&nbsp;of&nbsp;the&nbsp;ID&nbsp;space&nbsp;(default)&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;only&nbsp;translate&nbsp;UID&nbsp;of&nbsp;connecting&nbsp;user&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">ssh_command</span><span>=</span><span class="attribute-value">CMD</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;execute&nbsp;CMD&nbsp;instead&nbsp;of&nbsp;&#39;ssh&#39;&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">ssh_protocol</span><span>=</span><span class="attribute-value">N</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ssh&nbsp;protocol&nbsp;to&nbsp;use&nbsp;(default:&nbsp;2)&nbsp;#肯定要2的&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">sftp_server</span><span>=</span><span class="attribute-value">SERV</span><span>&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;to&nbsp;sftp&nbsp;server&nbsp;or&nbsp;subsystem&nbsp;(default:&nbsp;sftp)&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">directport</span><span>=</span><span class="attribute-value">PORT</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;directly&nbsp;connect&nbsp;to&nbsp;PORT&nbsp;bypassing&nbsp;ssh&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;transform_symlinks&nbsp;&nbsp;transform&nbsp;absolute&nbsp;symlinks&nbsp;to&nbsp;relative&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;follow_symlinks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;follow&nbsp;symlinks&nbsp;on&nbsp;the&nbsp;server&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;no_check_root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;don&#39;t&nbsp;check&nbsp;for&nbsp;existence&nbsp;of&nbsp;&#39;dir&#39;&nbsp;on&nbsp;server&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;password_stdin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;read&nbsp;password&nbsp;from&nbsp;stdin&nbsp;(only&nbsp;for&nbsp;pam_mount)&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">SSHOPT</span><span>=</span><span class="attribute-value">VAL</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ssh&nbsp;options&nbsp;(see&nbsp;man&nbsp;ssh_config)&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>Module&nbsp;options:&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>[subdir]&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">subdir</span><span>=</span><span class="attribute-value">DIR</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prepend&nbsp;this&nbsp;directory&nbsp;to&nbsp;all&nbsp;paths&nbsp;(mandatory)&nbsp;&nbsp;</span></span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;[no]rellinks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transform&nbsp;absolute&nbsp;symlinks&nbsp;to&nbsp;relative&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>[iconv]&nbsp;&nbsp;</span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;#字符集转换,对我这种UTF8控,默认已经是最好的&nbsp;&nbsp;</span></li>
+		<li class="alt">
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">from_code</span><span>=</span><span class="attribute-value">CHARSET</span><span>&nbsp;&nbsp;&nbsp;original&nbsp;encoding&nbsp;of&nbsp;file&nbsp;names&nbsp;(default:&nbsp;UTF-8)&nbsp;&nbsp;</span></span></li>
+		<li>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;-o&nbsp;<span class="attribute">to_code</span><span>=</span><span class="attribute-value">CHARSET</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;encoding&nbsp;of&nbsp;the&nbsp;file&nbsp;names&nbsp;(default:&nbsp;UTF-8)&nbsp;&nbsp;</span></span></li>
+	</ol>
+</div>
+<h1>
+	<a name="t5"></a></h1>
+<h1>
+	<a name="t6"></a>六、总结：</h1>
+<div>
+	<span style="font-size:14px">在Ubuntu环境下，直接访问网络上其他电脑的文件时由于权限问题，会出现很多问题；最近特别突出的是远程电脑和本地的文件比较，文件夹比较的时候，不能使用工具，极度不方便。使用sshsf将远程电脑上的文件夹挂载到本地以后，不但可以很方便的访问远程文件而且也能使用比较工具将远程文件/文件夹和本地文件/文件夹进行比较。</span></div>
+<div>
+	&nbsp;</div>
+<div>
+	<span style="font-size:14px">比如使用<strong><span style="color:#cc0000">beyond Compare</span></strong>时不能将远程文件、文件夹和本地的进行比较。挂载远程文件夹之后，此问题迎刃而解。</span></div>

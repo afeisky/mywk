@@ -1,0 +1,34 @@
+<p>
+	<span style="color:#0000cd;"><span style="font-size: 16px;"><span style="font-family: 宋体; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">应用双开遇到文件系统权限问题</span></span></span></p>
+<p>
+	目前双开应用遇到的一个较严重的问题就是分身应用读取外部存储有限制，whatsapp的联系人分享、从gallery中选择图片设置壁纸，snapchat的发送图片异常等问题都与此有关。之前在Mickey6上移植双开功能没有遇到该问题。<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 与彭昔武一起分析，暂未找到原因，请系统组一起分析一下。<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Whatsapp打开gallery设置壁纸的异常log如下：<br />
+	java.io.FileNotFoundException: /storage/emulated/0/DCIM/Camera/IMG_20170524_101749.jpg (Permission denied)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at java.io.FileInputStream.open(Native Method)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at java.io.FileInputStream.&lt;init&gt;(FileInputStream.java:146)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at java.io.FileInputStream.&lt;init&gt;(FileInputStream.java:99)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at android.media.ExifInterface.&lt;init&gt;(ExifInterface.java:1149)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at com.whatsapp.util.ah.c(MediaFileUtils.java:1430)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at com.whatsapp.util.ah.d(MediaFileUtils.java:1460)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at com.whatsapp.util.ah.c(MediaFileUtils.java:1385)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at com.whatsapp.wallpaper.GalleryWallpaperPreview.onCreate(GalleryWallpaperPreview.java:1272)</p>
+<p>
+	MTK答复如下<br />
+	1.是不是AndroidM的文件系统是Fuse，Android N的文件系统是sdcardfs？&nbsp;<br />
+	==&gt;原则上，google是从N才开始尝试开启支持sdcardfs，N之前都是fuse；google也一直在开发中，据说要到O版本才算&quot;正式&quot;支持。<br />
+	<br />
+	2.有没有可能在不改变文件系统的前提下去掉跨用户访问外部存储空间的权限限制？&nbsp;<br />
+	===&gt; multi user&nbsp;的概念不就是&nbsp;用户数据区域&nbsp;独立分开吗？user10&nbsp;能访问&nbsp;user0&nbsp;的数据&nbsp;那不就违背rule&nbsp;了吗？&nbsp;对于您的提问，敝司没有经验可以share，谢谢！<br />
+	<br />
+	3.如果将Elsa6P的文件系统由sdcardfs改为fuse，有哪些风险？具体要改哪些地方？<br />
+	===&gt;无风险，关闭sdcardfs即可，方法如下：<br />
+	/kernel-3.18/arch/arm64/configs/${project}_debug_defconfig<br />
+	/kernel-3.18/arch/arm64/configs/${project} _defconfig<br />
+	CONFIG_SDCARD_FS=no</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>

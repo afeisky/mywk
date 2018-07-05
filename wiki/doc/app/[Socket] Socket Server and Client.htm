@@ -1,0 +1,373 @@
+<p>
+	<span style="font-size:16px;"><span style="color: rgb(0, 0, 205);">Scoket server&amp;client demo</span></span></p>
+<p>
+	/**<br />
+	* Created by chaofei on 17-12-18.<br />
+	*/<br />
+	<br />
+	import android.util.Log;<br />
+	<br />
+	import java.io.BufferedReader;<br />
+	import java.io.BufferedWriter;<br />
+	import java.io.IOException;<br />
+	import java.io.InputStreamReader;<br />
+	import java.io.OutputStreamWriter;<br />
+	import java.io.PrintWriter;<br />
+	import java.net.ServerSocket;<br />
+	import java.net.Socket;<br />
+	import java.text.SimpleDateFormat;<br />
+	import java.util.ArrayList;<br />
+	import java.util.Date;<br />
+	import java.util.List;<br />
+	import java.util.concurrent.ExecutorService;<br />
+	import java.util.concurrent.Executors;<br />
+	<br />
+	<br />
+	public class SocketServer1 {<br />
+	private InterfaceCallback callback;<br />
+	private static final int PORT = 5999;<br />
+	private List<socket> mList = new ArrayList<socket>();<br />
+	private ServerSocket server = null;<br />
+	private ExecutorService mExecutorService = null; //thread pool<br />
+	private String TAG=&quot;JsonViewer:SocketServer&quot;;<br />
+	private SimpleDateFormat ymdhms=new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);<br />
+	public SocketServer1(InterfaceCallback CallBack, Down _down){<br />
+	this.callback=CallBack;<br />
+	try {<br />
+	server = new ServerSocket(PORT);<br />
+	mExecutorService = Executors.newCachedThreadPool(); //create a thread pool<br />
+	Log.e(TAG,&quot;Server Run OK&quot;);<br />
+	show_callback(&quot;Server Run OK!...&quot;);<br />
+	Socket client = null;<br />
+	while(true) {<br />
+	client = server.accept();<br />
+	//把客户端放入客户端集合中<br />
+	mList.add(client);<br />
+	show_callback(&quot;--&gt;server.accept: &quot;+&quot;,&quot;+client.toString()+&quot;&lt;--&quot;);<br />
+	mExecutorService.execute(new Service(client,_down)); //start a new thread to handle the connection<br />
+	}<br />
+	}catch (Exception e) {<br />
+	e.printStackTrace();<br />
+	}<br />
+	}<br />
+	class Service implements Runnable {<br />
+	private Socket socket;<br />
+	private BufferedReader in = null;<br />
+	private String msg = &quot;&quot;;<br />
+	private Down down;<br />
+	<br />
+	public Service(Socket socket,Down _down) {<br />
+	down=_down;<br />
+	this.socket = socket;<br />
+	try {<br />
+	in = new BufferedReader(new InputStreamReader(socket.getInputStream()));<br />
+	//客户端只要一连到服务器，便向客户端发送下面的信息。<br />
+	msg = &quot;Server Addr：&quot; +this.socket.getInetAddress() + &quot;come toal:&quot;<br />
+	+mList.size()+&quot;（Server Send）&quot;;<br />
+	sendmsg(socket,msg);//this.sendmsg();<br />
+	show_callback(msg);<br />
+	} catch (IOException e) {<br />
+	e.printStackTrace();<br />
+	}<br />
+	<br />
+	}<br />
+	<br />
+	@Override<br />
+	public void run() {<br />
+	try {<br />
+	while(true) {<br />
+	if((msg = in.readLine())!= null) {<br />
+	//当客户端发送的信息为：exit时，关闭连接<br />
+	show_callback(msg);<br />
+	if(msg.equals(&quot;exit&quot;)) {<br />
+	Log.e(TAG,&quot;ssssssss&quot;);<br />
+	mList.remove(socket);<br />
+	in.close();<br />
+	msg = &quot;&lt;--user:&quot; + socket.getInetAddress()<br />
+	+ &quot;exit total:&quot; + mList.size()+&quot;, &quot;+ymdhms.format(new Date());<br />
+	show_callback(msg);<br />
+	sendmsg(socket,msg); // this.sendmsg();<br />
+	socket.close();<br />
+	break;<br />
+	//接收客户端发过来的信息msg，然后发送给客户端。<br />
+	}else {<br />
+	//msg = socket.getInetAddress() + &quot;:&quot; + msg+&quot;（Server Send &quot;+ymdhms.format(new Date())+&quot;）&quot;;<br />
+	msg = down.getNewFile();<br />
+	sendmsg(socket,msg); //this.sendmsg();<br />
+	show_callback(msg);<br />
+	}<br />
+	<br />
+	}<br />
+	}<br />
+	} catch (Exception e) {<br />
+	e.printStackTrace();<br />
+	Log.e(TAG,&quot;Error: &quot;+e.getMessage());<br />
+	}<br />
+	}<br />
+	/**<br />
+	* 循环遍历客户端集合，给每个客户端都发送信息。<br />
+	*/<br />
+	public void sendmsg() {<br />
+	System.out.println(msg);<br />
+	int num =mList.size();<br />
+	for (int index = 0; index &lt; num; index ++) {<br />
+	Socket mSocket = mList.get(index);<br />
+	PrintWriter pout = null;<br />
+	try {<br />
+	pout = new PrintWriter(new BufferedWriter(<br />
+	new OutputStreamWriter(mSocket.getOutputStream())),true);<br />
+	pout.println(msg);<br />
+	}catch (IOException e) {<br />
+	e.printStackTrace();<br />
+	}<br />
+	}<br />
+	}<br />
+	public void sendmsg(Socket socket1,String msg) {<br />
+	System.out.println(msg);<br />
+	PrintWriter pout = null;<br />
+	try {<br />
+	pout = new PrintWriter(new BufferedWriter(<br />
+	new OutputStreamWriter(socket1.getOutputStream())),true);<br />
+	pout.println(msg);<br />
+	}catch (IOException e) {<br />
+	e.printStackTrace();<br />
+	}<br />
+	}<br />
+	<br />
+	}<br />
+	<br />
+	private void show_callback(String comment){<br />
+	callback.showCallback(new DataCallback(4, &quot;[Server]: &quot;+ymdhms.format(new Date())+&quot;,&quot;+comment, 0));<br />
+	}<br />
+	}</socket></socket></p>
+<p>
+	&nbsp;</p>
+<p>
+	<span style="font-size:16px;"><span style="color: rgb(0, 0, 205);">客户端:</span></span></p>
+<p>
+	&nbsp;</p>
+<p>
+	package afei.demo.socketclient2;<br />
+	<br />
+	import android.app.Activity;<br />
+	import android.app.AlarmManager;<br />
+	import android.app.AlertDialog;<br />
+	import android.app.PendingIntent;<br />
+	import android.content.DialogInterface;<br />
+	import android.os.Bundle;<br />
+	import android.os.Handler;<br />
+	import android.os.Message;<br />
+	import android.util.Log;<br />
+	import android.view.View;<br />
+	import android.webkit.WebView;<br />
+	import android.widget.Button;<br />
+	import android.widget.EditText;<br />
+	import android.widget.TextView;<br />
+	<br />
+	import java.io.BufferedReader;<br />
+	import java.io.BufferedWriter;<br />
+	import java.io.IOException;<br />
+	import java.io.InputStreamReader;<br />
+	import java.io.OutputStreamWriter;<br />
+	import java.io.PrintWriter;<br />
+	import java.net.Socket;<br />
+	import java.util.concurrent.ExecutorService;<br />
+	import java.util.concurrent.Executors;<br />
+	<br />
+	public class MainActivity extends Activity {<br />
+	<br />
+	<br />
+	private TextView tv_msg = null;<br />
+	private Button btn1 = null;<br />
+	// private Button btn_login = null;<br />
+	private static final String HOST = &quot;192.168.43.224&quot;;<br />
+	private static final int PORT = 5999;<br />
+	private Socket socket = null;<br />
+	private BufferedReader in = null;<br />
+	<br />
+	private String content = &quot;&quot;;<br />
+	private String htmldata = &quot;&quot;;<br />
+	private WebView mWebView;<br />
+	<br />
+	private String TAG = &quot;SocketClient1&quot;;<br />
+	private String sendData=&quot;&quot;;<br />
+	private ExecutorService mExecutorService = null; //thread pool<br />
+	@Override<br />
+	public void onCreate(Bundle savedInstanceState) {<br />
+	super.onCreate(savedInstanceState);<br />
+	setContentView(R.layout.activity_main);<br />
+	btn1 = (Button) findViewById(R.id.button1);<br />
+	mWebView = (WebView) findViewById(R.id.webview);<br />
+	btn1.setOnClickListener(new Button.OnClickListener() {<br />
+	<br />
+	@Override<br />
+	public void onClick(View v) {<br />
+	// TODO Auto-generated method stub<br />
+	//String msg = ed_msg.getText().toString();<br />
+	//mClient.sendmsg(&quot;aaa-----&quot;);<br />
+	}<br />
+	});<br />
+	Log.e(TAG, &quot;----&gt;&quot;);<br />
+	mWebView.loadData(&quot;--&gt;<br />
+	test&quot;, &quot;text/html&quot;, &quot;utf8&quot;);<br />
+	mClient=new Client();<br />
+	mExecutorService = Executors.newCachedThreadPool(); //create a thread pool<br />
+	mExecutorService.execute(mClient); //start a new thread to handle the connection<br />
+	<br />
+	<br />
+	}<br />
+	<br />
+	private void a(){<br />
+	AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);<br />
+	Intent intent = new Intent(LILY_TEST_INTENT);<br />
+	intent.setData(Uri.parse(&quot;content://calendar/calendar_alerts/1&quot;));<br />
+	intent.setClass(this, LilyReceiver.class);<br />
+	intent.putExtra(ID, id);<br />
+	long atTimeInMillis = System.currentTimeMillis() + 5000;<br />
+	intent.putExtra(TIME, atTimeInMillis);<br />
+	// intent.putExtra(LABEL, label);<br />
+	// intent.putExtra(TIME, atTimeInMillis);<br />
+	PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);<br />
+	am.set(AlarmManager.RTC_WAKEUP, atTimeInMillis, sender);<br />
+	int lily = Log.i(&quot;lily&quot;, &quot;add alarm&quot;);<br />
+	}<br />
+	<br />
+	private Client mClient;<br />
+	<br />
+	<br />
+	/**<br />
+	*/<br />
+	public void ShowDialog(String msg) {<br />
+	new AlertDialog.Builder(this).setTitle(&quot;notification&quot;).setMessage(msg)<br />
+	.setPositiveButton(&quot;ok&quot;, new DialogInterface.OnClickListener() {<br />
+	<br />
+	@Override<br />
+	public void onClick(DialogInterface dialog, int which) {<br />
+	<br />
+	}<br />
+	}).show();<br />
+	}<br />
+	<br />
+	private Handler mHandler = new Handler() {<br />
+	@Override<br />
+	public void handleMessage(Message msg) {<br />
+	if (msg.what == 1) {<br />
+	<br />
+	String data = msg.getData().getString(&quot;data&quot;);<br />
+	Log.d(TAG,&quot;handleMessage--&gt;&quot;+data);<br />
+	htmldata+=data+&quot;<br />
+	&quot;;<br />
+	mWebView.loadData(htmldata, &quot;text/html&quot;, &quot;utf8&quot;);<br />
+	}if (msg.what == 2) {<br />
+	<br />
+	}<br />
+	<br />
+	}<br />
+	};<br />
+	private void sendMessage(String data){<br />
+	Log.d(TAG,&quot;sendMessage--&gt;&quot;+content);<br />
+	Message msg = new Message();<br />
+	msg.what = 1;<br />
+	msg.getData().putString(&quot;data&quot;, data);<br />
+	mHandler.sendMessage(msg);<br />
+	}<br />
+	Runnable inTask = new Runnable() {<br />
+	private int n=0;<br />
+	@Override<br />
+	public void run() {<br />
+	try {<br />
+	while (true) {<br />
+	Log.d(TAG,&quot;--&gt;&quot;+n+&quot;:&quot;);<br />
+	if (!socket.isClosed()) {<br />
+	Log.d(TAG,&quot;--&gt;--&gt;-&quot;);<br />
+	if (socket.isConnected()) {<br />
+	Log.d(TAG,&quot;--&gt; in-&gt;11&quot;);<br />
+	if (!socket.isInputShutdown()) {<br />
+	Log.d(TAG,&quot;--&gt; in-&gt;22&quot;);<br />
+	if ((content = in.readLine()) != null) {<br />
+	content += &quot;\n&quot;;<br />
+	Log.d(TAG,&quot;--&gt; in-&gt;33&quot;+content);<br />
+	sendMessage(content);<br />
+	} else {<br />
+	Log.d(TAG,&quot;--&gt; in-&gt;44&quot;);<br />
+	}<br />
+	}<br />
+	}<br />
+	}<br />
+	n++;<br />
+	}<br />
+	} catch (IOException ex) {<br />
+	ex.printStackTrace();<br />
+	Log.e(TAG, &quot;login exception&quot; + ex.getMessage());<br />
+	}<br />
+	}<br />
+	<br />
+	<br />
+	};<br />
+	class Client implements Runnable {<br />
+	private Socket socket;<br />
+	private BufferedReader in = null;<br />
+	private PrintWriter out = null;<br />
+	private String msg = &quot;bbbb&quot;;<br />
+	private int n=0;<br />
+	public Client() {<br />
+	}<br />
+	<br />
+	@Override<br />
+	public void run() {<br />
+	try {<br />
+	socket = new Socket(HOST, PORT);<br />
+	in = new BufferedReader(new InputStreamReader(socket<br />
+	.getInputStream()));<br />
+	out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(<br />
+	socket.getOutputStream())), true);<br />
+	out.println(&quot;Hi,Server!&quot;);<br />
+	} catch (Exception e) {<br />
+	e.printStackTrace();<br />
+	}<br />
+	<br />
+	try {<br />
+	while (true) {<br />
+	if (!socket.isClosed()) {<br />
+	if (socket.isConnected()) {<br />
+	if (!socket.isInputShutdown()) {<br />
+	if ((content = in.readLine()) != null) {<br />
+	Log.e(TAG,&quot;[Server]&quot;+content);<br />
+	sendMessage(content);<br />
+	}else {<br />
+	Log.e(TAG,&quot;-&gt;Exit!&quot;);<br />
+	out.println(&quot;exit&quot;);<br />
+	}<br />
+	}<br />
+	}<br />
+	}<br />
+	}<br />
+	} catch (Exception e) {<br />
+	e.printStackTrace();<br />
+	Log.e(TAG,&quot;Error: &quot;+e.getMessage());<br />
+	}<br />
+	}<br />
+	<br />
+	public void setMsg(String _msg){<br />
+	msg=_msg;<br />
+	}<br />
+	public void sendmsg(String msg) {<br />
+	Log.e(TAG,msg);<br />
+	if (!socket.isClosed()) {<br />
+	if (socket.isConnected()) {<br />
+	Log.e(TAG, &quot;--&gt; out-&gt;11&quot;);<br />
+	if (!socket.isOutputShutdown()) {<br />
+	PrintWriter pout = null;<br />
+	try {<br />
+	pout = new PrintWriter(new BufferedWriter(<br />
+	new OutputStreamWriter(socket.getOutputStream())),true);<br />
+	pout.println(msg);<br />
+	}catch (IOException e) {<br />
+	e.printStackTrace();<br />
+	}<br />
+	}<br />
+	}<br />
+	}<br />
+	}<br />
+	}<br />
+	} &nbsp;</p>

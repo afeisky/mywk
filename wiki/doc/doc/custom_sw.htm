@@ -1,0 +1,125 @@
+<p>
+	<span style="font-size:16px;"><span style="color: rgb(0, 0, 255);">custom sw</span></span></p>
+<p>
+	1, kernel中的充电电池ID检测</p>
+<p>
+	<br />
+	&nbsp;&nbsp; &nbsp;vendormediatekproprietaryootableootloaderlkplatformmt6755/boot_mode.c<br />
+	1、不能按开机powerkey+volumeup进入recovery mode<br />
+	#if 0 ////////删除掉<br />
+	&nbsp;&nbsp; &nbsp;while (get_timer(begin)&lt;50) {<br />
+	&nbsp;&nbsp; &nbsp;...<br />
+	&nbsp;&nbsp; &nbsp;#ifdef MT65XX_RECOVERY_KEY&nbsp;&nbsp;&nbsp; //这个开关定义是在codegen.dws产生的。<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;if (mtk_detect_key(MT65XX_RECOVERY_KEY)) {<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;dprintf(CRITICAL, &quot;%s Detect cal key &quot;,MODULE_NAME);<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;dprintf(CRITICAL, &quot;%s Enable recovery mode &quot;,MODULE_NAME);<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;g_boot_mode = RECOVERY_BOOT;<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;//video_printf(&quot;%s : detect recovery mode ! &quot;,MODULE_NAME);<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;return;<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;}<br />
+	&nbsp;&nbsp; #endif<br />
+	&nbsp;&nbsp; ....<br />
+	#endif///////<br />
+	<br />
+	2使用source , lunch ,make , sign 去编译，注意要单独编译modem.<br />
+	<br />
+	3 去掉device.mk中的 gms.mk 文件，去掉google apk.</p>
+<p>
+	PRODUCT_PACKAGES :=<br />
+	&nbsp;&nbsp;&nbsp; ConfigUpdater<br />
+	&nbsp;&nbsp;&nbsp; GoogleLoginService<br />
+	&nbsp;&nbsp;&nbsp; GoogleOneTimeInitializer<br />
+	&nbsp;&nbsp;&nbsp; GoogleServicesFramework<br />
+	&nbsp;&nbsp;&nbsp; Phonesky<br />
+	&nbsp;&nbsp;&nbsp; WebViewGoogle</p>
+<p>
+	把这个目录删除/wcf/A5A/vendor/partner_gms/apps/Videos/或在device.mk中删除&nbsp; # 系统定义了一个 Videos apk，刚好和谷歌的Videos同名了</p>
+<p>
+	#PRODUCT_PACKAGES&nbsp;+=&nbsp;Videos 删除: 12个UrlReservedAPP12<br />
+	#############################################################################<br />
+	include $(CLEAR_VARS) OVERLAY_MODULE := UrlReservedAPP12<br />
+	OVERLAY_MODULE_DIR := packages/apps/UrlReservedApps/UrlReservedAPP12<br />
+	OVERLAY_PKGNAME := com.jrdcom.urlreservedapp12<br />
+	include $(BUILD_OVERLAY_APK)<br />
+	<br />
+	删除 /wcf/A5A/packages/apps/JrdContainer目录 , 是这两个: 这两上主菜单的Game和Music图标.<br />
+	#######################################################<br />
+	include $(CLEAR_VARS)<br />
+	OVERLAY_MODULE := Container1<br />
+	OVERLAY_MODULE_DIR := packages/apps/JrdContainer/Container1<br />
+	OVERLAY_PKGNAME := com.jrdcom.container1<br />
+	include $(BUILD_OVERLAY_APK)<br />
+	#######################################################<br />
+	include $(CLEAR_VARS) OVERLAY_MODULE := Container2<br />
+	OVERLAY_MODULE_DIR := packages/apps/JrdContainer/Container2<br />
+	OVERLAY_PKGNAME := com.jrdcom.container2<br />
+	include $(BUILD_OVERLAY_APK)</p>
+<p>
+	&nbsp;&nbsp;<br />
+	<br />
+	4去掉packeages/app/UrlReservedApps 目录.<br />
+	<br />
+	5、语言, perso apk.&nbsp; 单双卡？</p>
+<p>
+	6、禁止手机install apk</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; packages/apps/Setting/..../<span style="color:#0000cd;">SecuritySettings</span>.java</p>
+<pre>
+      <span style="color:#ff0000;">   import android.os.Environment;/////chaofei.wu add    import java.io.File;////////haofei.wu add</span></pre>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public boolean <span style="color:#0000ff;">onPreferenceChange</span>(Preference preference, Object value) {</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (KEY_TOGGLE_INSTALL_APPLICATIONS.equals(key)) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((Boolean) value) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mToggleAppInstallation.setChecked(false);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#0000cd;"> ////chaofei.wu add<br />
+	&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;//import android.os.Environment;/////chaofei.wu add<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //import java.io.File;////////haofei.wu add<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; File file = new File(Environment.getExternalStorageDirectory(), &quot;aaa&quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG,&quot;Environment.getRootDirectory()=:&quot; + Environment.getExternalStorageDirectory()+&quot;, is=&quot;+file.exists());<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (file.exists()) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; file.delete();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log.d(TAG,&quot;chaofei.wu.hz@tcl.com delete aaa&quot;);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; warnAppInstallation();////chaofei.wu remove<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }/////&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Don&#39;t change Switch status until user makes choice in dialog, so return false.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result = false;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setNonMarketAppsAllowed(false);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; getEnvironmentDirectories();<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+<p>
+	&nbsp;</p>
+<p>
+	7. download UserAgent:&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>
+	&lt;VAR&gt;<br />
+	&lt;SIMPLE_VAR&gt;<br />
+	&lt;SDMID&gt;<span style="background-color:#ffd700;">ro_ua_language_is_customized</span>&lt;/SDMID&gt;<br />
+	&lt;C_NAME&gt;ro_ua_language_is_customized&lt;/C_NAME&gt;<br />
+	&lt;C_TYPE&gt;AsciiString&lt;/C_TYPE&gt;<br />
+	&lt;ARRAY&gt;NOT_ARRAY&lt;/ARRAY&gt;<br />
+	&lt;METATYPE&gt;AsciiString, 2&lt;/METATYPE&gt;<br />
+	&lt;IS_CUSTO&gt;1&lt;/IS_CUSTO&gt;<br />
+	&lt;FEATURE&gt;framework-res&lt;/FEATURE&gt;<br />
+	&lt;DESC&gt;customize userAgent language-country.the value is &quot;0&quot; &quot;1&quot;.&quot;0&quot;is the default value&lt;/DESC&gt;<br />
+	&lt;VALUE&gt;<span style="background-color:#ffff00;">&quot;1&quot;</span>&lt;/VALUE&gt;<br />
+	&lt;/SIMPLE_VAR&gt;<br />
+	&lt;/VAR&gt;</p>
+<p>
+	&lt;SDMID&gt;<span style="background-color:#ffd700;">ro_ua_language_country_group</span>&lt;/SDMID&gt;<br />
+	&lt;C_NAME&gt;ro_ua_language_country_group&lt;/C_NAME&gt;<br />
+	&lt;C_TYPE&gt;AsciiString&lt;/C_TYPE&gt;<br />
+	&lt;ARRAY&gt;NOT_ARRAY&lt;/ARRAY&gt;<br />
+	&lt;METATYPE&gt;AsciiString, 200&lt;/METATYPE&gt;<br />
+	&lt;IS_CUSTO&gt;1&lt;/IS_CUSTO&gt;<br />
+	&lt;FEATURE&gt;framework-res&lt;/FEATURE&gt;<br />
+	&lt;DESC&gt;this is used for ua customizaton. please add the value like format &quot;language=country&quot;,and split them by &quot;;&quot;.for example:&quot;en=en-us&quot;.&lt;/DESC&gt;<br />
+	&lt;VALUE&gt;&quot;en=en-us;es=es-us;fr=es-mx;pt=pt-br<span style="background-color:#ffff00;">;zh=zh-cn</span>&quot;&lt;/VALUE&gt;</p>
+<p>
+	8. Gms包，不要开机向导修改： 修改/vendor/partner_gms/products/gms.mk文件中下面这段代码：<br />
+	把下面的ro.setupwizard.mode=OPTIONAL改成DISABLED即可. (OPTIONAL意思是，你删除了gms包，但数据库没有改过来，开机后会有问题的)<br />
+	# Overrides PRODUCT_PROPERTY_OVERRIDES +=<br />
+	ro.setupwizard.mode=OPTIONAL<br />
+	ro.com.google.gmsversion=7.0_r11</p>

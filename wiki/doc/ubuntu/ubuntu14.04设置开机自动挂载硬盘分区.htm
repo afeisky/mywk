@@ -1,0 +1,31 @@
+<h3 class="t">
+	<a data-click="{
+			'F':'778317EA',
+			'F1':'9D73F1E4',
+			'F2':'4CA6DE6B',
+			'F3':'54E5343F',
+			'T':'1509072450',
+						'y':'7EE24FA7'
+			 
+									}" href="http://www.baidu.com/link?url=X-O865u0YBmw0ZJ7x_H9XzV-LkYsE7djbo342WJdg1V0lVXIaLe2y2oE4XrPbLxV2hK2503R74mmTp3XzdNeVa&amp;wd=&amp;eqid=a602b2580000827f0000000459f29e42" target="_blank"><em>ubuntu</em>14.04设置<em>开机</em>自动<em>挂载硬盘</em>分区</a></h3>
+<p>
+	root@wcf-git:/# cat <span style="background-color:#40e0d0;">/etc/fstab</span><br />
+	# /etc/fstab: static file system information.<br />
+	#<br />
+	# Use &#39;blkid&#39; to print the universally unique identifier for a<br />
+	# device; this may be used with UUID= as a more robust way to name devices<br />
+	# that works even if disks are added and removed. See fstab(5).<br />
+	#<br />
+	# &lt;file system&gt; &lt;mount point&gt;&nbsp;&nbsp; &lt;type&gt;&nbsp; &lt;options&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;dump&gt;&nbsp; &lt;pass&gt;<br />
+	# / was on /dev/sda1 during installation<br />
+	UUID=16cfc5ba-fbff-499c-a78d-94f239e61d5d /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ext4&nbsp;&nbsp;&nbsp; errors=remount-ro 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1<br />
+	<span style="background-color:#40e0d0;"># /code was on /dev/sda2 during installation</span><br />
+	<span style="background-color:#40e0d0;">UUID=a509c64e-da24-41a7-827c-a35535a9c192 /code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ext4&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2</span><br />
+	# swap was on /dev/sda3 during installation<br />
+	UUID=c6951ab4-b918-41fb-a95b-b73029af5ce4 none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap&nbsp;&nbsp;&nbsp; sw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br />
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	drwxrwxrwx&nbsp;&nbsp; 2 root root&nbsp; 4096 10\u6708 27 10:35 <span style="background-color:#40e0d0;">code/</span><br />
+	&nbsp;</p>

@@ -1,0 +1,122 @@
+<p>
+	<span style="font-size:16px;"><span style="color: rgb(0, 0, 205);">shell 数组的用法1</span></span></p>
+<p>
+	unset LUNCH_MENU_CHOICES<br />
+	function add_lunch_combo()<br />
+	{<br />
+	&nbsp;&nbsp;&nbsp; local new_combo=$1<br />
+	&nbsp;&nbsp;&nbsp; local c<br />
+	&nbsp;&nbsp;&nbsp; for c in ${LUNCH_MENU_CHOICES[@]} ; do<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [ &quot;$new_combo&quot; = &quot;$c&quot; ] ; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fi<br />
+	&nbsp;&nbsp;&nbsp; done<br />
+	#&nbsp;&nbsp; &nbsp;for i in `echo ${LUNCH_MENU_CHOICES[@]} | sort`; do<br />
+	#&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;n=$(($n+1))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # in C is n++ or n=n+1<br />
+	#&nbsp;&nbsp; &nbsp;done<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; LUNCH_MENU_CHOICES=(${LUNCH_MENU_CHOICES[@]} $new_combo)<br />
+	}<br />
+	<br />
+	function lunch()<br />
+	{<br />
+	&nbsp;&nbsp;&nbsp; local answer<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; if [ &quot;$1&quot; ] ; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; answer=$1<br />
+	&nbsp;&nbsp;&nbsp; else<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; local i=0<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; local n=0<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; local len=${#LUNCH_MENU_CHOICES[@]}&nbsp;&nbsp; #数组长度<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (( i=0; i&lt;len; i++ )); do&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (( n=0; n&lt;(len-i-1); n++ )); do&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp1=${LUNCH_MENU_CHOICES[$(($n))]}<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp2=${LUNCH_MENU_CHOICES[$(($n+1))]}<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo ${LUNCH_MENU_CHOICES[$(($n))]}&#39;&nbsp; &#39;&quot;$temp1&quot;&#39;&nbsp; &#39;&quot;$temp2&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [ &quot;${LUNCH_MENU_CHOICES[$(($n))]} &quot; \&gt; &quot;${LUNCH_MENU_CHOICES[$(($n+1))]}&quot;&nbsp; ]; then&nbsp; #大于号，在[]内，需要转义，加上\号<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;$temp1&quot;&#39; &gt; &#39;&quot;$temp2&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; item=${LUNCH_MENU_CHOICES[$(($n))]}<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LUNCH_MENU_CHOICES[$(($n))]=${LUNCH_MENU_CHOICES[$(($n+1))]}<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LUNCH_MENU_CHOICES[$(($n+1))]=$item<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fi<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; done<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; done<br />
+	<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print_lunch_menu<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo -n &quot;Which would you like? [aosp_arm-eng] &quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; read answer<br />
+	&nbsp;&nbsp;&nbsp; fi<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; local selection=<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; if [ -z &quot;$answer&quot; ]<br />
+	&nbsp;&nbsp;&nbsp; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; selection=aosp_arm-eng<br />
+	&nbsp;&nbsp;&nbsp; elif (echo -n $answer | grep -q -e &quot;^[0-9][0-9]*$&quot;)<br />
+	&nbsp;&nbsp;&nbsp; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [ $answer -le ${#LUNCH_MENU_CHOICES[@]} ]<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; selection=${LUNCH_MENU_CHOICES[$(($answer-1))]}<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fi<br />
+	&nbsp;&nbsp;&nbsp; elif (echo -n $answer | grep -q -e &quot;^[^\-][^\-]*-[^\-][^\-]*$&quot;)<br />
+	&nbsp;&nbsp;&nbsp; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; selection=$answer<br />
+	&nbsp;&nbsp;&nbsp; fi<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; if [ -z &quot;$selection&quot; ]<br />
+	&nbsp;&nbsp;&nbsp; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;Invalid lunch combo: $answer&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 1<br />
+	&nbsp;&nbsp;&nbsp; fi<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; export TARGET_BUILD_APPS=<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; local product=$(echo -n $selection | sed -e &quot;s/-.*$//&quot;)<br />
+	&nbsp;&nbsp;&nbsp; check_product $product<br />
+	&nbsp;&nbsp;&nbsp; if [ $? -ne 0 ]<br />
+	&nbsp;&nbsp;&nbsp; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;** Don&#39;t have a product spec for: &#39;$product&#39;&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;** Do you have the right repo manifest?&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; product=<br />
+	&nbsp;&nbsp;&nbsp; fi<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; local variant=$(echo -n $selection | sed -e &quot;s/^[^\-]*-//&quot;)<br />
+	&nbsp;&nbsp;&nbsp; check_variant $variant<br />
+	&nbsp;&nbsp;&nbsp; if [ $? -ne 0 ]<br />
+	&nbsp;&nbsp;&nbsp; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;** Invalid variant: &#39;$variant&#39;&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo &quot;** Must be one of ${VARIANT_CHOICES[@]}&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; variant=<br />
+	&nbsp;&nbsp;&nbsp; fi<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; if [ -z &quot;$product&quot; -o -z &quot;$variant&quot; ]<br />
+	&nbsp;&nbsp;&nbsp; then<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 1<br />
+	&nbsp;&nbsp;&nbsp; fi<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; export TARGET_PRODUCT=$product<br />
+	&nbsp;&nbsp;&nbsp; export TARGET_BUILD_VARIANT=$variant<br />
+	&nbsp;&nbsp;&nbsp; export TARGET_BUILD_TYPE=release<br />
+	<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; set_stuff_for_environment<br />
+	&nbsp;&nbsp;&nbsp; printconfig<br />
+	<br />
+	}<br />
+	<br />
+	# Tab completion for lunch.<br />
+	function _lunch()<br />
+	{<br />
+	&nbsp;&nbsp;&nbsp; local cur prev opts<br />
+	&nbsp;&nbsp;&nbsp; COMPREPLY=()<br />
+	&nbsp;&nbsp;&nbsp; cur=&quot;${COMP_WORDS[COMP_CWORD]}&quot;<br />
+	&nbsp;&nbsp;&nbsp; prev=&quot;${COMP_WORDS[COMP_CWORD-1]}&quot;<br />
+	<br />
+	&nbsp;&nbsp;&nbsp; COMPREPLY=( $(compgen -W &quot;${LUNCH_MENU_CHOICES[*]}&quot; -- ${cur}) )<br />
+	&nbsp;&nbsp;&nbsp; return 0<br />
+	}<br />
+	complete -F _lunch lunch</p>

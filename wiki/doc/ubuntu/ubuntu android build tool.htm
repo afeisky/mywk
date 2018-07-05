@@ -1,0 +1,89 @@
+<p>
+	<span style="color:#0000ff;"><span style="font-size: 16px;"><strong>ubuntu 安装android 编译环境</strong></span></span></p>
+<p>
+	&nbsp;&nbsp;&nbsp;<span style="color:#ff0000;"> apt-get update</span><br />
+	&nbsp;&nbsp;&nbsp; apt-get update --fix-missing<br />
+	&nbsp;&nbsp;&nbsp; cp /etc/apt/source.list /etc/apt/source.list.bak<br />
+	&nbsp;&nbsp;&nbsp; cp /etc/apt/sources.list /etc/apt/sources.list.bak<br />
+	&nbsp;&nbsp;&nbsp; gedit /etc/apt/sources.list &amp;<br />
+	&nbsp;&nbsp; apt-get update<br />
+	&nbsp;&nbsp; sudo apt-get remove libappstream3<br />
+	&nbsp;&nbsp; apt-get update<br />
+	&nbsp;&nbsp; apt-get&nbsp; install openssh-server</p>
+<p>
+	sudo nautilus</p>
+<p>
+	<span style="color:#0000ff;">挂载硬盘&nbsp; gedit /etc/fstab &amp; 在最后加上如下2行。<br />
+	/dev/sda1 /wcf&nbsp; ext4 errors=remount-ro&nbsp;&nbsp; 0 &nbsp;&nbsp; &nbsp;1<br />
+	/dev/sdb6 /disk1&nbsp; ext4 errors=remount-ro&nbsp;&nbsp; 0 &nbsp;&nbsp; &nbsp;1<br />
+	最后再使用这个命令：sudo mount -a</span></p>
+<p>
+	&nbsp;</p>
+<p>
+	Android Build Tool:</p>
+<p>
+	<span style="color:#ff0000;">sudo apt-get install openssh-server openssh-client</span></p>
+<p>
+	<span style="color:#ff0000;">sudo apt-get install gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev&nbsp; x11proto-core-dev libx11-dev&nbsp; lib32z-dev wine mingw-w64 tofrodos samba xsltproc libxml2-utils</span><br />
+	<span style="color:#ff0000;">subo apt-get isntall ia32-libs</span><br />
+	<br />
+	#-----gcc to make modem----<br />
+	sudo apt-get install <span style="color:#ff0000;">gcc-4.8</span><br />
+	which gcc<br />
+	sudo ln -sf /usr/bin/gcc-4.8 /usr/bin/gcc<br />
+	gcc -v<br />
+	sudo ln -sf /usr/bin/g++-4.8 /usr/bin/g++<br />
+	which g++<br />
+	g++ -v<br />
+	sudo apt-get instal<span style="color:#ff0000;">l g++-4.8</span><br />
+	sudo ln -sf /usr/bin/g++-4.8 /usr/bin/g++<br />
+	#-------------------------------------<br />
+	<span style="color:#ff0000;">sudo apt-get install git gitk</span><br />
+	<br />
+	pip3 install mysql-connector==2.1.4<br />
+	<br />
+	apt-get install mysql-server<br />
+	apt-get install mysql-workbench<br />
+	pip3 install urllib<br />
+	pip3 install xlrd<br />
+	apt-get install pycharm-community<br />
+	<br />
+	--------------------------------------------------------<br />
+	1）&nbsp;&nbsp; &nbsp;安装samba，ubuntu命令行下输入sudo apt-get install samba<br />
+	2）&nbsp;&nbsp; &nbsp;配置samba，ubuntu命令行下输入 sudo gedit /etc/samba/smb.conf，在打开文件的最后，输入共享文件信息，如下：<br />
+	[Samuel]&nbsp;&nbsp; &nbsp; #共享的文件夹名称<br />
+	comment = Shared Folder with username and password<br />
+	path = /home/wchaofei&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; #共享的文件夹目录<br />
+	public = yes<br />
+	writable = yes<br />
+	force create mode = 0777<br />
+	force directory mode = 0777<br />
+	force user = wchaofei&nbsp; #nobody<br />
+	force group = nogroup<br />
+	available = yes<br />
+	guest ok = no&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; #加了这句，就表示要用户名及密码才能登陆()，去掉这句，所有人都能不用密码登陆<br />
+	browseable = yes<br />
+	3)&nbsp;&nbsp; &nbsp;增加个用户 sudo smbpasswd -a username&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #add a user.<br />
+	4）&nbsp;&nbsp; &nbsp;保存以上信息后，重启samba。 sudo /etc/init.d/samba restart&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #restart samba<br />
+	4）&nbsp;&nbsp; &nbsp;在windows 端输入linux机器的ip地址，就可以看到以上共享文件夹&rdquo;Samuel&rdquo;。<br />
+	<br />
+	-----install svn1.8.5-----------------------<br />
+	1&nbsp; install sqlite3&nbsp;&nbsp; (sqlite-autoconf-3071300.tar.gz)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; cd sqlite-autoconf-3071300<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ./configure<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; make &amp;&amp; make instal<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; 其实就是安装最新的SQLite版本即可。<br />
+	&nbsp; 安装过程中可能出现的问题及解决方法请参考：<br />
+	&nbsp; 问题一，系统报&ldquo;configure: error: no suitable APR found&rdquo;错误，解决请参考<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; 其实就是执行两步：<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; 1)、执行&ldquo;apt-get install libapr1-dev&rdquo;；<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; 2)、执行&ldquo;apt-get install libaprutil1-dev&rdquo;。<br />
+	2 下载后复制到linux上，然后解压，执行以下3个步骤：(subversion-1.8.5.tar.gz)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; 1) cd subversion-1.8.5 , 先执行&nbsp;&nbsp; sudo ./get-deps.sh &nbsp;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; 2) cd serf&nbsp; &nbsp;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; 3) ./configure<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; 4) make &amp;&amp; make install &nbsp;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; 5) 执行&ldquo;./configure --with-serf=/usr/local/serf&rdquo;；<br />
+	&nbsp;&nbsp;&nbsp;&nbsp; 6) 执行&ldquo;make &amp;&amp; make install&rdquo;；<br />
+	&nbsp; user@ubuntu:~# svn --version<br />
+	&nbsp;</p>

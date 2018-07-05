@@ -1,0 +1,132 @@
+<p align="left">
+	[FAQ02499] Android USER&nbsp;版本与ENG&nbsp;版本差异&nbsp;Download</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	Platform:MT6589MT6571MT6572MT6582...MT6589MT6571MT6572MT6582MT6582/92+MT6290MT6588MT6592MT6595MT6732/52</p>
+<p align="left">
+	Branch:GB3GB5JB2JB3...GB3GB5JB2JB3JB5JB7JB9KK1KK1.MP1KK1.MP3KK1.MP5KK1.MP6KK1.MP7</p>
+<p align="left">
+	FAQ Content[Description]</p>
+<p align="left">
+	Android USER&nbsp;版本与ENG&nbsp;版本的差异,&nbsp;用户版本与工程版本的差异</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	[Keyword]</p>
+<p align="left">
+	USER ENG user eng&nbsp;用户版本&nbsp;工程版本&nbsp;差异</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	[Solution]</p>
+<p align="left">
+	Google&nbsp;官方描述: USER/USERDEBUG/ENG&nbsp;版本的差异,&nbsp;参考alps/build/core/build-system.html&nbsp;的详细说明</p>
+<p align="left">
+	eng This is the default flavor. A plain make is the same as make eng.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Installs modules tagged with: eng, debug, user, and/or development.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Installs non-APK modules that have no tags specified.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Installs APKs according to the product definition files, in addition to tagged APKs.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ro.secure=0</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ro.debuggable=1</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ro.kernel.android.checkjni=1</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adb is enabled by default.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Setupwizard is optional</p>
+<p align="left">
+	user make user</p>
+<p align="left">
+	This is the flavor intended to be the final release bits.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Installs modules tagged with user.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Installs non-APK modules that have no tags specified.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Installs APKs according to the product definition files; tags are ignored for APK modules.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ro.secure=1</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ro.debuggable=0</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adb is disabled by default.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enable dex pre-optimization for all TARGET projects in default to speed up device first boot-up</p>
+<p align="left">
+	userdebug make userdebug</p>
+<p align="left">
+	The same as user, except:</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Also installs modules tagged with debug.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ro.debuggable=1</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adb is enabled by default.</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	MTK&nbsp;补充说明差异:</p>
+<p align="left">
+	(1) Debug/LOG&nbsp;方面，原则上user&nbsp;版本只能抓到有限的资讯，eng&nbsp;可以抓到更多的资讯，Debug&nbsp;能力更强，推崇使用eng&nbsp;版本开发测试</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因ro.debuggable&nbsp;的差异，eng&nbsp;版本默认开启了app&nbsp;的JDWP，以及uart console debug;&nbsp;相对应的user&nbsp;版本关闭,&nbsp;导致在DDMS&nbsp;上无法看到app process&nbsp;的列表.</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MTK System LOG&nbsp;在ICS&nbsp;以后，在user&nbsp;版本默认关闭全部LOG，&nbsp;在eng&nbsp;版本中默认打开，以便抓到完整的资讯</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在eng&nbsp;版本上，LOG&nbsp;量&nbsp;&gt;= user&nbsp;版本的log&nbsp;量，一些地方会直接check eng/user&nbsp;版本来确认是否打印LOG</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; user&nbsp;版本默认关闭uart, eng&nbsp;版本默认开启uart</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在eng&nbsp;版本上，开启ANR&nbsp;的predump,&nbsp;会抓取ftrace，可以得到更多ANR的资讯</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在eng&nbsp;版本上，可用rtt&nbsp;抓取backtrace，可开启kdb&nbsp;进行kernel debug,&nbsp;可用ftrace&nbsp;抓取cpu&nbsp;执行场景</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MTK aee&nbsp;在ENG&nbsp;版本抓取更多的异常资讯，比如native exception&nbsp;会抓取core dump&nbsp;信息</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eng&nbsp;版本linux kernel&nbsp;开启了大量的debug&nbsp;选项，可以抓取出更多的资讯，如可以使用sysrq-trigger, KDB, User&nbsp;版本则关闭</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	(2)&nbsp;性能方面(Performance)，原则上进行性能测试请使用user&nbsp;版本测试</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; user&nbsp;版本为提高第一次开机速度，使用了DVM&nbsp;的预优化，将dex&nbsp;文件分解成可直接load&nbsp;运行的odex&nbsp;文件，eng&nbsp;版本不会开启这项优化</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; user&nbsp;版本相关kernel debug&nbsp;关闭，有利于提高linux kernel&nbsp;的性能</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; user&nbsp;版本更少的LOG&nbsp;打印，更少的debug&nbsp;代码，以及uart&nbsp;的关闭，原则上user&nbsp;版本的性能要优于eng&nbsp;版本</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	(3)&nbsp;安全方面(security)的影响</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eng&nbsp;版本默认关闭了adb&nbsp;的PC RSA指纹验证，而user&nbsp;版本默认开启,&nbsp;如果没有验证&nbsp;PC RSA&nbsp;指纹, adb&nbsp;连接时将提升devices offline</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因user/eng&nbsp;版本设置ro.secure不同，导致user&nbsp;版本adb&nbsp;只拥有shell&nbsp;权限，而eng&nbsp;版本具有root&nbsp;权限</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; eng&nbsp;版本内置了su, adb&nbsp;具有root&nbsp;权限,&nbsp;导致系统的安全性严重受到影响</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	(4)&nbsp;如何确认user/eng&nbsp;版本</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Java&nbsp;层，check android.os.Build&nbsp;类中的TYPE&nbsp;值</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; native&nbsp;层，property_get(&quot;ro.build.type&quot;, char* value, &quot;eng&quot;);&nbsp;然后check value&nbsp;值</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Debug&nbsp;时，&nbsp;adb shell getprop ro.build.type&nbsp;返回值如果是user&nbsp;即user&nbsp;版本，eng&nbsp;即eng&nbsp;版本</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Log&nbsp;确认,&nbsp; mobile log/Aplog_xxxxx/versions&nbsp;中查看ro.build.type&nbsp;属性</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	(5)&nbsp;如何编译user/eng&nbsp;版本</p>
+<p align="left">
+	*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认编译是eng&nbsp;版本，如果需要编译user&nbsp;版本，请加入参数&nbsp;-o=TARGET_BUILD_VARIANT=user&nbsp;如:</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;./mk -o=TARGET_BUILD_VARIANT=user mt6595_phone new</p>

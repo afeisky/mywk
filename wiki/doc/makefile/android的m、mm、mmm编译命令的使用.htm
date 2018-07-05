@@ -1,0 +1,28 @@
+<p>
+	&nbsp;</p>
+<h1 class="postTitle">
+	<a class="postTitle2" href="http://www.cnblogs.com/myitm/archive/2011/12/05/2276977.html" id="ctl02_TitleUrl">android的m、mm、mmm编译命令的使用</a></h1>
+<p>
+	<a class="replace_word" href="http://lib.csdn.net/base/15" style="color:#df3434; font-weight:bold;" target="_blank" title="undefined">Android</a>源码目录下的build/envsetup.sh文件，描述编译的命令</p>
+<p>
+	- m:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Makes from the top of the tree.&nbsp;<br />
+	- mm:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Builds all of the modules in the current directory.&nbsp;<br />
+	- mmm:&nbsp;&nbsp;&nbsp;&nbsp; Builds all of the modules in the supplied directories.&nbsp;<br />
+	<br />
+	要想使用这些命令，首先需要在android源码根目录执行. build/envsetup.sh&nbsp;脚本设置环境<br />
+	<br />
+	m：编译所有的模块&nbsp;<br />
+	mm：编译当前目录下的模块，当前目录下要有Android.mk文件&nbsp;<br />
+	mmm：编译指定路径下的模块，指定路径下要有Android.mk文件&nbsp;<br />
+	<br />
+	下面举个例子说明，假设我要编译android下的\hardware\libhardware_legacy\power模块，当前目录为源码根目录，方法如下：&nbsp;<br />
+	<br />
+	1、. build/envsetup.sh&nbsp;<br />
+	2、mmm hardware/libhardware_legacy/power/&nbsp;<br />
+	<br />
+	或者 ：&nbsp;<br />
+	<br />
+	1、. build/envsetup.sh&nbsp;<br />
+	2、cd hardware/libhardware_legacy/power/&nbsp;<br />
+	<br />
+	3、mm</p>

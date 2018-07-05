@@ -1,0 +1,217 @@
+<div>
+	<div>
+		<span style="font-size:14px;"><span style="color: rgb(0, 0, 205);"><span>[FAQ09198]Setting语言与输入法列表客制化</span></span></span>
+		<p align="left">
+			Setting的语言字串来自ICU资源，具体可以参考FAQ11512。其语言名称显示也有2种形式。</p>
+		<p align="left">
+			一种仅仅是把语言名称显示出来如中文；还有一种是语言名称后带有国家备注，如中文(繁体)、中文(简体)。当Projectconfig.mk中有至少2个相同的语言代码打开时，如en_CA,en_US,zh_CN,zh_TW，这时语言列表中就会有English(Canada)、English(united States)、中文(繁体)、中文(简体);如果仅仅打开en_US和zh_CN,就会显示English、中文。</p>
+		<p align="left">
+			Setting中显示语言名称的地方主要有3处，如果需要克制化，可按照如下方法：</p>
+		<p>
+			(1)&nbsp;&nbsp;&nbsp;&nbsp; 设置》语言和输入法》语言</p>
+		<p style="margin-left:33.75pt;">
+			<img alt="01" height="179" src="https://onlinesso.mediatek.com/FAQ%20PDF%20Picture%20Library/2014/0822/63514428235495039231396858202.PNG" width="396" /></p>
+		<p style="margin-left:33.75pt;">
+			在文件packages\apps\Settings\res\values\arrays.xml定制要显示的语言、国家代码以及修改后的名称，如中文定制如下，</p>
+		<p style="margin-left:33.75pt;">
+			&lt;string-array translatable=&quot;false&quot; name=&quot;special_locale_codes&quot;&gt;</p>
+		<ul>
+			<li>
+				&nbsp;</li>
+			<li>
+				&nbsp;</li>
+			<li>
+				&nbsp;</li>
+		</ul>
+		<p style="margin-left:33.75pt;">
+			&lt;string-array translatable=&quot;false&quot; name=&quot;special_locale_names&quot;&gt;</p>
+		<p style="margin-left:33.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;item&gt;中文 (简体)&lt;/item&gt;</p>
+		<p style="margin-left:33.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;item&gt;中文 (繁體)&lt;/item&gt;</p>
+		<ul>
+			<li>
+				&nbsp;</li>
+			<li>
+				&nbsp;</li>
+		</ul>
+		<p align="left">
+			&nbsp;&nbsp;&nbsp; 主要函数是在LocalePicker.java(frameworks\base\core\java\com\android\internal\app)</p>
+		<p align="left">
+			&nbsp;&nbsp; public static ArrayAdapter&lt;LocaleInfo&gt; constructAdapter(Context context,final int layoutId, final int fieldId)</p>
+		<ol>
+			<li value="2">
+				&nbsp;&nbsp;&nbsp;&nbsp; 设置》语言和输入法.</li>
+		</ol>
+		<p style="margin-left:33.75pt;">
+			<img alt="02" height="138" src="https://onlinesso.mediatek.com/FAQ%20PDF%20Picture%20Library/2014/0822/635144282686671265195792032501.PNG" width="401" /></p>
+		<p style="margin-left:33.75pt;">
+			这部分没有定制，直接获取ICU字串资源，代码如下</p>
+		<p style="margin-left:15.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp; InputMethodAndLanguageSettings.java&nbsp;&nbsp; alps\packages\apps\Settings\src\com\android\settings\inputmethod</p>
+		<p style="margin-left:51.75pt;">
+			public void onResume() {</p>
+		<p style="margin-left:15.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hasOnlyOneLanguageInstance(language,</p>
+		<p style="margin-left:51.75pt;">
+			Resources.getSystem().getAssets().getLocales())) {</p>
+		<p style="margin-left:51.75pt;">
+			localeString = conf.locale.getDisplayLanguage(conf.locale);</p>
+		<p style="margin-left:33.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {</p>
+		<p style="margin-left:51.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp; localeString = conf.locale.getDisplayName(conf.locale);</p>
+		<p style="margin-left:51.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong> localeString= getDisplayName(conf.locale);//</strong><strong>自己封装函数</strong></p>
+		<ul>
+			<li>
+				&nbsp;</li>
+		</ul>
+		<p style="margin-left:33.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &hellip;&hellip;</p>
+		<ul>
+			<li>
+				.</li>
+		</ul>
+		<p align="left" style="margin-left:33.75pt;">
+			private static String getDisplayName(Locale l) {</p>
+		<p align="left" style="margin-left:5.25pt;">
+			finalString[]specialLocaleCodes = resources.getStringArray(R.array.special_locale_codes);</p>
+		<p align="left">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final&nbsp; String[]&nbsp; specialLocaleNames=resources.getStringArray(R.array.special_locale_names);</p>
+		<p align="left" style="margin-left:33.75pt;">
+			String code = l.toString();</p>
+		<p align="left" style="margin-left:33.75pt;">
+			for (int i = 0; i &lt; specialLocaleCodes.length; i++) {</p>
+		<p align="left" style="margin-left:33.75pt;">
+			if (specialLocaleCodes[i].equals(code)) {</p>
+		<p align="left" style="margin-left:33.75pt;">
+			return specialLocaleNames[i];</p>
+		<ul>
+			<li align="left">
+				&nbsp;</li>
+			<li align="left">
+				&nbsp;</li>
+		</ul>
+		<p align="left" style="margin-left:33.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>return l.getDisplayName(l);</strong></p>
+		<ul>
+			<li align="left">
+				&nbsp;</li>
+			<li value="3">
+				&nbsp;&nbsp;&nbsp;&nbsp; 设置》语言和输入法》anroid键盘设置》输入语言</li>
+		</ul>
+		<p style="margin-left:33.75pt;">
+			<img alt="03" height="243" src="https://onlinesso.mediatek.com/FAQ%20PDF%20Picture%20Library/2014/0822/63514428293229783771663382103.PNG" width="344" /></p>
+		<p style="margin-left:33.75pt;">
+			这一块和(2)一样也是直接从底层获取，如果要定制，可以修改如下部分</p>
+		<p style="margin-left:15.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp; InputMethodSubtype.java&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alps\frameworks\base\core\java\android\view\inputmethod</p>
+		<p style="margin-left:15.75pt;">
+			&nbsp;&nbsp;&nbsp; public CharSequence getDisplayName(</p>
+		<p style="margin-left:15.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Context context, String packageName, ApplicationInfo appInfo) {</p>
+		<p style="margin-left:15.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;final Locale locale = constructLocaleFromString(mSubtypeLocale);</p>
+		<p style="margin-left:15.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;final String localeStr = locale != null ? locale.getDisplayName() : mSubtypeLocale;</p>
+		<p style="margin-left:15.75pt;">
+			<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final String localeStr = locale != null ? getDisplayName(locale) : mSubtypeLocale;</strong></p>
+		<p style="margin-left:15.75pt;">
+			<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &hellip;&hellip;</strong></p>
+		<p style="margin-left:33.75pt;">
+			自己封装函数如下.</p>
+		<p align="left" style="margin-left:33.75pt;">
+			private static String getDisplayName(Locale l) {</p>
+		<p align="left" style="margin-left:5.25pt;">
+			finalString[]specialLocaleCodes = resources.getStringArray(R.array.special_locale_codes);</p>
+		<p align="left">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;final&nbsp; String[]&nbsp; specialLocaleNames=resources.getStringArray(R.array.special_locale_names);</p>
+		<p align="left" style="margin-left:33.75pt;">
+			String code = l.toString();</p>
+		<p align="left" style="margin-left:33.75pt;">
+			for (int i = 0; i &lt; specialLocaleCodes.length; i++) {</p>
+		<p align="left" style="margin-left:33.75pt;">
+			if (specialLocaleCodes[i].equals(code)) {</p>
+		<p align="left" style="margin-left:33.75pt;">
+			return specialLocaleNames[i];</p>
+		<ul>
+			<li align="left">
+				&nbsp;</li>
+			<li align="left">
+				&nbsp;</li>
+		</ul>
+		<p align="left" style="margin-left:33.75pt;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>return l.getDisplayName();</strong></p>
+		<ul>
+			<li align="left">
+				&nbsp;</li>
+			<li align="left">
+				&nbsp;</li>
+			<li align="left">
+				&nbsp;</li>
+		</ul>
+	</div>
+	<div>
+		&nbsp;</div>
+	<div>
+		<span style="color:#0000cd;"><span>[FAQ11512]语言名称客制化问题</span></span></div>
+	<div>
+		&nbsp;</div>
+	<div>
+		[DESCRIPTION]</div>
+	<div>
+		语言名称和国家名称、时区名称一样都是ICU资源，经常会遇到一些客制化的问题。</div>
+	<div>
+		<div>
+			[SOLUTION]</div>
+	</div>
+	<div>
+		<p align="left">
+			Android语言名称定义在external/icu4c/data/lang/各个语言txt文件中 ，如zh.txt(中文简体):</p>
+		<p align="left">
+			Languages{</p>
+		<p align="left">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aa{&quot;阿法文&quot;}</p>
+		<p align="left">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ab{&quot;阿布哈西亚文&quot;}</p>
+		<p align="left">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ace{&quot;亚齐文&quot;}</p>
+		<p align="left">
+			&hellip;&hellip;</p>
+		<p align="left">
+			调用这些字串接口定义在Locale.java（libcore\luni\src\main\java\java\util)，主要函数如下：</p>
+		<p align="left">
+			(1)获得指定语言环境(locale)下语言名称</p>
+		<p align="left">
+			public String getDisplayLanguage(Locale locale)</p>
+		<p align="left">
+			(2)获得系统默认语言环境的语言名称</p>
+		<p align="left">
+			public String getDisplayLanguage() &nbsp;</p>
+		<p align="left">
+			(3) 获得指定语言环境(locale)下带有使用国家的语言名称</p>
+		<p align="left">
+			public String getDisplayName(Locale locale)</p>
+		<p align="left">
+			(4) 获得系统默认语言环境下带有使用国家的语言名称</p>
+		<p align="left">
+			public String getDisplayName()</p>
+		<p align="left">
+			因此如果要客制化语言名称可以有如下几种方法</p>
+		<p align="left">
+			1、修改ICU资源，如把aa{&quot;阿法文&quot;}改为aa{&quot;阿发闻&quot;}</p>
+		<p align="left">
+			这个修改需要编译ICU资源才会起效，如何编译可以参考：FAQ04011</p>
+		<p align="left">
+			2、修改Locale.java相关函数，如修改菲律宾语返回值，可以参考FAQ11034</p>
+		<p align="left">
+			3、也可以在app层做相关修改，如setting app中的中文定制，具体可以参考FAQ09198</p>
+		<p align="left">
+			&nbsp;</p>
+		<p align="left">
+			需要注意的是方法1、2的修改可能导致CTS测试fail，有些语言名称是不能修改的，具体可以参考LocaleTest.java(libcore\luni\src\test\java\libcore\java\util)</p>
+		<p align="left">
+			&nbsp;</p>
+	</div>
+</div>

@@ -1,0 +1,281 @@
+<div class="title">
+	<h1 class="YaHei">
+		C语言中lseek()函数和fseek()函数的使用详解</h1>
+	<p>
+		投稿：goldensun 字体：[<a>增加</a> <a>减小</a>] 类型：转载 时间：2015-08-29<a href="http://www.jb51.net/article/71707.htm#comments"> 我要评论</a></p>
+</div>
+<div class="art_desc mt10">
+	<div id="art_demo">
+		这篇文章主要介绍了C语言中lseek()函数和fseek()函数的使用详解,是C语言入门学习中的基础知识,需要的朋友可以参考下</div>
+</div>
+<div class="lbd clearfix">
+	&nbsp;</div>
+<p>
+	<strong>C语言lseek()函数：移动文件的读写位置<br />
+	</strong></p>
+<p>
+	头文件：</p>
+<div class="jb51code">
+	<div>
+		<div class="syntaxhighlighter  cpp" id="highlighter_275289">
+			<div class="toolbar">
+				<span><a class="toolbar_item command_help help" href="http://www.jb51.net/article/71707.htm#">?</a></span></div>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="gutter">
+							<div class="line number1 index0 alt2">
+								1</div>
+						</td>
+						<td class="code">
+							<div class="container">
+								<div class="line number1 index0 alt2">
+									<code class="cpp preprocessor">#include &lt;sys/types.h&gt;&nbsp; #include &lt;unistd.h&gt;</code></div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<p>
+	定义函数：</p>
+<div class="jb51code">
+	<div>
+		<div class="syntaxhighlighter  cpp" id="highlighter_901310">
+			<div class="toolbar">
+				<span><a class="toolbar_item command_help help" href="http://www.jb51.net/article/71707.htm#">?</a></span></div>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="gutter">
+							<div class="line number1 index0 alt2">
+								1</div>
+						</td>
+						<td class="code">
+							<div class="container">
+								<div class="line number1 index0 alt2">
+									<code class="cpp plain">off_t lseek(</code><code class="cpp color1 bold">int</code> <code class="cpp plain">fildes, off_t offset, </code><code class="cpp color1 bold">int</code> <code class="cpp plain">whence);</code></div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<p>
+	函数说明：<br />
+	每一个已打开的文件都有一个读写位置, 当打开文件时通常其读写位置是指向文件开头, 若是以附加的方式打开文件(如O_APPEND), 则读写位置会指向文件尾. 当read()或write()时, 读写位置会随之增加,lseek()便是用来控制该文件的读写位置. 参数fildes 为已打开的文件描述词, 参数offset 为根据参数whence来移动读写位置的位移数.</p>
+<p>
+	参数 whence 为下列其中一种:</p>
+<ul>
+	<li>
+		&nbsp;&nbsp;&nbsp; SEEK_SET 参数offset 即为新的读写位置.</li>
+	<li>
+		&nbsp;&nbsp;&nbsp; SEEK_CUR 以目前的读写位置往后增加offset 个位移量.</li>
+	<li>
+		&nbsp;&nbsp;&nbsp; SEEK_END 将读写位置指向文件尾后再增加offset 个位移量. 当whence 值为SEEK_CUR 或</li>
+	<li>
+		&nbsp;&nbsp;&nbsp; SEEK_END 时, 参数offet 允许负值的出现.</li>
+</ul>
+<p>
+	下列是教特别的使用方式:<br />
+	1) 欲将读写位置移到文件开头时:lseek(int fildes, 0, SEEK_SET);<br />
+	2) 欲将读写位置移到文件尾时:lseek(int fildes, 0, SEEK_END);<br />
+	3) 想要取得目前文件位置时:lseek(int fildes, 0, SEEK_CUR);</p>
+<p>
+	返回值：当调用成功时则返回目前的读写位置, 也就是距离文件开头多少个字节. 若有错误则返回-1, errno 会存放错误代码.</p>
+<p>
+	附加说明：Linux 系统不允许lseek()对tty 装置作用, 此项动作会令lseek()返回ESPIPE.</p>
+<p>
+	<strong>C语言fseek()函数：移动文件流的读写位置<br />
+	</strong>头文件：</p>
+<div class="jb51code">
+	<div>
+		<div class="syntaxhighlighter  cpp" id="highlighter_306789">
+			<div class="toolbar">
+				<span><a class="toolbar_item command_help help" href="http://www.jb51.net/article/71707.htm#">?</a></span></div>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="gutter">
+							<div class="line number1 index0 alt2">
+								1</div>
+						</td>
+						<td class="code">
+							<div class="container">
+								<div class="line number1 index0 alt2">
+									<code class="cpp preprocessor">#include &lt;stdio.h&gt;</code></div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<p>
+	定义函数：</p>
+<div class="jb51code">
+	<div>
+		<div class="syntaxhighlighter  cpp" id="highlighter_587195">
+			<div class="toolbar">
+				<span><a class="toolbar_item command_help help" href="http://www.jb51.net/article/71707.htm#">?</a></span></div>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="gutter">
+							<div class="line number1 index0 alt2">
+								1</div>
+						</td>
+						<td class="code">
+							<div class="container">
+								<div class="line number1 index0 alt2">
+									<code class="cpp color1 bold">int</code> <code class="cpp functions bold">fseek</code><code class="cpp plain">(</code><code class="cpp color1 bold">FILE</code> <code class="cpp plain">* stream, </code><code class="cpp color1 bold">long</code> <code class="cpp plain">offset, </code><code class="cpp color1 bold">int</code> <code class="cpp plain">whence);</code></div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<p>
+	函数说明：<br />
+	fseek()用来移动文件流的读写位置.</p>
+<p>
+	1、参数stream 为已打开的文件指针,<br />
+	2、参数offset 为根据参数whence 来移动读写位置的位移数。参数 whence 为下列其中一种:<br />
+	&nbsp;&nbsp;&nbsp; SEEK_SET 从距文件开头offset 位移量为新的读写位置. SEEK_CUR 以目前的读写位置往后增加offset 个位移量.<br />
+	&nbsp;&nbsp;&nbsp; SEEK_END 将读写位置指向文件尾后再增加offset 个位移量. 当whence 值为SEEK_CUR 或<br />
+	&nbsp;&nbsp;&nbsp; SEEK_END 时, 参数offset 允许负值的出现.</p>
+<p>
+	下列是较特别的使用方式：<br />
+	1) 欲将读写位置移动到文件开头时:fseek(FILE *stream, 0, SEEK_SET);<br />
+	2) 欲将读写位置移动到文件尾时:fseek(FILE *stream, 0, 0SEEK_END);</p>
+<p>
+	返回值：当调用成功时则返回0, 若有错误则返回-1, errno 会存放错误代码.</p>
+<p>
+	<span style="color:#ff0000;">附加说明：fseek()不像lseek()会返回读写位置, 因此必须使用ftell()来取得目前读写的位置.</span></p>
+<p>
+	范例</p>
+<div class="jb51code">
+	<div>
+		<div class="syntaxhighlighter  cpp" id="highlighter_396627">
+			<div class="toolbar">
+				<span><a class="toolbar_item command_help help" href="http://www.jb51.net/article/71707.htm#">?</a></span></div>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="gutter">
+							<div class="line number1 index0 alt2">
+								1</div>
+							<div class="line number2 index1 alt1">
+								2</div>
+							<div class="line number3 index2 alt2">
+								3</div>
+							<div class="line number4 index3 alt1">
+								4</div>
+							<div class="line number5 index4 alt2">
+								5</div>
+							<div class="line number6 index5 alt1">
+								6</div>
+							<div class="line number7 index6 alt2">
+								7</div>
+							<div class="line number8 index7 alt1">
+								8</div>
+							<div class="line number9 index8 alt2">
+								9</div>
+							<div class="line number10 index9 alt1">
+								10</div>
+							<div class="line number11 index10 alt2">
+								11</div>
+							<div class="line number12 index11 alt1">
+								12</div>
+							<div class="line number13 index12 alt2">
+								13</div>
+							<div class="line number14 index13 alt1">
+								14</div>
+							<div class="line number15 index14 alt2">
+								15</div>
+							<div class="line number16 index15 alt1">
+								16</div>
+							<div class="line number17 index16 alt2">
+								17</div>
+						</td>
+						<td class="code">
+							<div class="container">
+								<div class="line number1 index0 alt2">
+									<code class="cpp preprocessor">#include &lt;stdio.h&gt;</code></div>
+								<div class="line number2 index1 alt1">
+									<code class="cpp plain">main()</code></div>
+								<div class="line number3 index2 alt2">
+									<code class="cpp plain">{</code></div>
+								<div class="line number4 index3 alt1">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp color1 bold">FILE</code> <code class="cpp plain">* stream;</code></div>
+								<div class="line number5 index4 alt2">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp color1 bold">long</code> <code class="cpp plain">offset;</code></div>
+								<div class="line number6 index5 alt1">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp color1 bold">fpos_t</code> <code class="cpp plain">pos;</code></div>
+								<div class="line number7 index6 alt2">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp plain">stream = </code><code class="cpp functions bold">fopen</code><code class="cpp plain">(</code><code class="cpp string">&quot;/etc/passwd&quot;</code><code class="cpp plain">, </code><code class="cpp string">&quot;r&quot;</code><code class="cpp plain">);</code></div>
+								<div class="line number8 index7 alt1">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp functions bold">fseek</code><code class="cpp plain">(stream, 5, SEEK_SET);</code></div>
+								<div class="line number9 index8 alt2">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">&quot;offset = %d &quot;</code><code class="cpp plain">, </code><code class="cpp functions bold">ftell</code><code class="cpp plain">(stream));</code></div>
+								<div class="line number10 index9 alt1">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp functions bold">rewind</code><code class="cpp plain">(stream);</code></div>
+								<div class="line number11 index10 alt2">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp functions bold">fgetpos</code><code class="cpp plain">(stream, &amp;pos);</code></div>
+								<div class="line number12 index11 alt1">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">&quot;offset = %d &quot;</code><code class="cpp plain">, pos);</code></div>
+								<div class="line number13 index12 alt2">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp plain">pos = 10;</code></div>
+								<div class="line number14 index13 alt1">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp functions bold">fsetpos</code><code class="cpp plain">(stream, &amp;pos);</code></div>
+								<div class="line number15 index14 alt2">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp functions bold">printf</code><code class="cpp plain">(</code><code class="cpp string">&quot;offset = %d &quot;</code><code class="cpp plain">, </code><code class="cpp functions bold">ftell</code><code class="cpp plain">(stream));</code></div>
+								<div class="line number16 index15 alt1">
+									<code class="cpp spaces">&nbsp;&nbsp;</code><code class="cpp functions bold">fclose</code><code class="cpp plain">(stream);</code></div>
+								<div class="line number17 index16 alt2">
+									<code class="cpp plain">}</code></div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<p>
+	执行</p>
+<div class="toolbar">
+	<span><a class="toolbar_item command_help help" href="http://www.jb51.net/article/71707.htm#">?</a></span></div>
+<table border="0" cellpadding="0" cellspacing="0">
+	<tbody>
+		<tr>
+			<td class="gutter">
+				<div class="line number1 index0 alt2">
+					1</div>
+				<div class="line number2 index1 alt1">
+					2</div>
+				<div class="line number3 index2 alt2">
+					3</div>
+			</td>
+			<td class="code">
+				<div class="container">
+					<div class="line number1 index0 alt2">
+						<code class="plain plain">offset = 5</code></div>
+					<div class="line number2 index1 alt1">
+						<code class="plain plain">offset = 0</code></div>
+					<div class="line number3 index2 alt2">
+						<code class="plain plain">offset = 10</code></div>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	&nbsp;</p>

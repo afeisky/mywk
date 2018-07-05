@@ -1,0 +1,580 @@
+<p>
+	<span class="mail_session_title_main" style="color: rgb(63, 70, 77); font-family: 微软雅黑, Tahoma; font-size: 16px; font-style: normal; font-variant: normal; font-weight: bold; letter-spacing: normal; line-height: 24px; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(219, 226, 232);">pixi3-4&nbsp;客退机MBR修复方案及后续验</span><span class="mail_session_title_tail" style="display: inline-block; color: rgb(63, 70, 77); font-family: 微软雅黑, Tahoma; font-size: 16px; font-style: normal; font-variant: normal; font-weight: bold; letter-spacing: normal; line-height: 24px; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(219, 226, 232);">证</span></p>
+<p>
+	&nbsp;</p>
+<p>
+	Dear &nbsp;nianxiang ,</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请确认下2016年新项目哪些有MBR分区，有这个分区的项目都需要take&nbsp;同样的附件方案去降低YRR, thanks</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A : &nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SWD2 2016新项目确定不存在MBR分区&nbsp;(shine+ /cn , shine lite/4g/cn , &nbsp;pixi4-5 4G):</p>
+<p>
+	&nbsp;</p>
+<p>
+	kk&nbsp;&nbsp;（包括KK），之前的分区表格式都为&nbsp;，MBR格式：</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PRELOADER&nbsp;&nbsp;&nbsp;&nbsp; Raw data 256 KB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 256&nbsp; 262144&nbsp;&nbsp;&nbsp;&nbsp; 0x40000&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BOOT_1&nbsp;&nbsp; 0</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MBR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Raw data 512 KB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 512&nbsp; 524288&nbsp;&nbsp;&nbsp;&nbsp; 0x80000&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; USER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0</p>
+<p>
+	&nbsp;</p>
+<p>
+	L&nbsp; / M&nbsp;都是GTP格式，且内置了备份：</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; preloader&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Raw data 256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EMMC_BOOT1_BOOT2&nbsp; N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AUTO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N</p>
+<p>
+	<span style="background-color:#ffd700;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pgpt &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Raw data 32</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EMMC_USER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NONE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N</p>
+<p>
+	&nbsp;<span style="background-color:#ffd700;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sgpt &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Raw data 16.5&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; EMMC_USER &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NONE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	ths.</p>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Yajun, HU(WMD PIC HZ SWD 2-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;Thursday, June 16, 2016 5:15 PM<br />
+			<strong>收件人:</strong>&nbsp;Nianxiang, JIANG(GQ&amp;GCCS GQ DQA-HZ-TCT); Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); CHEN Ronghong; Mingming, ZHAO(GQ&amp;GCCS GQ FQ-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Zhiguo, HU(WMD PIC HZ-HZ-TCT); Yongxing, ZHANG(WMD PIC HZ GPP-HZ-TCT); Maowu, ZHU(WMD PIC HZ VAL-HZ-TCT); Guangming, YANG(WMD PIC HZ SWD 2-HZ-TCT); Yongming, LI(WMD PIC HZ SWD 2-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;答复: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	+Guangming.</p>
+<p>
+	&nbsp;</p>
+<div>
+	<p>
+		Thanks&amp;BR,</p>
+	<p>
+		-Yajun</p>
+</div>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Nianxiang, JIANG(GQ&amp;GCCS GQ DQA-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月16日&nbsp;17:08<br />
+			<strong>收件人:</strong>&nbsp;Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); CHEN Ronghong; Yajun, HU(WMD PIC HZ SWD 2-HZ-TCT); Mingming, ZHAO(GQ&amp;GCCS GQ FQ-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Zhiguo, HU(WMD PIC HZ-HZ-TCT); Yongxing, ZHANG(WMD PIC HZ GPP-HZ-TCT); Maowu, ZHU(WMD PIC HZ VAL-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;答复: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	+Yajun &amp; Alain</p>
+<p>
+	&nbsp;</p>
+<p>
+	附件memory MBR&nbsp;分区数据破坏改善方案share SW2/SW3</p>
+<p>
+	&nbsp;</p>
+<p>
+	Dear Jin, Yajun &amp; Alain</p>
+<p>
+	请确认下2016年新项目哪些有MBR分区，有这个分区的项目都需要take&nbsp;同样的附件方案去降低YRR, thanks</p>
+<p>
+	&nbsp;</p>
+<p>
+	Mingming</p>
+<p>
+	这个方案在2016年新项目的执行情况请帮和QPM一起track直到closed,&nbsp;谢谢</p>
+<p>
+	&nbsp;</p>
+<div>
+	<p>
+		Best Regards</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		Annie Jiang(江年香)</p>
+	<p>
+		Tel: 0752-8228593(ext:68593)</p>
+	<p>
+		Email:&nbsp;<a href="mailto:nianxiang.jiang@jrdcom.com" title="blocked::mailto:nianxiang.jiang@jrdcom.com">nianxiang.jiang@tcl.com</a></p>
+	<p>
+		Mobile：+86 15816494256</p>
+</div>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月13日&nbsp;10:54<br />
+			<strong>收件人:</strong>&nbsp;Nianxiang, JIANG(GQ&amp;GCCS GQ DQA-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Zhiguo, HU(WMD PIC HZ-HZ-TCT); Yongxing, ZHANG(WMD PIC HZ GPP-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;转发: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	Annie：</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pixi3-4返修的MBR分区破坏的增强恢复方案已完成，见附件，72平台的机子都适用。</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从这次拿回来的机子看，大部分不开机都属于这个类型，对降低这个类型返修应该会有很大帮助。</p>
+<div>
+	<p>
+		Thanks and best regards!</p>
+	<p>
+		**************************************************************************</p>
+	<p>
+		李进汉&nbsp;&nbsp;jinhan.li<br />
+		TCL通讯科技控股有限公司&nbsp;&nbsp;惠州产品创新中心&nbsp;软件1部&nbsp;<br />
+		广东省惠州市仲恺高新区惠风3路17号&nbsp;TCL科技大厦5楼&nbsp; 516006<br />
+		PIC HuiZhou SWD1<br />
+		TCL Communication Techonlogy Holdings Limited</p>
+	<p>
+		5/F, TCL Technology Building,<br />
+		17 Huifeng 3th Road,ZhongKai Hi-tech Development District ,Huizhou,Guangdong 516006 P.R.China<br />
+		Office : 0752-8228237（68237）</p>
+	<p>
+		Fax : 0752-8228237<br />
+		E-mail :&nbsp;<a href="mailto:jinhan.li@tcl.com">jinhan.li@tcl.com</a><br />
+		<a href="http://www.tcl.com/">www.tcl.com</a></p>
+	<div align="center">
+		<hr align="center" size="2" width="100%" />
+	</div>
+	<p>
+		This e-mail and any attachments are confidential. It is intended for the recipient only. If you have received this e-mail in error, please immediately notify the sender by replying to this e-mail and delete the e-mail from your computer. Although the sender and TCL have taken every reasonable precaution, the e-mail and attachments may have some errors or omissions and may contain viruses. We cannot accept liability for any damage that you sustain as a result of that.&nbsp;<br />
+		本邮件及其附件为机密信息，仅供指定收件人使用。若收件有误，请立即回复本邮件知会发件人并将此邮件从你的计算机系统删除。本邮件发件人及TCL已采取了适当的预防措施，但本邮件及其附件内容仍可能存在错误、遗漏或者隐含病毒。我们不对因此而导致的任何损失承担责任。</p>
+	<p>
+		<img alt="http://bbs.tcl.com/mailsignature/images/colorful.gif" border="0" height="24" id="_x0000_i1027" src="image001(06-17-10-08-36).gif" style="height:auto !important;" width="1366" /></p>
+</div>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Zeming, HUANG(WMD PIC HZ SWD 1-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月13日&nbsp;10:50<br />
+			<strong>收件人:</strong>&nbsp;Jinguo, ZHENG(WMD PIC HZ SWD 1-HZ-TCT); Yunqing, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Yizhi, FU(WMD PIC HZ SWD 1-HZ-TCT); Xueqin, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Shie, ZHAO(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Xiaorong, LING(WMD PIC HZ SWD 1-HZ-TCT); Zhongyang, HU(WMD PIC HZ SWD 1-HZ-TCT); Yange, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); Yuanpeng, LIU(WMD PIC HZ SWD 1-HZ-TCT); Yaoting, WEI(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;答复: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	Dear all,</p>
+<p>
+	更新后文档请查看附件，</p>
+<p>
+	添加以下内容：</p>
+<p>
+	1.&nbsp;背景介绍中这一批罗马尼亚客退机MBR损坏故障机占比情况；</p>
+<p>
+	2.&nbsp;方案介绍；</p>
+<p>
+	3. FOTA升级lk相关代码；</p>
+<p>
+	4.&nbsp;适用项目中添加对应bug/task</p>
+<p>
+	&nbsp;</p>
+<div>
+	<p>
+		-------</p>
+	<p>
+		Huang zeming(黄泽明)</p>
+	<p>
+		<a href="tel:0752-8228665">tel:0752-8228665</a></p>
+	<p>
+		ext:68665</p>
+</div>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Jinguo, ZHENG(WMD PIC HZ SWD 1-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月8日&nbsp;11:00<br />
+			<strong>收件人:</strong>&nbsp;Yunqing, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Zeming, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Yizhi, FU(WMD PIC HZ SWD 1-HZ-TCT); Xueqin, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Shie, ZHAO(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Xiaorong, LING(WMD PIC HZ SWD 1-HZ-TCT); Zhongyang, HU(WMD PIC HZ SWD 1-HZ-TCT); Yange, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); Yuanpeng, LIU(WMD PIC HZ SWD 1-HZ-TCT); Yaoting, WEI(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;答复: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	Dear&nbsp; zeming&nbsp;&nbsp;：</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;&nbsp;&nbsp;有以下几点，请参考下&nbsp;谢谢！</p>
+<p>
+	&nbsp;</p>
+<p>
+	&Oslash;&nbsp;&nbsp;&nbsp;1、问题背景&nbsp;&nbsp;&nbsp;,&nbsp;可以加入此次出这类问题的数量和比率&nbsp;，可以说明此方案的意义</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此修改可以解决哪些问题，如已经出货的什么问题机器？还有对新出软件的版本可以解决哪类问题</p>
+<p>
+	&nbsp;</p>
+<p>
+	&Oslash;&nbsp;&nbsp;2、FOTA&nbsp;部分也作一些补充，因为此修改需升级LK&nbsp;，可以把FOTA&nbsp;升级的diff tools&nbsp;相关代码附上</p>
+<p>
+	&Oslash;&nbsp;&nbsp;3、相关的参考task&nbsp;也可以附上</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<div>
+	<p>
+		zhengjinguo</p>
+	<p>
+		SWD1</p>
+	<p>
+		system engineer</p>
+	<p>
+		<img alt="tcllogo" border="0" height="203" id="_x0000_i1028" src="image002(06-17-10-08-36).gif" style="height:auto !important;" width="200" /><br />
+		TCL通讯科技控股有限公司&nbsp;&nbsp;软件开发一部<br />
+		广东省惠州市仲恺高新区惠风三路17号TCL科技大厦5楼&nbsp; 516006&nbsp;</p>
+	<p>
+		TCL Communication Technology Holdings Limited</p>
+	<p>
+		5/F, TCL Technology Building,</p>
+	<p>
+		17 Huifeng 3rd Road, Zhongkai Hi-tech&nbsp;Development&nbsp;District,</p>
+	<p>
+		Huizhou,&nbsp;Guangdong,516006P.R.China</p>
+	<p>
+		Office :&nbsp;0752-8228157（68157）</p>
+	<p>
+		Fax : 0752-8228118&nbsp;<br />
+		E-mail :&nbsp;<a href="mailto:san.zhang@tcl.com">jinguo.zheng</a>@tcl.com</p>
+</div>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Yunqing, HUANG(WMD PIC HZ SWD 1-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月8日 星期三&nbsp;10:51<br />
+			<strong>收件人:</strong>&nbsp;Zeming, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Yizhi, FU(WMD PIC HZ SWD 1-HZ-TCT); Xueqin, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Shie, ZHAO(WMD PIC HZ SWD 1-HZ-TCT); Jinguo, ZHENG(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Xiaorong, LING(WMD PIC HZ SWD 1-HZ-TCT); Zhongyang, HU(WMD PIC HZ SWD 1-HZ-TCT); Yange, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); Yuanpeng, LIU(WMD PIC HZ SWD 1-HZ-TCT); Yaoting, WEI(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;答复: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	Dear jinguo,</p>
+<p>
+	请jinguo review一下PPT。</p>
+<p>
+	&nbsp;</p>
+<p>
+	BR,</p>
+<p>
+	Yunqing</p>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Zeming, HUANG(WMD PIC HZ SWD 1-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月8日&nbsp;10:49<br />
+			<strong>收件人:</strong>&nbsp;Yizhi, FU(WMD PIC HZ SWD 1-HZ-TCT); Xueqin, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Shie, ZHAO(WMD PIC HZ SWD 1-HZ-TCT); Jinguo, ZHENG(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Yunqing, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Xiaorong, LING(WMD PIC HZ SWD 1-HZ-TCT); Zhongyang, HU(WMD PIC HZ SWD 1-HZ-TCT); Yange, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); Yuanpeng, LIU(WMD PIC HZ SWD 1-HZ-TCT); Yaoting, WEI(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;答复: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	Dear all,</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;附件是《6572平台MBR分区备份与恢复方案(v1.0)》，请查看，谢谢！</p>
+<div>
+	<p>
+		-------</p>
+	<p>
+		Huang zeming(黄泽明)</p>
+	<p>
+		<a href="tel:0752-8228665">tel:0752-8228665</a></p>
+	<p>
+		ext:68665</p>
+</div>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Zeming, HUANG(WMD PIC HZ SWD 1-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月7日&nbsp;9:39<br />
+			<strong>收件人:</strong>&nbsp;Yizhi, FU(WMD PIC HZ SWD 1-HZ-TCT); Xueqin, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Shie, ZHAO(WMD PIC HZ SWD 1-HZ-TCT); Jinguo, ZHENG(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Yunqing, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Xiaorong, LING(WMD PIC HZ SWD 1-HZ-TCT); Zhongyang, HU(WMD PIC HZ SWD 1-HZ-TCT); Yange, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); Yuanpeng, LIU(WMD PIC HZ SWD 1-HZ-TCT); Yaoting, WEI(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;答复: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	Dear all,</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; action 3验证完毕：进行&nbsp;FOTA升级后，下载NOK MBR bin，手机可能正常开机。</p>
+<p>
+	至此，&nbsp;MBR备份与恢复方案验证OK.&nbsp;可以上传，请知悉！</p>
+<p>
+	&nbsp;</p>
+<div>
+	<p>
+		-------</p>
+	<p>
+		Huang zeming(黄泽明)</p>
+	<p>
+		<a href="tel:0752-8228665">tel:0752-8228665</a></p>
+	<p>
+		ext:68665</p>
+</div>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Yizhi, FU(WMD PIC HZ SWD 1-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月6日&nbsp;18:08<br />
+			<strong>收件人:</strong>&nbsp;Zeming, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Xueqin, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Shie, ZHAO(WMD PIC HZ SWD 1-HZ-TCT); Jinguo, ZHENG(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Yunqing, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Xiaorong, LING(WMD PIC HZ SWD 1-HZ-TCT); Zhongyang, HU(WMD PIC HZ SWD 1-HZ-TCT); Yange, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); Yuanpeng, LIU(WMD PIC HZ SWD 1-HZ-TCT); Yaoting, WEI(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;答复: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	Dear zeming,</p>
+<p>
+	&nbsp;</p>
+<p>
+	FOTA v5B23 --- v5B23-black-for-zeming-MBR-0606升级包(见附件)，可以开始action3.</p>
+<p>
+	&nbsp;</p>
+<p>
+	Update Step:</p>
+<p>
+	1.Download v5B23+CG32</p>
+<p>
+	2.Push update.zip to SDCard</p>
+<p>
+	3.Enter recovery mode -&gt; &ldquo;apply update from sdcard&rdquo;-&gt;update.zip</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Zeming, HUANG(WMD PIC HZ SWD 1-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月6日 星期一&nbsp;14:45<br />
+			<strong>收件人:</strong>&nbsp;Xueqin, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Shie, ZHAO(WMD PIC HZ SWD 1-HZ-TCT); Jinguo, ZHENG(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Yunqing, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Xiaorong, LING(WMD PIC HZ SWD 1-HZ-TCT); Zhongyang, HU(WMD PIC HZ SWD 1-HZ-TCT); Yizhi, FU(WMD PIC HZ SWD 1-HZ-TCT); Yange, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); Yuanpeng, LIU(WMD PIC HZ SWD 1-HZ-TCT); Yaoting, WEI(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;答复: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	Dear yizhi,</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请制作关于v5B23 --- v5B23-black-for-zeming-MBR-0606&nbsp;两个版本间差异的FOTA升级包，然后我们开始action 3,&nbsp;谢谢！</p>
+<p>
+	&nbsp;</p>
+<p>
+	------------------------------------------------------------------------</p>
+<p>
+	2.&nbsp;请xiaorong主导帮忙做成FOTA升级包；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Xiaorong)</p>
+<p>
+	3.&nbsp;两个手机，一个只下载v5B23+CG32,&nbsp;另一个更新到以上FOTA升级包，将NOK MBR分别写入这两个手机，查看验证结果。(Xiaorong,zeming)</p>
+<p>
+	&nbsp;</p>
+<div>
+	<p>
+		-------</p>
+	<p>
+		Huang zeming(黄泽明)</p>
+	<p>
+		<a href="tel:0752-8228665">tel:0752-8228665</a></p>
+	<p>
+		ext:68665</p>
+</div>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Xueqin, ZHANG(WMD PIC HZ SWD 1-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月6日&nbsp;14:15<br />
+			<strong>收件人:</strong>&nbsp;Shie, ZHAO(WMD PIC HZ SWD 1-HZ-TCT); Jinguo, ZHENG(WMD PIC HZ SWD 1-HZ-TCT); Zeming, HUANG(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Yunqing, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Xiaorong, LING(WMD PIC HZ SWD 1-HZ-TCT); Zhongyang, HU(WMD PIC HZ SWD 1-HZ-TCT); Yizhi, FU(WMD PIC HZ SWD 1-HZ-TCT); Yange, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); Yuanpeng, LIU(WMD PIC HZ SWD 1-HZ-TCT); Yaoting, WEI(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;答复: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	Hi&nbsp; Zeming</p>
+<p>
+	maincode已编译完，bin上传到：/0_Huizhou/Android_SP/pixi3-4/black/v5B23-black-for-zeming-MBR-0606</p>
+<p>
+	请知悉</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<div>
+	<p>
+		Best Regards</p>
+	<p>
+		张雪芹</p>
+	<p>
+		SDD1 Dept.</p>
+	<p>
+		Office:+86 752&nbsp;8228767(ex.68767)</p>
+</div>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Shie, ZHAO(WMD PIC HZ SWD 1-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月6日 星期一&nbsp;9:24<br />
+			<strong>收件人:</strong>&nbsp;Jinguo, ZHENG(WMD PIC HZ SWD 1-HZ-TCT); Zeming, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Xueqin, ZHANG(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Yunqing, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Xiaorong, LING(WMD PIC HZ SWD 1-HZ-TCT); Zhongyang, HU(WMD PIC HZ SWD 1-HZ-TCT); Yizhi, FU(WMD PIC HZ SWD 1-HZ-TCT); Yange, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); Yuanpeng, LIU(WMD PIC HZ SWD 1-HZ-TCT); Yaoting, WEI(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;答复: pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	Zeming,</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;因为这批客退机大部分是v5B23+CG32，需要请INT组同事在此版本基础上，编译一版包含修复方案的软件；&nbsp; (shie)</p>
+<p>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个版本由xueqin处理，麻烦把修改的文件发给xueqin,谢谢。</p>
+<p>
+	&nbsp;</p>
+<div>
+	<p>
+		赵时娥&nbsp; Shie Zhao&nbsp;</p>
+	<p>
+		HZ-PIC SWD1</p>
+	<p>
+		Office: 0752-8228580(68580)</p>
+</div>
+<div>
+	<div align="center">
+		<hr align="center" size="2" width="100%" />
+	</div>
+</div>
+<div>
+	<div>
+		<p>
+			<strong>发件人:</strong>&nbsp;Zeming, HUANG(WMD PIC HZ SWD 1-HZ-TCT)&nbsp;<br />
+			<strong>发送时间:</strong>&nbsp;2016年6月6日 星期一&nbsp;9:16<br />
+			<strong>收件人:</strong>&nbsp;Jinguo, ZHENG(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>抄送:</strong>&nbsp;Yunqing, HUANG(WMD PIC HZ SWD 1-HZ-TCT); Xiaorong, LING(WMD PIC HZ SWD 1-HZ-TCT); Zhongyang, HU(WMD PIC HZ SWD 1-HZ-TCT); Yizhi, FU(WMD PIC HZ SWD 1-HZ-TCT); Yange, ZHANG(WMD PIC HZ SWD 1-HZ-TCT); Jinhan, LI(WMD PIC HZ SWD 1-HZ-TCT); Shie, ZHAO(WMD PIC HZ SWD 1-HZ-TCT); Yuanpeng, LIU(WMD PIC HZ SWD 1-HZ-TCT); Yaoting, WEI(WMD PIC HZ SWD 1-HZ-TCT)<br />
+			<strong>主题:</strong>&nbsp;pixi3-4&nbsp;客退机MBR修复方案及后续验证</p>
+	</div>
+</div>
+<p>
+	&nbsp;</p>
+<p>
+	Dear all,</p>
+<p>
+	MBR修复方案本地验证已OK，下一步进行FOTA升级验证，需要shie, xiaorong帮忙处理一下，方案及后续action如下：</p>
+<p>
+	&nbsp;</p>
+<p>
+	【备份数据】</p>
+<p>
+	1. MBR起作用的数据是[0x1BE, 0xFD],&nbsp;校验位是0xFE, 0xFF两位，因此只对MBR区域[0x1BE, 0xFF]进行备份；</p>
+<p>
+	&nbsp;</p>
+<p>
+	2.修改ptgen.pl，在生成MBR文件后，将该数据提取至out/target/product/pixi3_4/obj/PTGEN/lk/partition.c中，以数据存储，数据如下：</p>
+<p>
+	unsigned char mbr_code_default[]={</p>
+<p>
+	0x00, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00,</p>
+<p>
+	0x00, 0x04, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF,</p>
+<p>
+	0x00, 0x00, 0x00, 0x00, 0x83, 0x00, 0x00, 0x00,</p>
+<p>
+	0x00, 0x48, 0x00, 0x00, 0x00, 0x50, 0x00, 0x00,</p>
+<p>
+	0x00, 0x00, 0x00, 0x00, 0x83, 0x00, 0x00, 0x00,</p>
+<p>
+	0x00, 0x98, 0x00, 0x00, 0x00, 0x50, 0x00, 0x00,</p>
+<p>
+	0x00, 0x00, 0x00, 0x00, 0x83, 0x00, 0x00, 0x00,</p>
+<p>
+	0x00, 0x2C, 0x02, 0x00, 0x00, 0x30, 0x00, 0x00,</p>
+<p>
+	0x55, 0xAA</p>
+<p>
+	};</p>
+<p>
+	&nbsp;</p>
+<p>
+	【检查修复】</p>
+<p>
+	1.在修改bootable/bootloader/lk/app/mt_boot/mt_boot.c，在函数boot_linux添加check_mbr()检查函数；</p>
+<p>
+	<img alt="" src="data:image/png;base64,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" /></p>
+<p>
+	&nbsp;</p>
+<p>
+	2.检查备份方法如下：</p>
+<p>
+	2.1&nbsp;检查MBR中0xFE,0xFF标志位是否存在，如果存在，则认为MBR数据是正常的，函数退出；</p>
+<p>
+	2.2&nbsp;如果step 2.1中检查该标志位不存在，则将备份数组写回MBR区域，如下图：</p>
+<p>
+	<img alt="" src="data:image/png;base64,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" /></p>
+<p>
+	&nbsp;</p>
+<p>
+	【本地验证】</p>
+<p>
+	1.下载正常的软件，写入NOK MBR分区&agrave;无法正常开机，回读MBR分区数据，没有变化；</p>
+<p>
+	2.下载包含修复方案的软件，写入NOK MBR分区&agrave;可以正常开机，回读MBR分区数据，[0x1BE, 0xFF]数据已被改写。</p>
+<p>
+	&nbsp;</p>
+<p>
+	【后续action】</p>
+<p>
+	主要进行FOTA升级验证，方法如下：</p>
+<p>
+	1.&nbsp;因为这批客退机大部分是v5B23+CG32，需要请INT组同事在此版本基础上，编译一版包含修复方案的软件；&nbsp; (shie)</p>
+<p>
+	2.&nbsp;请xiaorong主导帮忙做成FOTA升级包；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Xiaorong)</p>
+<p>
+	3.&nbsp;两个手机，一个只下载v5B23+CG32,&nbsp;另一个更新到以上FOTA升级包，将NOK MBR分别写入这两个手机，查看验证结果。(Xiaorong,zeming)</p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	-------</p>
+<p>
+	Huang zeming(黄泽明)</p>
+<p>
+	<a href="tel:0752-8228665">tel:0752-8228665</a></p>
+<p>
+	ext:68665</p>
+<p>
+	&nbsp;</p>

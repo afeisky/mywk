@@ -1,0 +1,29 @@
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	说明：以下内容在Windows环境下验证OK<br />
+	<br />
+	1、将Beyond Compare的安装路径添加到环境变量，以便在命令行中运行BCompare.exe命令<br />
+	<br />
+	&nbsp;<br />
+	<br />
+	2、新建一个文本文件diff_to_html.txt，输入并保存以下内容:<br />
+	<br />
+	text-report layout:side-by-side &amp;<br />
+	&nbsp; options:ignore-unimportant,display-context &amp;<br />
+	&nbsp; output-to:%3 output-options:html-color %1 %2<br />
+	<br />
+	<br />
+	3、在命令行中，运行以下命令：<br />
+	<br />
+	&gt; BCompare.exe /silent @diff_to_html.txt my_file.txt your_file.txt my_report.html<br />
+	<br />
+	<br />
+	BCompare.exe /silent @diff_to_html.txt build_verity_metadata.py build_verity_metadata2.py my_report.html<br />
+	&quot;C:Program Files (x86)\Beyond Compare 3\BCompare.exe&quot; <span style="background-color:#ff8c00;">/silent</span> <span style="background-color:#008000;">@diff_to_html.txt</span> <span style="background-color:#006400;">c1.py</span> <span style="background-color:#008000;">c2.py</span> <span style="background-color:#b22222;">my_report.html</span><br />
+	<br />
+	<br />
+	注意：这里假设*.txt、*.html都在当前工作目录中；其他情况下，请在文件名前加上相应的路径前缀<br />
+	&nbsp;</p>

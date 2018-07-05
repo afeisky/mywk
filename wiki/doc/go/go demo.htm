@@ -1,0 +1,30 @@
+<p>
+	// hello project main.go<br />
+	package main<br />
+	&nbsp;import (<br />
+	&nbsp;&nbsp;&nbsp; &quot;fmt&quot;<br />
+	&nbsp;)<br />
+	&nbsp;func main() { &nbsp;<br />
+	&nbsp;&nbsp; fmt.Println(&quot;Hello World!&quot;)<br />
+	&nbsp;}<br />
+	<br />
+	//Go语言是静态编译，但是这个也太大了吧。<br />
+	//go build hello.go<br />
+	//我们提供一个给程序廋身的方法。<br />
+	//使用命令：go build -ldflags &quot;-s -w&quot; hello.go 重新编译，再次查看大小：<br />
+	//-rwxrwxr-x 1 root root 1.3M May 28 19:57 hello<br />
+	//<br />
+	//明显变小了不少。<br />
+	//命令解析：<br />
+	//-s去掉符号表（然后panic时候的stack trace就没有任何文件名/行号信息了，这个等价于普通C/C++程序被strip的效果），<br />
+	//-w去掉DWARF调试信息，得到的程序就不能用gdb调试了。<br />
+	//-s和-w也可以分开使用，一般来说如果不打算用gdb调试，<br />
+	//-w基本没啥损失。-s的损失就有点大?了</p>
+<p>
+	&nbsp;</p>
+<p>
+	package main<br />
+	import&nbsp; &quot;fmt&quot; //引入fmt库<br />
+	func main() {<br />
+	&nbsp;&nbsp;&nbsp; fmt.Println(&quot;Hello World!&quot;)<br />
+	}</p>

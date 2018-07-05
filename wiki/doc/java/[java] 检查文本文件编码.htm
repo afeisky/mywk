@@ -1,0 +1,121 @@
+<p>
+	<span style="font-size:16px;"><span style="color: rgb(0, 0, 205);">[java]检查文本文件编码</span></span></p>
+<p>
+	&nbsp;</p>
+<p>
+	import java.io.BufferedInputStream;<br />
+	import java.io.File;<br />
+	import java.io.FileInputStream;<br />
+	import java.io.FileNotFoundException;<br />
+	import java.io.IOException;<br />
+	<br />
+	import org.mozilla.intl.chardet.nsDetector;<br />
+	import org.mozilla.intl.chardet.nsICharsetDetectionObserver;<br />
+	<br />
+	public class FileCharsetDetector {<br />
+	private boolean found = false;<br />
+	private String encoding = null;<br />
+	<br />
+	public static void main(String[] argv) throws Exception {<br />
+	File file1 = new File(&quot;C:\test1.txt&quot;);<br />
+	<br />
+	System.out.println(&quot;文件编码:&quot; + new FileCharsetDetector().guessFileEncoding(file1));<br />
+	}<br />
+	<br />
+	/**<br />
+	* 传入一个文件(File)对象，检查文件编码<br />
+	*<br />
+	* @param file<br />
+	* File对象实例<br />
+	* @return 文件编码，若无，则返回null<br />
+	* @throws FileNotFoundException<br />
+	* @throws IOException<br />
+	*/<br />
+	public String guessFileEncoding(File file) throws FileNotFoundException, IOException {<br />
+	return guessFileEncoding(file, new nsDetector());<br />
+	}<br />
+	<br />
+	/**<br />
+	*</p>
+<pre>
+       * 获取文件的编码       * @param file       *            File对象实例       * @param languageHint       *            语言提示区域代码 @see #nsPSMDetector ,取值如下：       *             1 : Japanese       *             2 : Chinese       *             3 : Simplified Chinese       *             4 : Traditional Chinese       *             5 : Korean       *             6 : Dont know(default)       * </pre>
+<br />
+<p>
+	*<br />
+	* @return 文件编码，eg：UTF-8,GBK,GB2312形式(不确定的时候，返回可能的字符编码序列)；若无，则返回null<br />
+	* @throws FileNotFoundException<br />
+	* @throws IOException<br />
+	*/<br />
+	public String guessFileEncoding(File file, int languageHint) throws FileNotFoundException, IOException {<br />
+	return guessFileEncoding(file, new nsDetector(languageHint));<br />
+	}<br />
+	<br />
+	/**<br />
+	* 获取文件的编码<br />
+	*<br />
+	* @param file<br />
+	* @param det<br />
+	* @return<br />
+	* @throws FileNotFoundException<br />
+	* @throws IOException<br />
+	*/<br />
+	private String guessFileEncoding(File file, nsDetector det) throws FileNotFoundException, IOException {<br />
+	// Set an observer...<br />
+	// The Notify() will be called when a matching charset is found.<br />
+	det.Init(new nsICharsetDetectionObserver() {<br />
+	public void Notify(String charset) {<br />
+	encoding = charset;<br />
+	found = true;<br />
+	}<br />
+	});<br />
+	<br />
+	BufferedInputStream imp = new BufferedInputStream(new FileInputStream(file));<br />
+	byte[] buf = new byte[1024];<br />
+	int len;<br />
+	boolean done = false;<br />
+	boolean isAscii = false;<br />
+	<br />
+	while ((len = imp.read(buf, 0, buf.length)) != -1) {<br />
+	// Check if the stream is only ascii.<br />
+	isAscii = det.isAscii(buf, len);<br />
+	if (isAscii) {<br />
+	break;<br />
+	}<br />
+	// DoIt if non-ascii and not done yet.<br />
+	done = det.DoIt(buf, len, false);<br />
+	if (done) {<br />
+	break;<br />
+	}<br />
+	}<br />
+	imp.close();<br />
+	det.DataEnd();<br />
+	<br />
+	if (isAscii) {<br />
+	encoding = &quot;ASCII&quot;;<br />
+	found = true;<br />
+	}<br />
+	<br />
+	if (!found) {<br />
+	String[] prob = det.getProbableCharsets();<br />
+	//这里将可能的字符集组合起来返回<br />
+	for (int i = 0; i &lt; prob.length; i++) {<br />
+	if (i == 0) {<br />
+	encoding = prob[i];<br />
+	} else {<br />
+	encoding += &quot;,&quot; + prob[i];<br />
+	}<br />
+	}<br />
+	<br />
+	if (prob.length &gt; 0) {<br />
+	// 在没有发现情况下,也可以只取第一个可能的编码,这里返回的是一个可能的序列<br />
+	return encoding;<br />
+	} else {<br />
+	return null;<br />
+	}<br />
+	}<br />
+	return encoding;<br />
+	}<br />
+	}<br />
+	&nbsp;</p>
+<p>
+	&nbsp;</p>

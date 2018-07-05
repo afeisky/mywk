@@ -1,0 +1,977 @@
+<div class="article_title">
+	<h1>
+		<span class="link_title"><a href="http://blog.csdn.net/adaptiver/article/details/6672592"> linux命令dd </a></span></h1>
+</div>
+<div class="article_manage clearfix">
+	<div class="article_l">
+		<span class="link_categories">标签： <a href="http://www.csdn.net/tag/linux" target="_blank">linux</a><a href="http://www.csdn.net/tag/%e6%95%b0%e6%8d%ae%e5%a4%87%e4%bb%bd" target="_blank">数据备份</a><a href="http://www.csdn.net/tag/%e7%a3%81%e7%9b%98" target="_blank">磁盘</a><a href="http://www.csdn.net/tag/%e6%b5%8b%e8%af%95" target="_blank">测试</a><a href="http://www.csdn.net/tag/ibm" target="_blank">ibm</a><a href="http://www.csdn.net/tag/image" target="_blank">image</a> </span></div>
+	<div class="article_r">
+		<span class="link_postdate">2011-08-09 15:09</span> <span class="link_view" title="阅读次数">95565人阅读</span> <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/adaptiver/article/details/6672592#comments">评论</a>(9)</span> <span class="link_collect tracking-ad" data-mod="popu_171"> <a title="收藏">收藏</a></span> <span class="link_report"> <a href="http://blog.csdn.net/adaptiver/article/details/6672592#report" title="举报">举报</a></span></div>
+</div>
+<div class="category clearfix">
+	<div class="category_l">
+		<img src="http://static.blog.csdn.net/images/category_icon.jpg" /> <span>分类：</span></div>
+	<div class="category_r">
+		<label><span>linux命令<em>（21）</em></span> <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle%20_down.jpg" style="display:inline;" /> </label></div>
+</div>
+<div style="border:solid 1px #ccc; background:#eee; float:left; min-width:200px;padding:4px 10px;">
+	<p style="text-align:right;margin:0;">
+		<span style="float:left;">目录<a href="http://blog.csdn.net/adaptiver/article/details/6672592#" title="系统根据文章中H1到H6标签自动生成文章目录">(?)</a></span><a href="http://blog.csdn.net/adaptiver/article/details/6672592#" title="展开">[+]</a></p>
+</div>
+<div class="article_content" id="article_content">
+	<p>
+		<span style="font-family:Arial,Helvetica,sans-serif; color:#333333; line-height:19px; border-collapse:collapse"><span style="font-family:Arial,Helvetica,sans-serif; color:#333333; line-height:19px; border-collapse:collapse"><strong><span style="font-size:24px">dd</span></strong></span><br />
+		</span></p>
+	<p>
+		<span style="font-family:Arial,Helvetica,sans-serif; color:#333333; line-height:19px; border-collapse:collapse; font-size:13px">使用dd这个linux命令可以创建一定大小文件。</span></p>
+	<p>
+		&nbsp;</p>
+	<div>
+		<div id="imcontent">
+			<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt">确定seccfg对应的block<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls -l /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lrwxrwxrwx root root 2016-01-01 02:52 seccfg -&gt; /dev/block/mmcblk0p13<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lrwxrwxrwx root root 2016-01-01 02:52 secro -&gt; /dev/block/mmcblk0p15<br />
+			&nbsp;&nbsp;&nbsp;2. 将teleweb读出的seccfg.bin，push进手机<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;adb push seccfg.bin /sdcard/Download/seccfg.bin<br />
+			&nbsp; 3.用dd命令写入<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;dd if=/sdcard/Download/seccfg.bin of=/dev/block/mmcblk0p13 bs=4096 count=2048</span></div>
+		<div>
+			<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt"><span style="font-family:Arial,Helvetica,sans-serif; color:#333333; line-height:19px; border-collapse:collapse; font-size:13px">&nbsp; 4.读出： dd if=/dev/block/mmcblk0p13&nbsp; of=/sdcard/Download/seccfg.bin&nbsp;&nbsp;bs=4096 count=2048</span></span></div>
+		<div>
+			<span style="font-family:'Segoe UI';direction:ltr;word-wrap:break-word;color:#000000;font-size:10pt"><span style="font-family:Arial,Helvetica,sans-serif; color:#333333; line-height:19px; border-collapse:collapse; font-size:13px">&nbsp; 5: md5sum seccfg.bin 查文件md5码。</span></span></div>
+	</div>
+	<div>
+		&nbsp;</div>
+	<div>
+		此对话将保存在 Lync 中的&ldquo;对话&rdquo;选项卡上和 Outlook 的&ldquo;对话历史记录&rdquo;文件夹中。</div>
+	<div>
+		<span style="font-family:Segoe UI;font-size:8pt;white-space:nowrap;color:#858585"><i>2016/12/15</i></span></div>
+	<div>
+		<div id="Normalheader">
+			<span style="font-family:Segoe UI;font-size:8pt"><span style="word-wrap:break-word;color:#858585">Xiwu, PENG(WMD PIC HZ SWD 2-HZ-TCT)</span> <span style="text-align:right;white-space:nowrap;color:#858585">8:24</span></span></div>
+	</div>
+	<span style="font-family:Arial,Helvetica,sans-serif; color:#333333; line-height:19px; border-collapse:collapse; font-size:13px">linux创建文件命令：dd命令<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	把指定的输入文件拷贝到指定的输出文件中，并且在拷贝的过程中可以进行格式转换。语法：<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	CODE:[Copy to clipboard]dd 〔选项〕<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	QUOTE:<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	if =输入文件(或设备名称)。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	of =输出文件(或设备名称)。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	ibs = bytes 一次读取bytes字节，即读入缓冲区的字节数。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	skip = blocks 跳过读入缓冲区开头的ibs*blocks块。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	obs = bytes 一次写入bytes字节，即写 入缓冲区的字节数。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	bs = bytes 同时设置读/写缓冲区的字节数(等于设置obs和obs)。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	cbs = bytes 一次转换bytes字节。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	count = blocks 只拷贝输入的blocks块。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	conv = ASCII 把EBCDIC码转换为ASCII码。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	conv = ebcdic 把ASCII码转换为EBCDIC码。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	conv = ibm 把ASCII码转换为alternate EBCDIC码。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	conv = blick 把变动位转换成固定字符。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	conv = ublock 把固定们转换成变动位<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	conv = ucase 把字母由小写变为大写。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	conv = lcase 把字母由大写变为小写。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	conv = notrunc 不截短输出文件。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	conv = swab 交换每一对输入字节。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	conv = noerror 出错时不停止处理。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	conv = sync 把每个输入记录的大小都调到ibs的大小(用ibs填充)。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	fdformat命令<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	低级格式化软盘。<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	实例:<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	创建一个100M的空文件<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	dd if=/dev/zero of=hello.txt bs=100M count=1<br style="padding-bottom:0px; margin:0px; padding-left:0px; padding-right:0px; word-wrap:break-word; padding-top:0px" />
+	</span>
+	<p>
+		<span style="font-family:Arial,Helvetica,sans-serif; color:#333333; line-height:19px; border-collapse:collapse; font-size:13px">以上是linux创建文件命令：dd的用法。</span></p>
+	<p>
+		&nbsp;</p>
+	<p>
+		<span style="font-family:Arial,Helvetica,sans-serif; color:#333333; line-height:19px; border-collapse:collapse; font-size:13px">2.实例分析<br />
+		2.1.数据备份与恢复<br />
+		2.1.1整盘数据备份与恢复<br />
+		备份<br />
+		将本地的/dev/hdx整盘备份到/dev/hdy ：dd if=/dev/hdx of=/dev/hdy<br />
+		将/dev/hdx全盘数据备份到指定路径的image文件：dd if=/dev/hdx of=/path/to/image<br />
+		备份/dev/hdx全盘数据，并利用gzip工具进行压缩，保存到指定路径：dd if=/dev/hdx | gzip<br />
+		&gt;/path/to/image.gz<br />
+		恢复<br />
+		将备份文件恢复到指定盘：dd if=/path/to/image of=/dev/hdx<br />
+		将压缩的备份文件恢复到指定盘 ：gzip -dc /path/to/image.gz | dd of=/dev/hdx<br />
+		2.1.2.利用netcat远程备份<br />
+		在源主机上执行此命令备份/dev/hda：dd if=/dev/hda bs=16065b | netcat &lt; targethost-IP &gt;<br />
+		1234在目的主机上执行此命令来接收数据并写入/dev/hdc：netcat -l -p 1234 | dd of=/dev/hdc<br />
+		bs=16065b<br />
+		以下两条指令是目的主机指令的变化分别采用bzip2 gzip对数据进行压缩，并将备份文件保存在当<br />
+		前目录 ：<br />
+		netcat -l -p 1234 | bzip2 &gt; partition.img<br />
+		netcat -l -p 1234 | gzip &gt; partition.img<br />
+		2.1.3.备份MBR<br />
+		备份：<br />
+		备份磁盘开始的512Byte大小的MBR信息到指定文件：dd if=/dev/hdx of=/path/to/image<br />
+		count=1 bs=512<br />
+		恢复：<br />
+		将备份的MBR信息写到磁盘开始部分：dd if=/path/to/image of=/dev/hdx<br />
+		2.1.4.备份软盘<br />
+		将软驱数据备份到当前目录的disk.img文件：dd if=/dev/fd0 of=disk.img count=1 bs=1440k<br />
+		2.1.5.拷贝内存资料到硬盘<br />
+		将内存里的数据拷贝到root目录下的mem.bin文件：dd if=/dev/mem of=/root/mem.bin<br />
+		bs=1024<br />
+		2.1.6.从光盘拷贝iso镜像<br />
+		拷贝光盘数据到root文件夹下，并保存为cd.iso文件：dd if=/dev/cdrom of=/root/cd.iso<br />
+		2.2.增加Swap分区文件大小<br />
+		创建一个足够大的文件（此处为256M）：dd if=/dev/zero of=/swapfile bs=1024 count=262144<br />
+		把这个文件变成swap文件：mkswap /swapfile<br />
+		启用这个swap文件：swapon /swapfile<br />
+		在每次开机的时候自动加载swap文件, 需要在 /etc/fstab 文件中增加一行：/swapfile swap<br />
+		swap defaults 0 0<br />
+		2.3.销毁磁盘数据<br />
+		利用随机的数据填充硬盘：dd if=/dev/urandom of=/dev/hda1<br />
+		在某些必要的场合可以用来销毁数据。执行此操作以后，/dev/hda1将无法挂载，创建和拷贝操作<br />
+		无法执行。<br />
+		2.4磁盘管理<br />
+		2.4.1.得到最恰当的block size<br />
+		通过比较dd指令输出中所显示的命令执行时间，即可确定系统最佳的block size大小：<br />
+		dd if=/dev/zero bs=1024 count=1000000 of=/root/1Gb.filedd if=/dev/zero bs=2048 count=500000 of=/root/1Gb.file<br />
+		dd if=/dev/zero bs=4096 count=250000 of=/root/1Gb.file<br />
+		dd if=/dev/zero bs=8192 count=125000 of=/root/1Gb.file<br />
+		2.4.2测试硬盘读写速度<br />
+		通过两个命令输出的执行时间，可以计算出测试硬盘的读／写速度：<br />
+		dd if=/root/1Gb.file bs=64k | dd of=/dev/null<br />
+		hdd if=/dev/zero of=/root/1Gb.file bs=1024 count=1000000<br />
+		2.4.3.修复硬盘<br />
+		当硬盘较长时间（比如一两年年）放置不使用后，磁盘上会产生magnetic flux point。当磁头读到<br />
+		这些区域时会遇到困难，并可能导致I/O错误。当这种情况影响到硬盘的第一个扇区时，可能导致<br />
+		硬盘报废。下面的命令有可能使这些数据起死回生。且这个过程是安全，高效的。<br />
+		dd if=/dev/sda of=/dev/sda<br />
+		</span></p>
+	<p>
+		&nbsp;</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		<span style="font-family:Arial,Helvetica,sans-serif; color:#333333; line-height:19px; border-collapse:collapse; font-size:13px"><a href="http://hi.baidu.com/iruler/blog/item/1e644a2d652c9636349bf723.html">http://hi.baidu.com/iruler/blog/item/1e644a2d652c9636349bf723.html</a></span></p>
+	<p>
+		DD命令使用总结</p>
+	<p>
+		dd</p>
+	<p>
+		1.作用</p>
+	<p>
+		dd命令用来复制文件，并根据参数将数据转换和格式化。</p>
+	<p>
+		2.格式</p>
+	<p>
+		dd [options]</p>
+	<p>
+		3.[opitions]主要参数</p>
+	<p>
+		bs=字节：强迫 ibs=&lt;字节&gt;及obs=&lt;字节&gt;。</p>
+	<p>
+		cbs=字节：每次转换指定的&lt;字节&gt;。</p>
+	<p>
+		conv=关键字：根据以逗号分隔的关键字表示的方式来转换文件。</p>
+	<p>
+		count=块数目：只复制指定&lt;块数目&gt;的输入数据。</p>
+	<p>
+		ibs=字节：每次读取指定的&lt;字节&gt;。</p>
+	<p>
+		if=文件：读取&lt;文件&gt;内容，而非标准输入的数据。</p>
+	<p>
+		obs=字节：每次写入指定的&lt;字节&gt;。</p>
+	<p>
+		of=文件：将数据写入&lt;文件&gt;，而不在标准输出显示。</p>
+	<p>
+		seek=块数目：先略过以obs为单位的指定&lt;块数目&gt;的输出数据。</p>
+	<p>
+		skip=块数目：先略过以ibs为单位的指定&lt;块数目&gt;的输入数据。</p>
+	<p>
+		dd命令使用技巧五则 -|jacketzhong 发表于 2006-8-24 9:50:00</p>
+	<p>
+		dd命令是linux下一个非常有用的磁盘命令。它可以将指定大小的块拷贝成一个文件，<br />
+		<br />
+		并在拷贝的同时执行指定的转换。由于dd命令允许二进制读写，所以特别适合在原始<br />
+		<br />
+		物理设备上进行输入/输出操作。下面介绍几则dd命令的使用技巧。<br />
+		<br />
+		一、为软盘创建镜像文件<br />
+		<br />
+		使用如下命令创建软盘镜像。<br />
+		<br />
+		#dd if=/dev/fd0 of=disk.img bs=1440k<br />
+		<br />
+		使用dd命令制作出的软盘镜像文件能在HD-Copy或winimage下使用。</p>
+	<p>
+		二、制作优盘启动盘<br />
+		<br />
+		首先打开linux的安装光盘，将images目录下的diskboot.img文件复制到/root目录下<br />
+		<br />
+		，然后将优盘挂载到/dev/sdb，然后执行如下命令即可：<br />
+		<br />
+		#dd if=/root/diskboot.img of=/dev/sdb bs=125682176<br />
+		<br />
+		优盘需要为引导型并且要分出引导分区。</p>
+	<p>
+		三、使用windows引导linux<br />
+		<br />
+		提取引导文件<br />
+		<br />
+		#dd if=/dev/hdaN of=/bootsect.lnx bs=512 count=1<br />
+		<br />
+		编辑boot.ini文件<br />
+		<br />
+		将上面生成的bootsect.lnx文件复制到c:下，并在boot.ini文件中增加一行：c:oo<br />
+		<br />
+		tsect.lnx=&quot;Linux&quot;</p>
+	<p>
+		四、备份还原硬盘主引导记录<br />
+		<br />
+		1、备份硬盘主引导记录<br />
+		<br />
+		#dd if=/dev/hda of=/disk.mbr bs=512 count=1<br />
+		<br />
+		2、还原硬盘主引导记录<br />
+		<br />
+		#dd if=/disk.mbr of=/dev/hda bs=512 count=1<br />
+		<br />
+		五、要切割的大文件为DGJD，共98336321字节，则：<br />
+		<br />
+		dd if=dgjd of=zz1 bs=1 count=20000000<br />
+		<br />
+		dd if=dgjd of=zz2 bs=1 count=20000000 skip=20000000<br />
+		<br />
+		dd if=dgjd of=zz3 bs=1 count=20000000 skip=40000000<br />
+		<br />
+		dd if=dgjd of=zz4 bs=1 count=20000000 skip=60000000<br />
+		<br />
+		dd if=dgjd of=zz5 bs=1 count=18336321 skip=80000000</p>
+	<p>
+		其中IF（INPUT FILENAME）是要切割的大文件名，OF（OUTPUT<br />
+		<br />
+		FILENAME）是切割后的子文件名，BS是指明以多少字节作为一个切割记录单位，COUNT<br />
+		<br />
+		是要切割的单位记录数，SKIP是说明切割时的起点，单位同样以BS设定值为准。通过<br />
+		<br />
+		上述五条指令就将<br />
+		<br />
+		DGJD大文件切割成为4个2千万字节、1个18336321字节的子文件。要注意的是SKIP的值<br />
+		<br />
+		不能错。<br />
+		<br />
+		由此也不难看出，DD切割是&ldquo;非损耗&rdquo;式的切割，并且支持从任意位置开始的任意大小<br />
+		<br />
+		的切割。</p>
+	<p>
+		要将生成的ZZ1、ZZ2、ZZ3、ZZ4四个子文件组装为XDGJD，则：<br />
+		<br />
+		dd if=zz1 of=xdgjd bs=1 count=20000000<br />
+		<br />
+		dd if=zz2 of=xdgjd bs=1 count=20000000 seek=20000000<br />
+		<br />
+		dd if=zz3 of=xdgjd bs=1 count=20000000 seek=40000000<br />
+		<br />
+		dd if=zz4 of=xdgjd bs=1 count=20000000 seek=60000000<br />
+		<br />
+		dd if=zz5 of=xdgjd bs=1 count=18336321 seek=80000000</p>
+	<p>
+		其中SKIP参数改为SEEK参数，指明组装的新大文件XDGJD每次的开始位置是从文件头开<br />
+		<br />
+		始多少字节。如果缺省，则组装从文件头开始，显然这不是我们每次都希望的，<br />
+		<br />
+		所以需用SEEK参数明确指出开始位置。通过以上5个指令，即可将5个子文件重新组装<br />
+		<br />
+		为一个大文件。将切割后生成的子文件重新用FTP传送，结果有的能够顺利传送，<br />
+		<br />
+		有的仍然导致网络瘫痪，不怕，继续切割，切成每个一千万字节，再传，OK！成功传<br />
+		<br />
+		送！</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		&nbsp;</p>
+	<p>
+		<a href="http://hll142475.blog.163.com/blog/static/621382009249558136/">http://hll142475.blog.163.com/blog/static/621382009249558136/</a></p>
+	<h3>
+		<a name="t0"></a>dd工具使用</h3>
+	<div>
+		<div>
+			<hr />
+		</div>
+		<h3>
+			<a name="t1"></a><a lang="EN-US" rel="nofollow"><span style="font-size:12px">dd</span></a><span><span style="font-family:宋体"><span style="font-size:12px">重要参数</span></span></span></h3>
+		<table border="1" cellpadding="0" cellspacing="0" style="border-bottom:medium none; border-left:medium none; border-collapse:collapse; border-top:medium none; border-right:medium none">
+			<tbody>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; padding-left:5.4pt; width:50.4pt; padding-right:5.4pt; border-top:windowtext 1pt solid; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="67">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">参数</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; padding-left:5.4pt; width:375.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-top:windowtext 1pt solid; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="501">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">含义</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:50.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="67">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">if</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:375.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="501">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">输入设备或者文件</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:50.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="67">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">of</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:375.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="501">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">输出设备或文件</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:50.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="67">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">bs</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:375.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="501">
+						<p>
+							<span style="font-size:12px"><span lang="EN-US">dd</span><span style="font-family:宋体">缓冲区。设定</span><span lang="EN-US">dd</span><span style="font-family:宋体">时一次</span><span lang="EN-US">io</span><span style="font-family:宋体">拷贝多少数据，它与输入文件和输出文件的</span><span lang="EN-US">block size</span><span style="font-family:宋体">都没有直接联系。</span></span></p>
+						<p>
+							<span style="font-size:12px"><span style="font-family:宋体">一般来说，</span><span lang="EN-US">bs</span><span style="font-family:宋体">越大，拷贝速度越快</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:50.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="67">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">skip</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:375.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="501">
+						<p>
+							<span style="font-size:12px"><span style="font-family:宋体">设定</span><span lang="EN-US">dd</span><span style="font-family:宋体">时从输入文件中跳过多少个</span><span lang="EN-US">dd</span><span style="font-family:宋体">缓冲区开始拷贝数据。一般在裸设备有</span><span lang="EN-US">offset</span><span style="font-family:宋体">时使用</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:50.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="67">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">seek</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:375.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="501">
+						<p>
+							<span style="font-size:12px"><span style="font-family:宋体">设定</span><span lang="EN-US">dd</span><span style="font-family:宋体">时从输出文件中跳过多少个</span><span lang="EN-US">dd</span><span style="font-family:宋体">缓冲区开始写入数据。一般在裸设备有</span><span lang="EN-US">offset</span><span style="font-family:宋体">时使用</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:50.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="67">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">count</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:375.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="501">
+						<p>
+							<span style="font-size:12px"><span style="font-family:宋体">设置</span><span lang="EN-US">dd</span><span style="font-family:宋体">的</span><span lang="EN-US">io</span><span style="font-family:宋体">数量。如果省略了</span><span lang="EN-US">count</span><span style="font-family:宋体">，表示完全拷贝输入文件到输出文件上</span></span></p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>
+			<a name="t2"></a><a lang="EN-US" rel="nofollow"><span style="font-size:12px">dd</span></a><span><span style="font-family:宋体"><span style="font-size:12px">参数适用范围</span></span></span></h3>
+		<table border="1" cellpadding="0" cellspacing="0" style="border-bottom:medium none; border-left:medium none; border-collapse:collapse; border-top:medium none; border-right:medium none">
+			<tbody>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; padding-left:5.4pt; width:77.4pt; padding-right:5.4pt; border-top:windowtext 1pt solid; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="103">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">备份源</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; padding-left:5.4pt; width:90pt; padding-right:5.4pt; border-left-color:#ece9d8; border-top:windowtext 1pt solid; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="120">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">备份目的地</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; padding-left:5.4pt; width:258.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-top:windowtext 1pt solid; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="345">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">适用参数</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:77.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="103">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">裸设备</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:90pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="120">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">裸设备</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:258.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="345">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">if of bs skip seek count</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:77.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="103">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">裸设备</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:90pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="120">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">文件系统</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:258.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="345">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">if of bs skip count</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:77.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="103">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">文件系统</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:90pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="120">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">裸设备</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:258.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="345">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">if of bs seek</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:77.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="103">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">文件系统</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:90pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="120">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">文件系统</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:258.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="345">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">if of bs</span></span></p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>
+			<a name="t3"></a><a lang="EN-US" rel="nofollow"><span style="font-size:12px">dd</span></a><span style="font-size:12px"><span><span style="font-family:宋体">拷贝</span><span lang="EN-US">oracle</span></span><span><span style="font-family:宋体">数据文件需要考虑的因素</span></span></span></h3>
+		<table border="1" cellpadding="0" cellspacing="0" style="border-bottom:medium none; border-left:medium none; border-collapse:collapse; border-top:medium none; border-right:medium none">
+			<tbody>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; padding-left:5.4pt; width:95.4pt; padding-right:5.4pt; border-top:windowtext 1pt solid; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="127">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">因素</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; padding-left:5.4pt; width:330.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-top:windowtext 1pt solid; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="441">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">含义</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:95.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="127">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">block size </span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:330.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="441">
+						<p>
+							<span style="font-size:12px"><span lang="EN-US">dd</span><span style="font-family:宋体">一次</span><span lang="EN-US">io</span><span style="font-family:宋体">的</span><span lang="EN-US">buffer</span><span style="font-family:宋体">大小</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:95.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="127">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">offset</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:330.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="441">
+						<p>
+							<span style="font-family:宋体"><span style="font-size:12px">只适用于裸设备，有些操作系统在裸设备上保留一定的空间给内部使用，拷贝时要跳过这部分内容</span></span></p>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-bottom:windowtext 1pt solid; border-left:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:95.4pt; padding-right:5.4pt; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="127">
+						<p>
+							<span lang="EN-US"><span style="font-size:12px">block 0</span></span></p>
+					</td>
+					<td style="border-bottom:windowtext 1pt solid; padding-bottom:0cm; background-color:transparent; border-top-color:#ece9d8; padding-left:5.4pt; width:330.7pt; padding-right:5.4pt; border-left-color:#ece9d8; border-right:windowtext 1pt solid; padding-top:0cm" valign="top" width="441">
+						<p>
+							<span style="font-size:12px"><span style="font-family:宋体">每一个</span><span lang="EN-US">oracle</span><span style="font-family:宋体">数据文件的头都包含一个与数据文件所在表空间的</span><span lang="EN-US">blocksize</span><span style="font-family:宋体">的相等的</span><span lang="EN-US">block</span></span></p>
+						<p>
+							<span style="font-size:12px"><span style="font-family:宋体">这个</span><span lang="EN-US">block</span><span style="font-family:宋体">是不计算入</span><span lang="EN-US">oracle</span><span style="font-family:宋体">数据文件的</span><span lang="EN-US">bytes</span><span style="font-family:宋体">的，但在操作系统中，它是会占用空间的。</span></span></p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>
+			<a name="t4"></a><a rel="nofollow" size="2"><span style="font-family:宋体">如何用</span><span lang="EN-US">dd</span></a><span><span style="font-family:宋体"><span style="font-size:12px">测试磁盘速度？</span></span></span></h3>
+		<p>
+			<span style="font-family:宋体"><span style="font-size:12px">首先要了解两个特殊的设备：</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">/dev/null</span><span style="font-family:宋体">：回收站、无底洞</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">/dev/zero</span><span style="font-family:宋体">：产生</span><span style="font-family:宋体">字符</span></span></p>
+		<p style="text-indent:-21pt">
+			<span style="font-size:12px"><span lang="EN-US" style="font-family:Wingdings"><span>&Oslash;</span></span><span style="font-family:宋体">测试磁盘写能力</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">time dd if=/dev/zero of=/test.dbf bs=8k count=300000</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">因为</span><span lang="EN-US">/dev/zero</span><span style="font-family:宋体">是一个伪设备，它只产生空字符流，对它不会产生</span><span lang="EN-US">IO</span><span style="font-family:宋体">，所以，</span><span lang="EN-US">IO</span><span style="font-family:宋体">都会集中在</span><span lang="EN-US">of</span><span style="font-family:宋体">文件中，</span><span lang="EN-US">of</span><span style="font-family:宋体">文件只用于写，所以这个命令相当于测试磁盘的写能力。</span></span></p>
+		<p style="text-indent:-21pt">
+			<span style="font-size:12px"><span lang="EN-US" style="font-family:Wingdings"><span>&Oslash;</span></span><span style="font-family:宋体">测试磁盘读能力</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">time dd if=/dev/sdb1 of=/dev/null bs=8k</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">因为</span><span lang="EN-US">/dev/sdb1</span><span style="font-family:宋体">是一个物理分区，对它的读取会产生</span><span lang="EN-US">IO</span><span style="font-family:宋体">，</span><span lang="EN-US">/dev/null</span><span style="font-family:宋体">是伪设备，相当于黑洞，</span><span lang="EN-US">of</span><span style="font-family:宋体">到该设备不会产生</span><span lang="EN-US">IO</span><span style="font-family:宋体">，所以，这个命令的</span><span lang="EN-US">IO</span><span style="font-family:宋体">只发生在</span><span lang="EN-US">/dev/sdb1</span><span style="font-family:宋体">上，也相当于测试磁盘的读能力。</span></span></p>
+		<p style="text-indent:-21pt">
+			<span style="font-size:12px"><span lang="EN-US" style="font-family:Wingdings"><span>&Oslash;</span></span><span style="font-family:宋体">测试同时读写能力</span></span></p>
+		<p style="text-indent:18pt">
+			<span lang="EN-US"><span style="font-size:12px">time dd if=/dev/sdb1 of=/test1.dbf bs=8k</span></span></p>
+		<p style="text-indent:18pt">
+			<span style="font-size:12px"><span style="font-family:宋体">这个命令下，一个是物理分区，一个是实际的文件，对它们的读写都会产生</span><span lang="EN-US">IO</span><span style="font-family:宋体">（对</span><span lang="EN-US">/dev/sdb1</span><span style="font-family:宋体">是读，对</span><span lang="EN-US">/test1.dbf</span><span style="font-family:宋体">是写），假设他们都在一个磁盘中，这个命令就相当于测试磁盘的同时读写能力。</span></span></p>
+		<h3>
+			<a name="t5"></a><a rel="nofollow" size="2"><span style="font-family:宋体">是否需要</span><span lang="EN-US">skip</span></a><span style="font-size:12px"><span><span style="font-family:宋体">数据文件的</span><span lang="EN-US">block 0</span></span><span><span style="font-family:宋体">？</span></span></span></h3>
+		<p style="text-indent:-7.35pt">
+			<span style="font-family:宋体"><span style="font-size:12px">不需要。</span></span></p>
+		<p style="text-indent:-7.35pt">
+			<span style="font-size:12px"><span style="font-family:宋体">因为</span><span lang="EN-US">block 0</span><span style="font-family:宋体">位于</span><span lang="EN-US">offset</span><span style="font-family:宋体">之后，而</span><span lang="EN-US">block 0</span><span style="font-family:宋体">是所有数据文件都需要的，无论它是基于裸备还是文件系统，且</span><span lang="EN-US">block0</span><span style="font-family:宋体">的大小只与</span><span lang="EN-US">oracle</span><span style="font-family:宋体">的</span><span lang="EN-US">block size</span><span style="font-family:宋体">有关，所以，把</span><span lang="EN-US">block 0</span><span style="font-family:宋体">也</span><span lang="EN-US">dd</span><span style="font-family:宋体">出来是必要的，不需要</span><span lang="EN-US">skip</span><span style="font-family:宋体">数据文件的</span><span lang="EN-US">block 0</span><span style="font-family:宋体">。</span></span></p>
+		<h3>
+			<a name="t6"></a><a rel="nofollow" size="2"><span style="font-family:宋体">是否所有系统都有</span><span lang="EN-US">offset</span></a><span><span style="font-family:宋体"><span style="font-size:12px">？</span></span></span></h3>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">不是。</span><span lang="EN-US">aix</span><span style="font-family:宋体">和</span><span lang="EN-US">Turbo unix</span><span style="font-family:宋体">要注意</span><span lang="EN-US">offset</span><span style="font-family:宋体">，其他的一般没有。</span></span></p>
+		<h3>
+			<a name="t7"></a><a rel="nofollow" style="font-family:宋体"><span style="font-size:12px">如何计算数据文件的占用的实际空间大小？</span></a></h3>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">实际的数据文件大小是在</span><span lang="EN-US">dba_data_files</span><span style="font-family:宋体">中的</span><span lang="EN-US">bytes + 1* blocksize</span><span style="font-family:宋体">。</span></span></p>
+		<p>
+			<span style="font-family:宋体"><span style="font-size:12px">如：</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; select file_name,bytes from dba_data_files;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">FILE_NAME<span> </span>BYTESBLOCKSIZE</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">---------------------------------------- ---------- ----------</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/opt/oracle/oradata/test1/system01.dbf360710144<span> </span>8192</span></span></p>
+		<p>
+			<span style="font-family:宋体"><span style="font-size:12px">在操作系统查看文件大小：</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 soft]# ls -l system01.dbf</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">-rw-r--r--<span> </span>1 oracle oinstall 360718336 Nov 15 11:53 system01.dbf</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">360718336 = 360710144 + 8192 (8192</span><span style="font-family:宋体">是数据文件所在表空间的</span><span lang="EN-US">blocksize)</span></span></p>
+		<h3>
+			<a name="t8"></a><a rel="nofollow" style="font-family:宋体"><span style="font-size:12px">一个裸设备的数据文件最多可以是多大？</span></a></h3>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">这个和具体的操作系统和数据文件所在表空间的</span><span lang="EN-US">blocksize</span><span style="font-family:宋体">有关。</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">假设裸设备的大小是</span><span lang="EN-US">r</span><span style="font-family:宋体">，操作系统裸设备的</span><span lang="EN-US">offset</span><span style="font-family:宋体">为</span><span lang="EN-US">f</span><span style="font-family:宋体">，数据文件所在表空间的</span><span lang="EN-US">blocksize</span><span style="font-family:宋体">是</span><span lang="EN-US">b</span><span style="font-family:宋体">，则数据文件的最大大小为：</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">d=r &ndash; f &ndash; b*1<span> </span>(1</span><span style="font-family:宋体">为</span><span lang="EN-US">block 0)</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">如裸设备大小为</span><span lang="EN-US">1008k</span><span style="font-family:宋体">，</span><span lang="EN-US">offset</span><span style="font-family:宋体">为</span><span lang="EN-US">0</span><span style="font-family:宋体">，表空间的</span><span lang="EN-US">blocksize</span><span style="font-family:宋体">为</span><span lang="EN-US">4k</span><span style="font-family:宋体">，则在此裸设备的数据文件的最大大小为：</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">d=1008-0-1*4=1004(k)</span></span></p>
+		<h3>
+			<a name="t9"></a><a rel="nofollow" style="font-family:宋体"><span style="font-size:12px">在裸设备之间拷贝数据文件</span></a></h3>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">本例测试在裸设备之间拷贝</span><span lang="EN-US">oracle</span><span style="font-family:宋体">数据文件的步骤，并考虑两个问题：</span></span></p>
+		<p style="text-indent:-18pt">
+			<span style="font-size:12px"><span lang="EN-US"><span>1）</span></span><span style="font-family:宋体">假设旧设备比新设备小，把大的裸设备数据文件拷贝到小的裸设备是否可行？</span></span></p>
+		<p style="text-indent:-18pt">
+			<span style="font-size:12px"><span lang="EN-US"><span>2）</span></span><span style="font-family:宋体">旧裸设备比新裸设备小，是否可以拷贝数据文件到新裸设备上？</span></span></p>
+		<p>
+			<span style="font-family:宋体"><span style="font-size:12px">测试步骤：</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">#</span><span style="font-family:宋体">创建逻辑卷</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# lvcreate -L 10m -n lv10_old vgdata</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Logical volume &quot;lv10_old&quot; created</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# lvcreate -L 20m -n lv20_new vgdata</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Logical volume &quot;lv20_new&quot; created</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# lvcreate -L 40m -n lv40_old vgdata</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Logical volume &quot;lv40_old&quot; created</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# lvcreate -L 30m -n lv30_new vgdata</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Logical volume &quot;lv30_new&quot; created</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">#</span><span style="font-family:宋体">绑定裸设备</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# raw /dev/raw/raw100/dev/vgdata/lv10_old</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/dev/raw/raw100:<span> </span> bound to major 253, minor 2</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# raw /dev/raw/raw200/dev/vgdata/lv20_new</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/dev/raw/raw200:<span> </span> bound to major 253, minor 3</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# raw /dev/raw/raw400/dev/vgdata/lv40_old</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/dev/raw/raw400:<span> </span> bound to major 253, minor 4</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# raw /dev/raw/raw300/dev/vgdata/lv30_new</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/dev/raw/raw300:<span> </span> bound to major 253, minor 5</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">#</span><span style="font-family:宋体">基于裸设备创建表空间</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; create tablespace mytest datafile &#39;/dev/raw/raw100&#39; size 9m,&#39;/dev/raw/raw400&#39; size 20m;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Tablespace created.</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">#</span><span style="font-family:宋体">从小裸设备到大裸设备</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# dd if=&#39;/dev/raw/raw100&#39; of=&#39;/dev/raw/raw200&#39;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">20480+0 records in</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">20480+0 records out</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">#</span><span style="font-family:宋体">从大裸设备到小裸设备，但数据文件比小裸设备小</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# dd if=&#39;/dev/raw/raw400&#39; of=&#39;/dev/raw/raw300&#39; bs=1024k count=25</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">25+0 records in</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">25+0 records out</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">注意：这里</span><span lang="EN-US">bs*count</span><span style="font-family:宋体">要大于原裸设备上的数据文件尺寸</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; startup mount</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORACLE instance started.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total System Global Area167772160 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Fixed Size<span> </span>1260696 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Variable Size<span> </span>138412904 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database Buffers<span> </span> 25165824 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Redo Buffers<span> </span>2932736 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database mounted.</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">#</span><span style="font-family:宋体">重命名数据文件</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; alter database rename file &#39;/dev/raw/raw100&#39; to &#39;/dev/raw/raw200&#39;;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database altered.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; alter database rename file &#39;/dev/raw/raw400&#39; to &#39;/dev/raw/raw300&#39;;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database altered.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; alter database open;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database altered.</span></span></p>
+		<p>
+			<span style="font-family:宋体"><span style="font-size:12px">从这个测试可以看出：</span></span></p>
+		<p style="text-indent:-18pt">
+			<span style="font-size:12px"><span lang="EN-US"><span>1）</span></span><span style="font-family:宋体">从小裸设备到大裸设备，只需把小裸设备的所有数据块</span><span lang="EN-US">dd</span><span style="font-family:宋体">到大裸设备即可</span></span></p>
+		<p style="text-indent:-18pt">
+			<span style="font-size:12px"><span lang="EN-US"><span>2）</span></span><span style="font-family:宋体">是否可以把大裸设备上的数据文件</span><span lang="EN-US">dd</span><span style="font-family:宋体">到小裸设备，取决于位于大裸设备上的数据文件尺寸</span><span lang="EN-US">(+block 0)</span><span style="font-family:宋体">是否比小裸设备小。如果数据文件小于小裸设备，则可以把数据文件从大裸设备</span><span lang="EN-US">dd</span><span style="font-family:宋体">到小裸设备上，在</span><span lang="EN-US">dd</span><span style="font-family:宋体">过程中不需要太准确计算原来数据文件的大小，只要保证</span><span lang="EN-US">dd</span><span style="font-family:宋体">的总量大于数据文件并小于小裸设备的尺寸即可。</span></span></p>
+		<p style="text-indent:-18pt">
+			<span style="font-size:12px"><span lang="EN-US"><span>3）</span></span><span style="font-family:宋体">如果数据文件大于小裸设备的尺寸，则肯定不能把它从大裸设备拷贝到小裸设备上</span></span></p>
+		<p style="text-indent:-18pt">
+			<span style="font-size:12px"><span lang="EN-US"><span>4）</span></span><span style="font-family:宋体">裸设备之间拷贝数据文件比裸设备到文件系统之间拷贝的有点在于：不需要精确计算要拷贝多少数据，只需要保证覆盖了数据文件</span><span lang="EN-US">+block 0</span><span style="font-family:宋体">即可；而从裸设备到文件系统拷贝数据文件时，必须准确计算出要拷贝的数据量（数据文件</span><span lang="EN-US">+block 0</span><span style="font-family:宋体">），</span><span lang="EN-US">dd</span><span style="font-family:宋体">多一点或者少一点都会报错。</span></span></p>
+		<p style="text-indent:-18pt">
+			<span style="font-size:12px"><span lang="EN-US"><span>5）</span></span><span style="font-family:宋体">如果有</span><span lang="EN-US">offset</span><span style="font-family:宋体">的话，在裸设备之间拷贝数据文件的时候都要考虑（</span><span lang="EN-US">skip</span><span style="font-family:宋体">、</span><span lang="EN-US">seek</span><span style="font-family:宋体">）</span></span></p>
+		<h3>
+			<a name="t10"></a><a rel="nofollow" size="2"><span style="font-family:宋体">从文件系统到裸设备拷贝</span><span lang="EN-US">ORACLE</span></a><span><span style="font-family:宋体"><span style="font-size:12px">数据文件</span></span></span></h3>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">这个比较简单，首先要保证裸设备的大小要大于等于</span><span lang="EN-US">oracle</span><span style="font-family:宋体">数据文件大小</span><span lang="EN-US"> + block 0</span><span style="font-family:宋体">，如果裸设备需要</span><span lang="EN-US">offset</span><span style="font-family:宋体">的话，则要保证更大，然后直接用</span><span lang="EN-US">dd</span><span style="font-family:宋体">就可以。</span></span></p>
+		<p>
+			<span style="font-family:宋体"><span style="font-size:12px">如：</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">#</span><span style="font-family:宋体">源文件大小为</span>10m</span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# ls -l /opt/oracle/oradata/test1/users02.dbf</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">-rw-r-----<span> </span>1 oracle oinstall 10493952 Nov 30 11:07 /opt/oracle/oradata/test1/users02.dbf</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">#</span><span style="font-family:宋体">创建一个</span>20m<span style="font-family:宋体">的裸设备</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# lvcreate -L 20m -n lv20 vgdata</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Logical volume &quot;lv20&quot; created</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# raw /dev/raw/raw20 /dev/vgdata/lv20</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/dev/raw/raw20: bound to major 253, minor 1</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">#dd</span><span style="font-family:宋体">文件到裸设备上</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 ~]# dd if=/opt/oracle/oradata/test1/users02.dbf of=/dev/raw/raw20</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">20496+0 records in</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">20496+0 records out</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">注意：从文件系统到裸设备不用设置</span><span lang="EN-US">count</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">#</span><span style="font-family:宋体">重命名数据文件，打开数据库</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; alter database rename file &#39;/opt/oracle/oradata/test1/users02.dbf&#39; to &#39;/dev/raw/raw20&#39;;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database altered.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; alter database open;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database altered</span></span></p>
+		<h3>
+			<a name="t11"></a><a rel="nofollow" size="2"><span style="font-family:宋体">从裸设备到文件系统拷贝</span><span lang="EN-US">ORACLE</span></a><span><span style="font-family:宋体"><span style="font-size:12px">数据文件</span></span></span></h3>
+		<p>
+			<span style="font-family:宋体"><span style="font-size:12px">这里用用到两个工具：</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">dbfsize </span><span style="font-family:宋体">求出在裸设备或者文件系统上的</span><span lang="EN-US">oracle</span><span style="font-family:宋体">数据文件的大小，由</span><span lang="EN-US">oracle</span><span style="font-family:宋体">提高。</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">blockdev </span><span style="font-family:宋体">求出裸设备的大小，操作系统自带。</span></span></p>
+		<p>
+			<span style="font-family:宋体"><span style="font-size:12px">要计算出要要拷贝的大小，否则报错，如：</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[oracle@suk1 soft]$ dbfsize /dev/raw/raw1</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database file: /dev/raw/raw1</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database file type: raw device</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database file size: 44032 8192 byte blocks</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[oracle@suk1 soft]$ time dd if=/dev/raw/raw1 of=system01.dbf bs=8k count=44032</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; alter database rename file &#39;/opt/oracle/oradata/test1/system01.dbf&#39; to &#39;/soft/system01.dbf&#39;;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database altered.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; alter database open;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">alter database open</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">*</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ERROR at line 1:</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORA-01122: database file 1 failed verification check</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORA-01110: data file 1: &#39;/soft/system01.dbf&#39;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORA-01200: actual file size of 44031 is smaller than correct size of 44032 blocks</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">--</span><span style="font-family:宋体">不要忘了</span><span lang="EN-US">block 0</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[oracle@suk1 soft]$ rm system01.dbf</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[oracle@suk1 soft]$ dd if=/dev/raw/raw1 of=system01.dbf bs=8k count=44033</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; startup</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORACLE instance started.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total System Global Area167772160 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Fixed Size<span> </span>1260696 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Variable Size<span> </span>100664168 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database Buffers<span> </span> 62914560 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Redo Buffers<span> </span>2932736 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database mounted.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database opened.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; select file_name from dba_data_files;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">FILE_NAME</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">------------------------------------------------------------</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/soft/system01.dbf</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/opt/oracle/oradata/test1/undotbs01.dbf</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/opt/oracle/oradata/test1/sysaux01.dbf</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/opt/oracle/oradata/test1/users01.dbf</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/opt/oracle/oradata/test1/users02.dbf</span></span></p>
+		<h3>
+			<a name="t12"></a><a rel="nofollow" style="font-family:宋体"><span style="font-size:12px">是否可以把整个裸设备拷贝到文件中？</span></a></h3>
+		<p>
+			<span style="font-family:宋体"><span style="font-size:12px">有时候可能需要把裸设备的数据文件迁移到文件系统中，那迁移的时候是否可以把整个裸设备拷出来？</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">不一定，要看裸设备是否有</span><span lang="EN-US">offset</span><span style="font-family:宋体">，如果有</span><span lang="EN-US">offset</span><span style="font-family:宋体">，则肯定不能全拷贝出来；如果没有</span><span lang="EN-US">offset</span><span style="font-family:宋体">，也要分情况：</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">1</span><span style="font-family:宋体">）裸设备中的数据文件</span><span lang="EN-US"> + block 0</span><span style="font-family:宋体">比裸设备小。</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">如果数据文件大小</span><span lang="EN-US"> + block 0</span><span style="font-family:宋体">比裸设备小，则不能将整个裸设备拷到文件系统的文件中。</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 soft]# dd if=/dev/raw/raw1 of=system01.dbf bs=8k</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; startup mount</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORACLE instance started.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total System Global Area167772160 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Fixed Size<span> </span>1260696 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Variable Size<span> </span>75498344 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database Buffers<span> </span> 88080384 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Redo Buffers<span> </span>2932736 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database mounted.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; alter database rename file &#39;/opt/oracle/oradata/test1/system01.dbf&#39; to &#39;/soft/system01.dbf&#39;;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database altered.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; alter database open;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">alter database open</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">*</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ERROR at line 1:</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORA-01157: cannot identify/lock data file 1 - see DBWR trace file</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORA-01110: data file 1: &#39;/soft/system01.dbf&#39;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Errors in file /opt/oracle/admin/test1/bdump/test1_dbw0_9564.trc:</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORA-01157: cannot identify/lock data file 1 - see DBWR trace file</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORA-01110: data file 1: &#39;/soft/system01.dbf&#39;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORA-27046: file size is not a multiple of logical block size</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Additional information: 1</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORA-1157 signalled during: ALTER DATABASE OPEN...</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">这是因为裸设备已被数据文件使用部分的逻辑块与未使用部分的逻辑块大小不一致。这种情况下，只能拷贝裸设备中数据文件大小</span><span lang="EN-US"> + block 0</span><span style="font-family:宋体">部分。</span></span></p>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">2</span><span style="font-family:宋体">）裸设备中的数据文件</span><span lang="EN-US"> + block 0</span><span style="font-family:宋体">等于裸设备大小</span></span></p>
+		<p>
+			<span style="font-family:宋体"><span style="font-size:12px">这种情况是可以完全拷贝的。</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 soft]# lvcreate -L 1008k -n test1008 vgdata</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Logical volume &quot;test1008&quot; created</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[root@suk1 soft]# raw /dev/raw/raw1008 /dev/vgdata/test1008</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/dev/raw/raw1008:<span> </span> bound to major 253, minor 0</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt;<span> </span>create tablespace test blocksize 4k datafile &#39;/dev/raw/raw1008&#39; size 1004k;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Tablespace created.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; select file_name,bytes,bytes/blocks blocksize from dba_data_files;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">FILE_NAME<span> </span>BYTESBLOCKSIZE</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">------------------------- ---------- ----------</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">/dev/raw/raw1008<span> </span> 1028096<span> </span>4096</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">1028096 + 4096 =1008(k)</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; startup mount</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">ORACLE instance started.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[oracle@suk1 soft]$ dd if=/dev/raw/raw1008 of=test.dbf</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">2016+0 records in</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">2016+0 records out</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total System Global Area167772160 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Fixed Size<span> </span>1260696 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Variable Size<span> </span>130024296 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database Buffers<span> </span> 33554432 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Redo Buffers<span> </span>2932736 bytes</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database mounted.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; alter database rename file &#39;/dev/raw/raw1008&#39; to &#39;/soft/test.dbf&#39;;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database altered.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">SQL&gt; alter database open;</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Database altered.</span></span></p>
+		<h3>
+			<a name="t13"></a><a rel="nofollow" style="font-family:宋体"><span style="font-size:12px">各种拷贝方式的比较</span></a></h3>
+		<p style="text-indent:-21pt">
+			<span style="font-size:12px"><span lang="EN-US" style="font-family:Wingdings"><span>&Oslash;</span></span><span style="font-family:宋体">裸设备到裸设备</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">需要考虑裸设备的</span><span lang="EN-US">offset</span><span style="font-family:宋体">；要保证新设备的大小满足数据文件的需求；不需要精确计算要拷贝的尺寸，保证大于等于数据文件大小</span><span lang="EN-US">+block 0</span><span style="font-family:宋体">即可（必须从数据字段中才能查出</span><span lang="EN-US">oracle</span><span style="font-family:宋体">数据文件的大小）</span></span></p>
+		<p style="text-indent:-21pt">
+			<span style="font-size:12px"><span lang="EN-US" style="font-family:Wingdings"><span>&Oslash;</span></span><span style="font-family:宋体">裸设备到文件系统</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">需要考虑裸设备的</span><span lang="EN-US">offset</span><span style="font-family:宋体">；必须精确计算要拷贝的尺寸，包括的尺寸必须刚好等于数据文件大小</span><span lang="EN-US">+block 0</span><span style="font-family:宋体">（因为无法通过操作系统命令看数据文件的大小，必须通过</span><span lang="EN-US">oracle</span><span style="font-family:宋体">数据字典查看）</span></span></p>
+		<p style="text-indent:-21pt">
+			<span style="font-size:12px"><span lang="EN-US" style="font-family:Wingdings"><span>&Oslash;</span></span><span style="font-family:宋体">文件系统到裸设备</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">需要考虑裸设备的</span><span lang="EN-US">offset</span><span style="font-family:宋体">；不需要精确计算要拷贝的尺寸，把文件全部拷到裸设备即可。</span></span></p>
+		<p style="text-indent:-21pt">
+			<span style="font-size:12px"><span lang="EN-US" style="font-family:Wingdings"><span>&Oslash;</span></span><span style="font-family:宋体">文件系统到文件系统</span></span></p>
+		<p>
+			<span style="font-size:12px"><span style="font-family:宋体">不用考虑</span><span lang="EN-US">offset</span><span style="font-family:宋体">。不需要精确计算要拷贝的尺寸，把文件全部拷贝过去就可以。</span></span></p>
+		<h3>
+			<a name="t14"></a><a rel="nofollow" style="font-family:宋体"><span style="font-size:12px">验证备份</span></a></h3>
+		<p>
+			<span style="font-size:12px"><span lang="EN-US">Oracle</span><span style="font-family:宋体">提高</span><span lang="EN-US">dbv</span><span style="font-family:宋体">工具来验证备份文件是否有损坏：</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">[oracle@suk1 ~]$ dbv file=/dev/raw/raw300</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">DBVERIFY: Release 10.2.0.3.0 - Production on Fri Nov 30 16:49:59 2007</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Copyright (c) 1982, 2005, Oracle.All rights reserved.</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">DBVERIFY - Verification starting : FILE = /dev/raw/raw300</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">DBVERIFY - Verification complete</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total Pages Examined<span> </span> : 2560</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total Pages Processed (Data) : 0</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total Pages Failing<span> </span> (Data) : 0</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total Pages Processed (Index): 0</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total Pages Failing<span> </span> (Index): 0</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total Pages Processed (Other): 8</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total Pages Processed (Seg): 0</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total Pages Failing<span> </span> (Seg)<span> </span>: 0</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total Pages Empty<span> </span> : 2552</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total Pages Marked Corrupt: 0</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Total Pages Influx<span> </span> : 0</span></span></p>
+		<p>
+			<span lang="EN-US"><span style="font-size:12px">Highest block SCN<span> </span> : 487492 (0.487492)</span></span></p>
+	</div>
+</div>

@@ -1,0 +1,107 @@
+<p>
+	<br />
+	Shell 字符串比较<br />
+	正则表达式CC++C#F#<br />
+	Shell字符串比较 收藏<br />
+	Shell 中整数比较方法及字符串的比较方法,如等于，不等于，大于，大于等于，小于，等等。<br />
+	二元比较操作符,比较变量或者比较数字.注意数字与字符串的区别.<br />
+	<br />
+	<br />
+	--------------------------------------------------------------------------------<br />
+	<br />
+	整数比较<br />
+	<br />
+	-eq&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 等于,如:if [ &quot;$a&quot; -eq &quot;$b&quot; ]<br />
+	-ne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 不等于,如:if [ &quot;$a&quot; -ne &quot;$b&quot; ]<br />
+	-gt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 大于,如:if [ &quot;$a&quot; -gt &quot;$b&quot; ]<br />
+	-ge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 大于等于,如:if [ &quot;$a&quot; -ge &quot;$b&quot; ]<br />
+	-lt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 小于,如:if [ &quot;$a&quot; -lt &quot;$b&quot; ]<br />
+	-le&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 小于等于,如:if [ &quot;$a&quot; -le &quot;$b&quot; ]<br />
+	&lt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 小于(需要双括号),如:((&quot;$a&quot; &lt; &quot;$b&quot;))<br />
+	&lt;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 小于等于(需要双括号),如:((&quot;$a&quot; &lt;= &quot;$b&quot;))<br />
+	&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 大于(需要双括号),如:((&quot;$a&quot; &gt; &quot;$b&quot;))<br />
+	&gt;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 大于等于(需要双括号),如:((&quot;$a&quot; &gt;= &quot;$b&quot;))<br />
+	<br />
+	<br />
+	--------------------------------------------------------------------------------<br />
+	<br />
+	字符串比较<br />
+	<br />
+	=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 等于,如:if [ &quot;$a&quot; = &quot;$b&quot; ]<br />
+	==&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 等于,如:if [ &quot;$a&quot; == &quot;$b&quot; ],与=等价<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注意:==的功能在[[]]和[]中的行为是不同的,如下:<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 [[ $a == z* ]]&nbsp;&nbsp;&nbsp; # 如果$a以&quot;z&quot;开头(模式匹配)那么将为true<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 [[ $a == &quot;z*&quot; ]] # 如果$a等于z*(字符匹配),那么结果为true<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 [ $a == z* ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # File globbing 和word splitting将会发生<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 [ &quot;$a&quot; == &quot;z*&quot; ] # 如果$a等于z*(字符匹配),那么结果为true<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 一点解释,关于File globbing是一种关于文件的速记法,比如&quot;*.c&quot;就是,再如~也是.<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 但是file globbing并不是严格的正则表达式,虽然绝大多数情况下结构比较像.<br />
+	!=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 不等于,如:if [ &quot;$a&quot; != &quot;$b&quot; ]<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这个操作符将在[[]]结构中使用模式匹配.<br />
+	&lt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 小于,在ASCII字母顺序下.如:<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [[ &quot;$a&quot; &lt; &quot;$b&quot; ]]<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [ &quot;$a&quot; \&lt; &quot;$b&quot; ]<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注意:在[]结构中&quot;&lt;&quot;需要被转义.<br />
+	&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 大于,在ASCII字母顺序下.如:<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [[ &quot;$a&quot; &gt; &quot;$b&quot; ]]<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [ &quot;$a&quot; \&gt; &quot;$b&quot; ]<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注意:在[]结构中&quot;&gt;&quot;需要被转义.<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 具体参考Example 26-11来查看这个操作符应用的例子.<br />
+	-z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 字符串为&quot;null&quot;.就是长度为0.<br />
+	-n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 字符串不为&quot;null&quot;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注意:<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 使用-n在[]结构中测试必须要用&quot;&quot;把变量引起来.使用一个未被&quot;&quot;的字符串来使用! -z<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 或者就是未用&quot;&quot;引用的字符串本身,放到[]结构中。虽然一般情况下可<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 以工作,但这是不安全的.习惯于使用&quot;&quot;来测试字符串是一种好习惯.<br />
+	<br />
+	<br />
+	--------------------------------------------------------------------------------<br />
+	<br />
+	Shell数字比较举例<br />
+	<br />
+	方法一： if [ ${A} -lt ${B} ]; then ...<br />
+	这是最基本的比较方法，使用lt(小于),gt(大于),le(小于等于),ge(大于等于)，优点：还没发现；缺点：只能比较整数，使用lt,gt等不直观<br />
+	方法二： if ((${A} &lt; ${B})) then ...<br />
+	这是CShell风格比较，优点：不用使用lt,gt等难记的字符串；缺点：还是只能比较整数<br />
+	方法三： if (echo ${A} ${B} | awk &#39;!($1&gt;$2){exit 1}&#39;) then ...<br />
+	这是使用awk比较，优点：可以比较小数；缺点：表达式太复杂，难记<br />
+	方法四： if (echo ${A} - ${B} | bc -q | grep -q &quot;^-&quot;); then ...<br />
+	这是使用bc计算比较，优点：可以比较小数；缺点：表达式更复杂，难记<br />
+	<br />
+	<br />
+	--------------------------------------------------------------------------------<br />
+	<br />
+	Shell计算<br />
+	<br />
+	方法一：typeset C=$(expr ${A} + ${B}); / typeset C=&middot;expr ${A} + ${B}&middot;;<br />
+	<br />
+	shell中的基本工具，优点：方便检测变量是否为数字；缺点：只能计算整数，且只能计算加减法，不能计算乘除法<br />
+	方法二：let &quot;C=${A}+${B}&quot;; 或 let &quot;C=A+B&quot;<br />
+	内嵌命令计算，优点：能计算乘除法及位运算等；缺点：只能计算整数<br />
+	方法三：typeset C=$((A+B))<br />
+	CShell风格的计算，优点：能计算乘除法及位运算等，简介，编写方便；缺点：不能计算小数<br />
+	方法四：typeset C=${echo ${A} ${B} | awk &#39;{print $1+$2}&#39;)<br />
+	使用awk计算，优点：能计算小数，可以实现多种计算方式，计算灵活；缺点：表达式太复杂<br />
+	方法五：typeset C=${echo ${A} + ${B} | bc -q)<br />
+	使用awk计算，优点：能计算小数，计算方式比awk还多，计算灵活；缺点：表达式太复杂，小数点后面的位数必须使用scale=N来设置，否则可能会将结果截断为整数<br />
+	<br />
+	<br />
+	--------------------------------------------------------------------------------<br />
+	<br />
+	awk &#39;{print $2}&#39; class.txt | grep &#39;^[0-9.]&#39; &gt; res<br />
+	&ndash;b 当file存在并且是块文件时返回真<br />
+	-c 当file存在并且是字符文件时返回真<br />
+	-d 当pathname存在并且是一个目录时返回真<br />
+	-e 当pathname指定的文件或目录存在时返回真<br />
+	-f 当file存在并且是正规文件时返回真<br />
+	-g 当由pathname指定的文件或目录存在并且设置了SGID位时返回为真<br />
+	-h 当file存在并且是符号链接文件时返回真，该选项在一些老系统上无效<br />
+	-k 当由pathname指定的文件或目录存在并且设置了&ldquo;粘滞&rdquo;位时返回真<br />
+	-p 当file存在并且是命令管道时返回为真<br />
+	-r 当由pathname指定的文件或目录存在并且可读时返回为真<br />
+	-s 当file存在文件大小大于0时返回真<br />
+	-u 当由pathname指定的文件或目录存在并且设置了SUID位时返回真<br />
+	-w 当由pathname指定的文件或目录存在并且可执行时返回真。一个目录为了它的内容被访问必然是可执行的。<br />
+	-o 当由pathname指定的文件或目录存在并且被子当前进程的有效用户ID所指定的用户拥有时返回真<br />
+	&nbsp;</p>

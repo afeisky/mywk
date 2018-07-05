@@ -1,0 +1,447 @@
+<p>
+	<a href="http://blog.csdn.net/epubit17/article/details/78038722"><font color="red"><strong>步赠书：9月重磅新书升级，本本经典</strong></font></a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="http://blog.csdn.net/blogdevteam/article/details/78105371"> </a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="http://blog.csdn.net/turingbooks/article/details/78017356"> <font color="blue"><strong>程序员9月书讯</strong></font></a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="http://blog.csdn.net/broadview2006/article/details/78018836"> <font color="red"><strong>每周荐书：ES6、虚拟现实、物联网（评论送书）</strong></font></a></p>
+<div class="details" id="article_details">
+	<div class="article_title">
+		<h1>
+			<span class="link_title"><a href="http://blog.csdn.net/tung214/article/details/72734086"> Android SELinux avc dennied权限问题解决方法 </a> </span></h1>
+	</div>
+	<div class="article_manage clearfix">
+		<div class="article_l">
+			<span class="link_categories">标签： <a href="http://www.csdn.net/tag/SElinux" target="_blank">SElinux</a><a href="http://www.csdn.net/tag/SEAndroid" target="_blank">SEAndroid</a><a href="http://www.csdn.net/tag/%e6%9d%83%e9%99%90" target="_blank">权限</a><a href="http://www.csdn.net/tag/Android" target="_blank">Android</a> </span></div>
+		<div class="article_r">
+			<span class="link_postdate">2017-05-25 18:10</span> <span class="link_view" title="阅读次数">672人阅读</span> <span class="link_comments" title="评论次数"> <a href="http://blog.csdn.net/tung214/article/details/72734086#comments">评论</a>(0)</span> <span class="link_collect tracking-ad" data-mod="popu_171"> <a title="收藏">收藏</a></span> <span class="link_report"> <a href="http://blog.csdn.net/tung214/article/details/72734086#report" title="举报">举报</a></span></div>
+	</div>
+	<div class="bog_copyright">
+		<p class="copyright_p">
+			版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+	</div>
+	<div style="border:solid 1px #ccc; background:#eee; float:left; min-width:200px;padding:4px 10px;">
+		<p style="text-align:right;margin:0;">
+			<span style="float:left;">目录<a href="http://blog.csdn.net/tung214/article/details/72734086#" title="系统根据文章中H1到H6标签自动生成文章目录">(?)</a></span><a href="http://blog.csdn.net/tung214/article/details/72734086#" title="展开">[+]</a></p>
+	</div>
+	<div class="article_content tracking-ad" data-dsm="post" data-mod="popu_307" id="article_content">
+		<div>
+			<span style="font-size:19px">这篇文字本人原创于2015年，并作为原厂发布文档release，当时并未上传博客，估计已经被很多网友发表了。</span></div>
+		<div>
+			&nbsp;</div>
+		<div>
+			<h1>
+				<a name="t0"></a><a name="_Toc457490117" target="_blank"></a>1.&nbsp;<strong>概述</strong></h1>
+			<p>
+				SELinux<span style="font-family:宋体">是</span>Google<span style="font-family:宋体">从</span>android 5.0<span style="font-family:宋体">开始，</span>强制<span style="font-family:宋体">引入</span>的一套<span style="font-family:宋体">非常严格的权限管理机制，</span>主要用于增强系统的安全性。</p>
+			<p>
+				然而，在开发中，<span style="font-family:宋体">我们经常会遇到</span><span style="font-family:宋体">由于</span>SELinux<span style="font-family:宋体">造成的各种权限不足，即使拥有&ldquo;万能的</span><span style="font-family:Times New Roman">root</span><span style="font-family:宋体">权限&rdquo;，也不能获取全部的权限。</span><span style="font-family:宋体">本文</span>旨在结合具体案例，讲解<span style="font-family:宋体">如何根据</span>log<span style="font-family:宋体">来快速解决</span>90%<span style="font-family:宋体">的</span><span style="font-family:Times New Roman">SELinux</span><span style="font-family:宋体">权限问题。</span></p>
+			<h1>
+				<a name="t1"></a><a name="_Toc457490118" target="_blank"></a>2.&nbsp;<strong><span style="font-family:宋体">调试确认</span>SELinux<span style="font-family:宋体">问题</span></strong></h1>
+			<p>
+				<span style="font-family:宋体">为了澄清是否因为</span>SELinux<span style="font-family:宋体">导致的问题，可先执行：</span></p>
+			<p>
+				setenforce 0 <span style="font-family:宋体">（临时禁用掉</span>SELinux<span style="font-family:宋体">）</span></p>
+			<p>
+				getenforce &nbsp;（得到结果为Permissive）</p>
+			<p>
+				<span style="font-family:宋体">如果问题消失了，基本可以确认是</span>SELinux<span style="font-family:宋体">造成的权限问题，需要通过正规的方式来解决权限问题。</span></p>
+			<p>
+				<span style="font-family:宋体">遇到权限问题，在</span>logcat<span style="font-family:宋体">或者</span><span style="font-family:Times New Roman">kernel</span><span style="font-family:宋体">的</span><span style="font-family:Times New Roman">log</span><span style="font-family:宋体">中一定会打印</span><span style="font-family:Times New Roman">avc denied</span><span style="font-family:宋体">提示缺少什么权限，可以通过命令过滤出所有的</span><span style="font-family:Times New Roman">avc denied</span><span style="font-family:宋体">，再根据这些</span><span style="font-family:Times New Roman">log</span><span style="font-family:宋体">各个击破：</span></p>
+			<p>
+				<strong><span style="background:rgb(0,255,0)">cat /proc/kmsg | grep avc</span>&nbsp;</strong></p>
+			<p>
+				或</p>
+			<p>
+				<strong><span style="background:rgb(0,255,0)">dmesg | grep avc</span></strong></p>
+			<p>
+				<strong>例如：</strong></p>
+			<p>
+				audit(0.0:67): avc: denied { write } for path=&quot;/dev/block/vold/93:96&quot; dev=&quot;tmpfs&quot; ino=1263 scontext=u:r:kernel:s0 tcontext=u:object_r:block_device:s0 tclass=blk_file permissive=0</p>
+			<p>
+				<span style="font-family:宋体">可以看到有</span>avc&nbsp;denied<span style="font-family:宋体">，且最后有</span>permissive=0<span style="font-family:宋体">，表示不允许。</span></p>
+			<h1>
+				<a name="t2"></a><a name="_Toc457490119" target="_blank"></a>3.&nbsp;<strong>具体案例分析</strong></h1>
+			<p>
+				<strong><span style="font-family:宋体">解决原则是</span>：<span style="font-family:宋体">缺什么</span>权限<span style="font-family:宋体">补什么，</span>一步一步<span style="font-family:宋体">补到没有</span>avc denied<span style="font-family:宋体">为止。</span></strong></p>
+			<p>
+				<span style="font-family:宋体">解决权限问题需要修改的权限文件如下位置，以</span>.te<span style="font-family:宋体">结尾</span></p>
+			<p>
+				A<span style="font-family:宋体">：</span>Android/devicesoftwinner/astar-common/sepolicy/*.te</p>
+			<p>
+				B<span style="font-family:宋体">：</span>Android/external/sepolicy/*.te</p>
+			<p>
+				<span style="font-family:宋体">其中，</span>A<span style="font-family:宋体">是对</span><span style="font-family:Times New Roman">B</span><span style="font-family:宋体">的</span><span style="font-family:Times New Roman">overlay</span><span style="font-family:宋体">（覆盖），能在</span><span style="font-family:Times New Roman">A</span><span style="font-family:宋体">修改的尽量在</span><span style="font-family:Times New Roman">A</span><span style="font-family:宋体">修改，尽量避免修改</span><span style="font-family:Times New Roman">B</span><span style="font-family:宋体">，修改</span><span style="font-family:Times New Roman">B</span><span style="font-family:宋体">可能会导致</span><span style="font-family:Times New Roman">CTS</span>&nbsp;fail<span style="font-family:宋体">问题，修改</span>A<span style="font-family:宋体">不会影响</span><span style="font-family:Times New Roman">CTS</span><span style="font-family:宋体">测试。</span></p>
+			<p>
+				（如果不需要深入了解，请直接跳到<a href="http://blog.csdn.net/tung214/article/details/72734086#_%E4%B8%87%E8%83%BD%E5%85%AC%E5%BC%8F" target="_blank"><strong><u><span style="color:rgb(0,0,255)"><span style="font-family:宋体">万能公</span><span style="font-family:宋体">式</span></span></u></strong></a>这一章阅读更简洁）</p>
+			<p>
+				<span style="font-family:宋体">下面给出四个案例：</span></p>
+			<p>
+				<span style="font-family:宋体">案例</span>1</p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(0,0,0)" valign="top">
+							<p>
+								<span style="color:rgb(255,255,255)">audit(0.0:67): avc: denied { </span><strong><span style="color:rgb(255,255,255)">write</span></strong><span style="color:rgb(255,255,255)">&nbsp;} for path=&quot;/dev/block/vold/93:96&quot; dev=&quot;tmpfs&quot; ino=</span><span style="color:rgb(255,255,255)">/</span><span style="color:rgb(255,255,255)">1263 scontext=u:r:</span><strong><span style="color:rgb(255,255,255)">kerne</span></strong><span style="color:rgb(255,255,255)">l:s0 tcontext=u:object_r:</span><strong><span style="color:rgb(255,255,255)">block_device</span></strong><span style="color:rgb(255,255,255)">:s0 tclass=</span><strong><span style="color:rgb(255,255,255)">blk_file</span><span style="color:rgb(255,255,255)">&nbsp;</span></strong><span style="color:rgb(255,255,255)">permissive=0</span></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				&nbsp;</p>
+			<p>
+				分析过程：</p>
+			<p>
+				<span style="font-family:宋体">缺少什么权限：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<strong>&nbsp;write</strong>&nbsp;}<span style="font-family:宋体">权限，</span></p>
+			<p>
+				<span style="font-family:宋体">谁缺少权限：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scontext=u:r:<strong>kernel</strong>:s0</p>
+			<p>
+				对哪个文件缺少权限：tcontext=u:object_r:<strong>block_device</strong></p>
+			<p>
+				<span style="font-family:宋体">什么类型的文件：</span> &nbsp;&nbsp;&nbsp;tclass=<strong>blk_file</strong></p>
+			<p>
+				完整的意思： kernel<span style="font-family:宋体">进程对</span><span style="font-family:Times New Roman">block</span>_device<span style="font-family:宋体">类型的</span>blk_file<span style="font-family:宋体">缺少</span>write<span style="font-family:宋体">权限。</span></p>
+			<p>
+				&nbsp;</p>
+			<p>
+				<span style="font-family:宋体">解决方法：</span><span style="font-family:宋体">在上文</span>A<span style="font-family:宋体">位置，找到</span><span style="font-family:Times New Roman">kernel</span>.te这个文件，加入以下内容：</p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(230,230,230)" valign="top">
+							<p>
+								allow &nbsp;<strong>kernel &nbsp;block_device:blk_file &nbsp;write</strong>;</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				make installclean<span style="font-family:宋体">后重新编译，刷</span>boot.img才会生效。</p>
+			<p>
+				&nbsp;</p>
+			<p>
+				<span style="font-family:宋体">案例</span>2</p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(0,0,0)" valign="top">
+							<p>
+								<span style="color:rgb(255,255,255)">audit(0.0:53): avc: denied { </span><strong><span style="color:rgb(255,255,255)">execute</span></strong><span style="color:rgb(255,255,255)">&nbsp;} for &nbsp;path=&quot;/data/data/com.mofing/qt-reserved-files/plugins/platforms/libgnustl_shared.so&quot; dev=&quot;nandl&quot; ino=115502 scontext=u:r:</span><strong><span style="color:rgb(255,255,255)">platform_app</span></strong><span style="color:rgb(255,255,255)">:s0 tcontext=u:object_r:</span><strong><span style="color:rgb(255,255,255)">app_data_file:</span></strong><span style="color:rgb(255,255,255)">s0 tclass=file permissive=0</span></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				&nbsp;</p>
+			<p>
+				分析过程：</p>
+			<p>
+				<span style="font-family:宋体">缺少什么权限：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<strong>&nbsp;execute</strong>}<span style="font-family:宋体">权限，</span></p>
+			<p>
+				<span style="font-family:宋体">谁缺少权限：</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scontext&nbsp;=&nbsp;u:r:<strong>platform_app</strong>:s0</p>
+			<p>
+				对哪个文件缺少权限：tcontext = u:object_r:<strong>app_data_file</strong></p>
+			<p>
+				<span style="font-family:宋体">什么类型的文件：</span> &nbsp;&nbsp;&nbsp;tclass=<strong>&nbsp;file</strong></p>
+			<p>
+				完整的意思： platform_app<span style="font-family:宋体">进程对</span>app_data_file<span style="font-family:宋体">类型的</span><span style="font-family:Times New Roman">f</span>ile<span style="font-family:宋体">缺少</span>execute权限。</p>
+			<p>
+				&nbsp;</p>
+			<p>
+				<span style="font-family:宋体">解决方法：</span><span style="font-family:宋体">在上文</span>A<span style="font-family:宋体">位置，找到</span>platform_app.te这个文件，加入以下内容：</p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(230,230,230)" valign="top">
+							<p>
+								allow&nbsp;&nbsp;<strong>platform_app&nbsp;&nbsp;app_data_file:file &nbsp;execute;</strong></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				make installclean<span style="font-family:宋体">后重新编译，刷</span>boot.img才会生效。</p>
+			<p>
+				&nbsp;</p>
+			<p>
+				<span style="font-family:宋体">案例</span>3</p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(0,0,0)" valign="top">
+							<p>
+								<span style="color:rgb(255,255,255)">audit(1444651438.800:8): avc: denied { </span> <strong><span style="color:rgb(255,255,255)">search </span></strong><span style="color:rgb(255,255,255)">} for pid=158 comm=&quot;setmacaddr&quot; name=&quot;/&quot; dev=&quot;nandi&quot; ino=1 scontext=u:r:</span><strong><span style="color:rgb(255,255,255)">engsetmacaddr</span></strong><span style="color:rgb(255,255,255)">:s0 tcontext=u:object_r:</span><strong><span style="color:rgb(255,255,255)">vfat</span></strong><span style="color:rgb(255,255,255)">:s0 tclass=</span><strong><span style="color:rgb(255,255,255)">dir</span></strong><span style="color:rgb(255,255,255)">&nbsp;permissive=0</span></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				<span style="font-family:宋体">解决方法</span> <span style="font-family:宋体">：</span>engsetmacaddr.te</p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(230,230,230)" valign="top">
+							<p>
+								allow &nbsp;<strong>engsetmacaddr &nbsp;vfat:dir &nbsp;{ search </strong>write add_name create&nbsp;<strong>};&nbsp;或者</strong></p>
+							<p>
+								allow &nbsp;<strong>engsetmacaddr&nbsp; &nbsp;vfat:dir &nbsp;create_dir_perms;</strong></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				(create_dir_perms包含search<strong>&nbsp;</strong>write add_name create可参考external/sepolicy/global_macros<span style="font-family:宋体">的定义声明</span>)</p>
+			<p>
+				&nbsp;</p>
+			<p>
+				<span style="font-family:宋体">案例</span>4</p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(0,0,0)" valign="top">
+							<p>
+								<span style="color:rgb(255,255,255)">audit(1441759284.810:5): avc: denied { </span> <strong><span style="color:rgb(255,255,255)">read </span></strong><span style="color:rgb(255,255,255)">} for pid=1494 comm=&quot;sdcard&quot; name=&quot;0&quot; dev=&quot;nandk&quot; ino=245281 scontext=u:r:</span><strong><span style="color:rgb(255,255,255)">sdcardd</span></strong><span style="color:rgb(255,255,255)">:s0 tcontext=u:object_r:</span><strong><span style="color:rgb(255,255,255)">system_data_file</span></strong><span style="color:rgb(255,255,255)">:s0 tclass=</span><strong><span style="color:rgb(255,255,255)">dir</span></strong><span style="color:rgb(255,255,255)">&nbsp;permissive=0</span></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				<span style="font-family:宋体">解决方法</span> <span style="font-family:宋体">：</span>sdcardd.te&nbsp;</p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(230,230,230)" valign="top">
+							<p>
+								allow &nbsp;<strong>sdcardd &nbsp;system_data_file:dir &nbsp;read;&nbsp;&nbsp;或者</strong><br />
+								allow &nbsp;<strong>sdcardd &nbsp;system_data_file:dir&nbsp;&nbsp;rw_dir_perms;</strong></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				&nbsp;(rw_dir_perms<span style="font-family:宋体">包含</span><span style="font-family:Times New Roman">read write</span>，可参考external/sepolicy/global_macros的定义声明)</p>
+			<p>
+				&nbsp;</p>
+			<p>
+				&nbsp;</p>
+			<h1>
+				<a name="t3"></a><a name="_万能公式" target="_blank"></a>4.&nbsp;<strong>万能公式</strong></h1>
+			<p>
+				<span style="font-family:宋体">通过这四个案例，我们可以总结出一般规律</span>,</p>
+			<p>
+				<span style="font-family:宋体">以第</span><span style="font-family:宋体">案例</span>4<span style="font-family:宋体">为例</span>：</p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(0,0,0)" valign="top">
+							<p>
+								<span style="color:rgb(255,255,255)">audit(1441759284.810:5): avc: denied { </span> <strong><span style="color:rgb(255,255,255)">read </span></strong><span style="color:rgb(255,255,255)">} for pid=1494 comm=&quot;sdcard&quot; name=&quot;0&quot; dev=&quot;nandk&quot; ino=245281 scontext=u:r:</span><strong><span style="color:rgb(255,255,255)">sdcardd</span></strong><span style="color:rgb(255,255,255)">:s0 tcontext=u:object_r:</span><strong><span style="color:rgb(255,255,255)">system_data_file</span></strong><span style="color:rgb(255,255,255)">:s0 tclass=</span><strong><span style="color:rgb(255,255,255)">dir</span></strong><span style="color:rgb(255,255,255)">&nbsp;permissive=0</span></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				&nbsp;</p>
+			<p>
+				<span style="font-family:宋体">某个</span>scontext<span style="font-family:宋体">对某个</span>tclass类型的tcontext缺乏某个<span style="font-family:宋体">权限</span>，我们需要允许这个权限：</p>
+			<p>
+				<span style="font-family:宋体">我们的</span>log<span style="font-family:宋体">重新排列一下，</span></p>
+			<p>
+				scontext = u:r:<strong>sdcardd</strong></p>
+			<p>
+				tcontex t= u:object_r:<strong>system_data_file</strong>:s0</p>
+			<p>
+				tclass = <strong>dir</strong></p>
+			<p>
+				avc: denied { <strong>read</strong>&nbsp;}</p>
+			<p>
+				&nbsp;</p>
+			<p>
+				<strong><span style="font-family:宋体">得到万能套用公式如下：</span></strong></p>
+			<p>
+				在scontext<span style="font-family:宋体">所指的</span>.te<span style="font-family:宋体">文件</span>（例如<strong>sdcardd.te</strong>）<span style="font-family:宋体">中加入类似如下</span>allowe<span style="font-family:宋体">内容：</span></p>
+			<p>
+				&nbsp;</p>
+			<h1>
+				<a name="t4"></a><a name="_Toc457490121" target="_blank"></a>5.&nbsp;<strong>TIPS</strong></h1>
+			<p>
+				1.&nbsp;<span style="font-family:宋体">以上以</span>.te<span style="font-family:宋体">为后缀的文件都在</span>以下位置：<br />
+				A<span style="font-family:宋体">：</span>Android/devicesoftwinner/astar-common/sepolicy/*.te</p>
+			<p>
+				B<span style="font-family:宋体">：</span>Android/external/sepolicy/*.te<br />
+				<span style="font-family:宋体">其中，</span>A<span style="font-family:宋体">是对</span><span style="font-family:Times New Roman">B</span><span style="font-family:宋体">的</span><span style="font-family:Times New Roman">overlay</span><span style="font-family:宋体">（覆盖），能在</span><span style="font-family:Times New Roman">A</span><span style="font-family:宋体">修改的尽量在</span><span style="font-family:Times New Roman">A</span><span style="font-family:宋体">修改，修改</span><span style="font-family:Times New Roman">B</span><span style="font-family:宋体">可能会导致</span><span style="font-family:Times New Roman">CTS</span>&nbsp;fail<span style="font-family:宋体">问题，修改</span>A<span style="font-family:宋体">不会影响</span><span style="font-family:Times New Roman">CTS</span><span style="font-family:宋体">测试。修改之后，为了节约验证时间，只</span><span style="font-family:宋体">重刷</span>boot.img即可看效果；</p>
+			<p>
+				&nbsp;</p>
+			<p>
+				2.&nbsp;<span style="font-family:宋体">有时候</span>avc denied<span style="font-family:宋体">的</span><span style="font-family:Times New Roman">log</span><span style="font-family:宋体">不是一次性</span>暴露<span style="font-family:宋体">所有</span>权限<span style="font-family:宋体">问题，要等解决一个权限问题之后，才会</span>暴露<span style="font-family:宋体">另外一个权限问题。比如提示</span>缺少<span style="font-family:宋体">某个目录的</span>read<span style="font-family:宋体">权限，加入</span><span style="font-family:Times New Roman">read</span><span style="font-family:宋体">之后，</span>才<span style="font-family:宋体">显示缺少</span>write<span style="font-family:宋体">权限，要一次次一次试，一次一次加</span>，时间成本极大。<br />
+				<span style="background:rgb(0,255,0)"><span style="font-family:宋体">针对</span>dir<span style="font-family:宋体">缺少的任何权限，建议赋予</span></span><span style="background:rgb(0,255,0)">create_dir_perms</span><span style="background:rgb(0,255,0)"><span style="font-family:宋体">，基本涵盖对</span>dir<span style="font-family:宋体">的所有权限，比如：</span></span><br />
+				<span style="background:rgb(0,255,0)"> </span><span style="background:rgb(0,255,0)">{</span><span style="background:rgb(0,255,0)">&nbsp;open search </span><span style="background:rgb(0,255,0)">write</span><span style="background:rgb(0,255,0)">&nbsp;read rename create rmdir getattr </span><span style="background:rgb(0,255,0)">}<span style="font-family:宋体">等等。</span></span><br />
+				<span style="background:rgb(0,255,0)"> </span><span style="background:rgb(0,255,0)"><span style="font-family:宋体">针对</span>file<span style="font-family:宋体">缺少的任何权限，建议赋予</span></span><span style="background:rgb(0,255,0)">rwx_file_perms</span><span style="background:rgb(0,255,0)"><span style="font-family:宋体">，基本涵盖对</span>file<span style="font-family:宋体">的所有权限，比如：</span></span><br />
+				<span style="background:rgb(0,255,0)"> </span><span style="background:rgb(0,255,0)"><span style="font-family:宋体">包含</span>{</span><span style="background:rgb(0,255,0)">&nbsp;open </span><span style="background:rgb(0,255,0)">read</span><span style="background:rgb(0,255,0)">&nbsp;write open execute getattr </span><span style="background:rgb(0,255,0)">c</span><span style="background:rgb(0,255,0)">reate ioctl </span><span style="background:rgb(0,255,0)">}<span style="font-family:宋体">等等。</span></span></p>
+			<p>
+				更多内容请参考external/sepolicy/global_macros<span style="font-family:宋体">来了解更多权限</span>声明。</p>
+			<p>
+				3.&nbsp;<span style="font-family:宋体">要加入的权限很多时，可以用中括号，比如</span>：<br />
+				allow engsetmacaddr&nbsp; vfat:dir { search write add_name create};</p>
+			<p>
+				4.&nbsp;<span style="font-family:宋体">修改</span>A<span style="font-family:宋体">位置的</span><span style="font-family:Times New Roman">.te</span><span style="font-family:宋体">文件遇到编译错误怎么办？</span><br />
+				<span style="font-family:宋体">（首先请排除拼写错误）说明此项权限是</span>SELinux<span style="font-family:宋体">明确禁止的，也是</span><span style="font-family:Times New Roman">Google CTS</span><span style="font-family:宋体">禁止的，如果产品不需要过</span><span style="font-family:Times New Roman">CTS</span><span style="font-family:宋体">，可以修改。一般来说，编译出错的</span><span style="font-family:Times New Roman">log</span><span style="font-family:宋体">会提示相关哪个文件哪一行出错，文件位置一定会在</span><span style="font-family:Times New Roman">B</span><span style="font-family:宋体">里的</span><span style="font-family:Times New Roman">.te</span><span style="font-family:宋体">文件。比如</span><span style="font-family:Times New Roman">B</span><span style="font-family:宋体">规定了以下</span><span style="font-family:Times New Roman">never</span>allow,<br />
+				neverallow system_server sdcard_type:dir { open read write };<br />
+				<span style="font-family:宋体">那么</span>system_server是不能拥有这些权限的，如果赋予这些权限就编译报错，解决方法是根据编译错误提示的行号，把这一句注释掉即可。</p>
+			<p>
+				&nbsp;</p>
+			<p>
+				&nbsp;</p>
+			<h1>
+				<a name="t5"></a><a name="_Toc457490122" target="_blank"></a>6.&nbsp;<strong>高级进阶</strong></h1>
+			<h2>
+				<a name="t6"></a><a name="_Toc457490123" target="_blank"></a>6.1.&nbsp;<strong><span style="font-family:宋体">新建</span>.te<span style="font-family:宋体">安全策略文件方法</span></strong></h2>
+			<p>
+				<span style="font-family:宋体">以上基本是对已经存在的进程增加权限，但对第三方进程改如何新增一个全新的</span>te<span style="font-family:宋体">文件并赋予权限呢？</span></p>
+			<p>
+				<span style="font-family:宋体">以写</span>mac<span style="font-family:宋体">地址的</span><span style="font-family:Times New Roman">setmacaddr</span><span style="font-family:宋体">执行文件为例</span><span style="font-family:宋体">（这个执行档</span>android<span style="font-family:宋体">原生不存在，自行添加的）</span><span style="font-family:宋体">：</span></p>
+			<p>
+				<span style="font-family:宋体">在</span>init.xxx.rc<span style="font-family:宋体">中如下服务：</span></p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(230,230,230)" valign="top">
+							<p>
+								service engsetmacaddr &nbsp;/system/bin/setmacaddr &nbsp;/data/misc/wifi/wifimac.txt</p>
+							<p>
+								&nbsp;&nbsp;&nbsp;&nbsp;class main</p>
+							<p>
+								&nbsp;&nbsp;&nbsp;&nbsp;disabled</p>
+							<p>
+								oneshot</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				&nbsp;</p>
+			<p>
+				&nbsp;</p>
+			<p>
+				1. <span style="font-family:宋体">在</span><span style="font-family:Times New Roman">device</span>/softwinner/astar-common/sepolicy/file_contexts<span style="font-family:宋体">中，参考其他</span>进程<span style="font-family:宋体">声明一个</span>scontext<span style="font-family:宋体">：</span></p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(230,230,230)" valign="top">
+							<p>
+								&hellip;&hellip;</p>
+							<p>
+								/system/bin/install-recovery.sh u:object_r:install_recovery_exec:s0</p>
+							<p>
+								/system/bin/dex2oat&nbsp;&nbsp;&nbsp;&nbsp; u:object_r:dex2oat_exec:s0</p>
+							<p>
+								/system/bin/patchoat&nbsp;&nbsp;&nbsp; u:object_r:dex2oat_exec:s0</p>
+							<p>
+								<strong>/system/bin/setmacaddr u:object_r:engsetmacaddr_exec:s0</strong></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				<span style="font-family:宋体">指定</span>setmacaddr<span style="font-family:宋体">的路径，并指定一个名字，一定要以</span>service<span style="font-family:宋体">名</span><span style="font-family:Times New Roman">+</span>_exec<span style="font-family:宋体">结尾</span></p>
+			<p>
+				&nbsp;</p>
+			<p>
+				2.<span style="font-family:宋体">参考其</span><span style="font-family:Times New Roman">.te</span>文件在device/softwinner/astar-common/sepolicy/file_contexts <span style="font-family:宋体">创建</span><span style="font-family:Times New Roman">engsetmacaddr.te</span><span style="font-family:宋体">文件，内容如下：</span></p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(230,230,230)" valign="top">
+							<p>
+								type engsetmacaddr, domain;</p>
+							<p>
+								type engsetmacaddr_exec, exec_type, file_type;<br />
+								<br />
+								init_daemon_domain(engsetmacaddr)</p>
+							<p>
+								<br />
+								allow engsetmacaddr&nbsp; vfat:dir { search write add_name create};<br />
+								allow engsetmacaddr&nbsp; vfat:file { create read write open };<br />
+								allow engsetmacaddr&nbsp; engsetmacaddr:capability dac_override;<br />
+								allow engsetmacaddr&nbsp; shell_exec:file { execute read open execute_no_trans};<br />
+								allow engsetmacaddr&nbsp; system_data_file:dir { write add_name remove_name };<br />
+								allow engsetmacaddr&nbsp; system_data_file:file { create execute_no_trans write open setattr};</p>
+							<p>
+								allow engsetmacaddr&nbsp; system_file:file { execute_no_trans};</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				<span style="font-family:宋体">以上赋予的权限全部是根据</span>avc denied<span style="font-family:宋体">的</span><span style="font-family:Times New Roman">log</span><span style="font-family:宋体">缺什么</span>一步一步<span style="font-family:宋体">补什么来的。</span></p>
+			<p>
+				&nbsp;</p>
+			<h2>
+				<a name="t7"></a><a name="_Toc457490124" target="_blank"></a>6.2.&nbsp;<strong>新设备节点增加访问权限</strong></h2>
+			<p>
+				<span style="font-family:宋体">驱动创建了一个新的设备节点，即使权限是</span>777<span style="font-family:宋体">，</span><span style="font-family:Times New Roman">android</span><span style="font-family:宋体">层也是没有访问权限的。</span></p>
+			<p>
+				<span style="font-family:宋体">下面以一个</span>/dev/wifi_bt<span style="font-family:宋体">节点为示范，让此节点被用户空间的</span>system_server进程访问。</p>
+			<p>
+				1.&nbsp;编辑devicesoftwinner/astar-common/sepolicy/device.te<span style="font-family:宋体">，仿照这个文件里的写法，定义一个</span><span style="font-family:Times New Roman">de</span>v_type<span style="font-family:宋体">类型的</span>wifi_bt_device设备：</p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(230,230,230)" valign="top">
+							<p>
+								type misc_block_device, dev_type;</p>
+							<p>
+								type private_block_device, dev_type;</p>
+							<p>
+								&hellip;&hellip;</p>
+							<p>
+								type&nbsp;<strong>wf_bt_device</strong>,&nbsp;dev_type;&nbsp;&nbsp;</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				&nbsp;</p>
+			<p>
+				2.&nbsp;编辑file_contexts.te<span style="font-family:宋体">，将</span><span style="font-family:Times New Roman">/dev/wf_bt</span><span style="font-family:宋体">节点声明为第</span><span style="font-family:Times New Roman">1</span><span style="font-family:宋体">步定义的</span><span style="font-family:Times New Roman">wf_bt_device:</span></p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(230,230,230)" valign="top">
+							<p>
+								/dev/block/by-name/misc &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u:object_r:misc_block_device:s0</p>
+							<p>
+								/dev/block/by-name/alog &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u:object_r:log_block_device:s0</p>
+							<p>
+								/dev/block/by-name/private &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u:object_r:private_block_device:s0</p>
+							<p>
+								<strong>#&nbsp;We&nbsp;add&nbsp;here&nbsp;&nbsp;</strong></p>
+							<p>
+								/dev/wf_bt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u:object_r:<strong>wf_bt_device</strong>:s0&nbsp;&nbsp;</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				&nbsp;</p>
+			<p>
+				3.&nbsp;<span style="font-family:宋体">在</span>system_server.te<span style="font-family:宋体">，根据</span>dmesg&nbsp;| grep avc<span style="font-family:宋体">允许</span><span style="font-family:Times New Roman">system</span>_server<span style="font-family:宋体">对</span>wf_bt_device<span style="font-family:宋体">这个节点可读可写：</span></p>
+			<table>
+				<tbody>
+					<tr>
+						<td style="background:rgb(230,230,230)" valign="top">
+							<p>
+								#&nbsp;Read/Write&nbsp;to&nbsp;/proc/net/xt_qtaguid/ctrl&nbsp;and&nbsp;and&nbsp;/dev/xt_qtaguid.&nbsp;&nbsp;</p>
+							<p>
+								allow&nbsp;system_server&nbsp;qtaguid_proc:file&nbsp;rw_file_perms;&nbsp;&nbsp;</p>
+							<p>
+								allow&nbsp;system_server&nbsp;qtaguid_device:chr_file&nbsp;rw_file_perms;&nbsp;&nbsp;</p>
+							<p>
+								&nbsp;&hellip;&hellip;</p>
+							<p>
+								allow&nbsp;system_server&nbsp;<strong>wf_bt_device</strong>:chr_file&nbsp;rw_file_perms;&nbsp;&nbsp;</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				<span style="font-family:宋体">其他进程如需访问</span>/dev/wf_bt<span style="font-family:宋体">节点，依样画葫芦，增加对</span>wf_bt_device的权限即可。</p>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,130 @@
+<p>
+	<br />
+	Dumpsys结构图：</p>
+<table border="1" cellpadding="1" cellspacing="1" style="width: 500px;">
+	<tbody>
+		<tr>
+			<td>
+				<span style="background-color:#ffd700;">dumpsys activity | grep Focused</span></td>
+			<td>
+				查看当前焦点的activity应用名称</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr>
+			<td>
+				&nbsp;</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	<br />
+	实现方式：<br />
+	dumpsys的代码在mydroid/frameworks/base/cmds/dumpsys/dumpsys.cpp，所有的dump信息都是由重载了Binder中的dump函数的类来完成：<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Override<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; protected void dump(FileDescriptor fd, PrintWriter pw, String[] args) {<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />
+	代码很简单，发现所有dump的信息都是由defaultServiceManager)提供的由系统注册的所有service来提供信息。<br />
+	以meminfo为例：<br />
+	它是在<br />
+	mydroid/frameworks/base/services/java/com/Android/server/am/ActivityManagerService.java中的setSystemProcess函数处被注册的<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SrviceManager.addService(&quot;activity&quot;, m);<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ServiceManager.addService(&quot;meminfo&quot;, new MemBinder(m));<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...<br />
+	MemBinder-&gt;ProcessRecord-&gt;各个正在运行状态的ApplicationThread的状态（mydroid/frameworks/base/core/java/android/app/ActivityThread.java），从中得到需要的meminfo信息。<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这其中其实牵涉到负责的Android的是如何管理Linux的进程，同时又是如何把Linux的进程管理起来提供各种信息给Java层使用。<br />
+	上述信息来自网络：<br />
+	https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;cad=rja&amp;uact=8&amp;ved=0CCEQFjAB&amp;url=http%3A%2F%2Ffreshui-player.googlecode.com%2Fsvn%2Fbranches%2Fdocs%2Fandroid_tools%2FAndroid%25E7%25B3%25BB%25E7%25BB%259F%25E5%2588%2586%25E6%259E%2590%25E5%25B7%25A5%25E5%2585%25B7-dumpsys.doc&amp;ei=XHftU5WaOIPn8AWsn4HADw&amp;usg=AFQjCNHK3eJPxr5jB07Di96dlBqStTrtdg&amp;bvm=bv.73231344,d.dGc<br />
+	具体命令行参数：<br />
+	1、 SurfaceFlinger<br />
+	SurfaceFlinger是Android进行图形界面绘制的服务，根据文档显示，有硬件绘制和GPU绘制两种实现方式。<br />
+	（来源：http://blog.csdn.net/windskier/article/details/7030732 ）<br />
+	通过dumpsys SurfaceFlinger，除了可以看到显示设备的一些参数开关之外，还能能到如下，360手机卫士主界面是硬件方式绘制的。<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 另外，还能看到命令行运行时候，手机系统上所有layer信息，如下所示：<br />
+	关于这部分主要参考：<br />
+	http://www.linuxgraphics.cn/android/graphics_system.html<br />
+	http://stackoverflow.com/questions/21642734/how-to-make-sense-of-dumpsys-surfaceflinger<br />
+	http://blog.csdn.net/windskier/article/details/7030732<br />
+	2、 Cpuinfo<br />
+	可以显示每个进程在内核空间和用户空间的cpu占用率<br />
+	3、 Account<br />
+	设备上所有用户信息<br />
+	4、&nbsp; Activity<br />
+	-h：显示参数列表<br />
+	A(activities)参数：查看activity组件信息，主要看从&rdquo;&nbsp; Running activities (most recent first):&rdquo;部分查看栈中的activity列表。<br />
+	B(broadcasts)参数：查看所有注册的BraodcastReceiver及其filter、action等信息。<br />
+	I(Intents)参数：等待的intent状态<br />
+	P(processes)参数：ProcessRecord记录的进程id、进程名字和各种用于调节优先级的状态。<br />
+	O(oom)参数：主要看oom_adj值，从中可以看到到内存释放的情况。<br />
+	Prov(providers)参数：显示content providers信息<br />
+	s(Services)参数：当前active状态的service及bindings信息。<br />
+	services[]参数：跟上具体的服务名，dump出服务客户端的一些状态信息。<br />
+	5、&nbsp; Alarm<br />
+	查看放到定时队列中的事件。<br />
+	例如下面我们可以看到其intent ID。<br />
+	而通过&rdquo; dumpsys&nbsp; activity i&rdquo;我们可以看到该intent所对应的详细信息。<br />
+	6、&nbsp; appwidget<br />
+	android窗口小部件的信息。<br />
+	7、&nbsp; audio<br />
+	android音频组件信息<br />
+	8、&nbsp; backup<br />
+	android backup服务信息<br />
+	9、&nbsp; battery<br />
+	android电池设备信息<br />
+	10、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; batteryinfo<br />
+	android耗电相关的进程运行时间等信息(可能api level 19以上被batterystats取代)。<br />
+	11、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; connectivity<br />
+	android网络连接状态及进程请求网络信息。<br />
+	12、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; content<br />
+	查看android content provider相关的信息<br />
+	13、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_policy<br />
+	android设备政策。<br />
+	14、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; diskstats<br />
+	手机卡剩余信息<br />
+	15、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dropbox<br />
+	系统崩溃的信息<br />
+	16、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; input_method<br />
+	Android输入法信息<br />
+	17、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iphonesubinfo<br />
+	手机制式及设备id<br />
+	18、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; location<br />
+	gps等位置信息<br />
+	19、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; media.audio_flinger、media.audio_policy、media.camera、media.player<br />
+	android音视频设备有关的状态信息<br />
+	20、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; meminfo<br />
+	android进程实际物理内存占用情况。<br />
+	http://zarroboogs.org/index.php/archives/218<br />
+	21、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mount<br />
+	加载的存储设备信息<br />
+	22、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; network_management<br />
+	android网络流量管理信息<br />
+	23、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; notification<br />
+	android通知栏广告信息。<br />
+	24、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; package<br />
+	参数：<br />
+	我们主要通过l、perm、perf、p等参数dump出package信息，还能够直接跟包名来dump出该包的具体信息。<br />
+	25、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; power<br />
+	电源管理器的一些状态信息。<br />
+	26、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sensorservice<br />
+	android传感器的一些状态信息。<br />
+	27、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; statusbar<br />
+	显示状态栏相关的一些信息。<br />
+	28、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; telephony.registry<br />
+	电话服务相关的信息。<br />
+	29、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uimode<br />
+	ui mode service的状态信息。<br />
+	30、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; usagestats<br />
+	各个app使用情况统计<br />
+	31、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wallpaper<br />
+	壁纸信息<br />
+	32、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wifi<br />
+	wifi连接及状态信息<br />
+	33、&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; window<br />
+	参数：</p>

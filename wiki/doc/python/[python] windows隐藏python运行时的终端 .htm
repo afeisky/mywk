@@ -1,0 +1,96 @@
+<div class="blog-title-ad">
+	<div class="blog-wrapper">
+		&nbsp;</div>
+</div>
+<div class="float-heading">
+	<div class="blog-wrapper">
+		<div class="layout-flex">
+			<div class="flex-grow">
+				<div class="heading">
+					windows隐藏python运行时的终端</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="blog-abstract">
+	&nbsp;</div>
+<div class="blog-abstract">
+	摘要: windows上如果想执行一些常驻进程，使用python需要打开终端，容易误操作关掉。本文介绍一种在后台启动的解决方法，其实核心功能很简单，使用 start pythonw xxx.py 进行，附加一些常用的运维批处理脚本 start.bat stop.bat restart.bat status.bat</div>
+<div class="blog-body" id="blogBody">
+	<div class="BlogContent">
+		<p>
+			1.使用start pythonw xxx.py可在机器上执行python但隐藏终端，通常日志来查问题</p>
+		<p>
+			2.使用ping实现sleep操作，避免使用pause导致的交互问题</p>
+		<p>
+			app.py</p>
+		<pre class="brush:python;toolbar: true; auto-links: false; hljs tcl">
+<code class="hljs tcl">import&nbsp;os
+import&nbsp;<span class="hljs-keyword"><span class="hljs-keyword">time</span></span>
+import&nbsp;datetime
+
+<span class="hljs-keyword"><span class="hljs-keyword">pid</span></span>&nbsp;=&nbsp;os.getpid()
+
+fp&nbsp;=&nbsp;<span class="hljs-keyword"><span class="hljs-keyword">file</span></span>(<span class="hljs-string"><span class="hljs-string">&quot;app.pid&quot;</span></span>,&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;wt&quot;</span></span>)
+fp.write(<span class="hljs-string"><span class="hljs-string">&quot;%d&quot;</span></span>&nbsp;%&nbsp;<span class="hljs-keyword"><span class="hljs-keyword">pid</span></span>)
+fp.<span class="hljs-keyword"><span class="hljs-keyword">close</span></span>()
+
+<span class="hljs-keyword"><span class="hljs-keyword">while</span></span>&nbsp;True:
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-keyword"><span class="hljs-keyword">time</span></span>.sleep(<span class="hljs-number"><span class="hljs-number">1</span></span>)
+&nbsp;&nbsp;&nbsp;&nbsp;fp&nbsp;=&nbsp;<span class="hljs-keyword"><span class="hljs-keyword">file</span></span>(<span class="hljs-string"><span class="hljs-string">&quot;app.log&quot;</span></span>,<span class="hljs-string"><span class="hljs-string">&quot;at&quot;</span></span>)
+&nbsp;&nbsp;&nbsp;&nbsp;fp.write(<span class="hljs-string"><span class="hljs-string">&quot;%s\n&quot;</span></span>&nbsp;%&nbsp;datetime.datetime.now())
+&nbsp;&nbsp;&nbsp;&nbsp;fp.<span class="hljs-keyword"><span class="hljs-keyword">close</span></span>()</code></pre>
+		<p>
+			start.bat</p>
+		<pre class="brush:shell;toolbar: true; auto-links: false; hljs perl">
+<code class="hljs perl">@echo&nbsp;off
+<span class="hljs-keyword"><span class="hljs-keyword">if</span></span>&nbsp;exist&nbsp;app.pid&nbsp;(echo&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;[%date%&nbsp;%time%]&nbsp;Running..&quot;</span></span>
+ping&nbsp;-n&nbsp;<span class="hljs-number"><span class="hljs-number">3</span></span>&nbsp;localhost&nbsp;&gt;nul
+<span class="hljs-keyword"><span class="hljs-keyword">exit</span></span>
+)<span class="hljs-keyword"><span class="hljs-keyword">else</span></span>&nbsp;(&nbsp;echo&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;[%date%&nbsp;%time%]&nbsp;Starting..&quot;</span></span>
+start&nbsp;pythonw&nbsp;app.py
+ping&nbsp;-n&nbsp;<span class="hljs-number"><span class="hljs-number">3</span></span>&nbsp;localhost&nbsp;&gt;nul
+status.bat
+ping&nbsp;-n&nbsp;<span class="hljs-number"><span class="hljs-number">3</span></span>&nbsp;localhost&nbsp;&gt;nul
+)</code></pre>
+		<p>
+			stop.bat</p>
+		<pre class="brush:shell;toolbar: true; auto-links: false; hljs perl">
+<code class="hljs perl">@echo&nbsp;off
+
+<span class="hljs-keyword"><span class="hljs-keyword">if</span></span>&nbsp;exist&nbsp;app.pid&nbsp;(echo&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;[%date%&nbsp;%time%]&nbsp;Stopping...&quot;</span></span>
+&nbsp;&nbsp;python&nbsp;-c&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;import&nbsp;os;&nbsp;os.system(&#39;taskkill&nbsp;/F&nbsp;/PID&nbsp;%%s&#39;&nbsp;%%&nbsp;open(&#39;app.pid&#39;).read());&quot;</span></span>
+&nbsp;&nbsp;del&nbsp;app.pid
+)<span class="hljs-keyword"><span class="hljs-keyword">else</span></span>&nbsp;(echo&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;[%date%&nbsp;%time%]&nbsp;Stopped..&quot;</span></span>
+ping&nbsp;-n&nbsp;<span class="hljs-number"><span class="hljs-number">3</span></span>&nbsp;localhost&nbsp;&gt;nul
+)</code></pre>
+		<p>
+			status.bat</p>
+		<pre class="brush:shell;toolbar: true; auto-links: false; hljs perl">
+<code class="hljs perl">@echo&nbsp;off
+<span class="hljs-keyword"><span class="hljs-keyword">if</span></span>&nbsp;exist&nbsp;app.pid&nbsp;(echo&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;[%date%&nbsp;%time%]&nbsp;Runningg...&quot;</span></span>)<span class="hljs-keyword"><span class="hljs-keyword">else</span></span>&nbsp;(echo&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;[%date%&nbsp;%time%]&nbsp;Stopped..&quot;</span></span>)
+ping&nbsp;-n&nbsp;<span class="hljs-number"><span class="hljs-number">3</span></span>&nbsp;localhost&nbsp;&gt;nul</code></pre>
+		<p>
+			restart.bat</p>
+		<pre class="brush:shell;toolbar: true; auto-links: false; hljs perl">
+<code class="hljs perl">@echo&nbsp;off
+<span class="hljs-keyword"><span class="hljs-keyword">if</span></span>&nbsp;exist&nbsp;app.pid&nbsp;(echo&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;[%date%&nbsp;%time%]&nbsp;Stopping...&quot;</span></span>
+&nbsp;&nbsp;python&nbsp;-c&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;import&nbsp;os;&nbsp;os.system(&#39;taskkill&nbsp;/F&nbsp;/PID&nbsp;%%s&#39;&nbsp;%%&nbsp;open(&#39;app.pid&#39;).read());&quot;</span></span>
+&nbsp;&nbsp;del&nbsp;app.pid
+)<span class="hljs-keyword"><span class="hljs-keyword">else</span></span>&nbsp;(echo&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;[%date%&nbsp;%time%]&nbsp;Stopped..&quot;</span></span>
+ping&nbsp;-n&nbsp;<span class="hljs-number"><span class="hljs-number">3</span></span>&nbsp;localhost&nbsp;&gt;nul
+)
+
+<span class="hljs-keyword"><span class="hljs-keyword">if</span></span>&nbsp;exist&nbsp;app.pid&nbsp;(echo&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;[%date%&nbsp;%time%]&nbsp;Running..&quot;</span></span>
+ping&nbsp;-n&nbsp;<span class="hljs-number"><span class="hljs-number">3</span></span>&nbsp;localhost&nbsp;&gt;nul
+<span class="hljs-keyword"><span class="hljs-keyword">exit</span></span>
+)<span class="hljs-keyword"><span class="hljs-keyword">else</span></span>&nbsp;(&nbsp;echo&nbsp;<span class="hljs-string"><span class="hljs-string">&quot;[%date%&nbsp;%time%]&nbsp;Starting..&quot;</span></span>
+start&nbsp;pythonw&nbsp;app.py
+ping&nbsp;-n&nbsp;<span class="hljs-number"><span class="hljs-number">3</span></span>&nbsp;localhost&nbsp;&gt;nul
+status.bat
+ping&nbsp;-n&nbsp;<span class="hljs-number"><span class="hljs-number">3</span></span>&nbsp;localhost&nbsp;&gt;nul
+)</code></pre>
+		<p>
+			&nbsp;</p>
+	</div>
+</div>

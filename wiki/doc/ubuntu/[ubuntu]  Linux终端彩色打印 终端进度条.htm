@@ -1,0 +1,181 @@
+<h1 class="postTitle">
+	<a class="postTitle2" href="http://www.cnblogs.com/sky-heaven/p/7137838.html" id="cb_post_title_url">LinuxÖÕ¶Ë²ÊÉ«´òÓ¡+ÖÕ¶Ë½ø¶ÈÌõ¡¾×ª¡¿</a></h1>
+<p>
+	python ´úÂë:</p>
+<p>
+	<span style="color:#ff0000;">#!/usr/bin/env python<br />
+	# -*- coding=utf-8 -*-<br />
+	import sys,time<br />
+	if __name__ == &#39;__main__&#39;:<br />
+	&nbsp;&nbsp;&nbsp; for i in range(1,101):<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #sys.stdout.write(&#39;[%s]\b\b\b\b&#39;%i)<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #sys.stdout.write(&#39;Processing: [%d]\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b&#39;%(i))<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sys.stdout.write(&#39;Processing: \033[41m\033[1m%3d%%%s\r\033[0m%s&#39;%(i,&#39; &#39;*((i/10+1)*2),&#39;\b&#39;*((i/10)*2+15)))&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sys.stdout.flush()<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; time.sleep(0.01)<br />
+	&nbsp;&nbsp;&nbsp; print<br />
+	&nbsp;&nbsp;&nbsp; print(&#39;Done.&#39;)<br />
+	&nbsp;&nbsp;&nbsp; print(&#39;A&#39;*5)</span><br />
+	<br />
+	<br />
+	&nbsp;</p>
+<div id="cnblogs_post_body">
+	<p>
+		×ª×Ô£º<a href="https://my.oschina.net/jcseg/blog/178047" target="_blank">https://my.oschina.net/jcseg/blog/178047</a></p>
+	<p>
+		¿ª·¢µÄÒ»¸öÓ¦ÓÃ³ÌĞòÑ¡ÔñÁËÖÕ¶Ë½çÃæ, ÎªÁËÊ¹Èí¼şÉÔÎ¢ºÃ¿´Ğ©, ÑĞ¾¿ÏÂLinuxÖÕ¶ËµÄ²ÊÉ«´òÓ¡, ²¢ÇÒ»ùÓÚÕâ¸ö²ÊÉ«´òÓ¡ÊµÏÖÁË¼¸ÖÖ½ø¶ÈÌõ, ÔÚ´Ë×Ü½áÏÂ: (¸ü¶àµÄÊÇ¾õµÃÕâ¸ö¶«Î÷Í¦ºÃÍæµÄ...&nbsp;<img alt="" src="http://my.oschina.net/js/ke/plugins/emoticons/images/13.gif" />)</p>
+	<h2 id="h2_0">
+		<strong>Ò». LinuxÖÕ¶ËÉ«²Ê´òÓ¡:</strong></h2>
+	<h3 id="h3_1">
+		<strong>1. ÊôĞÔ½éÉÜ:&nbsp;</strong></h3>
+	<h4 id="h4_2">
+		(1). À´×ÔÍøÂçµÄANSIÊôĞÔ¿ØÖÆÂë:&nbsp;</h4>
+	<pre class="brush:shell; toolbar: true; auto-links: false; hljs lua">
+  <code class="hljs lua"><span class="hljs-number">033[<span class="hljs-number">0m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¹Ø±ÕËùÓĞÊôĞÔ <span class="hljs-number">033[<span class="hljs-number">1m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ÉèÖÃ¸ßÁÁ¶È <span class="hljs-number">033[<span class="hljs-number">4m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ÏÂ»®Ïß <span class="hljs-number">033[<span class="hljs-number">5m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ÉÁË¸ <span class="hljs-number">033[<span class="hljs-number">7m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·´ÏÔ <span class="hljs-number">033[<span class="hljs-number">8m &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ÏûÒş <span class="hljs-number">033[<span class="hljs-number">30m <span class="hljs-comment">-- [37m &nbsp;&nbsp;&nbsp;ÉèÖÃÇ°¾°É« <span class="hljs-number">033[<span class="hljs-number">40m <span class="hljs-comment">-- [47m &nbsp;&nbsp;&nbsp;ÉèÖÃ±³¾°É« <span class="hljs-number">033[nA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¹â±êÉÏÒÆnĞĞ <span class="hljs-number">033[nB &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¹â±êÏÂÒÆnĞĞ <span class="hljs-number">033[nC &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¹â±êÓÒÒÆnÁĞ <span class="hljs-number">033[nD &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¹â±ê×óÒÆnÁĞ <span class="hljs-number">033[y;H&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ÉèÖÃ¹â±êÎ»ÖÃ <span class="hljs-number">033[<span class="hljs-number">2J &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ÇåÆÁ <span class="hljs-number">033[K &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Çå³ı´Ó¹â±êµ½ĞĞÎ²µÄÄÚÈİ <span class="hljs-number">033[s &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ±£´æ¹â±êÎ»ÖÃ <span class="hljs-number">033[u &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;»Ö¸´¹â±êÎ»ÖÃ <span class="hljs-number">033[?<span class="hljs-number">25l &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Òş²Ø¹â±ê <span class="hljs-number">033[?<span class="hljs-number">25h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ÏÔÊ¾¹â±ê</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+	<h4 id="h4_3">
+		(2). ÎÄ×Ö±³¾°É«²ÊÊı×Ö: (ÑÕÉ«·¶Î§:40 - 49)</h4>
+	<p>
+		40:&nbsp;&nbsp;&nbsp;&nbsp;ºÚÉ«<br />
+		41:&nbsp;&nbsp;&nbsp;&nbsp;ÉîºìÉ«<br />
+		42:&nbsp;&nbsp;&nbsp;&nbsp;ÂÌÉ«<br />
+		43:&nbsp;&nbsp;&nbsp;&nbsp;»ÆÉ«<br />
+		44:&nbsp;&nbsp;&nbsp;&nbsp;À¶É«<br />
+		45:&nbsp;&nbsp;&nbsp;&nbsp;×ÏÉ«<br />
+		46:&nbsp;&nbsp;&nbsp;&nbsp;ÉîÂÌÉ«<br />
+		47:&nbsp;&nbsp;&nbsp;&nbsp;°×É«</p>
+	<h4 id="h4_4">
+		(3). ÎÄ×ÖÇ°¾°É«Êı×Ö: (ÑÕÉ«·¶Î§: 30 - 39)</h4>
+	<p>
+		30:&nbsp;&nbsp;&nbsp;&nbsp;ºÚÉ«<br />
+		31:&nbsp;&nbsp;&nbsp;&nbsp;ºìÉ«<br />
+		32:&nbsp;&nbsp;&nbsp;&nbsp;ÂÌÉ«<br />
+		33:&nbsp;&nbsp;&nbsp;&nbsp;»ÆÉ«<br />
+		34:&nbsp;&nbsp;&nbsp;&nbsp;À¶É«<br />
+		35:&nbsp;&nbsp;&nbsp;&nbsp;×ÏÉ«<br />
+		36:&nbsp;&nbsp;&nbsp;&nbsp;ÉîÂÌÉ«<br />
+		37:&nbsp;&nbsp;&nbsp;&nbsp;°×É«</p>
+	<h4 id="h4_5">
+		2. Ê¹ÓÃÀı×Ó:</h4>
+	<p>
+		LinuxÖÕ¶Ë»á½âÎöÕâĞ©¿ØÖÆÂë, ²¢ÇÒÒÀ¾İ¿ØÖÆÂëÀ´ÉèÖÃÖÕ¶ËµÄ»æÖÆÊôĞÔ, ËùÒÔ, Ö»ÒªÊä³öÁ÷ÖĞ°üº¬ANSI¿ØÖÆÂë¾Í¿ÉÒÔ¹¤×÷, ÕâÀïÊ¹ÓÃlinuxµÄechoÃüÁîÀ´ÑİÊ¾: &nbsp;(Äã¿ÉÒÔÊ¹ÓÃÈÎºÎÄãÊìÏ¤µÄÓïÑÔÀ´´úÌæ...)</p>
+	<p>
+		(1). ×ÖÌåºìÉ«Êä³ö: &nbsp;&nbsp;</p>
+	<p>
+		²é¿´ÉÏÃæµÄANSI¿ØÖÆÂë¿ÉÒÔÖªµÀ:&nbsp;[30m -- [37mÊÇ¿ØÖÆÇ°¾°É«, ²¢ÇÒºìÉ«Ê¹ÓÃ31±íÊ¾, ¼´: ºìÉ«ANSI¿ØÖÆÂëÎª: &nbsp;[31m</p>
+	<pre class="brush:shell; toolbar: true; auto-links: false; hljs bash">
+  <code class="hljs bash"><span class="hljs-built_in">echo <span class="hljs-_">-e <span class="hljs-string">&quot;[31mºìÉ«×ÖÌå[0m&quot;     <span class="hljs-comment">#ĞèÒª¼ÓÉÏ-e²ÎÊı</span></span></span></span></code></pre>
+	<p>
+		&nbsp;</p>
+	<p>
+		´Ó[31m´¦¿ªÊ¼Ê¹ÓÃ&quot;ºìÉ«&quot;×÷Îª×ÖÌåµÄÇ°¾°É«, ºóÃæÈ«²¿µÄ»æÖÆ¶¼Ê¹ÓÃºìÉ«, Ö±µ½Óöµ½ÊôĞÔ¹Ø±Õ¿ØÖÆÂë. ËùÒÔ: ºóÃæÊ¹ÓÃ[0mÀ´¹Ø±ÕÊôĞÔ, Òª²»È»ÖÕ¶ËºóÃæµÄÊäÈëµÄÎÄ×Ö½«È«²¿ÊÇºìÉ«µÄ. Ğ§¹ûÍ¼:</p>
+	<p>
+		<img alt="" src="http://static.oschina.net/uploads/space/2013/1121/144126_Tx7I_853816.jpg" /></p>
+	<p>
+		(2). Ê¹ÓÃ¶à¸ö¿ØÖÆÂë²úÉúµş¼ÓĞ§¹û: &nbsp;ºìÉ«+¸ßÁÁ</p>
+	<pre class="brush:shell; toolbar: true; auto-links: false; hljs bash">
+  <code class="hljs bash"><span class="hljs-built_in">echo <span class="hljs-_">-e <span class="hljs-string">&quot;[31m[1mºìÉ«+¸ßÁÁ[0m&quot;   <span class="hljs-comment">#¸ßÁÁ¿ØÖÆÂëÎª: [1m</span></span></span></span></code></pre>
+	<p>
+		Ğ§¹û:</p>
+	<p>
+		<img alt="" src="http://static.oschina.net/uploads/space/2013/1121/144448_9ZaC_853816.jpg" /></p>
+	<p>
+		(3). ºìµ×+°××Ö+¸ßÁÁ+ÏÂ»®Ïß:</p>
+	<p>
+		&nbsp;</p>
+	<pre class="brush:shell; toolbar: true; auto-links: false; hljs bash">
+  <code class="hljs bash"><span class="hljs-built_in">echo <span class="hljs-_">-e <span class="hljs-string">&quot;[41m[37m[1m[4mºìµ×+°××Ö+¸ßÁÁ+ÏÂ»®Ïß[0m&quot;</span></span></span></code></pre>
+	<p>
+		Ğ§¹û:</p>
+	<p>
+		<img alt="" src="http://static.oschina.net/uploads/space/2013/1121/144940_lghS_853816.jpg" /></p>
+	<p>
+		¶à¸ö¿ØÖÆÂë¿ÉÒÔÒ»ÆğÊ¹ÓÃ, ´Ó¶ø¿´µ½µş¼ÓµÄĞ§¹û, ¿ØÖÆÂëÖ®¼äµÄË³ĞòÎŞËùÎ½, ÀıÈç: ÉÏÃæµÄ¸ßÁÁºÍÏÂ»®Ïß. &nbsp;ÆäËûµÄ¿ØÖÆÂë¾Í¿ÉÒÔ×Ô¼ºÊÔÊÔÁË.</p>
+	<p>
+		&nbsp;</p>
+	<h2 id="h2_6">
+		¶ş. LinuxÖÕ¶Ë½ø¶ÈÌõµÄÊµÏÖ:</h2>
+	<p>
+		ÁË½âÁËÉÏÃæµÄLinuxÖÕ¶Ë²ÊÉ«´òÓ¡, ¾Í¿ÉÒÔ¿ªÊ¼×ö³öÆ¯ÁÁµÄÖÕ¶Ë½ø¶ÈÌõÁË.</p>
+	<h3 id="h3_7">
+		<strong>&nbsp;1. ÀûÓÃ backspace·ûÀ´ÖÆ×÷½ø¶ÈÌõ:</strong></h3>
+	<p>
+		(1). Ò»¸öphpÀı×ÓÈçÏÂ: &nbsp;(×¢Òâ, phpÒªÊ¹ÓÃprintf, echoÃ»ÓÃµÄ)</p>
+	<pre class="brush:php; toolbar: true; auto-links: false; hljs xml">
+  <code class="hljs xml"><span class="php"><span class="hljs-meta"><span class="php"><span class="hljs-meta">&lt;?php<span class="php"> <span class="hljs-keyword"><span class="php"><span class="hljs-keyword">for<span class="php"> ($i = <span class="hljs-number"><span class="php"><span class="hljs-number">0<span class="php">; $i &lt;= <span class="hljs-number"><span class="php"><span class="hljs-number">50<span class="php">; $i++) {   printf(<span class="hljs-string"><span class="php"><span class="hljs-string">&quot;mprogress: %d%% %s &quot;<span class="php">, $i * <span class="hljs-number"><span class="php"><span class="hljs-number">2<span class="php">, str_repeat(<span class="hljs-string"><span class="php"><span class="hljs-string">&#39;#&#39;<span class="php">,$i) );   usleep(<span class="hljs-number"><span class="php"><span class="hljs-number">1000<span class="php"> * <span class="hljs-number"><span class="php"><span class="hljs-number">100<span class="php">); } <span class="hljs-keyword"><span class="php"><span class="hljs-keyword">echo<span class="php"> <span class="hljs-string"><span class="php"><span class="hljs-string">&quot; &quot;<span class="php">, <span class="hljs-string"><span class="php"><span class="hljs-string">&quot;Done. &quot;<span class="php">; <span class="hljs-meta"><span class="php"><span class="hljs-meta">?&gt;</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+	<p>
+		ÔËĞĞĞ§¹ûÈçÏÂ:</p>
+	<p>
+		<img alt="" src="http://static.oschina.net/uploads/space/2013/1121/145736_XNbv_853816.jpg" /></p>
+	<p>
+		(2). ¼ÓÉÏÉ«²Ê:</p>
+	<p>
+		<img alt="" src="http://static.oschina.net/uploads/space/2013/1121/145936_W3nr_853816.jpg" /></p>
+	<p>
+		(3). ½øÒ»²½ÃÀ»¯, Ê¹ÓÃ±³¾°²¢ÇÒÊ¹ÓÃ¿Õ¸ñ´úÌæ&#39;#&#39;×Ö·û:</p>
+	<pre class="brush:php; toolbar: true; auto-links: false; hljs xml">
+  <code class="hljs xml"><span class="php"><span class="hljs-meta"><span class="php"><span class="hljs-meta">&lt;?php<span class="php"> <span class="hljs-keyword"><span class="php"><span class="hljs-keyword">for<span class="php"> ($i = <span class="hljs-number"><span class="php"><span class="hljs-number">0<span class="php">; $i &lt;= <span class="hljs-number"><span class="php"><span class="hljs-number">50<span class="php">; $i++) {   printf(<span class="hljs-string"><span class="php"><span class="hljs-string">&quot;mprogress: [41m[1m %d%% %s [0m&quot;<span class="php">, $i * <span class="hljs-number"><span class="php"><span class="hljs-number">2<span class="php">, str_repeat(<span class="hljs-string"><span class="php"><span class="hljs-string">&#39; &#39;<span class="php">,$i) );   usleep(<span class="hljs-number"><span class="php"><span class="hljs-number">1000<span class="php"> * <span class="hljs-number"><span class="php"><span class="hljs-number">100<span class="php">); } <span class="hljs-keyword"><span class="php"><span class="hljs-keyword">echo<span class="php"> <span class="hljs-string"><span class="php"><span class="hljs-string">&quot; &quot;<span class="php">, <span class="hljs-string"><span class="php"><span class="hljs-string">&quot;Done. &quot;<span class="php">; <span class="hljs-meta"><span class="php"><span class="hljs-meta">?&gt;</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+	<p>
+		Ğ§¹û:</p>
+	<p>
+		<img alt="" src="http://static.oschina.net/uploads/space/2013/1121/150329_t8rS_853816.jpg" /></p>
+	<p>
+		¹ş, Ğ§¹û»¹²»´íÄØ.</p>
+	<p>
+		(4). ÖÕ¼«ÃÀ»¯, ½«¹â±êÒş²Ø:</p>
+	<p>
+		Õâ¸öÖ»ÒªÔÚÀïÃæ¼ÓÉÏÒş²Ø¹â±êµÄANSI¿ØÖÆÂë¾ÍokÁË, ²»¹ı¼ÇµÃÒªÔÚºóÃæ½«¹â±ê»Ø¸´ÏÔÊ¾, Òª²»È»ºóÃæÖÕ¶Ë¾Í¿´²»µ½¹â±êÁË:</p>
+	<pre class="brush:php; toolbar: true; auto-links: false; hljs perl">
+  <code class="hljs perl">&lt;?php <span class="hljs-keyword">for ($i = <span class="hljs-number">0; $i &lt;= <span class="hljs-number">50; $i++) {   <span class="hljs-keyword">printf(<span class="hljs-string">&quot;[?25lmprogress: [41m[1m %d%% %s [0m&quot;, $i * <span class="hljs-number">2, str_repeat(<span class="hljs-string">&#39; &#39;,$i) );   usleep(<span class="hljs-number">1000 * <span class="hljs-number">100); } <span class="hljs-keyword">printf(<span class="hljs-string">&quot; Done. [?25h&quot;); ?&gt;</span></span></span></span></span></span></span></span></span></span></span></code></pre>
+	<p>
+		&nbsp;</p>
+	<p>
+		Ğ§¹û:</p>
+	<p>
+		<img alt="" src="http://static.oschina.net/uploads/space/2013/1121/150749_ght9_853816.jpg" /></p>
+	<p>
+		µ½´ËLinuxÖÕ¶Ë½ø¶ÈÌõÖÆ×÷Íê±Ï.</p>
+	<p>
+		&nbsp;</p>
+	<h2 id="h2_8">
+		Èı. Ò»¸öCµÄ½ø¶ÈÌõ·â×°:&nbsp;</h2>
+	<h3 id="h3_9">
+		1. progress.hÍ·ÎÄ¼ş:&nbsp;</h3>
+	<pre class="brush:cpp; toolbar: true; auto-links: false; hljs">
+  <code class="hljs cpp"><span class="hljs-comment">/**  * linux terminal progress bar (no thread safe).  * 	@package progress.h.  *  * @author chenxin &lt;chenxin619315@gmail.com&gt;  */ <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">ifndef<span class="hljs-meta"> progress_h <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">define<span class="hljs-meta"> progress_h  <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include<span class="hljs-meta"> <span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;stdio.h&gt;  <span class="hljs-keyword">typedef <span class="hljs-keyword">struct {     <span class="hljs-keyword">char chr;		<span class="hljs-comment">/*tip char*/     <span class="hljs-keyword">char *title;	<span class="hljs-comment">/*tip string*/     <span class="hljs-keyword">int style;		<span class="hljs-comment">/*progress style*/     <span class="hljs-keyword">int max;		<span class="hljs-comment">/*maximum value*/     <span class="hljs-keyword">float offset;     <span class="hljs-keyword">char *pro; } <span class="hljs-keyword">progress_t;  <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">define<span class="hljs-meta"> PROGRESS_NUM_STYLE 0 <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">define<span class="hljs-meta"> PROGRESS_CHR_STYLE 1 <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">define<span class="hljs-meta"> PROGRESS_BGC_STYLE 2  <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">extern<span class="hljs-function"> <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void<span class="hljs-function"> <span class="hljs-title"><span class="hljs-function"><span class="hljs-title">progress_init<span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(<span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">progress_t<span class="hljs-function"><span class="hljs-params"> *, <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char<span class="hljs-function"><span class="hljs-params"> *, <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int<span class="hljs-function"><span class="hljs-params">, <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int<span class="hljs-function"><span class="hljs-params">);  <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">extern<span class="hljs-function"> <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void<span class="hljs-function"> <span class="hljs-title"><span class="hljs-function"><span class="hljs-title">progress_show<span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(<span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">progress_t<span class="hljs-function"><span class="hljs-params"> *, <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">float<span class="hljs-function"><span class="hljs-params">);  <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">extern<span class="hljs-function"> <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void<span class="hljs-function"> <span class="hljs-title"><span class="hljs-function"><span class="hljs-title">progress_destroy<span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(<span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">progress_t<span class="hljs-function"><span class="hljs-params"> *);  <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">endif<span class="hljs-meta">	<span class="hljs-comment"><span class="hljs-meta"><span class="hljs-comment">/*ifndef*/</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+	<p>
+		&nbsp;</p>
+	<p>
+		&nbsp;</p>
+	<h3 id="h3_10">
+		2. progress.c Ô´³ÌĞò:</h3>
+	<pre class="brush:cpp; toolbar: true; auto-links: false; hljs">
+  <code class="hljs cpp"><span class="hljs-comment">/**  * linux terminal progress bar (no thread safe).  * 	@package progress.c  *  * @author chenxin &lt;chenxin619315@gmail.com&gt;  */ <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include<span class="hljs-meta"> <span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;stdio.h&gt; <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include<span class="hljs-meta"> <span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;stdlib.h&gt; <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include<span class="hljs-meta"> <span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;string.h&gt;  <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include<span class="hljs-meta"> <span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&quot;progress.h&quot;  <span class="hljs-comment">/**  * initialize the progress bar.  * @max = 0  * @val = 0  *  * @param	style  * @param	tip words.  */ <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">extern<span class="hljs-function"> <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void<span class="hljs-function"> <span class="hljs-title"><span class="hljs-function"><span class="hljs-title">progress_init<span class="hljs-params"><span class="hljs-function"><span class="hljs-params">( 	<span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">progress_t<span class="hljs-function"><span class="hljs-params"> *bar, <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char<span class="hljs-function"><span class="hljs-params"> *title, <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int<span class="hljs-function"><span class="hljs-params"> max, <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int<span class="hljs-function"><span class="hljs-params"> style)<span class="hljs-function"> {     bar-&gt;chr = <span class="hljs-string">&#39;#&#39;;     bar-&gt;title = title;     bar-&gt;style = style;     bar-&gt;max = max;     bar-&gt;offset = <span class="hljs-number">100 / (<span class="hljs-keyword">float)max;     bar-&gt;pro = (<span class="hljs-keyword">char *) <span class="hljs-built_in">malloc(max+<span class="hljs-number">1);     <span class="hljs-keyword">if ( style == PROGRESS_BGC_STYLE ) 	<span class="hljs-built_in">memset(bar-&gt;pro, <span class="hljs-number">0x00, max+<span class="hljs-number">1);     <span class="hljs-keyword">else { 	<span class="hljs-built_in">memset(bar-&gt;pro, <span class="hljs-number">32, max); 	<span class="hljs-built_in">memset(bar-&gt;pro+max, <span class="hljs-number">0x00, <span class="hljs-number">1);     } }  <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">extern<span class="hljs-function"> <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void<span class="hljs-function"> <span class="hljs-title"><span class="hljs-function"><span class="hljs-title">progress_show<span class="hljs-params"><span class="hljs-function"><span class="hljs-params">( <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">progress_t<span class="hljs-function"><span class="hljs-params"> *bar, <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">float<span class="hljs-function"><span class="hljs-params"> bit )<span class="hljs-function"> {     <span class="hljs-keyword">int val = (<span class="hljs-keyword">int)(bit * bar-&gt;max);     <span class="hljs-keyword">switch ( bar-&gt;style )      {     <span class="hljs-keyword">case PROGRESS_NUM_STYLE: 	<span class="hljs-built_in">printf(<span class="hljs-string">&quot;[?25l[31m[1m%s%d%%[?25h[0m &quot;, 		bar-&gt;title, (<span class="hljs-keyword">int)(bar-&gt;offset * val)); 	fflush(<span class="hljs-built_in">stdout); 	<span class="hljs-keyword">break;     <span class="hljs-keyword">case PROGRESS_CHR_STYLE: 	<span class="hljs-built_in">memset(bar-&gt;pro, <span class="hljs-string">&#39;#&#39;, val); 	<span class="hljs-built_in">printf(<span class="hljs-string">&quot;[?25l[31m[1m%s[%-s] %d%%[?25h[0m &quot;,  		bar-&gt;title, bar-&gt;pro, (<span class="hljs-keyword">int)(bar-&gt;offset * val)); 	fflush(<span class="hljs-built_in">stdout); 	<span class="hljs-keyword">break;     <span class="hljs-keyword">case PROGRESS_BGC_STYLE: 	<span class="hljs-built_in">memset(bar-&gt;pro, <span class="hljs-number">32, val); 	<span class="hljs-built_in">printf(<span class="hljs-string">&quot;[?25l[31m[1m%s[41m %d%% %s[?25h[0m &quot;,  		bar-&gt;title, (<span class="hljs-keyword">int)(bar-&gt;offset * val), bar-&gt;pro); 	fflush(<span class="hljs-built_in">stdout); 	<span class="hljs-keyword">break;     } }  <span class="hljs-comment">//destroy the the progress bar. <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">extern<span class="hljs-function"> <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void<span class="hljs-function"> <span class="hljs-title"><span class="hljs-function"><span class="hljs-title">progress_destroy<span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(<span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">progress_t<span class="hljs-function"><span class="hljs-params"> *bar)<span class="hljs-function"> {     <span class="hljs-built_in">free(bar-&gt;pro); }</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+	<p>
+		&nbsp;</p>
+	<p>
+		&nbsp;</p>
+	<h3 id="h3_11">
+		3. tst-pro.c²âÊÔ³ÌĞò:</h3>
+	<pre class="brush:cpp; toolbar: true; auto-links: false; hljs">
+  <code class="hljs cpp"><span class="hljs-comment">/**  * program bar test program.  *  * @author chenxin &lt;chenxin619315@gmail.com&gt;  */ <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include<span class="hljs-meta"> <span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&quot;progress.h&quot; <span class="hljs-meta"><span class="hljs-meta">#<span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include<span class="hljs-meta"> <span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;unistd.h&gt;  <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int<span class="hljs-function"> <span class="hljs-title"><span class="hljs-function"><span class="hljs-title">main<span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(<span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int<span class="hljs-function"><span class="hljs-params"> argc, <span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char<span class="hljs-function"><span class="hljs-params"> *argv[] )<span class="hljs-function"> {     <span class="hljs-keyword">progress_t bar;     <span class="hljs-comment">//progress_init(&amp;bar, &quot;&quot;, 50, PROGRESS_NUM_STYLE);     progress_init(&amp;bar, <span class="hljs-string">&quot;&quot;, <span class="hljs-number">50, PROGRESS_CHR_STYLE);     <span class="hljs-comment">//progress_init(&amp;bar, &quot;&quot;, 50, PROGRESS_BGC_STYLE);      <span class="hljs-keyword">int i;     <span class="hljs-keyword">for ( i = <span class="hljs-number">0; i &lt;= <span class="hljs-number">50; i++ ) { 	progress_show(&amp;bar, i/<span class="hljs-number">50.0f); 	sleep(<span class="hljs-number">1);     }     <span class="hljs-built_in">printf(<span class="hljs-string">&quot; +-Done &quot;);      progress_destroy(&amp;bar);      <span class="hljs-keyword">return <span class="hljs-number">0; }</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+	<p>
+		&nbsp;</p>
+	<p>
+		&nbsp;</p>
+	<h3 id="h3_12">
+		4. ²âÊÔĞ§¹û:&nbsp;</h3>
+	<p>
+		(1).&nbsp;PROGRESS_NUM_STYLEĞ§¹û:</p>
+	<p>
+		<img alt="" src="http://static.oschina.net/uploads/space/2013/1121/171700_r74u_853816.jpg" /></p>
+	<p>
+		(2).&nbsp;PROGRESS_CHR_STYLEĞ§¹û:</p>
+	<p>
+		<img alt="" src="http://static.oschina.net/uploads/space/2013/1121/171725_58sR_853816.jpg" /></p>
+	<p>
+		(3).&nbsp;PROGRESS_BGC_STYLEĞ§¹û:</p>
+	<p>
+		<img alt="" src="http://static.oschina.net/uploads/space/2013/1121/171746_nnei_853816.jpg" /></p>
+	<p>
+		Íê±Ï. ´úÂëÍĞ¹Üµ½:&nbsp;<a href="http://git.oschina.net/lionsoul/ltpro" rel="nofollow">http://git.oschina.net/lionsoul/ltpro</a></p>
+</div>

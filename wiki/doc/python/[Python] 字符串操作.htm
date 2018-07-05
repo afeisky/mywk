@@ -1,0 +1,284 @@
+<p align="left">
+	<a href="http://www.cnblogs.com/huangcong/archive/2011/08/29/2158268.html">Python 字符串操作（string替换、删除、截取、复制、连接、比较、查找、包含、大小写转换、分割等）</a></p>
+<p align="left">
+	<strong>去空格及特殊符号</strong></p>
+<p align="left">
+	s.strip().lstrip().rstrip(&#39;,&#39;)</p>
+<p align="left">
+	<strong>复制字符串</strong></p>
+<p align="left">
+	#strcpy(sStr1,sStr2)</p>
+<p align="left">
+	sStr1 = &#39;strcpy&#39;</p>
+<p align="left">
+	sStr2 = sStr1</p>
+<p align="left">
+	sStr1 = &#39;strcpy2&#39;</p>
+<p align="left">
+	print sStr2</p>
+<p align="left">
+	<strong>连接字符串</strong></p>
+<p align="left">
+	#strcat(sStr1,sStr2)</p>
+<p align="left">
+	sStr1 = &#39;strcat&#39;</p>
+<p align="left">
+	sStr2 = &#39;append&#39;</p>
+<p align="left">
+	sStr1 += sStr2</p>
+<p align="left">
+	print sStr1</p>
+<p align="left">
+	<strong>查找字符</strong></p>
+<p align="left">
+	#strchr(sStr1,sStr2)</p>
+<p align="left">
+	# &lt; 0 为未找到</p>
+<p align="left">
+	sStr1 = &#39;strchr&#39;</p>
+<p align="left">
+	sStr2 = &#39;s&#39;</p>
+<p align="left">
+	nPos = sStr1.index(sStr2)</p>
+<p align="left">
+	print nPos</p>
+<p align="left">
+	<strong>比较字符串</strong></p>
+<p align="left">
+	#strcmp(sStr1,sStr2)</p>
+<p align="left">
+	sStr1 = &#39;strchr&#39;</p>
+<p align="left">
+	sStr2 = &#39;strch&#39;</p>
+<p align="left">
+	print cmp(sStr1,sStr2)</p>
+<p align="left">
+	<strong>扫描字符串是否包含指定的字符</strong></p>
+<p align="left">
+	#strspn(sStr1,sStr2)</p>
+<p align="left">
+	sStr1 = &#39;12345678&#39;</p>
+<p align="left">
+	sStr2 = &#39;456&#39;</p>
+<p align="left">
+	#sStr1 and chars both in sStr1 and sStr2</p>
+<p align="left">
+	print len(sStr1 and sStr2)</p>
+<p align="left">
+	<strong>字符串长度</strong></p>
+<p align="left">
+	#strlen(sStr1)</p>
+<p align="left">
+	sStr1 = &#39;strlen&#39;</p>
+<p align="left">
+	print len(sStr1)</p>
+<p align="left">
+	<strong>将字符串中的大小写转换</strong></p>
+<p align="left">
+	#strlwr(sStr1)</p>
+<p align="left">
+	sStr1 = &#39;JCstrlwr&#39;</p>
+<p align="left">
+	sStr1 = sStr1.upper()</p>
+<p align="left">
+	#sStr1 = sStr1.lower()</p>
+<p align="left">
+	print sStr1</p>
+<p align="left">
+	<strong>追加指定长度的字符串</strong></p>
+<p align="left">
+	#strncat(sStr1,sStr2,n)</p>
+<p align="left">
+	sStr1 = &#39;12345&#39;</p>
+<p align="left">
+	sStr2 = &#39;abcdef&#39;</p>
+<p align="left">
+	n = 3</p>
+<p align="left">
+	sStr1 += sStr2[0:n]</p>
+<p align="left">
+	print sStr1</p>
+<p align="left">
+	<strong>字符串指定长度比较</strong></p>
+<p align="left">
+	#strncmp(sStr1,sStr2,n)</p>
+<p align="left">
+	sStr1 = &#39;12345&#39;</p>
+<p align="left">
+	sStr2 = &#39;123bc&#39;</p>
+<p align="left">
+	n = 3</p>
+<p align="left">
+	print cmp(sStr1[0:n],sStr2[0:n])</p>
+<p align="left">
+	<strong>复制指定长度的字符</strong></p>
+<p align="left">
+	#strncpy(sStr1,sStr2,n)</p>
+<p align="left">
+	sStr1 = &#39;&#39;</p>
+<p align="left">
+	sStr2 = &#39;12345&#39;</p>
+<p align="left">
+	n = 3</p>
+<p align="left">
+	sStr1 = sStr2[0:n]</p>
+<p align="left">
+	print sStr1</p>
+<p align="left">
+	<strong>将字符串前n个字符替换为指定的字符</strong></p>
+<p align="left">
+	#strnset(sStr1,ch,n)</p>
+<p align="left">
+	sStr1 = &#39;12345&#39;</p>
+<p align="left">
+	ch = &#39;r&#39;</p>
+<p align="left">
+	n = 3</p>
+<p align="left">
+	sStr1 = n * ch + sStr1[3:]</p>
+<p align="left">
+	print sStr1</p>
+<p align="left">
+	<strong>扫描字符串</strong></p>
+<p align="left">
+	<a><img alt="复制代码" border="0" height="32" src="file:///C:Userschaofei.wuAppDataLocalTempmsohtmlclip1clip_image001.png" title="&quot;复制代码&quot;" width="32" /></a></p>
+<p align="left">
+	#strpbrk(sStr1,sStr2)</p>
+<p align="left">
+	sStr1 = &#39;cekjgdklab&#39;</p>
+<p align="left">
+	sStr2 = &#39;gka&#39;</p>
+<p align="left">
+	nPos = -1</p>
+<p align="left">
+	for c in sStr1:</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp; if c in sStr2:</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nPos = sStr1.index(c)</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break</p>
+<p align="left">
+	print nPos</p>
+<p align="left">
+	<a><img alt="复制代码" border="0" height="32" src="file:///C:Userschaofei.wuAppDataLocalTempmsohtmlclip1clip_image001.png" title="&quot;复制代码&quot;" width="32" /></a></p>
+<p align="left">
+	<strong>翻转字符串</strong></p>
+<p align="left">
+	#strrev(sStr1)</p>
+<p align="left">
+	sStr1 = &#39;abcdefg&#39;</p>
+<p align="left">
+	sStr1 = sStr1[::-1]</p>
+<p align="left">
+	print sStr1</p>
+<p align="left">
+	<strong>查找字符串</strong></p>
+<p align="left">
+	#strstr(sStr1,sStr2)</p>
+<p align="left">
+	sStr1 = &#39;abcdefg&#39;</p>
+<p align="left">
+	sStr2 = &#39;cde&#39;</p>
+<p align="left">
+	print sStr1.find(sStr2)</p>
+<p align="left">
+	<strong>分割字符串</strong></p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	#strtok(sStr1,sStr2)</p>
+<p align="left">
+	sStr1 = &#39;ab,cde,fgh,ijk&#39;</p>
+<p align="left">
+	sStr2 = &#39;,&#39;</p>
+<p align="left">
+	sStr1 = sStr1[sStr1.find(sStr2) + 1:]</p>
+<p align="left">
+	print sStr1</p>
+<p align="left">
+	#或者</p>
+<p align="left">
+	s = &#39;ab,cde,fgh,ijk&#39;</p>
+<p align="left">
+	print(s.split(&#39;,&#39;))</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	<strong>连接字符串</strong></p>
+<p align="left">
+	delimiter = &#39;,&#39;</p>
+<p align="left">
+	mylist = [&#39;Brazil&#39;, &#39;Russia&#39;, &#39;India&#39;, &#39;China&#39;]</p>
+<p align="left">
+	print delimiter.join(mylist)</p>
+<p align="left">
+	<strong>PHP </strong><strong>中 addslashes 的实现</strong></p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	def addslashes(s):</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp; d = {&#39;&quot;&#39;:&#39;\&quot;&#39;, &quot;&#39;&quot;:&quot;\&#39;&quot;, &quot;&quot;:&quot;\&quot;, &quot;\&quot;:&quot;\\&quot;}</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp; return &#39;&#39;.join(d.get(c, c) for c in s)</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	s = &quot;John &#39;Johny&#39; Doe (a.k.a. &quot;Super Joe&quot;)\&quot;</p>
+<p align="left">
+	print s</p>
+<p align="left">
+	print addslashes(s)</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	<strong>只显示字母与数字</strong></p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	def OnlyCharNum(s,oth=&#39;&#39;):</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp; s2 = s.lower();</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp; fomart = &#39;abcdefghijklmnopqrstuvwxyz0123456789&#39;</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp; for c in s2:</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;if not c in fomart:</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s = s.replace(c,&#39;&#39;);</p>
+<p align="left">
+	&nbsp;&nbsp;&nbsp; return s;</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	print(OnlyStr(&quot;a000 aa-b&quot;))</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	<strong>截取字符串</strong></p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	str = &rsquo;0123456789&prime;<br />
+	print str[0:3] #截取第一位到第三位的字符<br />
+	print str[:] #截取字符串的全部字符<br />
+	print str[6:] #截取第七个字符到结尾<br />
+	print str[:-3] #截取从头开始到倒数第三个字符之前<br />
+	print str[2] #截取第三个字符<br />
+	print str[-1] #截取倒数第一个字符<br />
+	print str[::-1] #创造一个与原字符串顺序相反的字符串<br />
+	print str[-3:-1] #截取倒数第三位与倒数第一位之前的字符<br />
+	print str[-3:] #截取倒数第三位到结尾<br />
+	print str[:-5:-3] #逆序截取，具体啥意思没搞明白？</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	&nbsp;</p>
+<p align="left">
+	&nbsp;</p>
+<p>
+	&nbsp;</p>

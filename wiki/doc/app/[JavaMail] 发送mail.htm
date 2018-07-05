@@ -1,0 +1,562 @@
+<p>
+	<span style="font-size:14px;"><span style="color: rgb(0, 0, 205);">[JavaMail] 发送mail</span></span></p>
+<p>
+	package afei.demo_javamail;<br />
+	<br />
+	/**<br />
+	* Created by chaofei on 2018-01-05.<br />
+	*/<br />
+	<br />
+	import android.os.Environment;<br />
+	import android.util.Log;<br />
+	<br />
+	import java.io.File;<br />
+	import java.io.FileOutputStream;<br />
+	import java.util.ArrayList;<br />
+	import java.util.Date;<br />
+	import java.util.Properties;<br />
+	<br />
+	import javax.activation.DataHandler;<br />
+	import javax.activation.FileDataSource;<br />
+	import javax.mail.Address;<br />
+	import javax.mail.Message;<br />
+	import javax.mail.Session;<br />
+	import javax.mail.Transport;<br />
+	import javax.mail.internet.InternetAddress;<br />
+	import javax.mail.internet.MimeBodyPart;<br />
+	import javax.mail.internet.MimeMessage;<br />
+	import javax.mail.internet.MimeMultipart;<br />
+	import javax.mail.internet.MimeUtility;<br />
+	<br />
+	/**<br />
+	* 以下是利用JavaMail的API来创建和发送邮件<br />
+	* 多附件发送邮件类,并且发送邮件给多个接受者、抄送文件<br />
+	* @author chaofei.wu<br />
+	*<br />
+	*/<br />
+	public class MailUtils {<br />
+	<br />
+	private MailSendInfo info;<br />
+	public MailUtils(){<br />
+	}<br />
+	/**<br />
+	* 以文本格式发送邮件<br />
+	* @param info 待发送的邮件信息<br />
+	* @return<br />
+	*/<br />
+	public void sendTextMail(MailSendInfo info){<br />
+	this.info = info;<br />
+	//判断是否需要身份验证<br />
+	Properties properties = info.getProperties();<br />
+	//1、根据邮件会话属性和密码验证器构造一个发送邮件的session<br />
+	Session sendMailSession = Session.getDefaultInstance(properties);<br />
+	//开启Session的debug模式，这样就可以查看到程序发送Email的运行状态<br />
+	sendMailSession.setDebug(true);<br />
+	try {<br />
+	<br />
+	//2、通过session得到transport对象,以便连接邮箱并发送<br />
+	Transport transport = sendMailSession.getTransport();<br />
+	//3、使用邮箱的用户名和密码连上邮件服务器，发送邮件时，发件人需要提交邮箱的用户名和密码给SMTP服务器，用户名和密码都通过验证之后才能够正常发送邮件给收件人。<br />
+	transport.connect(info.getMailServerHost(), info.getUserName(), info.getPassWord());<br />
+	//4、创建邮件消息<br />
+	Message mailMessage = createSimpleMail(sendMailSession);<br />
+	//5、发送邮件消息<br />
+	transport.sendMessage(mailMessage, mailMessage.getAllRecipients());<br />
+	transport.close();<br />
+	} catch (Exception e) {<br />
+	e.printStackTrace();<br />
+	}<br />
+	<br />
+	}<br />
+	/**<br />
+	* 发送内容带有图片的邮件<br />
+	*/<br />
+	public void sendImageEmail(MailSendInfo info){<br />
+	this.info = info;<br />
+	Properties properties = info.getProperties();<br />
+	//1、根据邮件会话属性和密码验证器构造一个发送邮件的session<br />
+	Session sendMailSession = Session.getDefaultInstance(properties);<br />
+	//开启Session的debug模式，这样就可以查看到程序发送Email的运行状态<br />
+	sendMailSession.setDebug(true);<br />
+	try {<br />
+	<br />
+	//2、通过session得到transport对象,以便连接邮箱并发送<br />
+	Transport transport = sendMailSession.getTransport();<br />
+	//3、使用邮箱的用户名和密码连上邮件服务器，发送邮件时，发件人需要提交邮箱的用户名和密码给SMTP服务器，用户名和密码都通过验证之后才能够正常发送邮件给收件人。<br />
+	transport.connect(info.getMailServerHost(), info.getUserName(), info.getPassWord());<br />
+	//4、创建邮件消息<br />
+	Message mailMessage = createImageMail(sendMailSession);<br />
+	//5、发送邮件消息<br />
+	transport.sendMessage(mailMessage, mailMessage.getAllRecipients());<br />
+	transport.close();<br />
+	} catch (Exception e) {<br />
+	e.printStackTrace();<br />
+	}<br />
+	<br />
+	}<br />
+	/**<br />
+	* 发送带有附件的邮件<br />
+	* @param info<br />
+	*/<br />
+	public boolean sendAttachment(MailSendInfo info){<br />
+	this.info = info;<br />
+	Properties properties = info.getProperties();<br />
+	//1、根据邮件会话属性和密码验证器构造一个发送邮件的session<br />
+	Session sendMailSession = Session.getDefaultInstance(properties);<br />
+	//开启Session的debug模式，这样就可以查看到程序发送Email的运行状态<br />
+	sendMailSession.setDebug(true);<br />
+	try {<br />
+	//2、通过session得到transport对象,以便连接邮箱并发送<br />
+	Transport transport = sendMailSession.getTransport();<br />
+	//3、使用邮箱的用户名和密码连上邮件服务器，发送邮件时，发件人需要提交邮箱的用户名和密码给SMTP服务器，用户名和密码都通过验证之后才能够正常发送邮件给收件人。<br />
+	transport.connect(info.getMailServerHost(), info.getUserName(), info.getPassWord());<br />
+	//4、创建邮件消息<br />
+	Message mailMessage = createAttachmentMail(sendMailSession,info.attachFilePathNames);<br />
+	//5、发送邮件消息<br />
+	transport.sendMessage(mailMessage, mailMessage.getAllRecipients());<br />
+	transport.close();<br />
+	} catch (Exception e) {<br />
+	e.printStackTrace();<br />
+	return false;<br />
+	}<br />
+	return true;<br />
+	}<br />
+	<br />
+	/**<br />
+	* 发送复杂邮件<br />
+	* @param info<br />
+	*/<br />
+	public void sendMixedMail(MailSendInfo info,ArrayList<string> list){<br />
+	<br />
+	this.info = info;<br />
+	Properties properties = info.getProperties();<br />
+	//1、根据邮件会话属性和密码验证器构造一个发送邮件的session<br />
+	Session sendMailSession = Session.getDefaultInstance(properties);<br />
+	//开启Session的debug模式，这样就可以查看到程序发送Email的运行状态<br />
+	sendMailSession.setDebug(true);<br />
+	try {<br />
+	//2、通过session得到transport对象,以便连接邮箱并发送<br />
+	Transport transport = sendMailSession.getTransport();<br />
+	//3、使用邮箱的用户名和密码连上邮件服务器，发送邮件时，发件人需要提交邮箱的用户名和密码给SMTP服务器，用户名和密码都通过验证之后才能够正常发送邮件给收件人。<br />
+	transport.connect(info.getMailServerHost(), info.getUserName(), info.getPassWord());<br />
+	//4、创建邮件消息<br />
+	Message mailMessage = createMixedMail(sendMailSession,list);<br />
+	//5、发送邮件消息<br />
+	transport.sendMessage(mailMessage, mailMessage.getAllRecipients());<br />
+	transport.close();<br />
+	} catch (Exception e) {<br />
+	e.printStackTrace();<br />
+	}<br />
+	}<br />
+	<br />
+	/**<br />
+	* 创建复杂的邮件（包括图片和多附件的邮件）<br />
+	* @param sendMailSession<br />
+	* @param list 是选中CSV文件的集合<br />
+	* @return<br />
+	*/<br />
+	private Message createMixedMail(Session sendMailSession,ArrayList<string> list) {<br />
+	// 创建邮件<br />
+	MimeMessage message = null;<br />
+	try {<br />
+	message = new MimeMessage(sendMailSession);<br />
+	<br />
+	// 设置邮件的基本信息<br />
+	//创建邮件发送者地址<br />
+	Address from = new InternetAddress(info.getFromAddress());<br />
+	//设置邮件消息的发送者<br />
+	message.setFrom(from);<br />
+	//创建邮件的接受者地址，并设置到邮件消息中<br />
+	Address to = new InternetAddress(info.getToAddress());<br />
+	//设置邮件消息的接受者, Message.RecipientType.TO属性表示接收者的类型为TO<br />
+	message.setRecipient(Message.RecipientType.TO, to);<br />
+	//邮件标题<br />
+	message.setSubject(info.getSubject());<br />
+	<br />
+	// 正文<br />
+	MimeBodyPart text = new MimeBodyPart();<br />
+	text.setContent(info.getContent(),<br />
+	&quot;text/html;charset=UTF-8&quot;);<br />
+	<br />
+	/*// 图片<br />
+	MimeBodyPart image = new MimeBodyPart();<br />
+	image.setDataHandler(new DataHandler(new FileDataSource(Environment.getExternalStorageDirectory().getPath()+&quot;/test.jpg&quot;)));<br />
+	image.setContentID(&quot;猫咪.jpg&quot;);*/<br />
+	<br />
+	// 附件1<br />
+	MimeBodyPart attach = new MimeBodyPart();<br />
+	DataHandler dh = new DataHandler(new FileDataSource(Environment.getExternalStorageDirectory().getPath()+&quot;/attacher1.txt&quot;));<br />
+	attach.setDataHandler(dh);<br />
+	attach.setFileName(dh.getName());<br />
+	<br />
+	// 附件2<br />
+	MimeBodyPart attach2 = new MimeBodyPart();<br />
+	DataHandler dh2 = new DataHandler(new FileDataSource(Environment.getExternalStorageDirectory().getPath()+&quot;/error_log.txt&quot;));<br />
+	attach2.setDataHandler(dh2);<br />
+	attach2.setFileName(MimeUtility.encodeText(dh2.getName()));<br />
+	<br />
+	/*// 描述关系:正文和图片<br />
+	MimeMultipart mp1 = new MimeMultipart();<br />
+	mp1.addBodyPart(image);<br />
+	mp1.setSubType(&quot;related&quot;);*/<br />
+	<br />
+	// 描述关系:正文和附件<br />
+	MimeMultipart mp2 = new MimeMultipart();<br />
+	mp2.addBodyPart(text);<br />
+	mp2.addBodyPart(attach);<br />
+	mp2.addBodyPart(attach2);<br />
+	<br />
+	/*// 代表正文的BodyPart<br />
+	MimeBodyPart content = new MimeBodyPart();<br />
+	content.setContent(mp1);<br />
+	mp2.addBodyPart(content);*/<br />
+	<br />
+	mp2.setSubType(&quot;mixed&quot;);<br />
+	message.setContent(mp2);<br />
+	message.saveChanges();<br />
+	<br />
+	// 将创建的Email写入到E盘存储<br />
+	//message.writeTo(new FileOutputStream(&quot;E:\MixedMail.eml&quot;));<br />
+	} catch (Exception e) {<br />
+	Log.e(&quot;TAG&quot;, &quot;创建复杂邮件失败&quot;);<br />
+	e.printStackTrace();<br />
+	}<br />
+	// 返回创建好的的邮件<br />
+	return message;<br />
+	<br />
+	}<br />
+	/**<br />
+	* 创建带有附件的邮件<br />
+	* @param sendMailSession<br />
+	* @param list 选中的CSV文件的集合<br />
+	* @return<br />
+	*/<br />
+	private Message createAttachmentMail(Session sendMailSession,ArrayList<string> list) {<br />
+	//创建邮件<br />
+	MimeMessage message = null;<br />
+	try {<br />
+	message = new MimeMessage(sendMailSession);<br />
+	// 设置邮件的基本信息<br />
+	//创建邮件发送者地址<br />
+	Address from = new InternetAddress(info.getFromAddress());<br />
+	//设置邮件消息的发送者<br />
+	message.setFrom(from);<br />
+	//创建邮件的接受者地址，并设置到邮件消息中<br />
+	Address to = new InternetAddress(info.getToAddress());<br />
+	//设置邮件消息的接受者, Message.RecipientType.TO属性表示接收者的类型为TO<br />
+	message.setRecipient(Message.RecipientType.TO, to);<br />
+	//邮件标题<br />
+	message.setSubject(info.getSubject());<br />
+	<br />
+	// 创建邮件正文，为了避免邮件正文中文乱码问题，需要使用CharSet=UTF-8指明字符编码<br />
+	MimeBodyPart text = new MimeBodyPart();<br />
+	text.setContent(info.getContent(), &quot;text/html;charset=UTF-8&quot;);<br />
+	<br />
+	// 创建容器描述数据关系<br />
+	MimeMultipart mp = new MimeMultipart();<br />
+	mp.addBodyPart(text);<br />
+	for (int i = 0; i &lt; list.size(); i++) {<br />
+	// 创建邮件附件<br />
+	MimeBodyPart attach = new MimeBodyPart();<br />
+	//DataHandler dh = new DataHandler(new FileDataSource(path + list.get(i)));<br />
+	DataHandler dh = new DataHandler(new FileDataSource(list.get(i)));<br />
+	attach.setDataHandler(dh);<br />
+	attach.setFileName(MimeUtility.encodeText(dh.getName()));<br />
+	mp.addBodyPart(attach);<br />
+	}<br />
+	mp.setSubType(&quot;mixed&quot;);<br />
+	message.setContent(mp);<br />
+	message.saveChanges();<br />
+	// 将创建的Email写入到E盘存储<br />
+	//message.writeTo(new FileOutputStream(&quot;E:\attachMail.eml&quot;));<br />
+	} catch (Exception e) {<br />
+	Log.e(&quot;TAG&quot;, &quot;create fail&quot;);//创建带附件的邮件失败<br />
+	e.printStackTrace();<br />
+	}<br />
+	// 返回生成的邮件<br />
+	return message;<br />
+	}<br />
+	/**<br />
+	*生成一封邮件正文带图片的邮件<br />
+	* @param sendMailSession<br />
+	* @return<br />
+	*/<br />
+	private MimeMessage createImageMail(Session sendMailSession) {<br />
+	//创建邮件<br />
+	MimeMessage mailMessage = null;<br />
+	try {<br />
+	mailMessage = new MimeMessage(sendMailSession);<br />
+	// 设置邮件的基本信息<br />
+	//创建邮件发送者地址<br />
+	Address from = new InternetAddress(info.getFromAddress());<br />
+	//设置邮件消息的发送者<br />
+	mailMessage.setFrom(from);<br />
+	//创建邮件的接受者地址，并设置到邮件消息中<br />
+	Address to = new InternetAddress(info.getToAddress());<br />
+	//设置邮件消息的接受者, Message.RecipientType.TO属性表示接收者的类型为TO<br />
+	mailMessage.setRecipient(Message.RecipientType.TO, to);<br />
+	//邮件标题<br />
+	mailMessage.setSubject(info.getSubject());<br />
+	// 准备邮件数据<br />
+	// 准备邮件正文数据<br />
+	MimeBodyPart text = new MimeBodyPart();<br />
+	text.setContent(&quot;这是一封邮件正文带图片的邮件&quot;, &quot;text/html;charset=UTF-8&quot;);<br />
+	// 准备图片数据<br />
+	MimeBodyPart image = new MimeBodyPart();<br />
+	DataHandler dh = new DataHandler(new FileDataSource(&quot;src\1.jpg&quot;));<br />
+	image.setDataHandler(dh);<br />
+	image.setContentID(&quot;xxx.jpg&quot;);<br />
+	// 描述数据关系<br />
+	MimeMultipart mm = new MimeMultipart();<br />
+	mm.addBodyPart(text);<br />
+	mm.addBodyPart(image);<br />
+	mm.setSubType(&quot;related&quot;);<br />
+	mailMessage.setContent(mm);<br />
+	mailMessage.saveChanges();<br />
+	//将创建好的邮件写入到E盘以文件的形式进行保存<br />
+	mailMessage.writeTo(new FileOutputStream(&quot;E:\ImageMail.eml&quot;));<br />
+	//返回创建好的邮件<br />
+	} catch (Exception e) {<br />
+	Log.e(&quot;TAG&quot;, &quot;创建带有图片的邮件消息失败&quot;);<br />
+	e.printStackTrace();<br />
+	}<br />
+	return mailMessage;<br />
+	}<br />
+	/**<br />
+	* 创建纯文本内容的邮件消息<br />
+	* @param sendMailSession<br />
+	* @return<br />
+	*/<br />
+	public MimeMessage createSimpleMail(Session sendMailSession){<br />
+	MimeMessage mailMessage = null;<br />
+	try {<br />
+	//根据session创建一条邮件信息<br />
+	mailMessage = new MimeMessage(sendMailSession);<br />
+	//创建邮件发送者地址<br />
+	Address from = new InternetAddress(info.getFromAddress());<br />
+	//设置邮件消息的发送者<br />
+	mailMessage.setFrom(from);<br />
+	//创建邮件的接受者地址，并设置到邮件消息中<br />
+	Address to = new InternetAddress(info.getToAddress());<br />
+	//设置邮件消息的接受者, Message.RecipientType.TO属性表示接收者的类型为TO<br />
+	mailMessage.setRecipient(Message.RecipientType.TO, to);<br />
+	//设置邮件标题<br />
+	mailMessage.setSubject(info.getSubject());<br />
+	//设置邮件内容<br />
+	mailMessage.setText(info.getContent());<br />
+	//设置邮件发送的时间<br />
+	mailMessage.setSentDate(new Date());<br />
+	} catch (Exception e) {<br />
+	Log.e(&quot;TAG&quot;, &quot;邮件消息创建失败&quot;);<br />
+	e.printStackTrace();<br />
+	}<br />
+	return mailMessage;<br />
+	}<br />
+	<br />
+	private void test1(){<br />
+	<br />
+	}<br />
+	<br />
+	class MailSendInfo {<br />
+	<br />
+	/**<br />
+	* 发送邮件的服务器的IP和端口<br />
+	*/<br />
+	private String mailServerHost;<br />
+	private String mailServerPort;<br />
+	/**<br />
+	* 邮件发送者的地址<br />
+	*/<br />
+	private String fromAddress;<br />
+	/**<br />
+	* 邮件接受者的地址<br />
+	*/<br />
+	private String toAddress;<br />
+	/**<br />
+	* 登陆邮件发送服务器的用户名和密码<br />
+	*/<br />
+	private String userName;<br />
+	private String passWord;<br />
+	/**<br />
+	* 是否需要身份验证<br />
+	*/<br />
+	private boolean validate = false;<br />
+	/**<br />
+	* 邮件发送的主题<br />
+	*/<br />
+	private String subject;<br />
+	/**<br />
+	* 邮件发送的内容<br />
+	*/<br />
+	private String content;<br />
+	/**<br />
+	* 邮件附件的文件名<br />
+	*/<br />
+	private String[] attachFileNames;<br />
+	/**<br />
+	* 邮件附件的文件名<br />
+	*/<br />
+	private ArrayList<string> attachFilePathNames;<br />
+	/**<br />
+	* 获取邮件会话属性<br />
+	* @return<br />
+	*/<br />
+	public Properties getProperties(){<br />
+	Properties p = new Properties();<br />
+	p.put(&quot;mail.smtp.host&quot;, this.mailServerHost);<br />
+	p.put(&quot;mail.smtp.port&quot;, this.mailServerPort);<br />
+	p.put(&quot;mail.transport.protocol&quot;, &quot;smtp&quot;);<br />
+	p.put(&quot;mail.smtp.auth&quot;, validate ? &quot;true&quot; : &quot;false&quot;);<br />
+	return p;<br />
+	}<br />
+	<br />
+	public String getMailServerHost() {<br />
+	return mailServerHost;<br />
+	}<br />
+	<br />
+	public void setMailServerHost(String mailServerHost) {<br />
+	this.mailServerHost = mailServerHost;<br />
+	}<br />
+	<br />
+	public String getMailServerPost() {<br />
+	return mailServerPort;<br />
+	}<br />
+	<br />
+	public void setMailServerPost(String mailServerPost) {<br />
+	this.mailServerPort = mailServerPost;<br />
+	}<br />
+	<br />
+	public String getFromAddress() {<br />
+	return fromAddress;<br />
+	}<br />
+	<br />
+	public void setFromAddress(String fromAddress) {<br />
+	this.fromAddress = fromAddress;<br />
+	}<br />
+	<br />
+	public String getToAddress() {<br />
+	return toAddress;<br />
+	}<br />
+	<br />
+	public void setToAddress(String toAddress) {<br />
+	this.toAddress = toAddress;<br />
+	}<br />
+	<br />
+	public String getUserName() {<br />
+	return userName;<br />
+	}<br />
+	<br />
+	public void setUserName(String userName) {<br />
+	this.userName = userName;<br />
+	}<br />
+	<br />
+	public String getPassWord() {<br />
+	return passWord;<br />
+	}<br />
+	<br />
+	public void setPassWord(String passWord) {<br />
+	this.passWord = passWord;<br />
+	}<br />
+	<br />
+	public boolean isValidate() {<br />
+	return validate;<br />
+	}<br />
+	<br />
+	public void setValidate(boolean validate) {<br />
+	this.validate = validate;<br />
+	}<br />
+	<br />
+	public String getSubject() {<br />
+	return subject;<br />
+	}<br />
+	<br />
+	public void setSubject(String subject) {<br />
+	this.subject = subject;<br />
+	}<br />
+	<br />
+	public String getContent() {<br />
+	return content;<br />
+	}<br />
+	<br />
+	public void setContent(String content) {<br />
+	this.content = content;<br />
+	}<br />
+	<br />
+	public String[] getAttachFileNames() {<br />
+	return attachFileNames;<br />
+	}<br />
+	<br />
+	public void setAttachFileNames(String[] attachFileNames) {<br />
+	this.attachFileNames = attachFileNames;<br />
+	}<br />
+	public void setAttachFilePathNames(ArrayList<string> attachFilePathNames) {<br />
+	this.attachFilePathNames = attachFilePathNames;<br />
+	}<br />
+	}<br />
+	<br />
+	class demo_main{<br />
+	<br />
+	private void seendJavaMail(){<br />
+	// 发送文件到邮箱(调用系统的软件)<br />
+	//sendCSVFileIntent();<br />
+	// 发送文件到邮箱(使用JavaMail)<br />
+	new Thread() {public void run() {sendCSVFilByJavaMail();}}.start();<br />
+	}<br />
+	<br />
+	private void sendCSVFilByJavaMail() {<br />
+	final String mails=&quot;smtp.163.com&quot;;<br />
+	final String maila=&quot;test@163.com&quot;;<br />
+	final String mailp=&quot;password&quot;;<br />
+	File f = Environment.getExternalStorageDirectory();<br />
+	String workDir = f.getAbsolutePath() + &quot;/Download&quot;;<br />
+	//attachment:<br />
+	ArrayList<string> selectSendItem=new ArrayList<string>();<br />
+	selectSendItem.add(workDir + &quot;/stdaily20180108.zip&quot;);<br />
+	//<br />
+	StringBuilder sb= new StringBuilder(&quot;&quot;);//sb.setLength(0);//sb.delete( 0, sb.length() );<br />
+	String[] emailReciver;<br />
+	String contact = &quot;test@163.com&quot;.trim();<br />
+	// 检查邮箱格式是否正确<br />
+	if (contact.matches(&quot;\b^[&#39;_a-z0-9-\+]&quot;<br />
+	+ &quot;+(\.[&#39;_a-z0-9-\+]+)*@[a-z0-9-]+&quot;<br />
+	+ &quot;(\.[a-z0-9-]+)*\.([a-z]{2}|aero|arpa|asia&quot;<br />
+	+ &quot;|biz|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|&quot;<br />
+	+ &quot;name|nato|net|org|pro|tel|travel|xxx)$\b&quot;)) {<br />
+	}<br />
+	emailReciver = new String[]{contact};<br />
+	//先设置邮件<br />
+	MailUtils senMail = new MailUtils();//这个类用来发送邮件<br />
+	MailUtils.MailSendInfo info = senMail.new MailSendInfo();<br />
+	info.setMailServerHost(mails);<br />
+	info.setMailServerPost(&quot;25&quot;);<br />
+	info.setValidate(true);<br />
+	info.setUserName(maila);<br />
+	info.setPassWord(mailp);//邮箱密码<br />
+	info.setFromAddress(maila);<br />
+	//以下三个内容是需要修改的<br />
+	info.setToAddress(emailReciver[0]);<br />
+	if(selectSendItem.size()&gt;1){<br />
+	String filepathname=selectSendItem.get(0);<br />
+	info.setSubject(new File(filepathname).getName()+&quot;...&quot;);<br />
+	}else{<br />
+	//info.setSubject(selectSendItem.get(0));<br />
+	String filepathname=selectSendItem.get(0);<br />
+	info.setSubject(new File(filepathname).getName());//mail title<br />
+	}<br />
+	sb.append(&quot;data:&quot;);<br />
+	for (int i = 0; i &lt; selectSendItem.size(); i++) {<br />
+	String filepathname=selectSendItem.get(i);<br />
+	sb.append(new File(filepathname).getName());<br />
+	if(i &lt; (selectSendItem.size()-1)){<br />
+	sb.append(&quot; &quot;);<br />
+	}<br />
+	}<br />
+	Log.d(&quot;mail content：&quot;, sb.toString());<br />
+	info.setContent(sb.toString());<br />
+	if (senMail.sendAttachment(info)){<br />
+	Log.d(&quot;JavaMail:&quot;,&quot;Send Success!&quot;);<br />
+	}<br />
+	<br />
+	}<br />
+	}<br />
+	}</string></string></string></string></string></string></string></p>

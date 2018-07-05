@@ -1,0 +1,12 @@
+<p>
+	<span style="color:#0000ff;"><span style="font-size: 16px;">分析Kernel.log和main.log的时间对齐</span></span></p>
+<p>
+	MTK提供一个工具：Convert_Kernel_Time.rar</p>
+<p>
+	Convert_Kernel_Time.rar/install.bat安装后，鼠标右键会有一个菜单项，选中kernel.log文件,鼠标右键，运行会产生新的一个文件。<br />
+	<br />
+	对于有休眠的kernel.log文件，会找出[SPM] wake up byGPT的所有行，timer_out = 118，这个118/32768(32k时钟)=0.00360107421875ms， 进行补偿。<br />
+	&lt;4&gt;[ 9313.365892] -(0)[0:swapper/0][SPM] wake up byGPT, timer_out = 118, r13 = 0x41000, debug_flag = 0x9f &nbsp;<br />
+	<br />
+	<span style="background-color:#ffd700;">因为kernel在睡眠时，是不记录时间的，需要补偿上睡眠时间。</span><br />
+	&nbsp;</p>
