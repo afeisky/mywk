@@ -281,8 +281,8 @@ tr.file{
         <thead>
           <tr>
             <th>filename</th>      
-			<th>&nbsp;</th>
-			<th>time&size</th>
+			<th>time</th>
+			<th width="130px">filesize</th>
           </tr>
         </thead>
         <tbody>

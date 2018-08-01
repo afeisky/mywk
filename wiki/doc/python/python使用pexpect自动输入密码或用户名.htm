@@ -1,0 +1,14 @@
+<p>
+	<span lang="zh-cn"><font face="Courier New">python使用pexpect自动输入密码或用户名&nbsp; &nbsp; &nbsp;&nbsp;</font></span></p>
+<p>
+	&nbsp;</p>
+<p>
+	<span lang="zh-cn"><font face="Simsun">repoinit = pexpect.spawn(&#39;%s init -u git@10.92.32.10:Sdd1/manifest -m %s.xml&#39; % (self.repopath, BranchName))<br />
+	</font><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font face="Simsun">repoinit.expect(&#39;Your\s+Name.*&#39;)<br />
+	</font><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font face="Simsun">repoinit.sendline()<br />
+	</font><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font face="Simsun">repoinit.expect(&#39;Your\s+Email.*&#39;)<br />
+	</font><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font face="Simsun">repoinit.sendline()<br />
+	</font><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font face="Simsun">repoinit.expect(&#39;is this.*&#39;)<br />
+	</font><font face="Courier New">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font face="Simsun">repoinit.sendline(&#39;yes&#39;)</font></span><br />
+	<span lang="zh-cn"><font face="Simsun">我们脚本里面有用到</font></span><br />
+	<span lang="zh-cn"><font face="Simsun">这种交互的</font></span></p>

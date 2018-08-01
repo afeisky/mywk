@@ -1,0 +1,60 @@
+<p>
+	&nbsp;</p>
+<div class="details" id="article_details">
+	<div class="article_title">
+		<h1>
+			<span class="link_title"><a href="http://blog.csdn.net/feierky/article/details/20934335"> ubuntu安装vnc server-x11vnc并设置开机自动启动 </a></span></h1>
+	</div>
+	<br />
+	ubuntu安装vnc server-x11vnc并设置开机自动启动
+2017年12月09日 15:44:19
+阅读数：394
+ubuntu安装x11vnc并设置开机自动启动
+安装x11vnc 
+打开终端，使用如下命令x11vnc
+
+sudo apt-get install x11vnc  
+1
+手动连接 
+终端输入：
+
+sudo /usr/bin/x11vnc -display :0 -auth /var/run/lightdm/root/:0 -forever -bg -o /var/log/x11vnc.log -rfbauth /etc/x11vnc.pass -rfbport 5900 
+1
+设置开机启动
+设置密码 默认保存在 /home/"user"/.vnc/passwd
+sudo x11vnc -storepasswd 
+1
+设置密码保存位置
+sudo x11vnc -storepasswd in /etc/x11vnc.pass
+1
+将用户目录下的passwd文件内容copy到 /etc/x11vnc.pass下
+sudo cp /home/"user"/.vnc/passwd /etc/x11vnc.pass 
+1
+配置x11vnc为跟随系统自动启动 
+需要新建一个文件/etc/init/x11vnc.conf
+sudo touch /etc/init/x11vnc.conf
+1
+要对文件修改需要权限才能修改
+
+sudo chmod a+w /etc/init/x11vnc.conf
+1
+在x11vnc.conf文件里加入：
+start on login-session-start 
+
+script 
+x11vnc -display :0 -auth /var/run/lightdm/root/:0 -forever -bg -o /var/log/x11vnc.log -rfbauth /etc/x11vnc.pass -rfbport 5900 
+end script 
+1
+2
+3
+4
+5
+保存 
+到此 开机自动启动就设置好了
+
+连接部分：
+在局域网中另一台pc打开 控制（搜索vnc） 
+这里写图片描述 
+然后新建连接： 
+按图中所示，协议 那里改一下，服务器 输入被控制PC的IP（可在终端输入 ifconfig查看）密码 是登录密码 然后连接 就行了 。<br />
+	&nbsp;&nbsp; </font></div>

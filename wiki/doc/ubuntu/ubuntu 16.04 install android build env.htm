@@ -1,0 +1,110 @@
+<p>
+	<span style="font-size:16px;"><span style="color:#0000cd;">ubuntu 16.04 install android build env</span></span></p>
+<p>
+	&nbsp;</p>
+<div>
+	<div>
+		sudo apt-get install&nbsp; gnupg flex bison gperf libsdl1.2-dev&nbsp; build-essential zip curl libncurses5-dev valgrind zlib1g-dev&nbsp; mingw-w64&nbsp; tofrodos gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev&nbsp; &nbsp;mingw-w64 tofrodos samba openssh-server openssh-client samba git gitk subversion xsltproc libxml2-utils lib32z1 libssl-dev sshfs net-tools x11vnc</div>
+	<div>
+		apt-get install libdbd-mysql-perl libdbi-perl libnet-daemon-perl libregexp-common-perl libxml-parser-perl</div>
+	<div>
+		apt-get install libxrender1:i386 libxtst6:i386 libxi6:i386</div>
+	<div>
+		apt install yum</div>
+	<div>
+		yum install libXext.i686&nbsp;</div>
+	<div>
+		yum install libXext.x86_64</div>
+	<div>
+		yum install libSM-1.2.2-2.el7.x86_64 --setopt=protected_multilib=false</div>
+	<div>
+		root@TCT:~# apt-file search libXext.so.6</div>
+	<div>
+		libxext6: /usr/lib/x86_64-linux-gnu/libXext.so.6</div>
+	<div>
+		&nbsp;</div>
+	<div>
+		#----</div>
+</div>
+<div>
+	sudo cat /etc/fstab&nbsp; # mount -a</div>
+<div>
+	/dev/sda3&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/w1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ext4&nbsp; &nbsp; defaults&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0&nbsp; &nbsp; &nbsp; &nbsp;0</div>
+<div>
+	/dev/sdb1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/w2&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ext4&nbsp; &nbsp; defaults&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0&nbsp; &nbsp; &nbsp; &nbsp;0</div>
+<div>
+	&nbsp;</div>
+<div>
+	# route -n</div>
+<div>
+	sudo route del default gw 10.92.34.1 dev eno1</div>
+<div>
+	sudo route add default gw 10.92.34.1 dev eno1</div>
+<div>
+	sudo route add 10.92.35.99 gw 10.92.34.1 dev eno1</div>
+<div>
+	#win7</div>
+<div>
+	<div>
+		route delete 10.92.32.45 mask 255.255.255.0 10.92.34.1 -p&nbsp;</div>
+	<div>
+		route add 10.92.32.10 mask 255.255.255.255 10.92.34.1 -p&nbsp;</div>
+</div>
+<div>
+	#--</div>
+<div>
+	cat ~/.ssh/id_rsa.pub | ssh root@10.92.33.85 &quot;cat - &gt;&gt; ~/.ssh/authorized_keys&quot; #配置pubkey</div>
+<div>
+	sshfs -o allow_other root@10.92.33.85:/local/simplex_library/SDT/ /automount/ssh_sdt_data&nbsp;</div>
+<div>
+	sshfs -o allow_other chaofei@10.92.34.57:/disk2/ /automount/ssh_3457</div>
+<div>
+	#-----x11vnc</div>
+<div>
+	<div>
+		x11vnc -storepasswd&nbsp; &nbsp;# pass saved to /home/chaofei/.vnc/passwd</div>
+	<div>
+		sudo x11vnc -display :0 -auth /var/run/lightdm/root/:0 -forever -bg -o /var/log/x11vnc.log -rfbauth /home/chaofei/.vnc/passwd -rfbport 5600&nbsp;</div>
+	<div>
+		&nbsp;</div>
+	<div>
+		#-----</div>
+	<div>
+		<div>
+			1）<span style="white-space:pre"> </span>安装samba，ubuntu命令行下输入sudo apt-get install samba</div>
+		<div>
+			2）<span style="white-space:pre"> </span>配置samba，ubuntu命令行下输入 sudo gedit /etc/samba/smb.conf，在打开文件的最后，输入共享文件信息，如下：</div>
+		<div>
+			[Samuel]<span style="white-space:pre"> </span> #共享的文件夹名称</div>
+		<div>
+			comment = Shared Folder with username and password</div>
+		<div>
+			path = /home/wchaofei<span style="white-space:pre"> </span> #共享的文件夹目录</div>
+		<div>
+			public = yes</div>
+		<div>
+			writable = yes</div>
+		<div>
+			force create mode = 0777</div>
+		<div>
+			force directory mode = 0777</div>
+		<div>
+			force user = wchaofei&nbsp; #nobody</div>
+		<div>
+			force group = nogroup</div>
+		<div>
+			available = yes</div>
+		<div>
+			guest ok = no<span style="white-space:pre"> </span>&nbsp; &nbsp;#加了这句，就表示要用户名及密码才能登陆()，去掉这句，所有人都能不用密码登陆</div>
+		<div>
+			browseable = yes</div>
+		<div>
+			3)<span style="white-space:pre"> </span>增加个用户 sudo smbpasswd -a username&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #add a user.</div>
+		<div>
+			4）<span style="white-space:pre"> </span>保存以上信息后，重启samba。 sudo /etc/init.d/samba restart&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #restart samba</div>
+		<div>
+			4）<span style="white-space:pre"> </span>在windows 端输入linux机器的ip地址，就可以看到以上共享文件夹&rdquo;Samuel&rdquo;。</div>
+		<div>
+			#</div>
+	</div>
+</div>

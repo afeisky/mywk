@@ -1,0 +1,80 @@
+<p>
+	ant构建&nbsp; build.xml文件</p>
+<p>
+	&nbsp;</p>
+<div>
+	&lt;project name=&quot;appdemo&quot; basedir=&quot;.&quot; default=&quot;main&quot;&gt;</div>
+<div>
+	&nbsp;</div>
+<div>
+	&nbsp; &nbsp; &lt;property name=&quot;src.dir&quot;&nbsp; &nbsp; &nbsp;value=&quot;src&quot;/&gt;</div>
+<div>
+	&nbsp; &nbsp; &lt;property name=&quot;build.dir&quot;&nbsp; &nbsp;value=&quot;build&quot;/&gt;</div>
+<div>
+	&nbsp; &nbsp; &lt;property name=&quot;classes.dir&quot; value=&quot;${build.dir}/classes&quot;/&gt;</div>
+<div>
+	&nbsp; &nbsp; &lt;property name=&quot;jar.dir&quot;&nbsp; &nbsp; &nbsp;value=&quot;lib&quot;/&gt;</div>
+<div>
+	&nbsp;</div>
+<div>
+	&nbsp; &nbsp; &lt;property name=&quot;main-class&quot;&nbsp; value=&quot;appdemo.Main&quot;/&gt;</div>
+<div>
+	&nbsp;</div>
+<div>
+	&nbsp;</div>
+<div>
+	&nbsp;</div>
+<div>
+	&nbsp; &nbsp; &lt;target name=&quot;clean&quot;&gt;</div>
+<div>
+	&nbsp; &nbsp; &nbsp; &nbsp; &lt;delete dir=&quot;${build.dir}&quot;/&gt;</div>
+<div>
+	&nbsp; &nbsp; &lt;/target&gt;</div>
+<div>
+	&nbsp;</div>
+<div>
+	&nbsp; &nbsp; &lt;target name=&quot;compile&quot;&gt;</div>
+<div>
+	&nbsp; &nbsp; &nbsp; &nbsp; &lt;mkdir dir=&quot;${classes.dir}&quot;/&gt;</div>
+<div>
+	&nbsp; &nbsp; &nbsp; &nbsp; &lt;javac srcdir=&quot;${src.dir}&quot; destdir=&quot;${classes.dir}&quot; includeantruntime=&quot;true&quot;/&gt;</div>
+<div>
+	&nbsp; &nbsp; &lt;/target&gt;</div>
+<div>
+	&nbsp;</div>
+<div>
+	&nbsp; &nbsp; &lt;target name=&quot;jar&quot; depends=&quot;compile&quot;&gt;</div>
+<div>
+	&nbsp; &nbsp; &nbsp; &nbsp; &lt;mkdir dir=&quot;${jar.dir}&quot;/&gt;</div>
+<div>
+	&nbsp; &nbsp; &nbsp; &nbsp; &lt;jar destfile=&quot;${jar.dir}/${ant.project.name}.jar&quot; basedir=&quot;${classes.dir}&quot;&gt;</div>
+<div>
+	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;manifest&gt;</div>
+<div>
+	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;attribute name=&quot;Main-Class&quot; value=&quot;${main-class}&quot;/&gt;</div>
+<div>
+	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/manifest&gt;</div>
+<div>
+	&nbsp; &nbsp; &nbsp; &nbsp; &lt;/jar&gt;</div>
+<div>
+	&nbsp; &nbsp; &lt;/target&gt;</div>
+<div>
+	&nbsp;</div>
+<div>
+	&nbsp; &nbsp; &lt;target name=&quot;run&quot; depends=&quot;jar&quot;&gt;</div>
+<div>
+	&nbsp; &nbsp; &nbsp; &nbsp; &lt;java jar=&quot;${jar.dir}/${ant.project.name}.jar&quot; fork=&quot;true&quot;/&gt;</div>
+<div>
+	&nbsp; &nbsp; &lt;/target&gt;</div>
+<div>
+	&nbsp;</div>
+<div>
+	&nbsp; &nbsp; &lt;target name=&quot;clean-build&quot; depends=&quot;clean,jar&quot;/&gt;</div>
+<div>
+	&nbsp;</div>
+<div>
+	&nbsp; &nbsp; &lt;target name=&quot;main&quot; depends=&quot;clean,run&quot;/&gt;</div>
+<div>
+	&nbsp;</div>
+<div>
+	&lt;/project&gt;</div>

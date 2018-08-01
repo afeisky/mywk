@@ -1,0 +1,69 @@
+<p>
+	双网卡上网设置</p>
+<p>
+	&nbsp;</p>
+<p>
+	就是要目标ip走不同的网关，</p>
+<p>
+	<br />
+	sudo route <span style="color:#ff0000;">del </span>default gw 10.92.34.1 dev eno1<br />
+	<br />
+	sudo route <span style="color:#ff0000;">add </span>default gw 10.92.34.1 dev eno1<br />
+	0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.92.34.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UG&nbsp;&nbsp;&nbsp; 101&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eno1<br />
+	<br />
+	sudo route add 10.92.32.10 gw 10.92.34.1 dev eno1&nbsp;&nbsp; #gerriet<br />
+	10.92.32.10&nbsp;&nbsp;&nbsp;&nbsp; 10.92.34.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.255 UGH&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eno1<br />
+	sudo route add 10.92.35.99 gw 10.92.34.1 dev eno1&nbsp;&nbsp; #wiki<br />
+	sudo route add 10.92.35.91 gw 10.92.34.1 dev eno1&nbsp;&nbsp; #ftp<br />
+	sudo route add 10.92.33.85 gw 10.92.34.1 dev eno1&nbsp;&nbsp; #sdt<br />
+	<br />
+	<br />
+	root@tcl:# <span style="color:#ff0000;">route -n</span><br />
+	Kernel IP routing table<br />
+	Destination&nbsp;&nbsp;&nbsp;&nbsp; Gateway&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Genmask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Flags Metric Ref&nbsp;&nbsp;&nbsp; Use Iface<br />
+	<span style="color:#ff0000;">0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 192.168.42.129&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UG&nbsp;&nbsp;&nbsp; 100&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 enp0s20u1<br />
+	0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.92.34.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UG&nbsp;&nbsp;&nbsp; 101&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eno1</span><br />
+	10.92.32.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.92.34.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.255 UGH&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eno1<br />
+	10.92.32.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.92.34.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.255 UGH&nbsp;&nbsp; 100&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eno1<br />
+	10.92.32.10&nbsp;&nbsp;&nbsp;&nbsp; 10.92.34.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.255 UGH&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eno1<br />
+	10.92.32.45&nbsp;&nbsp;&nbsp;&nbsp; 10.92.34.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.255 UGH&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eno1<br />
+	10.92.33.85&nbsp;&nbsp;&nbsp;&nbsp; 10.92.34.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.255 UGH&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eno1<br />
+	10.92.34.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.0&nbsp;&nbsp; U&nbsp;&nbsp;&nbsp;&nbsp; 100&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eno1<br />
+	10.92.35.91&nbsp;&nbsp;&nbsp;&nbsp; 10.92.34.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.255 UGH&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eno1<br />
+	10.92.35.99&nbsp;&nbsp;&nbsp;&nbsp; 10.92.34.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.255 UGH&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 eno1<br />
+	169.254.0.0&nbsp;&nbsp;&nbsp;&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.0.0&nbsp;&nbsp;&nbsp;&nbsp; U&nbsp;&nbsp;&nbsp;&nbsp; 1000&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 enp0s20u1<br />
+	192.168.42.0&nbsp;&nbsp;&nbsp; 0.0.0.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 255.255.255.0&nbsp;&nbsp; U&nbsp;&nbsp;&nbsp;&nbsp; 100&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 enp0s20u1<br />
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	<span style="font-size:18px">route add命令的主要作用是加入静态路由，通常的格式是：<br />
+	route ADD 157.0.0.0 MASK 255.0.0.0 &nbsp;157.55.80.1 METRIC 3 IF 2<br />
+	參数含义：destination &nbsp; mask &nbsp; &nbsp; gateway &nbsp; &nbsp; metric &nbsp; interface &nbsp; &nbsp; <span style="color:#ff0000"> /* 能够缩写 */</span><br />
+	<br />
+	<br />
+	destination【网段地址】&nbsp;<br />
+	mask【子网掩码】<br />
+	gateway【网关地址】 &nbsp;gw<br />
+	metric 【路由跳数】<br />
+	if【port号】<br />
+	普通情况下。不涉及本机地址，除非你要做測试。<br />
+	<br />
+	<br />
+	当中：<br />
+	能够省略【路由跳数】參数；<br />
+	当通往该网关地址的路径唯一时，【port号】參数能够省略。（由于在多port的路由交换设备上，可能存在通往同一个IP地址的多条备份路径。）<br />
+	mask 是keyword。不能省略。<br />
+	<br />
+	route add 134.105.0.0 mask 255.255.0.0 134.105.64.1<br />
+	意思是：所有须要发往134.105.0.0/16地址段的IP数据包。所有由134.105.64.1路径转发。<br />
+	<br />
+	<br />
+	这个命令在大型IP网络组建时经经常使用到，在不同厂商的设备上命令格式可能不同，但原理是一样的。<br />
+	<br />
+	假设有多条路由。依据不同的路由协议（比方rip, ospf等）的规定。一般优先选择网段地址小的路由。比方，当下面两条路由同一时候被加入的时候：<br />
+	route add 134.105.0.0 mask 255.255.0.0 134.105.64.1<br />
+	route add 134.105.128.0 mask 255.255.128.0 134.105.0.1<br />
+	</span></p>
+<p>
+	<span style="font-size:18px">目标地址是134.105.128.1的IP包会优先选择第二条路由。</span></p>
